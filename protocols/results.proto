@@ -1,0 +1,19 @@
+/*
+Author: 闫刚 (yes7rose@sina.com)
+results.proto (c) 2020
+Desc: 增查改删 结果
+Created:  2020-11-10T02:44:02.943Z
+Modified: !date!
+*/
+
+syntax = "proto3";
+
+package swb.cashmere;
+
+
+// 操作返回结果统一格式，
+// 结合grpc的错误码返回组合使用
+// 
+enum Result {
+    Succeed = 0;
+}

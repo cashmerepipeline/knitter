@@ -1,0 +1,51 @@
+/*
+Author: 闫刚 (yes7rose@sina.com)
+task.proto (c) 2020
+Desc: description
+Created:  2020-12-23T02:35:53.872Z
+Modified: !date!
+*/
+
+syntax = "proto3";
+package swb.cashmere;
+
+
+message NewTaskForWorkNodeRequest{
+    string work_node_id = 1;
+}
+
+message NewTaskForWorkNodeResponse{
+    string result = 1;
+}
+
+message NewDataForTaskRequest{
+    string task_id = 1;
+}
+message NewDataForTaskResponse{
+    string result = 1;
+}
+
+message AssociateDataToTaskRequest{
+    string data_id = 1;
+    string task_id = 2;
+}
+
+message AssociateDataToTaskResponse{
+    string result = 1;
+}
+
+message CommitTaskRequest{
+    string task_id = 1;
+}
+message CommitTaskResponse{
+    string result = 1;
+}
+
+message MarkTaskStatusRequest{
+    string task_id = 1;
+    string status_set_id = 2;
+    int32 status_index = 3;
+}
+message MarkTaskStatusResponse{
+    string result = 1;
+}

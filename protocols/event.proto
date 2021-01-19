@@ -1,0 +1,87 @@
+/*
+Author: 闫刚 (yes7rose@sina.com)
+event.proto (c) 2020
+Desc: 事件
+Created:  2020-11-10T03:08:00.771Z
+Modified: !date!
+*/
+
+syntax = "proto3";
+package swb.cashmere;
+
+message Event {
+  int32 event_id = 1;
+  bytes context = 2;
+}
+
+message EventQueue{
+  int32 manage_id = 1;
+  string name = 2;
+}
+
+message EventHandle {
+  int32 event_id=1;
+  int32 queue_id=2;
+  int32 manage_id=3;
+  string name=4;
+}
+
+// 新建事件
+message NewEventRequest{
+  int32 manage_id = 2;
+  string event_name = 1;
+}
+message NewEventResponse{
+  string result = 1;
+}
+
+// 编辑 事件表
+message EditEventRequest{
+  int32 event_id = 1;
+  bytes new_values = 2;
+}
+message EditEventResponse{
+  bool failed = 1;
+}
+
+// 添加目标队列
+message AddEventTargetQueueRequest{
+  int32 event_id = 1;
+  EventQueue target = 3;
+}
+
+message AddEventTargetQueueResponse{
+  string result = 1;
+}
+
+// 新建事件队列
+message NewEventQueueRequest{
+  int32 manage_id = 2;
+  string name = 1;
+}
+message NewEventQueueResponse{
+  string result = 1;
+}
+
+// 新建事件处理
+message NewEventHandleRequest{
+  int32 event_id = 2;
+  int32 queue_id = 3;
+  string name = 4;
+}
+message NewEventHandleResponse{
+  string result = 1;
+}
+
+// 触发事件
+message  EmitEventRequest {
+  Event event = 1;
+}
+message  EmitEventResponse {
+  string result = 1;
+}
+
+// 连接事件队列
+message  LinkEventQueueRequest {
+  int32 queue_id = 1;
+}

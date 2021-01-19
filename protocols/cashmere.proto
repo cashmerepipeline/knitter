@@ -1,0 +1,95 @@
+/*
+Author: 闫刚 (yes7rose@sina.com)
+cashmere.proto (c) 2020
+Desc: 服务接口定义
+Created:  2020-09-24T00:09:14.871Z
+Modified: !date!
+*/
+
+syntax = "proto3";
+
+package swb.cashmere;
+
+import "entity.proto";
+import "manage.proto";
+import "view.proto";
+import "event.proto";
+import "work.proto";
+import "task.proto";
+import "work_phase.proto";
+import "work_node.proto";
+
+service CashmereGrpc{
+  // =====管理=====
+  // 取得管理列表
+  rpc GetManages(GetManagesRequest) returns (stream Entity);
+  
+  // =====管理描写=====
+  rpc GetManageSchema(GetManageSchemaRequest) returns (GetManageSchemaResponse);
+  rpc NewSchemaField(NewSchemaFieldRequest) returns (NewSchemaFieldResponse);
+  // 编辑属性的用处？？？编号和类型 不可变，只能修改名字
+  rpc EditSchemaFieldName(EditSchemaFieldNameRequest) returns (EditSchemaFieldNameResponse);
+  // 设置属性 移除标记 为真
+  rpc RemoveSchemaField(RemoveSchemaFieldRequest) returns (RemoveSchemaFieldResponse);
+
+  // =====管理对象=====
+  rpc NewManageEntity(NewEntityRequest) returns (NewEntityResponse);
+  rpc EditManageEntity(EditEntityRequest) returns (EditEntityResponse);
+  rpc RemoveManageEntity(RemoveEntityRequest) returns (RemoveEntityResponse);
+
+  // =====管理对象模板=====
+  rpc NewEntityTemplate(NewEntityTemplateRequest) returns (NewEntityTemplateResponse);
+  rpc EditEntityTemplate(EditEntityTemplateRequest) returns (EditEntityTemplateResponse);
+  rpc RemoveEntityTemplate(RemoveEntityTemplateRequest) returns (RemoveEntityTemplateResponse);
+
+  // =====管理映像=====
+  rpc GetManageView(GetManageViewRequest) returns (GetManageViewResponse);
+
+  // =====事件=====
+  // 事件管理
+  rpc NewEvent(NewEventRequest) returns (NewEventResponse);
+  rpc NewEventQueue(NewEventQueueRequest) returns (NewEventQueueResponse);
+  rpc NewEventHandle(NewEventHandleRequest) returns (NewEventHandleResponse);
+
+  // =====工作=====
+  // 工作管理
+  rpc NewWork(NewWorkRequest) returns (NewWorkResponse);
+  rpc NewPhaseForWork(NewPhaseForWorkRequest) returns (NewPhaseForWorkResponse);
+  rpc NewWorkNodeForProcedureGraph(NewWorkNodeForProcedureGraphRequest) returns (NewWorkNodeForProcedureGraphResponse);
+  
+  // 指派工作
+  rpc AssignWorkNodeToWorker(AssignWorkNodeToWorkerRequest) returns (AssignWorkNodeToWorkerResponse);
+
+  // 工作节点
+  rpc CreateWorkNodeLink(CreateWorkNodeLinkRequest) returns (CreateWorkNodeLinkResponse);
+  rpc RemoveWorkNodeLink(RemoveWorkNodeLinkRequest) returns (RemoveWorkNodeLinkResponse);
+
+  rpc NewDataSlotForWorkNode(NewDataSlotForWorkNodeRequest) returns (NewDataSlotForWorkNodeResponse);
+  // rpc RemoveDependentDataForWorkNode(BreakWorkNodeConnectionRequest) returns (BreakWorkNodeConnectionResponse);
+  // rpc NewRefrenceDataForWorkNode(BreakWorkNodeConnectionRequest) returns (BreakWorkNodeConnectionResponse);
+  // rpc RemoveRefrenceDataForWorkNode(BreakWorkNodeConnectionRequest) returns (BreakWorkNodeConnectionResponse);
+  // rpc NewWorkDataForWorkNode(BreakWorkNodeConnectionRequest) returns (BreakWorkNodeConnectionResponse);
+  // rpc RemoveWorkDataForWorkNode(BreakWorkNodeConnectionRequest) returns (BreakWorkNodeConnectionResponse);
+  // rpc NewOutDataForWorkNode(BreakWorkNodeConnectionRequest) returns (BreakWorkNodeConnectionResponse);
+  // rpc RemoveOutDataForWorkNode(BreakWorkNodeConnectionRequest) returns (BreakWorkNodeConnectionResponse);
+
+  // 新任务
+  rpc NewTaskForWorkNode(NewTaskForWorkNodeRequest) returns (NewTaskForWorkNodeResponse);
+  // 标记任务状态
+  rpc MarkTaskStatus(MarkTaskStatusRequest) returns (MarkTaskStatusResponse);
+  // 提交任务
+  rpc CommitTask(CommitTaskRequest) returns (CommitTaskResponse);
+
+  // =====数据=====
+  rpc NewDataForTask(NewDataForTaskRequest) returns (NewDataForTaskResponse);
+  rpc AssociateDataToTask(AssociateDataToTaskRequest) returns (AssociateDataToTaskResponse);
+
+  // 添加目标事件队列
+  // rpc AddEventTargetQueue(AddEventTargetQueueRequest) returns (AddEventTargetQueueResponse);
+
+  // 触发事件，客户端->服务端
+  // rpc EmitEvent(EmitEventRequest) returns (EmitEventResponse);
+
+  // 连接事件队列
+  // rpc LinkEventQueue(LinkEventQueueRequest) returns (LinkEventQueueResponse);
+}

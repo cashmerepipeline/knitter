@@ -1,0 +1,27 @@
+[package]
+name = "cashmere"
+version = "0.2.0"
+authors = ["yes7rose <yes7rose@sina.com>"]
+edition = "2018"
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+
+default-run = "cashmere"
+
+[dependencies]
+auth = { path = "../auth" }
+configs = { path = "../configs" }
+server = { path = "../server" }
+runtime_handle = { path = "../runtime_handle" }
+
+chrono = { version = "0.4.19", features = ["serde"] }
+tokio = { version = "0.2.23", features = ["full"] }
+tonic = { version = "0.3.1", features = ["tls"] }
+
+# logging
+log = "0.4"
+simplelog = "0.8"
+
+clap = "3.0.0-beta.2"
+
+

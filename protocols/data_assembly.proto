@@ -1,0 +1,40 @@
+/*
+Author: 闫刚 (yes7rose@sina.com)
+data_interface.proto (c) 2020
+Desc: description
+Created:  2020-12-30T09:00:32.356Z
+Modified: !date!
+*/
+
+syntax = "proto3";
+package swb.cashmere;
+
+
+// 新建数据组装
+message NewDataAssemblyRequest {
+    string manage_id = 1;
+    string entity_id = 2;
+}
+message NewDataAssemblyResponse {
+    string result = 1;
+}
+
+// 添加数据到组装
+message AddDataToAssemblyRequest {
+    string assembly_id = 1;
+    string data_id = 2;
+}
+
+message AddDataToAssemblyResponse {
+    string result = 1;
+}
+
+// 移除组装数据
+message RemoveDataFromAssemblyRequest {
+    string assembly_id = 1;
+    string data_id = 2;
+}
+
+message RemoveDataFromAssemblyResponse {
+    string result = 1;
+}
