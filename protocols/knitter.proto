@@ -1,14 +1,13 @@
 /*
 Author: 闫刚 (yes7rose@sina.com)
-cashmere.proto (c) 2020
-Desc: 服务接口定义
-Created:  2020-09-24T00:09:14.871Z
+knitter.proto (c) 2021
+Desc: knitter服务
+Created:  2021-02-16T04:18:37.774Z
 Modified: !date!
 */
 
 syntax = "proto3";
-
-package swb.cashmere;
+package io.knitter;
 
 import "entity.proto";
 import "manage.proto";

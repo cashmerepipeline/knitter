@@ -1,14 +1,8 @@
-/*
-Author: 闫刚 (yes7rose@sina.com)
-lib (c) 2020
-Desc: description
-Created:  2020-09-24T06:17:47.131Z
-Modified: !date!
-*/
+
+mod server;
 
 use std::fs::File;
 
-use configs;
 
 // 日志相关
 #[macro_use]
@@ -24,11 +18,12 @@ use tokio::sync::oneshot::{self};
 
 use tonic::transport::{Certificate, Identity, Server, ServerTlsConfig};
 
+use configs;
 use auth::check::check_auth_token;
 use server::protocol::account_grpc_server::AccountGrpcServer;
-use server::protocol::cashmere_grpc_server::CashmereGrpcServer;
+use server::protocol::graph_know_grpc_server::GraphKnowGrpcServer;
 use server::AccountServer;
-use server::CashmereServer;
+use server::GraphKnowServer;
 
 use runtime_handle::set_runtime_handle;
 
@@ -97,14 +92,14 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
 
         info!("wav2anim server listening on: {}", address);
 
-        let cash_server = CashmereServer::default();
+        let cash_server = GraphKnowServer::default();
         let account_server = AccountServer::default();
 
         // 初始化服务
         cash_server.init_managers().await;
 
-        let cash_service = CashmereGrpcServer::with_interceptor(cash_server, check_auth_token);
-        // let service = CashmereGrpcServer::new(cash_server);
+        let cash_service = GraphKnowGrpcServer::with_interceptor(cash_server, check_auth_token);
+        // let service = GraphKnowServer::new(cash_server);
         let account_service = AccountGrpcServer::new(account_server);
 
         // 部署在ngnix后时，不使用tls， 本地测试时或者单独启动服务时使用tls
@@ -141,3 +136,4 @@ async fn wait_for_end_signal(tx: oneshot::Sender<()>) {
     info!("SIGINT 事件发生, 开始终止程序");
     let _ = tx.send(());
 }
+

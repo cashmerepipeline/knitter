@@ -1,0 +1,304 @@
+<mxfile host="65bd71144e" modified="2021-01-15T08:04:53.246Z" agent="5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Code/1.52.1 Chrome/83.0.4103.122 Electron/9.3.5 Safari/537.36" etag="FpDJpZtrG8OIdecBVTOa" version="13.10.0" type="embed" pages="3">
+    <diagram id="nmdYufMcWNtwhnV146XH" name="树知">
+        <mxGraphModel dx="1138" dy="635" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1600" pageHeight="900" math="0" shadow="0">
+            <root>
+                <mxCell id="0"/>
+                <mxCell id="1" parent="0"/>
+                <mxCell id="2" value="知识点" style="swimlane;childLayout=stackLayout;horizontal=1;startSize=30;horizontalStack=0;rounded=1;fontSize=14;fontStyle=0;strokeWidth=2;resizeParent=0;resizeLast=1;shadow=0;dashed=0;align=center;fillColor=#ffe6cc;strokeColor=#d79b00;" parent="1" vertex="1">
+                    <mxGeometry x="560" y="440" width="160" height="120" as="geometry"/>
+                </mxCell>
+                <mxCell id="3" value="+定义和解释&#10;+内容&#10;+专家讲解&#10;+定位" style="align=left;strokeColor=none;fillColor=none;spacingLeft=4;fontSize=12;verticalAlign=top;resizable=0;rotatable=0;part=1;" parent="2" vertex="1">
+                    <mxGeometry y="30" width="160" height="90" as="geometry"/>
+                </mxCell>
+                <mxCell id="4" value="树" style="swimlane;childLayout=stackLayout;horizontal=1;startSize=30;horizontalStack=0;rounded=1;fontSize=14;fontStyle=0;strokeWidth=2;resizeParent=0;resizeLast=1;shadow=0;dashed=0;align=center;fillColor=#ffe6cc;strokeColor=#d79b00;" parent="1" vertex="1">
+                    <mxGeometry x="880" y="440" width="160" height="120" as="geometry"/>
+                </mxCell>
+                <mxCell id="5" value="+根点&#10;+图&#10;+前置树&#10;+后置树" style="align=left;strokeColor=none;fillColor=none;spacingLeft=4;fontSize=12;verticalAlign=top;resizable=0;rotatable=0;part=1;" parent="4" vertex="1">
+                    <mxGeometry y="30" width="160" height="90" as="geometry"/>
+                </mxCell>
+                <mxCell id="6" value="领域森林" style="swimlane;childLayout=stackLayout;horizontal=1;startSize=30;horizontalStack=0;rounded=1;fontSize=14;fontStyle=0;strokeWidth=2;resizeParent=0;resizeLast=1;shadow=0;dashed=0;align=center;" parent="1" vertex="1">
+                    <mxGeometry x="1095" y="207" width="160" height="120" as="geometry"/>
+                </mxCell>
+                <mxCell id="7" value="+树图&#10;+树间关系&#10;+主要指个人能力" style="align=left;strokeColor=none;fillColor=none;spacingLeft=4;fontSize=12;verticalAlign=top;resizable=0;rotatable=0;part=1;" parent="6" vertex="1">
+                    <mxGeometry y="30" width="160" height="90" as="geometry"/>
+                </mxCell>
+                <mxCell id="8" value="节点" style="swimlane;childLayout=stackLayout;horizontal=1;startSize=30;horizontalStack=0;rounded=1;fontSize=14;fontStyle=0;strokeWidth=2;resizeParent=0;resizeLast=1;shadow=0;dashed=0;align=center;" parent="1" vertex="1">
+                    <mxGeometry x="1650" y="630" width="160" height="120" as="geometry"/>
+                </mxCell>
+                <mxCell id="9" value="+对应一个知识点" style="align=left;strokeColor=none;fillColor=none;spacingLeft=4;fontSize=12;verticalAlign=top;resizable=0;rotatable=0;part=1;" parent="8" vertex="1">
+                    <mxGeometry y="30" width="160" height="90" as="geometry"/>
+                </mxCell>
+                <mxCell id="10" value="连接关系" style="swimlane;childLayout=stackLayout;horizontal=1;startSize=30;horizontalStack=0;rounded=1;fontSize=14;fontStyle=0;strokeWidth=2;resizeParent=0;resizeLast=1;shadow=0;dashed=0;align=center;" parent="1" vertex="1">
+                    <mxGeometry x="1886" y="630" width="160" height="120" as="geometry"/>
+                </mxCell>
+                <mxCell id="11" value="+知识点之间的联系" style="align=left;strokeColor=none;fillColor=none;spacingLeft=4;fontSize=12;verticalAlign=top;resizable=0;rotatable=0;part=1;" parent="10" vertex="1">
+                    <mxGeometry y="30" width="160" height="90" as="geometry"/>
+                </mxCell>
+                <mxCell id="13" value="组织" style="swimlane;childLayout=stackLayout;horizontal=1;startSize=30;horizontalStack=0;rounded=1;fontSize=14;fontStyle=0;strokeWidth=2;resizeParent=0;resizeLast=1;shadow=0;dashed=0;align=center;" parent="1" vertex="1">
+                    <mxGeometry x="327" y="120" width="160" height="120" as="geometry"/>
+                </mxCell>
+                <mxCell id="14" value="+学校&#10;+公司&#10;+单位" style="align=left;strokeColor=none;fillColor=none;spacingLeft=4;fontSize=12;verticalAlign=top;resizable=0;rotatable=0;part=1;" parent="13" vertex="1">
+                    <mxGeometry y="30" width="160" height="90" as="geometry"/>
+                </mxCell>
+                <mxCell id="15" value="部门" style="swimlane;childLayout=stackLayout;horizontal=1;startSize=30;horizontalStack=0;rounded=1;fontSize=14;fontStyle=0;strokeWidth=2;resizeParent=0;resizeLast=1;shadow=0;dashed=0;align=center;" parent="1" vertex="1">
+                    <mxGeometry x="327" y="280" width="160" height="120" as="geometry">
+                        <mxRectangle x="327" y="280" width="60" height="30" as="alternateBounds"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="16" value="+部门知识技能&#10;+人" style="align=left;strokeColor=none;fillColor=none;spacingLeft=4;fontSize=12;verticalAlign=top;resizable=0;rotatable=0;part=1;" parent="15" vertex="1">
+                    <mxGeometry y="30" width="160" height="90" as="geometry"/>
+                </mxCell>
+                <mxCell id="17" value="班级" style="swimlane;childLayout=stackLayout;horizontal=1;startSize=30;horizontalStack=0;rounded=1;fontSize=14;fontStyle=0;strokeWidth=2;resizeParent=0;resizeLast=1;shadow=0;dashed=0;align=center;" parent="1" vertex="1">
+                    <mxGeometry x="327" y="440" width="160" height="120" as="geometry"/>
+                </mxCell>
+                <mxCell id="18" value="+老师&#10;+学生&#10;+课程" style="align=left;strokeColor=none;fillColor=none;spacingLeft=4;fontSize=12;verticalAlign=top;resizable=0;rotatable=0;part=1;" parent="17" vertex="1">
+                    <mxGeometry y="30" width="160" height="90" as="geometry"/>
+                </mxCell>
+                <mxCell id="19" value="组织级知识能力" style="swimlane;childLayout=stackLayout;horizontal=1;startSize=30;horizontalStack=0;rounded=1;fontSize=14;fontStyle=0;strokeWidth=2;resizeParent=0;resizeLast=1;shadow=0;dashed=0;align=center;fillColor=#dae8fc;strokeColor=#6c8ebf;" parent="1" vertex="1">
+                    <mxGeometry x="1650" y="120" width="210" height="120" as="geometry"/>
+                </mxCell>
+                <mxCell id="20" value="+部门和个人无法完成的能力&#10;+属于部门和个人能力系统组织涌现" style="align=left;strokeColor=#6c8ebf;fillColor=#dae8fc;spacingLeft=4;fontSize=12;verticalAlign=top;resizable=0;rotatable=0;part=1;" parent="19" vertex="1">
+                    <mxGeometry y="30" width="210" height="90" as="geometry"/>
+                </mxCell>
+                <mxCell id="21" value="部门级知识能力" style="swimlane;childLayout=stackLayout;horizontal=1;startSize=30;horizontalStack=0;rounded=1;fontSize=14;fontStyle=0;strokeWidth=2;resizeParent=0;resizeLast=1;shadow=0;dashed=0;align=center;fillColor=#dae8fc;strokeColor=#6c8ebf;" parent="1" vertex="1">
+                    <mxGeometry x="1650" y="280" width="190" height="120" as="geometry"/>
+                </mxCell>
+                <mxCell id="22" value="+个人无法完成的能力&#10;+属于部门组织能力涌现" style="align=left;strokeColor=#6c8ebf;fillColor=#dae8fc;spacingLeft=4;fontSize=12;verticalAlign=top;resizable=0;rotatable=0;part=1;" parent="21" vertex="1">
+                    <mxGeometry y="30" width="190" height="90" as="geometry"/>
+                </mxCell>
+                <mxCell id="23" value="个人级知识能力" style="swimlane;childLayout=stackLayout;horizontal=1;startSize=30;horizontalStack=0;rounded=1;fontSize=14;fontStyle=0;strokeWidth=2;resizeParent=0;resizeLast=1;shadow=0;dashed=0;align=center;fillColor=#dae8fc;strokeColor=#6c8ebf;" parent="1" vertex="1">
+                    <mxGeometry x="1650" y="440" width="190" height="120" as="geometry"/>
+                </mxCell>
+                <mxCell id="24" value="+多知识点系统涌现" style="align=left;strokeColor=#6c8ebf;fillColor=#dae8fc;spacingLeft=4;fontSize=12;verticalAlign=top;resizable=0;rotatable=0;part=1;" parent="23" vertex="1">
+                    <mxGeometry y="30" width="190" height="90" as="geometry"/>
+                </mxCell>
+                <mxCell id="25" value="课程树" style="swimlane;childLayout=stackLayout;horizontal=1;startSize=30;horizontalStack=0;rounded=1;fontSize=14;fontStyle=0;strokeWidth=2;resizeParent=0;resizeLast=1;shadow=0;dashed=0;align=center;" parent="1" vertex="1">
+                    <mxGeometry x="1095" y="367" width="160" height="120" as="geometry"/>
+                </mxCell>
+                <mxCell id="26" value="+课程&#10;+针对中小学教材&#10;+针对大学教材" style="align=left;strokeColor=none;fillColor=none;spacingLeft=4;fontSize=12;verticalAlign=top;resizable=0;rotatable=0;part=1;" parent="25" vertex="1">
+                    <mxGeometry y="30" width="160" height="90" as="geometry"/>
+                </mxCell>
+                <mxCell id="27" value="路线图" style="swimlane;childLayout=stackLayout;horizontal=1;startSize=30;horizontalStack=0;rounded=1;fontSize=14;fontStyle=0;strokeWidth=2;resizeParent=0;resizeLast=1;shadow=0;dashed=0;align=center;fillColor=#d80073;strokeColor=#A50040;fontColor=#ffffff;" parent="1" vertex="1">
+                    <mxGeometry x="720" y="264" width="160" height="120" as="geometry"/>
+                </mxCell>
+                <mxCell id="28" value="+课程相关&#10;+领域知识系统&#10;+技能提升系统&#10;+组织系统&#10;+可有多个" style="align=left;strokeColor=none;fillColor=none;spacingLeft=4;fontSize=12;verticalAlign=top;resizable=0;rotatable=0;part=1;" parent="27" vertex="1">
+                    <mxGeometry y="30" width="160" height="90" as="geometry"/>
+                </mxCell>
+                <mxCell id="29" value="技能树" style="swimlane;childLayout=stackLayout;horizontal=1;startSize=30;horizontalStack=0;rounded=1;fontSize=14;fontStyle=0;strokeWidth=2;resizeParent=0;resizeLast=1;shadow=0;dashed=0;align=center;" parent="1" vertex="1">
+                    <mxGeometry x="1095" y="527" width="160" height="120" as="geometry"/>
+                </mxCell>
+                <mxCell id="30" value="+课程" style="align=left;strokeColor=none;fillColor=none;spacingLeft=4;fontSize=12;verticalAlign=top;resizable=0;rotatable=0;part=1;" parent="29" vertex="1">
+                    <mxGeometry y="30" width="160" height="90" as="geometry"/>
+                </mxCell>
+                <mxCell id="31" value="人" style="swimlane;childLayout=stackLayout;horizontal=1;startSize=30;horizontalStack=0;rounded=1;fontSize=14;fontStyle=0;strokeWidth=2;resizeParent=0;resizeLast=1;shadow=0;dashed=0;align=center;" parent="1" vertex="1">
+                    <mxGeometry x="327" y="600" width="160" height="120" as="geometry"/>
+                </mxCell>
+                <mxCell id="32" value="+个体人&#10;+能主动被动学习&#10;+能组合知识技能" style="align=left;strokeColor=none;fillColor=none;spacingLeft=4;fontSize=12;verticalAlign=top;resizable=0;rotatable=0;part=1;" parent="31" vertex="1">
+                    <mxGeometry y="30" width="160" height="90" as="geometry"/>
+                </mxCell>
+                <mxCell id="51" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;exitPerimeter=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" parent="1" source="34" target="27" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="34" value="几百亿亿以上个路线图&lt;br&gt;交互核心" style="shape=note;size=20;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#FF6666;shadow=1;align=center;" parent="1" vertex="1">
+                    <mxGeometry x="715" y="130" width="170" height="60" as="geometry"/>
+                </mxCell>
+                <mxCell id="58" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=0;exitDx=0;exitDy=0;exitPerimeter=0;entryX=0.5;entryY=1;entryDx=0;entryDy=0;" parent="1" source="35" target="3" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="35" value="几百万的知识点" style="shape=note;size=20;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#FF6666;shadow=1;" parent="1" vertex="1">
+                    <mxGeometry x="600" y="640" width="163" height="70" as="geometry"/>
+                </mxCell>
+                <mxCell id="59" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0;exitY=0;exitDx=70;exitDy=0;exitPerimeter=0;entryX=0.5;entryY=1;entryDx=0;entryDy=0;" parent="1" source="36" target="5" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="36" value="几十万棵树" style="shape=note;size=20;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#FF6666;shadow=1;" parent="1" vertex="1">
+                    <mxGeometry x="800" y="640" width="160" height="70" as="geometry"/>
+                </mxCell>
+                <mxCell id="48" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0;exitY=0;exitDx=140;exitDy=40;exitPerimeter=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" parent="1" source="37" target="14" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="37" value="几十万个组织" style="shape=note;size=20;whiteSpace=wrap;html=1;strokeColor=#FF6666;shadow=1;" parent="1" vertex="1">
+                    <mxGeometry x="105" y="155" width="140" height="60" as="geometry"/>
+                </mxCell>
+                <mxCell id="54" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0;exitY=0.5;exitDx=0;exitDy=0;exitPerimeter=0;" parent="1" source="38" target="7" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="57" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0;exitY=0.5;exitDx=0;exitDy=0;exitPerimeter=0;entryX=1;entryY=0.25;entryDx=0;entryDy=0;" parent="1" source="38" target="56" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="38" value="几百个领域" style="shape=note;size=20;whiteSpace=wrap;html=1;shadow=1;strokeColor=#FF6666;" parent="1" vertex="1">
+                    <mxGeometry x="1345" y="252" width="170" height="60" as="geometry"/>
+                </mxCell>
+                <mxCell id="53" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0;exitY=0.5;exitDx=0;exitDy=0;exitPerimeter=0;entryX=1;entryY=0.25;entryDx=0;entryDy=0;" parent="1" source="39" target="26" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="39" value="几万个课程树" style="shape=note;size=20;whiteSpace=wrap;html=1;shadow=1;strokeColor=#FF6666;" parent="1" vertex="1">
+                    <mxGeometry x="1338" y="390" width="170" height="60" as="geometry"/>
+                </mxCell>
+                <mxCell id="52" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0;exitY=0.5;exitDx=0;exitDy=0;exitPerimeter=0;" parent="1" source="40" target="30" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="40" value="几万个技能树" style="shape=note;size=20;whiteSpace=wrap;html=1;shadow=1;strokeColor=#FF6666;" parent="1" vertex="1">
+                    <mxGeometry x="1338" y="572" width="170" height="60" as="geometry"/>
+                </mxCell>
+                <mxCell id="45" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0;exitY=0;exitDx=150;exitDy=42.5;exitPerimeter=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" parent="1" source="41" target="18" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="46" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0;exitY=0;exitDx=150;exitDy=42.5;exitPerimeter=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" parent="1" source="41" target="16" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="41" value="几十个部门班级" style="shape=note;size=15;whiteSpace=wrap;html=1;shadow=1;strokeColor=#FF6666;" parent="1" vertex="1">
+                    <mxGeometry x="100" y="400" width="150" height="70" as="geometry"/>
+                </mxCell>
+                <mxCell id="47" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0;exitY=0;exitDx=150;exitDy=45;exitPerimeter=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" parent="1" source="42" target="32" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="42" value="几十亿人" style="shape=note;size=20;whiteSpace=wrap;html=1;shadow=1;strokeColor=#FF6666;" parent="1" vertex="1">
+                    <mxGeometry x="100" y="630" width="150" height="70" as="geometry"/>
+                </mxCell>
+                <mxCell id="49" value="个体森林" style="swimlane;childLayout=stackLayout;horizontal=1;startSize=30;horizontalStack=0;rounded=1;fontSize=14;fontStyle=0;strokeWidth=2;resizeParent=0;resizeLast=1;shadow=0;dashed=0;align=center;" parent="1" vertex="1">
+                    <mxGeometry x="1095" y="697" width="160" height="120" as="geometry"/>
+                </mxCell>
+                <mxCell id="50" value="+树图&#10;+树间关系&#10;+主要指个人能力" style="align=left;strokeColor=none;fillColor=none;spacingLeft=4;fontSize=12;verticalAlign=top;resizable=0;rotatable=0;part=1;" parent="49" vertex="1">
+                    <mxGeometry y="30" width="160" height="90" as="geometry"/>
+                </mxCell>
+                <mxCell id="55" value="领域" style="swimlane;childLayout=stackLayout;horizontal=1;startSize=30;horizontalStack=0;rounded=1;fontSize=14;fontStyle=0;strokeWidth=2;resizeParent=0;resizeLast=1;shadow=0;dashed=0;align=center;" parent="1" vertex="1">
+                    <mxGeometry x="1095" y="47" width="160" height="120" as="geometry"/>
+                </mxCell>
+                <mxCell id="56" value="+专业领域&#10;+行业&#10;+单位或者学校" style="align=left;strokeColor=none;fillColor=none;spacingLeft=4;fontSize=12;verticalAlign=top;resizable=0;rotatable=0;part=1;" parent="55" vertex="1">
+                    <mxGeometry y="30" width="160" height="90" as="geometry"/>
+                </mxCell>
+                <mxCell id="61" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0;exitY=0.5;exitDx=0;exitDy=0;exitPerimeter=0;entryX=1;entryY=0.5;entryDx=0;entryDy=0;" parent="1" source="60" target="50" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="60" value="几百亿个技能树" style="shape=note;size=20;whiteSpace=wrap;html=1;shadow=1;strokeColor=#FF6666;" parent="1" vertex="1">
+                    <mxGeometry x="1338" y="742" width="170" height="60" as="geometry"/>
+                </mxCell>
+            </root>
+        </mxGraphModel>
+    </diagram>
+    <diagram id="bSCuaJq_XEPQIPUqohrU" name="搭配">
+        <mxGraphModel dx="-462" dy="635" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1600" pageHeight="900" math="0" shadow="0">
+            <root>
+                <mxCell id="fzQoTvAekwIiFQIv7FGQ-0"/>
+                <mxCell id="fzQoTvAekwIiFQIv7FGQ-1" parent="fzQoTvAekwIiFQIv7FGQ-0"/>
+                <mxCell id="drwVbP1jN565_A2lQaVf-0" value="搭配图" style="swimlane;childLayout=stackLayout;horizontal=1;startSize=30;horizontalStack=0;rounded=1;fontSize=14;fontStyle=0;strokeWidth=2;resizeParent=0;resizeLast=1;shadow=0;dashed=0;align=center;fillColor=#d80073;strokeColor=#A50040;fontColor=#ffffff;" parent="fzQoTvAekwIiFQIv7FGQ-1" vertex="1">
+                    <mxGeometry x="2160" y="140" width="160" height="260" as="geometry"/>
+                </mxCell>
+                <mxCell id="drwVbP1jN565_A2lQaVf-1" value="+穿戴部位&#10;+穿戴层" style="align=left;strokeColor=none;fillColor=none;spacingLeft=4;fontSize=12;verticalAlign=top;resizable=0;rotatable=0;part=1;" parent="drwVbP1jN565_A2lQaVf-0" vertex="1">
+                    <mxGeometry y="30" width="160" height="230" as="geometry"/>
+                </mxCell>
+                <mxCell id="drwVbP1jN565_A2lQaVf-2" value="部件" style="swimlane;childLayout=stackLayout;horizontal=1;startSize=30;horizontalStack=0;rounded=1;fontSize=14;fontStyle=0;strokeWidth=2;resizeParent=0;resizeLast=1;shadow=0;dashed=0;align=center;" parent="fzQoTvAekwIiFQIv7FGQ-1" vertex="1">
+                    <mxGeometry x="2490" y="220" width="160" height="290" as="geometry"/>
+                </mxCell>
+                <mxCell id="drwVbP1jN565_A2lQaVf-3" value="+所有能穿戴的&#10;+帽子&#10;-------------------------&#10;+上衣&#10;+裤&#10;+外套&#10;-------------------------&#10;+衬衫&#10;+秋裤&#10;+袜子&#10;------------------------&#10;+秋衣&#10;+背心胸罩&#10;+内裤&#10;------------------------&#10;+皮带&#10;+鞋" style="align=left;strokeColor=none;fillColor=none;spacingLeft=4;fontSize=12;verticalAlign=top;resizable=0;rotatable=0;part=1;" parent="drwVbP1jN565_A2lQaVf-2" vertex="1">
+                    <mxGeometry y="30" width="160" height="260" as="geometry"/>
+                </mxCell>
+                <mxCell id="drwVbP1jN565_A2lQaVf-4" value="部位" style="swimlane;childLayout=stackLayout;horizontal=1;startSize=30;horizontalStack=0;rounded=1;fontSize=14;fontStyle=0;strokeWidth=2;resizeParent=0;resizeLast=1;shadow=0;dashed=0;align=center;" parent="fzQoTvAekwIiFQIv7FGQ-1" vertex="1">
+                    <mxGeometry x="1860" y="270" width="160" height="120" as="geometry"/>
+                </mxCell>
+                <mxCell id="drwVbP1jN565_A2lQaVf-5" value="+穿戴部位" style="align=left;strokeColor=none;fillColor=none;spacingLeft=4;fontSize=12;verticalAlign=top;resizable=0;rotatable=0;part=1;" parent="drwVbP1jN565_A2lQaVf-4" vertex="1">
+                    <mxGeometry y="30" width="160" height="90" as="geometry"/>
+                </mxCell>
+                <mxCell id="drwVbP1jN565_A2lQaVf-6" value="层" style="swimlane;childLayout=stackLayout;horizontal=1;startSize=30;horizontalStack=0;rounded=1;fontSize=14;fontStyle=0;strokeWidth=2;resizeParent=0;resizeLast=1;shadow=0;dashed=0;align=center;" parent="fzQoTvAekwIiFQIv7FGQ-1" vertex="1">
+                    <mxGeometry x="1860" y="440" width="160" height="120" as="geometry"/>
+                </mxCell>
+                <mxCell id="drwVbP1jN565_A2lQaVf-7" value="+内中外外套" style="align=left;strokeColor=none;fillColor=none;spacingLeft=4;fontSize=12;verticalAlign=top;resizable=0;rotatable=0;part=1;" parent="drwVbP1jN565_A2lQaVf-6" vertex="1">
+                    <mxGeometry y="30" width="160" height="90" as="geometry"/>
+                </mxCell>
+                <mxCell id="drwVbP1jN565_A2lQaVf-10" value="人" style="swimlane;childLayout=stackLayout;horizontal=1;startSize=30;horizontalStack=0;rounded=1;fontSize=14;fontStyle=0;strokeWidth=2;resizeParent=0;resizeLast=1;shadow=0;dashed=0;align=center;" parent="fzQoTvAekwIiFQIv7FGQ-1" vertex="1">
+                    <mxGeometry x="2820" y="180" width="160" height="120" as="geometry"/>
+                </mxCell>
+                <mxCell id="drwVbP1jN565_A2lQaVf-11" value="+Attribute1&#10;+Attribute2&#10;+Attribute3" style="align=left;strokeColor=none;fillColor=none;spacingLeft=4;fontSize=12;verticalAlign=top;resizable=0;rotatable=0;part=1;" parent="drwVbP1jN565_A2lQaVf-10" vertex="1">
+                    <mxGeometry y="30" width="160" height="90" as="geometry"/>
+                </mxCell>
+                <mxCell id="drwVbP1jN565_A2lQaVf-12" value="家庭" style="swimlane;childLayout=stackLayout;horizontal=1;startSize=30;horizontalStack=0;rounded=1;fontSize=14;fontStyle=0;strokeWidth=2;resizeParent=0;resizeLast=1;shadow=0;dashed=0;align=center;" parent="fzQoTvAekwIiFQIv7FGQ-1" vertex="1">
+                    <mxGeometry x="2830" y="30" width="160" height="120" as="geometry"/>
+                </mxCell>
+                <mxCell id="drwVbP1jN565_A2lQaVf-13" value="+Attribute1&#10;+Attribute2&#10;+Attribute3" style="align=left;strokeColor=none;fillColor=none;spacingLeft=4;fontSize=12;verticalAlign=top;resizable=0;rotatable=0;part=1;" parent="drwVbP1jN565_A2lQaVf-12" vertex="1">
+                    <mxGeometry y="30" width="160" height="90" as="geometry"/>
+                </mxCell>
+                <mxCell id="drwVbP1jN565_A2lQaVf-14" value="商家" style="swimlane;childLayout=stackLayout;horizontal=1;startSize=30;horizontalStack=0;rounded=1;fontSize=14;fontStyle=0;strokeWidth=2;resizeParent=0;resizeLast=1;shadow=0;dashed=0;align=center;" parent="fzQoTvAekwIiFQIv7FGQ-1" vertex="1">
+                    <mxGeometry x="2820" y="530" width="160" height="120" as="geometry"/>
+                </mxCell>
+                <mxCell id="drwVbP1jN565_A2lQaVf-15" value="+提供部件" style="align=left;strokeColor=none;fillColor=none;spacingLeft=4;fontSize=12;verticalAlign=top;resizable=0;rotatable=0;part=1;" parent="drwVbP1jN565_A2lQaVf-14" vertex="1">
+                    <mxGeometry y="30" width="160" height="90" as="geometry"/>
+                </mxCell>
+                <mxCell id="drwVbP1jN565_A2lQaVf-16" value="宠物" style="swimlane;childLayout=stackLayout;horizontal=1;startSize=30;horizontalStack=0;rounded=1;fontSize=14;fontStyle=0;strokeWidth=2;resizeParent=0;resizeLast=1;shadow=0;dashed=0;align=center;" parent="fzQoTvAekwIiFQIv7FGQ-1" vertex="1">
+                    <mxGeometry x="2820" y="340" width="160" height="120" as="geometry"/>
+                </mxCell>
+                <mxCell id="drwVbP1jN565_A2lQaVf-17" value="+Attribute1&#10;+Attribute2&#10;+Attribute3" style="align=left;strokeColor=none;fillColor=none;spacingLeft=4;fontSize=12;verticalAlign=top;resizable=0;rotatable=0;part=1;" parent="drwVbP1jN565_A2lQaVf-16" vertex="1">
+                    <mxGeometry y="30" width="160" height="90" as="geometry"/>
+                </mxCell>
+            </root>
+        </mxGraphModel>
+    </diagram>
+    <diagram id="5i0DM3G3wO_NPXz7Pjp6" name="数据">
+        <mxGraphModel dx="1138" dy="635" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1600" pageHeight="900" math="0" shadow="0">
+            <root>
+                <mxCell id="PI_TZQfar-T5tqkEJeLV-0"/>
+                <mxCell id="PI_TZQfar-T5tqkEJeLV-1" parent="PI_TZQfar-T5tqkEJeLV-0"/>
+                <mxCell id="PI_TZQfar-T5tqkEJeLV-2" value="行业分类" style="swimlane;childLayout=stackLayout;horizontal=1;startSize=30;horizontalStack=0;rounded=1;fontSize=14;fontStyle=0;strokeWidth=2;resizeParent=0;resizeLast=1;shadow=0;dashed=0;align=center;" vertex="1" parent="PI_TZQfar-T5tqkEJeLV-1">
+                    <mxGeometry x="1110" y="280" width="160" height="120" as="geometry"/>
+                </mxCell>
+                <mxCell id="PI_TZQfar-T5tqkEJeLV-3" value="+国家分类标准" style="align=left;strokeColor=none;fillColor=none;spacingLeft=4;fontSize=12;verticalAlign=top;resizable=0;rotatable=0;part=1;" vertex="1" parent="PI_TZQfar-T5tqkEJeLV-2">
+                    <mxGeometry y="30" width="160" height="90" as="geometry"/>
+                </mxCell>
+                <mxCell id="PI_TZQfar-T5tqkEJeLV-4" value="中小学学校" style="swimlane;childLayout=stackLayout;horizontal=1;startSize=30;horizontalStack=0;rounded=1;fontSize=14;fontStyle=0;strokeWidth=2;resizeParent=0;resizeLast=1;shadow=0;dashed=0;align=center;" vertex="1" parent="PI_TZQfar-T5tqkEJeLV-1">
+                    <mxGeometry x="100" y="110" width="160" height="120" as="geometry"/>
+                </mxCell>
+                <mxCell id="PI_TZQfar-T5tqkEJeLV-5" value="+全国中小学名" style="align=left;strokeColor=none;fillColor=none;spacingLeft=4;fontSize=12;verticalAlign=top;resizable=0;rotatable=0;part=1;" vertex="1" parent="PI_TZQfar-T5tqkEJeLV-4">
+                    <mxGeometry y="30" width="160" height="90" as="geometry"/>
+                </mxCell>
+                <mxCell id="PI_TZQfar-T5tqkEJeLV-6" value="组织公司单位名" style="swimlane;childLayout=stackLayout;horizontal=1;startSize=30;horizontalStack=0;rounded=1;fontSize=14;fontStyle=0;strokeWidth=2;resizeParent=0;resizeLast=1;shadow=0;dashed=0;align=center;" vertex="1" parent="PI_TZQfar-T5tqkEJeLV-1">
+                    <mxGeometry x="1110" y="430" width="160" height="120" as="geometry"/>
+                </mxCell>
+                <mxCell id="PI_TZQfar-T5tqkEJeLV-7" value="+全国组织单位名" style="align=left;strokeColor=none;fillColor=none;spacingLeft=4;fontSize=12;verticalAlign=top;resizable=0;rotatable=0;part=1;" vertex="1" parent="PI_TZQfar-T5tqkEJeLV-6">
+                    <mxGeometry y="30" width="160" height="90" as="geometry"/>
+                </mxCell>
+                <mxCell id="PI_TZQfar-T5tqkEJeLV-8" value="中小学知识点" style="swimlane;childLayout=stackLayout;horizontal=1;startSize=30;horizontalStack=0;rounded=1;fontSize=14;fontStyle=0;strokeWidth=2;resizeParent=0;resizeLast=1;shadow=0;dashed=0;align=center;" vertex="1" parent="PI_TZQfar-T5tqkEJeLV-1">
+                    <mxGeometry x="370" y="110" width="160" height="120" as="geometry"/>
+                </mxCell>
+                <mxCell id="PI_TZQfar-T5tqkEJeLV-9" value="+Attribute1&#10;+Attribute2&#10;+Attribute3" style="align=left;strokeColor=none;fillColor=none;spacingLeft=4;fontSize=12;verticalAlign=top;resizable=0;rotatable=0;part=1;" vertex="1" parent="PI_TZQfar-T5tqkEJeLV-8">
+                    <mxGeometry y="30" width="160" height="90" as="geometry"/>
+                </mxCell>
+                <mxCell id="PI_TZQfar-T5tqkEJeLV-10" value="中小学知识树" style="swimlane;childLayout=stackLayout;horizontal=1;startSize=30;horizontalStack=0;rounded=1;fontSize=14;fontStyle=0;strokeWidth=2;resizeParent=0;resizeLast=1;shadow=0;dashed=0;align=center;" vertex="1" parent="PI_TZQfar-T5tqkEJeLV-1">
+                    <mxGeometry x="370" y="270" width="160" height="120" as="geometry"/>
+                </mxCell>
+                <mxCell id="PI_TZQfar-T5tqkEJeLV-11" value="+Attribute1&#10;+Attribute2&#10;+Attribute3" style="align=left;strokeColor=none;fillColor=none;spacingLeft=4;fontSize=12;verticalAlign=top;resizable=0;rotatable=0;part=1;" vertex="1" parent="PI_TZQfar-T5tqkEJeLV-10">
+                    <mxGeometry y="30" width="160" height="90" as="geometry"/>
+                </mxCell>
+                <mxCell id="PI_TZQfar-T5tqkEJeLV-12" value="中小学课程标准路线图" style="swimlane;childLayout=stackLayout;horizontal=1;startSize=30;horizontalStack=0;rounded=1;fontSize=14;fontStyle=0;strokeWidth=2;resizeParent=0;resizeLast=1;shadow=0;dashed=0;align=center;" vertex="1" parent="PI_TZQfar-T5tqkEJeLV-1">
+                    <mxGeometry x="370" y="430" width="160" height="120" as="geometry"/>
+                </mxCell>
+                <mxCell id="PI_TZQfar-T5tqkEJeLV-13" value="+Attribute1&#10;+Attribute2&#10;+Attribute3" style="align=left;strokeColor=none;fillColor=none;spacingLeft=4;fontSize=12;verticalAlign=top;resizable=0;rotatable=0;part=1;" vertex="1" parent="PI_TZQfar-T5tqkEJeLV-12">
+                    <mxGeometry y="30" width="160" height="90" as="geometry"/>
+                </mxCell>
+                <mxCell id="PI_TZQfar-T5tqkEJeLV-14" value="大学学校" style="swimlane;childLayout=stackLayout;horizontal=1;startSize=30;horizontalStack=0;rounded=1;fontSize=14;fontStyle=0;strokeWidth=2;resizeParent=0;resizeLast=1;shadow=0;dashed=0;align=center;" vertex="1" parent="PI_TZQfar-T5tqkEJeLV-1">
+                    <mxGeometry x="910" y="110" width="160" height="120" as="geometry"/>
+                </mxCell>
+                <mxCell id="PI_TZQfar-T5tqkEJeLV-15" value="+大学学校名" style="align=left;strokeColor=none;fillColor=none;spacingLeft=4;fontSize=12;verticalAlign=top;resizable=0;rotatable=0;part=1;" vertex="1" parent="PI_TZQfar-T5tqkEJeLV-14">
+                    <mxGeometry y="30" width="160" height="90" as="geometry"/>
+                </mxCell>
+                <mxCell id="PI_TZQfar-T5tqkEJeLV-16" value="学科专业系" style="swimlane;childLayout=stackLayout;horizontal=1;startSize=30;horizontalStack=0;rounded=1;fontSize=14;fontStyle=0;strokeWidth=2;resizeParent=0;resizeLast=1;shadow=0;dashed=0;align=center;" vertex="1" parent="PI_TZQfar-T5tqkEJeLV-1">
+                    <mxGeometry x="910" y="280" width="160" height="120" as="geometry"/>
+                </mxCell>
+                <mxCell id="PI_TZQfar-T5tqkEJeLV-17" value="+学科专业" style="align=left;strokeColor=none;fillColor=none;spacingLeft=4;fontSize=12;verticalAlign=top;resizable=0;rotatable=0;part=1;" vertex="1" parent="PI_TZQfar-T5tqkEJeLV-16">
+                    <mxGeometry y="30" width="160" height="90" as="geometry"/>
+                </mxCell>
+                <mxCell id="PI_TZQfar-T5tqkEJeLV-18" value="基础领域" style="swimlane;childLayout=stackLayout;horizontal=1;startSize=30;horizontalStack=0;rounded=1;fontSize=14;fontStyle=0;strokeWidth=2;resizeParent=0;resizeLast=1;shadow=0;dashed=0;align=center;" vertex="1" parent="PI_TZQfar-T5tqkEJeLV-1">
+                    <mxGeometry x="620" y="110" width="160" height="120" as="geometry"/>
+                </mxCell>
+                <mxCell id="PI_TZQfar-T5tqkEJeLV-19" value="+基础领域课程和专业" style="align=left;strokeColor=none;fillColor=none;spacingLeft=4;fontSize=12;verticalAlign=top;resizable=0;rotatable=0;part=1;" vertex="1" parent="PI_TZQfar-T5tqkEJeLV-18">
+                    <mxGeometry y="30" width="160" height="90" as="geometry"/>
+                </mxCell>
+                <mxCell id="PI_TZQfar-T5tqkEJeLV-20" value="知识卡片" style="swimlane;childLayout=stackLayout;horizontal=1;startSize=30;horizontalStack=0;rounded=1;fontSize=14;fontStyle=0;strokeWidth=2;resizeParent=0;resizeLast=1;shadow=0;dashed=0;align=center;" vertex="1" parent="PI_TZQfar-T5tqkEJeLV-1">
+                    <mxGeometry x="1310" y="110" width="160" height="120" as="geometry"/>
+                </mxCell>
+                <mxCell id="PI_TZQfar-T5tqkEJeLV-21" value="+Attribute1&#10;+Attribute2&#10;+Attribute3" style="align=left;strokeColor=none;fillColor=none;spacingLeft=4;fontSize=12;verticalAlign=top;resizable=0;rotatable=0;part=1;" vertex="1" parent="PI_TZQfar-T5tqkEJeLV-20">
+                    <mxGeometry y="30" width="160" height="90" as="geometry"/>
+                </mxCell>
+            </root>
+        </mxGraphModel>
+    </diagram>
+</mxfile>

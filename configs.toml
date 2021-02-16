@@ -1,0 +1,28 @@
+[database]
+address = "127.0.0.1"
+port = 27017
+name = "cashmere_db"
+
+[server]
+root_dir = "."
+address = "127.0.0.1"
+port = "8800"
+
+# 管理插件位置
+managers_path = ["target/debug"]
+
+# 加密
+use_tls = false
+secret_code = "$camshere*soft*warm*smooth*beauty$"
+login_limit = 2
+
+# 事件队列数据库
+events_dbs_dir = "events_dbs"
+
+# 默认语音
+lang_code = "Cn"
+
+[tls]
+server_key_path = "tls/server.key"
+server_ca_path = "tls/server.crt"
+client_ca_path = "tls/client.crt"
