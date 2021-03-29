@@ -18,7 +18,7 @@ import "task.proto";
 import "work_phase.proto";
 import "work_node.proto";
 
-service CashmereGrpc{
+service KnitterGrpc{
   // =====管理=====
   // 取得管理列表
   rpc GetManages(GetManagesRequest) returns (stream Entity);
