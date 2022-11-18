@@ -11,6 +11,9 @@ schema = [
     { data_type = "String", name_map = { zh = "外部根路径", en = "external_root_path"}, removed = false },
     { data_type = "List", name_map = { zh = "关联资产库", en = "libraries"}, removed = false },
     { data_type = "List", name_map = { zh = "项目图片", en = "picture"}, removed = false },
+    
+    # 状态： running, finished
+    { data_type = "String", name_map = { zh = "状态", en = "status"}, removed = false },
 ]
 
 # 特有属性

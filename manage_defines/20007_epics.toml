@@ -9,6 +9,9 @@ name_map = { zh = "集", en = "epics" }
 schema = [
     { data_type = "String", name_map = { zh = "项目编号", en = "project_id"}, removed = false },
     { data_type = "String", name_map = { zh = "根目录", en = "root"}, removed = false },
+
+    # done, suspending, cancal
+    { data_type = "String", name_map = { zh = "状态", en = "status"}, removed = false },
 ]
 
 # 特有属性

@@ -3,14 +3,35 @@ package io.knitter;
 
 import "name.proto";
 
+// 新项目
 message NewProjectRequest{
   cashmere.Name name = 1;
-  string local_root = 2;
-  string remote_root = 3;
+  string inner_root_path = 2;
+  string external_root_path = 3;
   bytes picture = 4;
-  repeated string libraries = 5;
-  }
+  repeated string accociated_libraries = 5;
+}
 message NewProjectResponse {
   // 成功返回项目id
-    string result = 1;
-  }
+  string result = 1;
+}
+
+
+// 关联库到项目
+message AssociateLibraryRequest {
+  string project_id = 1;
+  string library_ids = 2;
+}
+message AssociateLibraryResponse {
+  string result = 1;
+}
+
+
+// 标记项目已经完成
+message MarkProjectFinishedRequest {
+  string project_id = 1;
+}
+message MarkProjectFinishedResponse {
+  string result = 1;
+}
+

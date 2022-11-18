@@ -1,3 +1,16 @@
 syntax = "proto3";
 package io.knitter;
 
+// 新建资产
+message NewAssetRequest {
+  string library_id = 1;
+  cashmere.Name name = 2;
+  string description = 3;
+  string template_id = 4;
+}
+message NewAssetResponse {
+  // 成功返回新资产id
+  string result = 1;
+}
+
+

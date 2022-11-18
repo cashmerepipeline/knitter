@@ -1,3 +1,34 @@
 syntax = "proto3";
 package io.knitter;
 
+// 新建景
+message NewSetRequest {
+  string project_id = 1;
+  cashmere.Name name = 2;
+  string description = 3;
+  string template_id = 4;
+}
+message NewSetResponse {
+  // 成功返回新id
+  string result = 1;
+}
+
+// 添加引用资产
+message ReferencAssetsRequest {
+    string set_id = 1;
+    repeated string asset_id = 2;
+  }
+message ReferencAssetsResponse{
+  // 成功返回"ok"
+    string result = 1;
+  }
+
+// 更新引用资产
+message UpdateReferencedAssetsRequest {
+    string set_id = 1;
+    repeated string asset_ids = 2;
+  }
+message UpdateReferencedAssetsResponse{
+  // 成功返回"ok"
+    string result = 1;
+  }

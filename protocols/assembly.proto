@@ -1,2 +1,25 @@
 syntax = "proto3";
 package io.knitter;
+
+
+// 新建组装
+message NewAssemblyRequest {
+  string library_id = 1;
+  cashmere.Name name = 2;
+  string description = 3;
+  string template_id = 4;
+}
+message NewAssemblyResponse {
+  // 成功返回新资产id
+  string result = 1;
+}
+
+
+// 更新资产到组
+message UpdateAssetsRequest {
+  string assembly_id = 1;
+  repeated string asset_ids = 2;
+}
+message UpdateAssetsResponse {
+  string result = 1;
+}

@@ -10,6 +10,10 @@ schema = [
     { data_type = "String", name_map = { zh = "项目编号", en = "project_id"}, removed = false },
     { data_type = "String", name_map = { zh = "集编号", en = "epic_id"}, removed = false },
     { data_type = "String", name_map = { zh = "根目录", en = "root"}, removed = false },
+
+    # done, suspending, cancal
+    { data_type = "String", name_map = { zh = "状态", en = "status"}, removed = false },
+    { data_type = "List", name_map = { zh = "预览", en = "previews"}, removed = false },
 ]
 
 # 特有属性

@@ -7,8 +7,13 @@ name_map = { zh = "景", en = "sets" }
 
 # 数据描写 或者 模式
 schema = [
-    { data_type = "List", name_map = { zh = "资产表", en = "assets"}, removed = false },
+    { data_type = "String", name_map = { zh = "资产表", en = "project_id"}, removed = false },
+    { data_type = "List", name_map = { zh = "资产表", en = "asset_ids"}, removed = false },
     { data_type = "Map", name_map = { zh = "灯光系统", en = "lights"}, removed = false },
+
+    # done, suspending, cancal
+    { data_type = "String", name_map = { zh = "状态", en = "status"}, removed = false },
+    { data_type = "List", name_map = { zh = "预览", en = "previews"}, removed = false },
 ]
 
 # 特有属性

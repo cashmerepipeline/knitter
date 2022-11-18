@@ -1,3 +1,14 @@
 syntax = "proto3";
 package io.knitter;
 
+// 新建镜头
+message NewCutRequest {
+  string sequence_id = 1;
+  cashmere.Name name = 2;
+  string description = 3;
+  string template_id = 4;
+}
+message NewCutResponse {
+  // 成功返回新id
+  string result = 1;
+}
