@@ -2,32 +2,41 @@
 name = "knitter"
 version = "0.1.0"
 authors = ["闫刚 <yes7rose@sina.com>"]
-edition = "2018"
+edition = "2021"
 
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
 [dependencies]
-cash_core = {path="../cashmere_core/cash_core"}
+cash_core = { path = "../cashmere_core/cash_core" }
+cash_result = { path = "../cashmere_core/cash_result" }
 account = { path = "../cashmere_core/account" }
+account_server = { path = "../cashmere_core/account_server" }
 auth = { path = "../cashmere_core/auth" }
 configs = { path = "../cashmere_core/configs" }
 majordomo = { path = "../cashmere_core/majordomo" }
 managers = { path = "../cashmere_core/managers" }
 entity = { path = "../cashmere_core/entity" }
 runtime_handle = { path = "../cashmere_core/runtime_handle" }
+service_common_handles = { path = "../cashmere_core/service_common_handles" }
+view = { path = "../cashmere_core/view" }
+manage_define = { path = "../cashmere_core/manage_define" }
 
+parking_lot = "0.12.1"
 chrono = { version = "0.4.19", features = ["serde"] }
-tokio = { version = "0.2.23", features = ["full"] }
-tonic = { version = "0.3.1", features = ["tls"] }
-prost = "0.6.0"
-bson = "1.1.0"
-
+tokio = { version = "1.21.2", features = ["full"] }
+tonic = { version = "0.7.2", features = ["tls"] }
+prost = "0.10.4"
+bson = "2.2.0"
+async-trait = "0.1.51"
+serde = "1.0.131"
+serde_derive = "1.0.131"
 
 # logging
-log = "0.4"
-simplelog = "0.8"
+log = "0.4.17"
+simplelog = "0.12.0"
 
-clap = "3.0.0-beta.2"
+clap = "3.1.18"
 
 [build-dependencies]
-tonic-build = "0.3"
+tonic-build = "0.7.2"
+manage_define = { path = "../cashmere_core/manage_define" }

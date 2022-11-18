@@ -1,0 +1,8 @@
+const int PROJECTS_MANAGE_ID = 20001; 
+const int LIBRARIES_MANAGE_ID = 20002; 
+const int ASSETS_MANAGE_ID = 20003; 
+const int SETS_MANAGE_ID = 20004; 
+const int SEQUENCES_MANAGE_ID = 20005; 
+const int CUTS_MANAGE_ID = 20006; 
+const int EPICS_MANAGE_ID = 20007; 
+const int PREFABS_MANAGE_ID = 20008; 

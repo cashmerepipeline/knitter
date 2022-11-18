@@ -1,0 +1,16 @@
+syntax = "proto3";
+package io.knitter;
+
+import "name.proto";
+
+message NewProjectRequest{
+  cashmere.Name name = 1;
+  string local_root = 2;
+  string remote_root = 3;
+  bytes picture = 4;
+  repeated string libraries = 5;
+  }
+message NewProjectResponse {
+  // 成功返回项目id
+    string result = 1;
+  }

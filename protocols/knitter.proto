@@ -9,86 +9,113 @@ Modified: !date!
 syntax = "proto3";
 package io.knitter;
 
-import "entity.proto";
 import "manage.proto";
+import "manage_schema.proto";
+import "group.proto";
+import "entity.proto";
+import "name.proto";
+import "data.proto";
+import "file_data.proto";
+import "area.proto";
+import "language_code.proto";
+import "country.proto";
 import "view.proto";
-import "event.proto";
-import "work.proto";
-import "task.proto";
-import "work_phase.proto";
-import "work_node.proto";
+
+import "tag_map.proto";
+import "tag.proto";
+import "question.proto";
+import "answer.proto";
+import "comment.proto";
+
 
 service KnitterGrpc{
-  // =====管理=====
-  // 取得管理列表
-  rpc GetManages(GetManagesRequest) returns (stream Entity);
-  
-  // =====管理描写=====
-  rpc GetManageSchema(GetManageSchemaRequest) returns (GetManageSchemaResponse);
-  rpc NewSchemaField(NewSchemaFieldRequest) returns (NewSchemaFieldResponse);
-  // 编辑属性的用处？？？编号和类型 不可变，只能修改名字
-  rpc EditSchemaFieldName(EditSchemaFieldNameRequest) returns (EditSchemaFieldNameResponse);
-  // 设置属性 移除标记 为真
-  rpc RemoveSchemaField(RemoveSchemaFieldRequest) returns (RemoveSchemaFieldResponse);
+  // 管理
+  rpc GetManages(cashmere.GetManagesRequest) returns (cashmere.GetManagesResponse);
+  rpc GetManageEntryCount(cashmere.GetManageEntryCountRequest) returns (cashmere.GetManageEntryCountResponse);
+  rpc GetManageSchema(cashmere.GetManageSchemaRequest) returns (cashmere.GetManageSchemaResponse);
+  rpc MarkSchemaFieldRemoved(cashmere.MarkSchemaFieldRemovedRequest) returns (cashmere.MarkSchemaFieldRemovedResponse);
 
-  // =====管理对象=====
-  rpc NewManageEntity(NewEntityRequest) returns (NewEntityResponse);
-  rpc EditManageEntity(EditEntityRequest) returns (EditEntityResponse);
-  rpc RemoveManageEntity(RemoveEntityRequest) returns (RemoveEntityResponse);
+  // 可见性权限
+  rpc ChangeManageReadRule(cashmere.ChangeManageReadRuleRequest) returns (cashmere.ChangeManageReadRuleResponse);
+  rpc ChangeManageWriteRule(cashmere.ChangeManageWriteRuleRequest) returns (cashmere.ChangeManageWriteRuleResponse);
+  rpc ChangeCollectionReadRule(cashmere.ChangeCollectionReadRuleRequest) returns (cashmere.ChangeCollectionReadRuleResponse);
+  rpc ChangeCollectionWriteRule(cashmere.ChangeCollectionWriteRuleRequest) returns (cashmere.ChangeCollectionWriteRuleResponse);
+  rpc ChangeFieldReadRule(cashmere.ChangeFieldReadRuleRequest) returns (cashmere.ChangeFieldReadRuleResponse);
+  rpc ChangeFieldWriteRule(cashmere.ChangeFieldWriteRuleRequest) returns (cashmere.ChangeFieldWriteRuleResponse);
 
-  // =====管理对象模板=====
-  rpc NewEntityTemplate(NewEntityTemplateRequest) returns (NewEntityTemplateResponse);
-  rpc EditEntityTemplate(EditEntityTemplateRequest) returns (EditEntityTemplateResponse);
-  rpc RemoveEntityTemplate(RemoveEntityTemplateRequest) returns (RemoveEntityTemplateResponse);
+  // 实体，主要是实体查询
+  rpc GetEntity(cashmere.GetEntityRequest) returns (cashmere.GetEntityResponse);
+  rpc GetEntities(cashmere.GetEntitiesRequest) returns (cashmere.GetEntitiesResponse);
+  rpc GetEntitiesPage(cashmere.GetEntitiesPageRequest) returns (cashmere.GetEntitiesPageResponse);
 
-  // =====管理映像=====
-  rpc GetManageView(GetManageViewRequest) returns (GetManageViewResponse);
+  // 编辑实体属性，非数据结构
+  rpc EditEntityField(cashmere.EditEntityFieldRequest) returns (cashmere.EditEntityFieldResponse);
+  // 编辑实体属性，MAP数据结构
+  rpc EditEntityMapField(cashmere.EditEntityMapFieldRequest) returns (cashmere.EditEntityMapFieldResponse);
+  rpc EditEntityMapFieldRemoveKey(cashmere.EditEntityMapFieldRemoveKeyRequest) returns (cashmere.EditEntityMapFieldRemoveKeyResponse);
+  // 编辑实体属性，List数据结构
+  rpc EditEntityListFieldAddItems(cashmere.EditEntityListFieldAddItemsRequest) returns (cashmere.EditEntityListFieldAddItemsResponse);
+  rpc EditEntityListFieldRemoveItems(cashmere.EditEntityListFieldRemoveItemsRequest) returns (cashmere.EditEntityListFieldRemoveItemsResponse);
 
-  // =====事件=====
-  // 事件管理
-  rpc NewEvent(NewEventRequest) returns (NewEventResponse);
-  rpc NewEventQueue(NewEventQueueRequest) returns (NewEventQueueResponse);
-  rpc NewEventHandle(NewEventHandleRequest) returns (NewEventHandleResponse);
+  // 名字
+  rpc Rename(cashmere.RenameRequest) returns (cashmere.RenameResponse);
+  rpc NewLanguageName(cashmere.NewLanguageNameRequest) returns (cashmere.NewLanguageNameResponse);
+
+  // 国家
+  rpc NewCountry(cashmere.NewCountryRequest) returns (cashmere.NewCountryResponse);
+
+  // 语言编码
+  rpc NewLanguageCode(cashmere.NewLanguageCodeRequest) returns (cashmere.NewLanguageCodeResponse);
+  rpc EditLanguageCode(cashmere.EditLanguageCodeRequest) returns (cashmere.EditLanguageCodeResponse);
+
+  // 组
+  rpc NewGroup (cashmere.NewGroupRequest) returns (cashmere.NewGroupResponse);
+
+  // 数据
+  rpc NewData(cashmere.NewDataRequest) returns (cashmere.NewDataResponse);
+  rpc GetDataList(cashmere.GetDataListRequest) returns (cashmere.GetDataListResponse);
+  rpc MarkDataRemoved(cashmere.MarkDataRemovedRequest) returns (cashmere.MarkDataRemovedResponse);
+  rpc FileDataUploadFile(stream cashmere.FileDataUploadFileRequest) returns (stream cashmere.FileDataUploadFileResponse);
 
   // =====工作=====
   // 工作管理
-  rpc NewWork(NewWorkRequest) returns (NewWorkResponse);
-  rpc NewPhaseForWork(NewPhaseForWorkRequest) returns (NewPhaseForWorkResponse);
-  rpc NewWorkNodeForProcedureGraph(NewWorkNodeForProcedureGraphRequest) returns (NewWorkNodeForProcedureGraphResponse);
+  // rpc NewWork(cashmere.NewWorkRequest) returns (cashmere.NewWorkResponse);
+  // rpc NewPhaseForWork(cashmere.NewPhaseForWorkRequest) returns (cashmere.NewPhaseForWorkResponse);
+  // rpc NewWorkNodeForProcedureGraph(cashmere.NewWorkNodeForProcedureGraphRequest) returns (cashmere.NewWorkNodeForProcedureGraphResponse);
   
   // 指派工作
-  rpc AssignWorkNodeToWorker(AssignWorkNodeToWorkerRequest) returns (AssignWorkNodeToWorkerResponse);
+  // rpc AssignWorkNodeToWorker(cashmere.AssignWorkNodeToWorkerRequest) returns (cashmere.AssignWorkNodeToWorkerResponse);
 
   // 工作节点
-  rpc CreateWorkNodeLink(CreateWorkNodeLinkRequest) returns (CreateWorkNodeLinkResponse);
-  rpc RemoveWorkNodeLink(RemoveWorkNodeLinkRequest) returns (RemoveWorkNodeLinkResponse);
+  // rpc CreateWorkNodeLink(cashmere.CreateWorkNodeLinkRequest) returns (cashmere.CreateWorkNodeLinkResponse);
+  // rpc RemoveWorkNodeLink(cashmere.RemoveWorkNodeLinkRequest) returns (cashmere.RemoveWorkNodeLinkResponse);
 
-  rpc NewDataSlotForWorkNode(NewDataSlotForWorkNodeRequest) returns (NewDataSlotForWorkNodeResponse);
-  // rpc RemoveDependentDataForWorkNode(BreakWorkNodeConnectionRequest) returns (BreakWorkNodeConnectionResponse);
-  // rpc NewRefrenceDataForWorkNode(BreakWorkNodeConnectionRequest) returns (BreakWorkNodeConnectionResponse);
-  // rpc RemoveRefrenceDataForWorkNode(BreakWorkNodeConnectionRequest) returns (BreakWorkNodeConnectionResponse);
-  // rpc NewWorkDataForWorkNode(BreakWorkNodeConnectionRequest) returns (BreakWorkNodeConnectionResponse);
-  // rpc RemoveWorkDataForWorkNode(BreakWorkNodeConnectionRequest) returns (BreakWorkNodeConnectionResponse);
-  // rpc NewOutDataForWorkNode(BreakWorkNodeConnectionRequest) returns (BreakWorkNodeConnectionResponse);
-  // rpc RemoveOutDataForWorkNode(BreakWorkNodeConnectionRequest) returns (BreakWorkNodeConnectionResponse);
+  // rpc NewDataSlotForWorkNode(cashmere.NewDataSlotForWorkNodeRequest) returns (cashmere.NewDataSlotForWorkNodeResponse);
+  // rpc RemoveDependentDataForWorkNode(cashmere.BreakWorkNodeConnectionRequest) returns (cashmere.BreakWorkNodeConnectionResponse);
+  // rpc NewRefrenceDataForWorkNode(cashmere.BreakWorkNodeConnectionRequest) returns (cashmere.BreakWorkNodeConnectionResponse);
+  // rpc RemoveRefrenceDataForWorkNode(cashmere.BreakWorkNodeConnectionRequest) returns (cashmere.BreakWorkNodeConnectionResponse);
+  // rpc NewWorkDataForWorkNode(cashmere.BreakWorkNodeConnectionRequest) returns (cashmere.BreakWorkNodeConnectionResponse);
+  // rpc RemoveWorkDataForWorkNode(cashmere.BreakWorkNodeConnectionRequest) returns (cashmere.BreakWorkNodeConnectionResponse);
+  // rpc NewOutDataForWorkNode(cashmere.BreakWorkNodeConnectionRequest) returns (cashmere.BreakWorkNodeConnectionResponse);
+  // rpc RemoveOutDataForWorkNode(cashmere.BreakWorkNodeConnectionRequest) returns (cashmere.BreakWorkNodeConnectionResponse);
 
   // 新任务
-  rpc NewTaskForWorkNode(NewTaskForWorkNodeRequest) returns (NewTaskForWorkNodeResponse);
+  // rpc NewTaskForWorkNode(cashmere.NewTaskForWorkNodeRequest) returns (cashmere.NewTaskForWorkNodeResponse);
   // 标记任务状态
-  rpc MarkTaskStatus(MarkTaskStatusRequest) returns (MarkTaskStatusResponse);
+  // rpc MarkTaskStatus(cashmere.MarkTaskStatusRequest) returns (cashmere.MarkTaskStatusResponse);
   // 提交任务
-  rpc CommitTask(CommitTaskRequest) returns (CommitTaskResponse);
+  // rpc CommitTask(cashmere.CommitTaskRequest) returns (cashmere.CommitTaskResponse);
 
   // =====数据=====
-  rpc NewDataForTask(NewDataForTaskRequest) returns (NewDataForTaskResponse);
-  rpc AssociateDataToTask(AssociateDataToTaskRequest) returns (AssociateDataToTaskResponse);
+  // rpc NewDataForTask(cashmere.NewDataForTaskRequest) returns (cashmere.NewDataForTaskResponse);
+  // rpc AssociateDataToTask(cashmere.AssociateDataToTaskRequest) returns (cashmere.AssociateDataToTaskResponse);
 
   // 添加目标事件队列
-  // rpc AddEventTargetQueue(AddEventTargetQueueRequest) returns (AddEventTargetQueueResponse);
+  // rpc AddEventTargetQueue(cashmere.AddEventTargetQueueRequest) returns (cashmere.AddEventTargetQueueResponse);
 
   // 触发事件，客户端->服务端
-  // rpc EmitEvent(EmitEventRequest) returns (EmitEventResponse);
+  // rpc EmitEvent(cashmere.EmitEventRequest) returns (cashmere.EmitEventResponse);
 
   // 连接事件队列
-  // rpc LinkEventQueue(LinkEventQueueRequest) returns (LinkEventQueueResponse);
+  // rpc LinkEventQueue(cashmere.LinkEventQueueRequest) returns (cashmere.LinkEventQueueResponse);
 }
