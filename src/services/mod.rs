@@ -5,7 +5,6 @@ Desc: 服务模块
 Created:  2021-01-17T04:31:08.729Z
 Modified: !date!
 */
-use async_trait::async_trait;
 use tonic::{Request, Response, Status, Streaming};
 use manage_define::cashmere::*;
 
@@ -33,18 +32,23 @@ use service_common_handles::{
     },
     name_service_handles::{HandleNewLanguageName, HandleRename},
     view_rules_service_handles::HandleChangeManageReadrule,
-    UnaryResponseResult,
 };
 
 mod init;
 mod project_servcice_handle;
+mod assembly_servcice_handle;
+mod assets_servcice_handle;
+mod cut_servcice_handle;
+mod epic_servcice_handle;
+mod library_servcice_handle;
+mod sets_servcice_handle;
+mod sequence_servcice_handle;
 
 pub mod protocol {
     include!("./io.knitter.rs");
 }
 
 // use protocol::{LoginRequest, LoginResponse, NewManageRequest, NewManageResponse};
-use managers::traits::ManagerTrait;
 use crate::services::protocol::knitter_grpc_server::KnitterGrpc;
 
 /// 管理服务

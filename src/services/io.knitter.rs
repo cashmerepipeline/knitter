@@ -1,3 +1,196 @@
+/// 新项目
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct NewProjectRequest {
+    #[prost(message, optional, tag="1")]
+    pub name: ::core::option::Option<::manage_define::cashmere::Name>,
+    #[prost(string, tag="2")]
+    pub inner_root_path: ::prost::alloc::string::String,
+    #[prost(string, tag="3")]
+    pub external_root_path: ::prost::alloc::string::String,
+    #[prost(bytes="vec", tag="4")]
+    pub picture: ::prost::alloc::vec::Vec<u8>,
+    #[prost(string, repeated, tag="5")]
+    pub accociated_libraries: ::prost::alloc::vec::Vec<::prost::alloc::string::String>,
+}
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct NewProjectResponse {
+    /// 成功返回项目id
+    #[prost(string, tag="1")]
+    pub result: ::prost::alloc::string::String,
+}
+/// 关联库到项目
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct AssociateLibraryRequest {
+    #[prost(string, tag="1")]
+    pub project_id: ::prost::alloc::string::String,
+    #[prost(string, tag="2")]
+    pub library_ids: ::prost::alloc::string::String,
+}
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct AssociateLibraryResponse {
+    #[prost(string, tag="1")]
+    pub result: ::prost::alloc::string::String,
+}
+/// 标记项目已经完成
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct MarkProjectFinishedRequest {
+    #[prost(string, tag="1")]
+    pub project_id: ::prost::alloc::string::String,
+}
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct MarkProjectFinishedResponse {
+    #[prost(string, tag="1")]
+    pub result: ::prost::alloc::string::String,
+}
+/// 新项目
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct NewLibraryRequest {
+    #[prost(message, optional, tag="1")]
+    pub name: ::core::option::Option<::manage_define::cashmere::Name>,
+    #[prost(string, tag="2")]
+    pub local_root: ::prost::alloc::string::String,
+    #[prost(string, tag="3")]
+    pub remote_root: ::prost::alloc::string::String,
+    #[prost(bytes="vec", tag="4")]
+    pub picture: ::prost::alloc::vec::Vec<u8>,
+}
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct NewLibraryResponse {
+    /// 成功返回项目id
+    #[prost(string, tag="1")]
+    pub result: ::prost::alloc::string::String,
+}
+/// 新建资产
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct NewAssetRequest {
+    #[prost(string, tag="1")]
+    pub library_id: ::prost::alloc::string::String,
+    #[prost(message, optional, tag="2")]
+    pub name: ::core::option::Option<::manage_define::cashmere::Name>,
+    #[prost(string, tag="3")]
+    pub description: ::prost::alloc::string::String,
+    #[prost(string, tag="4")]
+    pub template_id: ::prost::alloc::string::String,
+}
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct NewAssetResponse {
+    /// 成功返回新资产id
+    #[prost(string, tag="1")]
+    pub result: ::prost::alloc::string::String,
+}
+/// 新建组装
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct NewAssemblyRequest {
+    #[prost(string, tag="1")]
+    pub library_id: ::prost::alloc::string::String,
+    #[prost(message, optional, tag="2")]
+    pub name: ::core::option::Option<::manage_define::cashmere::Name>,
+    #[prost(string, tag="3")]
+    pub description: ::prost::alloc::string::String,
+    #[prost(string, tag="4")]
+    pub template_id: ::prost::alloc::string::String,
+}
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct NewAssemblyResponse {
+    /// 成功返回新资产id
+    #[prost(string, tag="1")]
+    pub result: ::prost::alloc::string::String,
+}
+/// 更新资产到组
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct UpdateAssetsRequest {
+    #[prost(string, tag="1")]
+    pub assembly_id: ::prost::alloc::string::String,
+    #[prost(string, repeated, tag="2")]
+    pub asset_ids: ::prost::alloc::vec::Vec<::prost::alloc::string::String>,
+}
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct UpdateAssetsResponse {
+    #[prost(string, tag="1")]
+    pub result: ::prost::alloc::string::String,
+}
+/// 新建集
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct NewEpicRequest {
+    #[prost(string, tag="1")]
+    pub project_id: ::prost::alloc::string::String,
+    #[prost(message, optional, tag="2")]
+    pub name: ::core::option::Option<::manage_define::cashmere::Name>,
+    #[prost(string, tag="3")]
+    pub description: ::prost::alloc::string::String,
+    #[prost(string, tag="4")]
+    pub template_id: ::prost::alloc::string::String,
+}
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct NewEpicResponse {
+    /// 成功返回新id
+    #[prost(string, tag="1")]
+    pub result: ::prost::alloc::string::String,
+}
+/// 新建章节
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct NewSequenceRequest {
+    #[prost(string, tag="1")]
+    pub epic_id: ::prost::alloc::string::String,
+    #[prost(message, optional, tag="2")]
+    pub name: ::core::option::Option<::manage_define::cashmere::Name>,
+    #[prost(string, tag="3")]
+    pub description: ::prost::alloc::string::String,
+    #[prost(string, tag="4")]
+    pub template_id: ::prost::alloc::string::String,
+}
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct NewSequenceResponse {
+    /// 成功返回新id
+    #[prost(string, tag="1")]
+    pub result: ::prost::alloc::string::String,
+}
+/// 新建景
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct NewSetRequest {
+    #[prost(string, tag="1")]
+    pub project_id: ::prost::alloc::string::String,
+    #[prost(message, optional, tag="2")]
+    pub name: ::core::option::Option<::manage_define::cashmere::Name>,
+    #[prost(string, tag="3")]
+    pub description: ::prost::alloc::string::String,
+    #[prost(string, tag="4")]
+    pub template_id: ::prost::alloc::string::String,
+}
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct NewSetResponse {
+    /// 成功返回新id
+    #[prost(string, tag="1")]
+    pub result: ::prost::alloc::string::String,
+}
+/// 添加引用资产
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct ReferencAssetsRequest {
+    #[prost(string, tag="1")]
+    pub set_id: ::prost::alloc::string::String,
+    #[prost(string, repeated, tag="2")]
+    pub asset_id: ::prost::alloc::vec::Vec<::prost::alloc::string::String>,
+}
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct ReferencAssetsResponse {
+    /// 成功返回"ok"
+    #[prost(string, tag="1")]
+    pub result: ::prost::alloc::string::String,
+}
+/// 更新引用资产
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct UpdateReferencedAssetsRequest {
+    #[prost(string, tag="1")]
+    pub set_id: ::prost::alloc::string::String,
+    #[prost(string, repeated, tag="2")]
+    pub asset_ids: ::prost::alloc::vec::Vec<::prost::alloc::string::String>,
+}
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct UpdateReferencedAssetsResponse {
+    /// 成功返回"ok"
+    #[prost(string, tag="1")]
+    pub result: ::prost::alloc::string::String,
+}
 /// Generated server implementations.
 pub mod knitter_grpc_server {
     #![allow(unused_variables, dead_code, missing_docs, clippy::let_unit_value)]

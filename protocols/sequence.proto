@@ -1,6 +1,8 @@
 syntax = "proto3";
 package io.knitter;
 
+import "name.proto";
+
 // 新建章节
 message NewSequenceRequest {
   string epic_id = 1;

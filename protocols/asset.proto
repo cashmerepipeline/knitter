@@ -1,6 +1,8 @@
 syntax = "proto3";
 package io.knitter;
 
+import "name.proto";
+
 // 新建资产
 message NewAssetRequest {
   string library_id = 1;

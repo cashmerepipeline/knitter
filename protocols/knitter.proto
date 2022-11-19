@@ -27,6 +27,14 @@ import "question.proto";
 import "answer.proto";
 import "comment.proto";
 
+import "project.proto";
+import "library.proto";
+import "asset.proto";
+import "assembly.proto";
+import "epic.proto";
+import "sequence.proto";
+import "set.proto";
+
 
 service KnitterGrpc{
   // 管理
