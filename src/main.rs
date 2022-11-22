@@ -28,7 +28,12 @@ use runtime_handle::set_runtime_handle;
 
 // #[tokio::main]
 fn main() -> Result<(), Box<dyn std::error::Error>> {
+    configs::init_configs_path("./configs.toml".to_string()).expect("需要指定配置文件");
+    let configs = configs::get_configs();
+
     // 初始化日志
+    server_utils::init_log_dir(&configs.server.log_dir).expect("初始化日志路径失败");
+
     let log_config = simplelog::ConfigBuilder::new()
         .set_time_format_rfc3339()
         .set_time_offset_to_local()
@@ -44,12 +49,11 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
         WriteLogger::new(
             LevelFilter::Info,
             log_config,
-            File::create("log/grpc_server.log").unwrap(),
+            File::create("log/grpc_server.log").expect("打开日志文件失败"),
         ),
     ])
     .unwrap();
 
-    configs::init_configs_path("./configs.toml".to_string()).expect("需要指定配置文件");
 
     let runtime = runtime::Runtime::new().expect("新建tokio运行时失败");
     let handle = runtime.handle().clone();
@@ -58,7 +62,6 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
     handle
         .block_on(async {
             // 读取配置
-            let configs = configs::get_configs();
             let server_address: &String = &configs.server.address;
             let server_port: &String = &configs.server.port;
             let use_tls: &bool = &configs.server.use_tls;
@@ -102,7 +105,8 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
             knitter_server.init_managers().await;
             knitter_server.init_view_rules().await;
 
-            let knitter_service = KnitterGrpcServer::with_interceptor(knitter_server, check_auth_token);
+            let knitter_service =
+                KnitterGrpcServer::with_interceptor(knitter_server, check_auth_token);
             let account_service = AccountGrpcServer::new(account_server);
 
             // 部署在ngnix后时，不使用tls， 本地测试时或者单独启动服务时使用tls

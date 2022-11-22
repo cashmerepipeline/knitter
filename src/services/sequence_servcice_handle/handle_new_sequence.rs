@@ -26,6 +26,9 @@ impl KnitterServer {
         let role_group = auth::get_current_role(metadata).unwrap();
 
         let name = &request.get_ref().name;
+        let epic_id = &request.get_ref().epic_id;
+        let description = &request.get_ref().description;
+        let template_id = &request.get_ref().template_id;
 
        if !view::can_collection_write(&account_id, &role_group, &SEQUENCES_MANAGE_ID.to_string())
             .await
@@ -52,7 +55,14 @@ impl KnitterServer {
             NAME_MAP_FIELD_ID.to_string(),
             doc! {name.language.clone():name.name.clone()},
         );
-        
+        new_entity_doc.insert(
+            SEQUENCES_EPIC_ID_FIELD_ID.to_string(),
+            epic_id
+        );
+        new_entity_doc.insert(
+            DESCRIPTIONS_FIELD_ID.to_string(),
+            description.clone()
+        );
 
         let result = manager
             .sink_entity(&mut new_entity_doc, &account_id, &role_group)
@@ -60,6 +70,7 @@ impl KnitterServer {
 
         match result {
             Ok(_r) => Ok(Response::new(NewSequenceResponse {
+                // TODO: 发送新建事件
                 result: "ok".to_string(),
             })),
             Err(e) => Err(Status::aborted(format!(

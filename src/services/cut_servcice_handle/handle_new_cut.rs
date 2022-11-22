@@ -14,7 +14,7 @@ use crate::services::protocol::*;
 use crate::services::KnitterServer;
 
 impl KnitterServer {
-    /// 新建产品
+    /// 新建
     pub(crate) async fn handle_new_cut(
         &self,
         request: Request<NewCutRequest>,
@@ -26,8 +26,11 @@ impl KnitterServer {
         let role_group = auth::get_current_role(metadata).unwrap();
 
         let name = &request.get_ref().name;
+        let sequence_id = &request.get_ref().sequence_id;
+        let description = &request.get_ref().description;
+        let template_id = &request.get_ref().template_id;
 
-       if !view::can_collection_write(&account_id, &role_group, &PROJECTS_MANAGE_ID.to_string())
+       if !view::can_collection_write(&account_id, &role_group, &CUTS_MANAGE_ID.to_string())
             .await
         {
             return Err(Status::unauthenticated("用户不具有可写权限"));
@@ -40,7 +43,7 @@ impl KnitterServer {
 
         let majordomo_arc = get_majordomo().await;
         let manager = majordomo_arc
-            .get_manager_by_id(PROJECTS_MANAGE_ID)
+            .get_manager_by_id(CUTS_MANAGE_ID)
             .await
             .unwrap();
 
@@ -52,11 +55,20 @@ impl KnitterServer {
             NAME_MAP_FIELD_ID.to_string(),
             doc! {name.language.clone():name.name.clone()},
         );
-        
+        new_entity_doc.insert(
+            CUTS_SEQUENCE_ID_FIELD_ID.to_string(),
+            sequence_id.clone()
+        );
+        new_entity_doc.insert(
+            DESCRIPTIONS_FIELD_ID.to_string(),
+            description.clone()
+        );
 
         let result = manager
             .sink_entity(&mut new_entity_doc, &account_id, &role_group)
             .await;
+
+        //TODO: 发出新镜头事件
 
         match result {
             Ok(_r) => Ok(Response::new(NewCutResponse {

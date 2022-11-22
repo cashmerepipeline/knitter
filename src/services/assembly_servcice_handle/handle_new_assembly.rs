@@ -14,7 +14,7 @@ use crate::services::protocol::*;
 use crate::services::KnitterServer;
 
 impl KnitterServer {
-    /// 新建产品
+    /// 新建
     pub(crate) async fn handle_new_assembly(
         &self,
         request: Request<NewAssemblyRequest>,
@@ -25,9 +25,12 @@ impl KnitterServer {
         let (account_id, groups) = auth::get_claims_account_and_roles(&token).unwrap();
         let role_group = auth::get_current_role(metadata).unwrap();
 
+        let library_id = &request.get_ref().library_id;
         let name = &request.get_ref().name;
+        let description = &request.get_ref().description;
+        let template_id = &request.get_ref().template_id;
 
-       if !view::can_collection_write(&account_id, &role_group, &ASSEMBLIES_MANAGE_ID.to_string())
+        if !view::can_collection_write(&account_id, &role_group, &ASSEMBLIES_MANAGE_ID.to_string())
             .await
         {
             return Err(Status::unauthenticated("用户不具有可写权限"));
@@ -52,7 +55,11 @@ impl KnitterServer {
             NAME_MAP_FIELD_ID.to_string(),
             doc! {name.language.clone():name.name.clone()},
         );
-        
+        new_entity_doc.insert(
+            ASSEMBLIES_LIBRARY_ID_FIELD_ID.to_string(),
+            library_id.clone(),
+        );
+        new_entity_doc.insert(DESCRIPTIONS_FIELD_ID.to_string(), description.clone());
 
         let result = manager
             .sink_entity(&mut new_entity_doc, &account_id, &role_group)
@@ -60,6 +67,7 @@ impl KnitterServer {
 
         match result {
             Ok(_r) => Ok(Response::new(NewAssemblyResponse {
+                // TODO: 发出新组合件事件, template_id + ctx
                 result: "ok".to_string(),
             })),
             Err(e) => Err(Status::aborted(format!(
@@ -70,5 +78,3 @@ impl KnitterServer {
         }
     }
 }
-
-

@@ -6,9 +6,10 @@ import "name.proto";
 // 新项目
 message NewLibraryRequest{
   cashmere.Name name = 1;
-  string local_root = 2;
-  string remote_root = 3;
+  string inner_root_path = 2;
+  string external_root_path = 3;
   bytes picture = 4;
+  string description = 5;
 }
 message NewLibraryResponse {
   // 成功返回项目id

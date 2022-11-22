@@ -2,25 +2,27 @@
    初始化管理器表
 */
 
-use cash_core::view_rules;
 use log::info;
 use managers::{
-    countries_manager,
-    language_codes_manager,
-    phone_area_codes_manager,
-    accounts_manager, areas_manager, comments_manager, datas_manager, groups_manager,
-    manages_manager, messages_manager, persons_manager, view_rules_manager,
+    accounts_manager, areas_manager, comments_manager, countries_manager, datas_manager,
+    groups_manager, language_codes_manager, manages_manager, messages_manager, persons_manager,
+    phone_area_codes_manager, view_rules_manager,
+};
+
+use crate::managers::{
+    assemblies_manager, assets_manager, cuts_manager, epics_manager, libraries_manager,
+    projects_manager, sequences_manager, sets_manager,
 };
 
 use super::KnitterServer;
 use managers::traits::ManagerTrait;
 use view::view_rules_map;
 
-
 ///初始化
 impl KnitterServer {
     pub async fn init_managers(&self) {
         let manager_arcs = vec![
+            // common services
             manages_manager::get_manager().await,
             countries_manager::get_manager().await,
             areas_manager::get_manager().await,
@@ -33,6 +35,15 @@ impl KnitterServer {
             datas_manager::get_manager().await,
             messages_manager::get_manager().await,
             comments_manager::get_manager().await,
+            // knitter system
+            projects_manager::get_manager().await,
+            libraries_manager::get_manager().await,
+            sets_manager::get_manager().await,
+            assemblies_manager::get_manager().await,
+            assets_manager::get_manager().await,
+            epics_manager::get_manager().await,
+            sequences_manager::get_manager().await,
+            cuts_manager::get_manager().await,
         ];
 
         // 显示加载的管理

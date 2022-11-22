@@ -26,8 +26,11 @@ impl KnitterServer {
         let role_group = auth::get_current_role(metadata).unwrap();
 
         let name = &request.get_ref().name;
+        let inner_root_path = &request.get_ref().inner_root_path;
+        let external_root_path = &request.get_ref().external_root_path;
+        let picture = &request.get_ref().picture;
 
-       if !view::can_collection_write(&account_id, &role_group, &PROJECTS_MANAGE_ID.to_string())
+        if !view::can_collection_write(&account_id, &role_group, &PROJECTS_MANAGE_ID.to_string())
             .await
         {
             return Err(Status::unauthenticated("用户不具有可写权限"));
@@ -52,7 +55,18 @@ impl KnitterServer {
             NAME_MAP_FIELD_ID.to_string(),
             doc! {name.language.clone():name.name.clone()},
         );
-        
+        new_entity_doc.insert(
+            PROJECTS_INNER_ROOT_PATH_FIELD_ID.to_string(),
+            inner_root_path.clone(),
+        );
+        new_entity_doc.insert(
+            PROJECTS_EXTERNAL_ROOT_PATH_FIELD_ID.to_string(),
+            external_root_path.clone(),
+        );
+        new_entity_doc.insert(
+            PROJECTS_PICTURE_FIELD_ID.to_string(),
+            bson::to_bson(picture).unwrap(),
+        );
 
         let result = manager
             .sink_entity(&mut new_entity_doc, &account_id, &role_group)
@@ -60,6 +74,7 @@ impl KnitterServer {
 
         match result {
             Ok(_r) => Ok(Response::new(NewProjectResponse {
+                // TODO: 发送新建事件
                 result: "ok".to_string(),
             })),
             Err(e) => Err(Status::aborted(format!(
@@ -70,5 +85,3 @@ impl KnitterServer {
         }
     }
 }
-
-

@@ -48,11 +48,13 @@ pub struct NewLibraryRequest {
     #[prost(message, optional, tag="1")]
     pub name: ::core::option::Option<::manage_define::cashmere::Name>,
     #[prost(string, tag="2")]
-    pub local_root: ::prost::alloc::string::String,
+    pub inner_root_path: ::prost::alloc::string::String,
     #[prost(string, tag="3")]
-    pub remote_root: ::prost::alloc::string::String,
+    pub external_root_path: ::prost::alloc::string::String,
     #[prost(bytes="vec", tag="4")]
     pub picture: ::prost::alloc::vec::Vec<u8>,
+    #[prost(string, tag="5")]
+    pub description: ::prost::alloc::string::String,
 }
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct NewLibraryResponse {
@@ -98,14 +100,14 @@ pub struct NewAssemblyResponse {
 }
 /// 更新资产到组
 #[derive(Clone, PartialEq, ::prost::Message)]
-pub struct UpdateAssetsRequest {
+pub struct UpdateAssemblyRequest {
     #[prost(string, tag="1")]
     pub assembly_id: ::prost::alloc::string::String,
     #[prost(string, repeated, tag="2")]
     pub asset_ids: ::prost::alloc::vec::Vec<::prost::alloc::string::String>,
 }
 #[derive(Clone, PartialEq, ::prost::Message)]
-pub struct UpdateAssetsResponse {
+pub struct UpdateAssemblyResponse {
     #[prost(string, tag="1")]
     pub result: ::prost::alloc::string::String,
 }
@@ -188,6 +190,24 @@ pub struct UpdateReferencedAssetsRequest {
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct UpdateReferencedAssetsResponse {
     /// 成功返回"ok"
+    #[prost(string, tag="1")]
+    pub result: ::prost::alloc::string::String,
+}
+/// 新建镜头
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct NewCutRequest {
+    #[prost(string, tag="1")]
+    pub sequence_id: ::prost::alloc::string::String,
+    #[prost(message, optional, tag="2")]
+    pub name: ::core::option::Option<::manage_define::cashmere::Name>,
+    #[prost(string, tag="3")]
+    pub description: ::prost::alloc::string::String,
+    #[prost(string, tag="4")]
+    pub template_id: ::prost::alloc::string::String,
+}
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct NewCutResponse {
+    /// 成功返回新id
     #[prost(string, tag="1")]
     pub result: ::prost::alloc::string::String,
 }
@@ -443,6 +463,46 @@ pub mod knitter_grpc_server {
                 tonic::Streaming<::manage_define::cashmere::FileDataUploadFileRequest>,
             >,
         ) -> Result<tonic::Response<Self::FileDataUploadFileStream>, tonic::Status>;
+        /// 项目
+        async fn new_project(
+            &self,
+            request: tonic::Request<super::NewProjectRequest>,
+        ) -> Result<tonic::Response<super::NewProjectResponse>, tonic::Status>;
+        /// 库
+        async fn new_library(
+            &self,
+            request: tonic::Request<super::NewLibraryRequest>,
+        ) -> Result<tonic::Response<super::NewLibraryResponse>, tonic::Status>;
+        /// 资产
+        async fn new_asset(
+            &self,
+            request: tonic::Request<super::NewAssetRequest>,
+        ) -> Result<tonic::Response<super::NewAssetResponse>, tonic::Status>;
+        /// 组合
+        async fn new_assembly(
+            &self,
+            request: tonic::Request<super::NewAssemblyRequest>,
+        ) -> Result<tonic::Response<super::NewAssemblyResponse>, tonic::Status>;
+        /// 集
+        async fn new_epic(
+            &self,
+            request: tonic::Request<super::NewEpicRequest>,
+        ) -> Result<tonic::Response<super::NewEpicResponse>, tonic::Status>;
+        /// 章节
+        async fn new_sequence(
+            &self,
+            request: tonic::Request<super::NewSequenceRequest>,
+        ) -> Result<tonic::Response<super::NewSequenceResponse>, tonic::Status>;
+        /// 镜头
+        async fn new_cut(
+            &self,
+            request: tonic::Request<super::NewCutRequest>,
+        ) -> Result<tonic::Response<super::NewCutResponse>, tonic::Status>;
+        /// 景
+        async fn new_set(
+            &self,
+            request: tonic::Request<super::NewSetRequest>,
+        ) -> Result<tonic::Response<super::NewSetResponse>, tonic::Status>;
     }
     #[derive(Debug)]
     pub struct KnitterGrpcServer<T: KnitterGrpc> {
@@ -1682,6 +1742,314 @@ pub mod knitter_grpc_server {
                                 send_compression_encodings,
                             );
                         let res = grpc.streaming(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/io.knitter.KnitterGrpc/NewProject" => {
+                    #[allow(non_camel_case_types)]
+                    struct NewProjectSvc<T: KnitterGrpc>(pub Arc<T>);
+                    impl<
+                        T: KnitterGrpc,
+                    > tonic::server::UnaryService<super::NewProjectRequest>
+                    for NewProjectSvc<T> {
+                        type Response = super::NewProjectResponse;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::NewProjectRequest>,
+                        ) -> Self::Future {
+                            let inner = self.0.clone();
+                            let fut = async move { (*inner).new_project(request).await };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let inner = inner.0;
+                        let method = NewProjectSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/io.knitter.KnitterGrpc/NewLibrary" => {
+                    #[allow(non_camel_case_types)]
+                    struct NewLibrarySvc<T: KnitterGrpc>(pub Arc<T>);
+                    impl<
+                        T: KnitterGrpc,
+                    > tonic::server::UnaryService<super::NewLibraryRequest>
+                    for NewLibrarySvc<T> {
+                        type Response = super::NewLibraryResponse;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::NewLibraryRequest>,
+                        ) -> Self::Future {
+                            let inner = self.0.clone();
+                            let fut = async move { (*inner).new_library(request).await };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let inner = inner.0;
+                        let method = NewLibrarySvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/io.knitter.KnitterGrpc/NewAsset" => {
+                    #[allow(non_camel_case_types)]
+                    struct NewAssetSvc<T: KnitterGrpc>(pub Arc<T>);
+                    impl<
+                        T: KnitterGrpc,
+                    > tonic::server::UnaryService<super::NewAssetRequest>
+                    for NewAssetSvc<T> {
+                        type Response = super::NewAssetResponse;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::NewAssetRequest>,
+                        ) -> Self::Future {
+                            let inner = self.0.clone();
+                            let fut = async move { (*inner).new_asset(request).await };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let inner = inner.0;
+                        let method = NewAssetSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/io.knitter.KnitterGrpc/NewAssembly" => {
+                    #[allow(non_camel_case_types)]
+                    struct NewAssemblySvc<T: KnitterGrpc>(pub Arc<T>);
+                    impl<
+                        T: KnitterGrpc,
+                    > tonic::server::UnaryService<super::NewAssemblyRequest>
+                    for NewAssemblySvc<T> {
+                        type Response = super::NewAssemblyResponse;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::NewAssemblyRequest>,
+                        ) -> Self::Future {
+                            let inner = self.0.clone();
+                            let fut = async move {
+                                (*inner).new_assembly(request).await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let inner = inner.0;
+                        let method = NewAssemblySvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/io.knitter.KnitterGrpc/NewEpic" => {
+                    #[allow(non_camel_case_types)]
+                    struct NewEpicSvc<T: KnitterGrpc>(pub Arc<T>);
+                    impl<
+                        T: KnitterGrpc,
+                    > tonic::server::UnaryService<super::NewEpicRequest>
+                    for NewEpicSvc<T> {
+                        type Response = super::NewEpicResponse;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::NewEpicRequest>,
+                        ) -> Self::Future {
+                            let inner = self.0.clone();
+                            let fut = async move { (*inner).new_epic(request).await };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let inner = inner.0;
+                        let method = NewEpicSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/io.knitter.KnitterGrpc/NewSequence" => {
+                    #[allow(non_camel_case_types)]
+                    struct NewSequenceSvc<T: KnitterGrpc>(pub Arc<T>);
+                    impl<
+                        T: KnitterGrpc,
+                    > tonic::server::UnaryService<super::NewSequenceRequest>
+                    for NewSequenceSvc<T> {
+                        type Response = super::NewSequenceResponse;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::NewSequenceRequest>,
+                        ) -> Self::Future {
+                            let inner = self.0.clone();
+                            let fut = async move {
+                                (*inner).new_sequence(request).await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let inner = inner.0;
+                        let method = NewSequenceSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/io.knitter.KnitterGrpc/NewCut" => {
+                    #[allow(non_camel_case_types)]
+                    struct NewCutSvc<T: KnitterGrpc>(pub Arc<T>);
+                    impl<
+                        T: KnitterGrpc,
+                    > tonic::server::UnaryService<super::NewCutRequest>
+                    for NewCutSvc<T> {
+                        type Response = super::NewCutResponse;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::NewCutRequest>,
+                        ) -> Self::Future {
+                            let inner = self.0.clone();
+                            let fut = async move { (*inner).new_cut(request).await };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let inner = inner.0;
+                        let method = NewCutSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/io.knitter.KnitterGrpc/NewSet" => {
+                    #[allow(non_camel_case_types)]
+                    struct NewSetSvc<T: KnitterGrpc>(pub Arc<T>);
+                    impl<
+                        T: KnitterGrpc,
+                    > tonic::server::UnaryService<super::NewSetRequest>
+                    for NewSetSvc<T> {
+                        type Response = super::NewSetResponse;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::NewSetRequest>,
+                        ) -> Self::Future {
+                            let inner = self.0.clone();
+                            let fut = async move { (*inner).new_set(request).await };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let inner = inner.0;
+                        let method = NewSetSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            );
+                        let res = grpc.unary(method, req).await;
                         Ok(res)
                     };
                     Box::pin(fut)

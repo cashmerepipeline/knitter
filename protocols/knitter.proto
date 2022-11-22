@@ -34,6 +34,7 @@ import "assembly.proto";
 import "epic.proto";
 import "sequence.proto";
 import "set.proto";
+import "cut.proto";
 
 
 service KnitterGrpc{
@@ -84,6 +85,30 @@ service KnitterGrpc{
   rpc GetDataList(cashmere.GetDataListRequest) returns (cashmere.GetDataListResponse);
   rpc MarkDataRemoved(cashmere.MarkDataRemovedRequest) returns (cashmere.MarkDataRemovedResponse);
   rpc FileDataUploadFile(stream cashmere.FileDataUploadFileRequest) returns (stream cashmere.FileDataUploadFileResponse);
+
+  // 项目
+  rpc NewProject(NewProjectRequest) returns (NewProjectResponse);
+  
+  // 库
+  rpc NewLibrary(NewLibraryRequest) returns (NewLibraryResponse);
+
+  // 资产
+  rpc NewAsset(NewAssetRequest) returns (NewAssetResponse);
+
+  // 组合
+  rpc NewAssembly(NewAssemblyRequest) returns (NewAssemblyResponse);
+
+  // 集
+  rpc NewEpic(NewEpicRequest) returns (NewEpicResponse);
+
+  // 章节
+  rpc NewSequence(NewSequenceRequest) returns (NewSequenceResponse);
+
+  // 镜头
+  rpc NewCut(NewCutRequest) returns (NewCutResponse);
+
+  // 景
+  rpc NewSet(NewSetRequest) returns (NewSetResponse);
 
   // =====工作=====
   // 工作管理

@@ -17,10 +17,10 @@ message NewAssemblyResponse {
 
 
 // 更新资产到组
-message UpdateAssetsRequest {
+message UpdateAssemblyRequest {
   string assembly_id = 1;
   repeated string asset_ids = 2;
 }
-message UpdateAssetsResponse {
+message UpdateAssemblyResponse {
   string result = 1;
 }

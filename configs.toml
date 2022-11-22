@@ -20,9 +20,25 @@ login_limit = 2
 events_dbs_dir = "events_dbs"
 
 # 默认语音
-lang_code = "Cn"
+lang_code = "zn"
+
+# 日志位置
+log_dir = "log"
 
 [tls]
 server_key_path = "tls/server.key"
 server_ca_path = "tls/server.crt"
 client_ca_path = "tls/client.crt"
+
+[data]
+root = "data_root"
+# 文件最大大小, 16MB
+max_file_size = 16777216
+# 文件集最大数量, 1000
+max_set_file_number = 1000
+# 文件序列最大数量
+max_sequence_file_number = 7200
+# 块最大大小，1024*128=128KB
+max_chunk_size = 131072
+
+
