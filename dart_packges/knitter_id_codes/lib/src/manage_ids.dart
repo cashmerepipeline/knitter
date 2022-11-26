@@ -5,4 +5,5 @@ const int SETS_MANAGE_ID = 20004;
 const int SEQUENCES_MANAGE_ID = 20005; 
 const int CUTS_MANAGE_ID = 20006; 
 const int EPICS_MANAGE_ID = 20007; 
+const int SPECSES_MANAGE_ID = 20009; 
 const int ASSEMBLIES_MANAGE_ID = 20008; 
