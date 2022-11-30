@@ -4,6 +4,7 @@ use manage_define::general_field_ids::{
     DESCRIPTIONS_FIELD_ID, ID_FIELD_ID, NAME_MAP_FIELD_ID, TAGS_FIELD_ID,
 };
 use managers::traits::ManagerTrait;
+use managers::utils::make_new_entity_document;
 use service_common_handles::name_utils::validate_name;
 use service_common_handles::UnaryResponseResult;
 use tonic::{Request, Response, Status};
@@ -47,41 +48,47 @@ impl KnitterServer {
             .await
             .unwrap();
 
-        // 新建条目
-        let new_id = manager.get_new_entity_id().await.unwrap();
-        let mut new_entity_doc = Document::new();
-        new_entity_doc.insert(ID_FIELD_ID.to_string(), new_id.to_string());
-        new_entity_doc.insert(
-            NAME_MAP_FIELD_ID.to_string(),
-            doc! {name.language.clone():name.name.clone()},
-        );
-        new_entity_doc.insert(
-            PROJECTS_INNER_ROOT_PATH_FIELD_ID.to_string(),
-            inner_root_path.clone(),
-        );
-        new_entity_doc.insert(
-            PROJECTS_EXTERNAL_ROOT_PATH_FIELD_ID.to_string(),
-            external_root_path.clone(),
-        );
-        new_entity_doc.insert(
-            PROJECTS_PICTURE_FIELD_ID.to_string(),
-            bson::to_bson(picture).unwrap(),
-        );
+        // 新建
+        if let Some(mut new_entity_doc) = make_new_entity_document(&manager).await {
+            let new_id = new_entity_doc
+                .get_str(ID_FIELD_ID.to_string())
+                .unwrap()
+                .to_owned();
 
-        let result = manager
-            .sink_entity(&mut new_entity_doc, &account_id, &role_group)
-            .await;
+            new_entity_doc.insert(
+                NAME_MAP_FIELD_ID.to_string(),
+                doc! {name.language.clone():name.name.clone()},
+            );
+            new_entity_doc.insert(
+                PROJECTS_INNER_ROOT_PATH_FIELD_ID.to_string(),
+                inner_root_path.clone(),
+            );
+            new_entity_doc.insert(
+                PROJECTS_EXTERNAL_ROOT_PATH_FIELD_ID.to_string(),
+                external_root_path.clone(),
+            );
+            new_entity_doc.insert(
+                PROJECTS_PICTURE_FIELD_ID.to_string(),
+                bson::to_bson(picture).unwrap(),
+            );
 
-        match result {
-            Ok(_r) => Ok(Response::new(NewProjectResponse {
-                // TODO: 发送新建事件
-                result: "ok".to_string(),
-            })),
-            Err(e) => Err(Status::aborted(format!(
-                "{} {}",
-                e.operation(),
-                e.details()
-            ))),
+            let result = manager
+                .sink_entity(&mut new_entity_doc, &account_id, &role_group)
+                .await;
+
+            match result {
+                Ok(_r) => Ok(Response::new(NewProjectResponse {
+                    // TODO: 发送新建事件
+                    result: new_id.to_string(),
+                })),
+                Err(e) => Err(Status::aborted(format!(
+                    "{} {}",
+                    e.operation(),
+                    e.details()
+                ))),
+            }
+        } else {
+            return Err(Status::data_loss("新建工程实体失败."));
         }
     }
 }
