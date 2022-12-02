@@ -16,3 +16,22 @@ message NewLibraryResponse {
   string result = 1;
 }
 
+// 取得资产页
+message GetLibraryAssetsPageRequest {
+  string library_id = 1;
+  uint32 page_index = 2;
+  uint32 total_page_count = 3;
+}
+message GetLibraryAssetsPageResponse {
+  repeated bytes assets = 1;
+}
+
+// 取得组合页
+message GetLibraryAssembliesPageRequest {
+  string library_id = 1;
+  uint32 page_index = 2;
+  uint32 total_page_count = 3;
+}
+message GetLibraryAssembliesPageResponse {
+  repeated bytes assets = 1;
+}

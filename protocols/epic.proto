@@ -14,3 +14,12 @@ message NewEpicResponse {
   // 成功返回新id
   string result = 1;
 }
+
+
+// 取得集的章节
+message GetEpicSequencesRequest{
+  string epic_id = 1;
+}
+message GetEpicSequencesResponse {
+  repeated bytes sequences = 1;
+}

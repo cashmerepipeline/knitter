@@ -14,3 +14,31 @@ message NewCutResponse {
   // 成功返回新id
   string result = 1;
 }
+
+// 引用资产
+message CutReferenceAssetsRequest {
+  string cut_id = 1;
+  repeated string asset_ids = 2;
+}
+message CutReferenceAssetsResponse {
+  // 成功返回  "ok"
+  string result = 1;
+}
+
+// 引用景
+message CutRefereceSetsRequest { string cut_id = 1; }
+message CutRefereceSetsResponse {
+  // 成功返回 "ok"
+  string result = 1;
+}
+
+// 标记状态
+message MarkCutStatusRequest { string cut_id = 1; }
+message MarkCutStatusResponse {
+  // 成功返回  "ok"
+  string result = 1;
+}
+
+// 取得引用的资产
+message GetCutReferencedAssetsRequest { string cut_id = 1; }
+message GetCutReferencedAssetsResponse { repeated bytes assets = 1; }

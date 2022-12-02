@@ -20,14 +20,15 @@ pub struct NewProjectResponse {
 }
 /// 关联库到项目
 #[derive(Clone, PartialEq, ::prost::Message)]
-pub struct AssociateLibraryRequest {
+pub struct AssociateLibrariesToProjectRequest {
     #[prost(string, tag="1")]
     pub project_id: ::prost::alloc::string::String,
     #[prost(string, tag="2")]
     pub library_ids: ::prost::alloc::string::String,
 }
 #[derive(Clone, PartialEq, ::prost::Message)]
-pub struct AssociateLibraryResponse {
+pub struct AssociateLibrariesToProjectResponse {
+    /// "ok" if succeed
     #[prost(string, tag="1")]
     pub result: ::prost::alloc::string::String,
 }
@@ -468,6 +469,13 @@ pub mod knitter_grpc_server {
             &self,
             request: tonic::Request<super::NewProjectRequest>,
         ) -> Result<tonic::Response<super::NewProjectResponse>, tonic::Status>;
+        async fn associate_libraries_to_project(
+            &self,
+            request: tonic::Request<super::AssociateLibrariesToProjectRequest>,
+        ) -> Result<
+            tonic::Response<super::AssociateLibrariesToProjectResponse>,
+            tonic::Status,
+        >;
         /// 库
         async fn new_library(
             &self,
@@ -1773,6 +1781,49 @@ pub mod knitter_grpc_server {
                     let fut = async move {
                         let inner = inner.0;
                         let method = NewProjectSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/io.knitter.KnitterGrpc/AssociateLibrariesToProject" => {
+                    #[allow(non_camel_case_types)]
+                    struct AssociateLibrariesToProjectSvc<T: KnitterGrpc>(pub Arc<T>);
+                    impl<
+                        T: KnitterGrpc,
+                    > tonic::server::UnaryService<
+                        super::AssociateLibrariesToProjectRequest,
+                    > for AssociateLibrariesToProjectSvc<T> {
+                        type Response = super::AssociateLibrariesToProjectResponse;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<
+                                super::AssociateLibrariesToProjectRequest,
+                            >,
+                        ) -> Self::Future {
+                            let inner = self.0.clone();
+                            let fut = async move {
+                                (*inner).associate_libraries_to_project(request).await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let inner = inner.0;
+                        let method = AssociateLibrariesToProjectSvc(inner);
                         let codec = tonic::codec::ProstCodec::default();
                         let mut grpc = tonic::server::Grpc::new(codec)
                             .apply_compression_config(

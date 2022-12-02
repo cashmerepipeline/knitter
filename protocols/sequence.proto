@@ -14,3 +14,11 @@ message NewSequenceResponse {
   // 成功返回新id
   string result = 1;
 }
+
+// 取得章节的镜头表
+message GetSequenceCutsRequest {
+  string sequence_id = 1;
+}
+message GetSequenceCutsResponse {
+  repeated bytes cuts = 1;
+}

@@ -88,34 +88,50 @@ service KnitterGrpc{
 
   // 项目
   rpc NewProject(NewProjectRequest) returns (NewProjectResponse);
-  
+  rpc AssociateLibrariesToProject(AssociateLibrariesToProjectRequest) returns (AssociateLibrariesToProjectResponse);
+  rpc GetProjectAssociatedLibraries(GetProjectAssociatedLibrariesRequest) returns (GetProjectAssociatedLibrariesResponse);
+  rpc GetProjectSets(GetProjectSetsRequest) returns (GetProjectSetsResponse);
+
   // 库
   rpc NewLibrary(NewLibraryRequest) returns (NewLibraryResponse);
+  rpc GetAssociatedAssetsPage(GetLibraryAssetsPageRequest) returns (GetLibraryAssetsPageResponse);
+  rpc GetAssociatedAssembliesPage(GetLibraryAssembliesPageRequest) returns (GetLibraryAssembliesPageResponse);
 
   // 资产
   rpc NewAsset(NewAssetRequest) returns (NewAssetResponse);
+  rpc GetAssetSpecses(GetAssetSpecsesRequest) returns (GetAssetSpecsesResponse);
+  rpc GetAssetPrefabs(GetAssetPrefabsRequest) returns (GetAssetPrefabsResponse);
+  rpc ReferenceAssets(ReferenceAssetsRequest) returns (ReferenceAssetsResponse);
+  rpc MartAssetSatus(MarkAssetStatusRequest) returns (MarkAssetStatusResponse);
 
   // 组合
   rpc NewAssembly(NewAssemblyRequest) returns (NewAssemblyResponse);
+  rpc ReferenceAssemblies(ReferenceAssembliesRequest) returns (ReferenceAssembliesResponse);
 
   // 集
   rpc NewEpic(NewEpicRequest) returns (NewEpicResponse);
+  rpc GetEpicSequences(GetEpicSequencesRequest) returns (GetEpicSequencesResponse);
 
   // 章节
   rpc NewSequence(NewSequenceRequest) returns (NewSequenceResponse);
+  rpc GetSequenceCuts(GetSequenceCutsRequest) returns (GetSequenceCutsResponse);
 
   // 镜头
   rpc NewCut(NewCutRequest) returns (NewCutResponse);
+  rpc GetCutReferencedAssets(GetCutReferencedAssetsRequest) returns (GetCutReferencedAssetsResponse);
+  rpc MarkCutStatus(MarkCutStatusRequest) returns (MarkCutStatusResponse);
 
   // 景
   rpc NewSet(NewSetRequest) returns (NewSetResponse);
+  rpc ReferenceSets(ReferenceSetsRequest) returns (ReferenceSetsResponse);
+  rpc MartSetSatus(MarkSetStatusRequest) returns (MarkSetStatusResponse);
 
   // =====工作=====
   // 工作管理
   // rpc NewWork(cashmere.NewWorkRequest) returns (cashmere.NewWorkResponse);
   // rpc NewPhaseForWork(cashmere.NewPhaseForWorkRequest) returns (cashmere.NewPhaseForWorkResponse);
   // rpc NewWorkNodeForProcedureGraph(cashmere.NewWorkNodeForProcedureGraphRequest) returns (cashmere.NewWorkNodeForProcedureGraphResponse);
-  
+
   // 指派工作
   // rpc AssignWorkNodeToWorker(cashmere.AssignWorkNodeToWorkerRequest) returns (cashmere.AssignWorkNodeToWorkerResponse);
 

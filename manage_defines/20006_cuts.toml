@@ -9,6 +9,7 @@ name_map = { zh = "镜", en = "cuts" }
 schema = [
     { data_type = "String", name_map = { zh = "场编号", en = "sequence_id"}, removed = false },
     { data_type = "String", name_map = { zh = "根目录", en = "root"}, removed = false },
+    { data_type = "List", name_map = { zh = "引用资产表", en = "referenced_asset_ids"}, removed = false },
 
     # done, suspending, cancal
     { data_type = "String", name_map = { zh = "状态", en = "status"}, removed = false },

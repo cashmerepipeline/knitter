@@ -18,20 +18,45 @@ message NewProjectResponse {
 
 
 // 关联库到项目
-message AssociateLibraryRequest {
+message AssociateLibrariesToProjectRequest {
   string project_id = 1;
   string library_ids = 2;
 }
-message AssociateLibraryResponse {
+message AssociateLibrariesToProjectResponse {
+  // "ok" if succeed
   string result = 1;
 }
 
 
 // 标记项目已经完成
-message MarkProjectFinishedRequest {
+message MarkProjectStatusRequest {
   string project_id = 1;
 }
-message MarkProjectFinishedResponse {
+message MarkProjectStatusResponse {
   string result = 1;
 }
 
+// 取得关联库表
+message GetProjectAssociatedLibrariesRequest {
+  string project_id = 1;
+  repeated string library_ids = 2;
+}
+message GetProjectAssociatedLibrariesResponse {
+  repeated bytes libraries = 1;
+}
+
+// 取得项目景表
+message GetProjectSetsRequest {
+  string project_id = 1;
+}
+message GetProjectSetsResponse {
+  repeated bytes sets = 1;
+}
+
+// 取得项目集表
+message GetProjectEpicsRequest {
+  string project_id = 1;
+}
+message GetProjectEpicsResponse {
+  repeated bytes epics = 1;
+}

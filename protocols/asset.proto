@@ -15,4 +15,30 @@ message NewAssetResponse {
   string result = 1;
 }
 
+// 取得资产规格表
+message GetAssetSpecsesRequest { string asset_id = 1; }
+message GetAssetSpecsesResponse { repeated bytes specses = 1; }
 
+// 取得资产预制件表
+message GetAssetPrefabsRequest { string asset_id = 1; }
+message GetAssetPrefabsResponse { repeated bytes prefabs = 1; }
+
+// 引用
+message ReferenceAssetsRequest {
+  // 主管理编号
+  int32 manage_id = 1;
+  // 主实体
+  string entity_id = 2;
+  repeated string asset_ids = 3;
+}
+message ReferenceAssetsResponse {
+  // 成功返回 "ok"
+  string result = 1;
+}
+
+// 标记状态
+message MarkAssetStatusRequest { string asset_id = 1; }
+message MarkAssetStatusResponse {
+  // 成功返回  "ok"
+  string result = 1;
+}

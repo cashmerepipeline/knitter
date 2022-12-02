@@ -17,20 +17,40 @@ message NewSetResponse {
 
 // 添加引用资产
 message ReferencAssetsRequest {
-    string set_id = 1;
-    repeated string asset_id = 2;
-  }
+  string set_id = 1;
+  repeated string asset_id = 2;
+}
 message ReferencAssetsResponse{
   // 成功返回"ok"
-    string result = 1;
-  }
+  string result = 1;
+}
 
 // 更新引用资产
 message UpdateReferencedAssetsRequest {
-    string set_id = 1;
-    repeated string asset_ids = 2;
-  }
+  string set_id = 1;
+  repeated string asset_ids = 2;
+}
 message UpdateReferencedAssetsResponse{
   // 成功返回"ok"
-    string result = 1;
-  }
+  string result = 1;
+}
+
+// 引用
+message ReferenceSetsRequest {
+  // 主管理编号
+  int32 manage_id = 1;
+  // 主实体
+  string entity_id = 2;
+  repeated string set_ids = 3;
+}
+message ReferenceSetsResponse {
+  // 成功返回 "ok"
+  string result = 1;
+}
+
+// 标记状态
+message MarkSetStatusRequest { string set_id = 1; }
+message MarkSetStatusResponse {
+  // 成功返回  "ok"
+  string result = 1;
+}

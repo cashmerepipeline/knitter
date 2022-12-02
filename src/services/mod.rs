@@ -5,8 +5,8 @@ Desc: 服务模块
 Created:  2021-01-17T04:31:08.729Z
 Modified: !date!
 */
-use tonic::{Request, Response, Status, Streaming};
 use manage_define::cashmere::*;
+use tonic::{Request, Response, Status, Streaming};
 
 use service_common_handles::view_rules_service_handles::{
     HandleChangeCollectionReadrule, HandleChangeCollectionWriteRule, HandleChangeFieldReadrule,
@@ -34,15 +34,15 @@ use service_common_handles::{
     view_rules_service_handles::HandleChangeManageReadrule,
 };
 
-mod init;
-mod project_servcice_handle;
 mod assembly_servcice_handle;
 mod assets_servcice_handle;
 mod cut_servcice_handle;
 mod epic_servcice_handle;
+mod init;
 mod library_servcice_handle;
-mod sets_servcice_handle;
+mod project_servcice_handle;
 mod sequence_servcice_handle;
+mod sets_servcice_handle;
 
 pub mod protocol {
     include!("./io.knitter.rs");
@@ -50,7 +50,14 @@ pub mod protocol {
 
 // use protocol::{LoginRequest, LoginResponse, NewManageRequest, NewManageResponse};
 use crate::services::protocol::knitter_grpc_server::KnitterGrpc;
-use crate::services::protocol::{NewAssemblyRequest, NewAssemblyResponse, NewAssetRequest, NewAssetResponse, NewCutRequest, NewCutResponse, NewEpicRequest, NewEpicResponse, NewLibraryRequest, NewLibraryResponse, NewProjectRequest, NewProjectResponse, NewSequenceRequest, NewSequenceResponse, NewSetRequest, NewSetResponse};
+use crate::services::protocol::{
+    NewAssemblyRequest, NewAssemblyResponse, NewAssetRequest, NewAssetResponse, NewCutRequest,
+    NewCutResponse, NewEpicRequest, NewEpicResponse, NewLibraryRequest, NewLibraryResponse,
+    NewProjectRequest, NewProjectResponse, NewSequenceRequest, NewSequenceResponse, NewSetRequest,
+    NewSetResponse,
+};
+
+use self::protocol::{AssociateLibrariesToProjectRequest, AssociateLibrariesToProjectResponse};
 
 /// 管理服务
 #[derive(Default)]
@@ -101,7 +108,6 @@ impl HandleNewLanguageName for KnitterServer {}
 impl HandleNewData for KnitterServer {}
 impl HandleFileDataUploadFile for KnitterServer {}
 impl HandleGetDataList for KnitterServer {}
-
 
 #[tonic::async_trait]
 impl KnitterGrpc for KnitterServer {
@@ -305,35 +311,66 @@ impl KnitterGrpc for KnitterServer {
         self.handle_file_data_upload_file(request).await
     }
 
-    async fn new_project(&self, request: Request<NewProjectRequest>) -> Result<Response<NewProjectResponse>, Status> {
+    async fn new_project(
+        &self,
+        request: Request<NewProjectRequest>,
+    ) -> Result<Response<NewProjectResponse>, Status> {
         self.handle_new_project(request).await
     }
 
-    async fn new_library(&self, request: Request<NewLibraryRequest>) -> Result<Response<NewLibraryResponse>, Status> {
+    async fn associate_libraries_to_project(
+        &self,
+        request: Request<AssociateLibrariesToProjectRequest>,
+    ) -> Result<Response<AssociateLibrariesToProjectResponse>, Status> {
+        self.handle_associate_libraries_to_project(request).await
+    }
+
+    async fn new_library(
+        &self,
+        request: Request<NewLibraryRequest>,
+    ) -> Result<Response<NewLibraryResponse>, Status> {
         self.handle_new_library(request).await
     }
 
-    async fn new_asset(&self, request: Request<NewAssetRequest>) -> Result<Response<NewAssetResponse>, Status> {
+    async fn new_asset(
+        &self,
+        request: Request<NewAssetRequest>,
+    ) -> Result<Response<NewAssetResponse>, Status> {
         self.handle_new_asset(request).await
     }
 
-    async fn new_assembly(&self, request: Request<NewAssemblyRequest>) -> Result<Response<NewAssemblyResponse>, Status> {
+    async fn new_assembly(
+        &self,
+        request: Request<NewAssemblyRequest>,
+    ) -> Result<Response<NewAssemblyResponse>, Status> {
         self.handle_new_assembly(request).await
     }
 
-    async fn new_epic(&self, request: Request<NewEpicRequest>) -> Result<Response<NewEpicResponse>, Status> {
+    async fn new_epic(
+        &self,
+        request: Request<NewEpicRequest>,
+    ) -> Result<Response<NewEpicResponse>, Status> {
         self.handle_new_epic(request).await
     }
 
-    async fn new_sequence(&self, request: Request<NewSequenceRequest>) -> Result<Response<NewSequenceResponse>, Status> {
+    async fn new_sequence(
+        &self,
+        request: Request<NewSequenceRequest>,
+    ) -> Result<Response<NewSequenceResponse>, Status> {
         self.handle_new_sequence(request).await
     }
 
-    async fn new_cut(&self, request: Request<NewCutRequest>) -> Result<Response<NewCutResponse>, Status> {
+    async fn new_cut(
+        &self,
+        request: Request<NewCutRequest>,
+    ) -> Result<Response<NewCutResponse>, Status> {
         self.handle_new_cut(request).await
     }
 
-    async fn new_set(&self, request: Request<NewSetRequest>) -> Result<Response<NewSetResponse>, Status> {
+    async fn new_set(
+        &self,
+        request: Request<NewSetRequest>,
+    ) -> Result<Response<NewSetResponse>, Status> {
         self.handle_new_set(request).await
     }
 }

@@ -1,7 +1,7 @@
 [database]
 address = "127.0.0.1"
 port = 27017
-name = "knitter_db"
+name = "knitter"
 
 [server]
 root_dir = "."
@@ -11,7 +11,7 @@ port = "8800"
 # 管理插件位置
 managers_path = ["target/debug"]
 
-# 加密
+# 账户
 use_tls = false
 secret_code = "$camshere*soft*warm*smooth*beauty$"
 login_limit = 2
@@ -20,7 +20,7 @@ login_limit = 2
 events_dbs_dir = "events_dbs"
 
 # 默认语音
-lang_code = "zn"
+language_code = "zh"
 
 # 日志位置
 log_dir = "log"
