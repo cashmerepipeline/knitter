@@ -1,19 +1,15 @@
 #
-# 景，环境，能被多个工程章节引用
+# 景集合
 #
 
 id = 20004
-name_map = { zh = "景", en = "sets" }
+name_map = { zh = "景", en = "set_collections" }
 
 # 数据描写 或者 模式
 schema = [
-    { data_type = "List", name_map = { zh = "引用资产表", en = "referenced_asset_ids"}, removed = false },
-    { data_type = "List", name_map = { zh = "引用资产表", en = "referenced_assembly_ids"}, removed = false },
-    { data_type = "Map", name_map = { zh = "灯光系统", en = "lights"}, removed = false },
-
-    # done, suspending, cancal
-    { data_type = "String", name_map = { zh = "状态", en = "status"}, removed = false },
-    { data_type = "List", name_map = { zh = "预览", en = "previews"}, removed = false },
+    { data_type = "String", name_map = { zh = "根路径", en = "inner_root_path"}, removed = false },
+    { data_type = "String", name_map = { zh = "根路径", en = "external_root_path"}, removed = false },
+    { data_type = "List", name_map = { zh = "库目图片", en = "picture"}, removed = false },
 ]
 
 # 特有属性

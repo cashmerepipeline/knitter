@@ -18,11 +18,11 @@ message NewProjectResponse {
 
 
 // 关联库到项目
-message AssociateLibrariesToProjectRequest {
+message AssociateAssetCollectionsToProjectRequest {
   string project_id = 1;
-  string library_ids = 2;
+  string collection_ids = 2;
 }
-message AssociateLibrariesToProjectResponse {
+message AssociateAssetCollectionsToProjectResponse {
   // "ok" if succeed
   string result = 1;
 }
@@ -37,19 +37,20 @@ message MarkProjectStatusResponse {
 }
 
 // 取得关联库表
-message GetProjectAssociatedLibrariesRequest {
+message GetProjectAssociatedAssetCollectionsRequest {
   string project_id = 1;
-  repeated string library_ids = 2;
+  repeated string collection_ids = 2;
 }
-message GetProjectAssociatedLibrariesResponse {
-  repeated bytes libraries = 1;
+message GetProjectAssociatedAssetCollectionsResponse {
+  repeated bytes asset_collections = 1;
 }
 
 // 取得项目景表
-message GetProjectSetsRequest {
+message GetProjectAssociatedSetsRequest {
   string project_id = 1;
+  repeated string set_ids = 2;
 }
-message GetProjectSetsResponse {
+message GetProjectAssociatedSetsResponse {
   repeated bytes sets = 1;
 }
 

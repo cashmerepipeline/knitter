@@ -10,8 +10,8 @@ use managers::{
 };
 
 use crate::managers::{
-    assemblies_manager, assets_manager, cuts_manager, epics_manager, libraries_manager,
-    projects_manager, sequences_manager, sets_manager,
+    assemblies_manager, assets_manager, cuts_manager, epics_manager, 
+    projects_manager, sequences_manager, sets_manager, asset_collections_manager,
 };
 
 use super::KnitterServer;
@@ -37,7 +37,7 @@ impl KnitterServer {
             comments_manager::get_manager().await,
             // knitter system
             projects_manager::get_manager().await,
-            libraries_manager::get_manager().await,
+            asset_collections_manager::get_manager().await,
             sets_manager::get_manager().await,
             assemblies_manager::get_manager().await,
             assets_manager::get_manager().await,

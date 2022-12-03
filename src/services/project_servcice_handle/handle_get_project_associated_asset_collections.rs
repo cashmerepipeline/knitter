@@ -4,18 +4,18 @@ use managers::traits::ManagerTrait;
 use service_common_handles::UnaryResponseResult;
 use tonic::{Request, Response, Status};
 
-use crate::ids_codes::field_ids::*;
+use manage_define::general_field_ids::ID_FIELD_ID;
 use crate::ids_codes::manage_ids::*;
 use crate::services::protocol::*;
 use crate::services::KnitterServer;
-use manage_define::general_field_ids::ID_FIELD_ID;
+
 
 impl KnitterServer {
     /// 新建产品
-    pub(crate) async fn handle_associate_libraries_to_project(
+    pub(crate) async fn handle_get_project_associated_libraries(
         &self,
-        request: Request<AssociateLibrariesToProjectRequest>,
-    ) -> UnaryResponseResult<AssociateLibrariesToProjectResponse> {
+        request: Request<GetProjectAssociatedAssetCollectionsRequest>,
+    ) -> UnaryResponseResult<GetProjectAssociatedAssetCollectionsResponse> {
         let metadata = request.metadata();
         // 已检查过，不需要再检查正确性
         let token = auth::get_auth_token(metadata).unwrap();
@@ -23,36 +23,38 @@ impl KnitterServer {
         let role_group = auth::get_current_role(metadata).unwrap();
 
         let project_id = &request.get_ref().project_id;
-        let library_ids = &request.get_ref().library_ids;
+        let library_ids = &request.get_ref().collection_ids;
 
-        if !view::can_collection_write(&account_id, &role_group, &PROJECTS_MANAGE_ID.to_string())
+        if !view::can_collection_read(&account_id, &role_group, &PROJECTS_MANAGE_ID.to_string())
             .await
         {
-            return Err(Status::unauthenticated("用户不具有可写权限"));
+            return Err(Status::unauthenticated("用户不具有工程可读权限"));
         }
+        if !view::can_collection_read(&account_id, &role_group, &ASSET_COLLECTIONS_MANAGE_ID.to_string())
+            .await
+        {
+            return Err(Status::unauthenticated("用户不具有库可读权限"));
+        }
+
+        // TODO: 可能需要关联用户工程可读检查
 
         let majordomo_arc = get_majordomo().await;
         let manager = majordomo_arc
-            .get_manager_by_id(PROJECTS_MANAGE_ID)
+            .get_manager_by_id(ASSET_COLLECTIONS_MANAGE_ID)
             .await
             .unwrap();
 
         let query_doc = doc! {
-            ID_FIELD_ID.to_string():project_id.clone(),
+            ID_FIELD_ID.to_string():doc! {"$in":library_ids.clone()},
         };
-        let mut modify_doc = Document::new();
-        modify_doc.insert(
-            PROJECTS_ASSOCIATED_LIBRARIES_FIELD_ID.to_string(),
-            doc! {"$each":library_ids.clone()},
-        );
 
         let result = manager
-            .push_entity_array_field(query_doc, modify_doc, &account_id)
+            .get_entities_by_filter(&Some(query_doc))
             .await;
 
         match result {
-            Ok(_r) => Ok(Response::new(AssociateLibrariesToProjectResponse {
-                result: "ok".to_string(),
+            Ok(r) => Ok(Response::new(GetProjectAssociatedAssetCollectionsResponse {
+                asset_collections: r.iter().map(|x| bson::to_vec(x).unwrap()).collect(),
             })),
             Err(e) => Err(Status::aborted(format!(
                 "{} {}",
@@ -62,3 +64,4 @@ impl KnitterServer {
         }
     }
 }
+

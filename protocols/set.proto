@@ -35,7 +35,7 @@ message UpdateReferencedAssetsResponse{
   string result = 1;
 }
 
-// 引用
+// 引用，原则上只被章节引用
 message ReferenceSetsRequest {
   // 主管理编号
   int32 manage_id = 1;

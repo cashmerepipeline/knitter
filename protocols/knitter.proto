@@ -28,14 +28,14 @@ import "answer.proto";
 import "comment.proto";
 
 import "project.proto";
-import "library.proto";
+import "asset_collection.proto";
 import "asset.proto";
 import "assembly.proto";
 import "epic.proto";
 import "sequence.proto";
-import "set.proto";
 import "cut.proto";
-
+import "set_collection.proto";
+import "set.proto";
 
 service KnitterGrpc{
   // 管理
@@ -88,14 +88,14 @@ service KnitterGrpc{
 
   // 项目
   rpc NewProject(NewProjectRequest) returns (NewProjectResponse);
-  rpc AssociateLibrariesToProject(AssociateLibrariesToProjectRequest) returns (AssociateLibrariesToProjectResponse);
-  rpc GetProjectAssociatedLibraries(GetProjectAssociatedLibrariesRequest) returns (GetProjectAssociatedLibrariesResponse);
-  rpc GetProjectSets(GetProjectSetsRequest) returns (GetProjectSetsResponse);
+  rpc AssociateAssetCollectionsToProject(AssociateAssetCollectionsToProjectRequest) returns (AssociateAssetCollectionsToProjectResponse);
+  rpc GetProjectAssociatedAssetCollections(GetProjectAssociatedAssetCollectionsRequest) returns (GetProjectAssociatedAssetCollectionsResponse);
+  rpc GetProjectAssociatedSets(GetProjectAssociatedSetsRequest) returns (GetProjectAssociatedSetsResponse);
 
   // 库
-  rpc NewLibrary(NewLibraryRequest) returns (NewLibraryResponse);
-  rpc GetAssociatedAssetsPage(GetLibraryAssetsPageRequest) returns (GetLibraryAssetsPageResponse);
-  rpc GetAssociatedAssembliesPage(GetLibraryAssembliesPageRequest) returns (GetLibraryAssembliesPageResponse);
+  rpc NewAssetCollection(NewAssetCollectionRequest) returns (NewAssetCollectionResponse);
+  rpc GetAssetCollectionAssociatedAssetsPage(GetAssetCollectionAssetsPageRequest) returns (GetAssetCollectionAssetsPageResponse);
+  rpc GetAssetCollectionAssociatedAssembliesPage(GetAssetCollectionAssembliesPageRequest) returns (GetAssetCollectionAssembliesPageResponse);
 
   // 资产
   rpc NewAsset(NewAssetRequest) returns (NewAssetResponse);
@@ -120,6 +120,9 @@ service KnitterGrpc{
   rpc NewCut(NewCutRequest) returns (NewCutResponse);
   rpc GetCutReferencedAssets(GetCutReferencedAssetsRequest) returns (GetCutReferencedAssetsResponse);
   rpc MarkCutStatus(MarkCutStatusRequest) returns (MarkCutStatusResponse);
+
+  // 景集合
+  rpc NewSetCollection(NewSetCollectionRequest) returns (NewSetCollectionResponse);
 
   // 景
   rpc NewSet(NewSetRequest) returns (NewSetResponse);

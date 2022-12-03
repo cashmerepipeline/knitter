@@ -1,7 +1,7 @@
 use bson::{doc, Document};
 use majordomo::{self, get_majordomo};
 use manage_define::general_field_ids::{
-    DESCRIPTIONS_FIELD_ID, ID_FIELD_ID, NAME_MAP_FIELD_ID, TAGS_FIELD_ID,
+     ID_FIELD_ID, NAME_MAP_FIELD_ID,
 };
 use managers::traits::ManagerTrait;
 use service_common_handles::name_utils::validate_name;
@@ -15,10 +15,10 @@ use crate::services::KnitterServer;
 
 impl KnitterServer {
     /// 新建产品
-    pub(crate) async fn handle_new_library(
+    pub(crate) async fn handle_new_set_collection(
         &self,
-        request: Request<NewLibraryRequest>,
-    ) -> UnaryResponseResult<NewLibraryResponse> {
+        request: Request<NewSetCollectionRequest>,
+    ) -> UnaryResponseResult<NewSetCollectionResponse> {
         let metadata = request.metadata();
         // 已检查过，不需要再检查正确性
         let token = auth::get_auth_token(metadata).unwrap();
@@ -30,12 +30,6 @@ impl KnitterServer {
         let external_root = &request.get_ref().external_root_path;
         let picture = &request.get_ref().picture;
 
-       if !view::can_collection_write(&account_id, &role_group, &PROJECTS_MANAGE_ID.to_string())
-            .await
-        {
-            return Err(Status::unauthenticated("用户不具有可写权限"));
-        }
-
         if validate_name(name).is_err() {
             return Err(Status::data_loss("名字不能为空."));
         }
@@ -43,7 +37,7 @@ impl KnitterServer {
 
         let majordomo_arc = get_majordomo().await;
         let manager = majordomo_arc
-            .get_manager_by_id(PROJECTS_MANAGE_ID)
+            .get_manager_by_id(SET_COLLECTIONS_MANAGE_ID)
             .await
             .unwrap();
 
@@ -56,11 +50,11 @@ impl KnitterServer {
             doc! {name.language.clone():name.name.clone()},
         );
         new_entity_doc.insert(
-            LIBRARIES_INNER_ROOT_PATH_FIELD_ID.to_string(),
+            SET_COLLECTIONS_INNER_ROOT_PATH_FIELD_ID.to_string(),
             inner_root.clone()
         );
         new_entity_doc.insert(
-            LIBRARIES_EXTERNAL_ROOT_PATH_FIELD_ID.to_string(),
+            SET_COLLECTIONS_EXTERNAL_ROOT_PATH_FIELD_ID.to_string(),
             external_root.clone()
         );
         
@@ -69,7 +63,7 @@ impl KnitterServer {
             .await;
 
         match result {
-            Ok(_r) => Ok(Response::new(NewLibraryResponse {
+            Ok(_r) => Ok(Response::new(NewSetCollectionResponse {
                 // TODO: 发送新建事件
                 result: "ok".to_string(),
             })),
@@ -81,5 +75,6 @@ impl KnitterServer {
         }
     }
 }
+
 
 

@@ -1,0 +1,37 @@
+syntax = "proto3";
+package io.knitter;
+
+import "name.proto";
+
+// 新项目
+message NewSetCollectionRequest{
+  cashmere.Name name = 1;
+  string inner_root_path = 2;
+  string external_root_path = 3;
+  bytes picture = 4;
+  string description = 5;
+}
+message NewSetCollectionResponse {
+  // 成功返回项目id
+  string result = 1;
+}
+
+// 取得资产页
+message GetSetCollectionAssetsPageRequest {
+  string library_id = 1;
+  uint32 page_index = 2;
+  uint32 total_page_count = 3;
+}
+message GetSetCollectionAssetsPageResponse {
+  repeated bytes assets = 1;
+}
+
+// 取得组合页
+message GetSetCollectionAssembliesPageRequest {
+  string library_id = 1;
+  uint32 page_index = 2;
+  uint32 total_page_count = 3;
+}
+message GetSetCollectionAssembliesPageResponse {
+  repeated bytes assets = 1;
+}

@@ -20,32 +20,69 @@ pub struct NewProjectResponse {
 }
 /// 关联库到项目
 #[derive(Clone, PartialEq, ::prost::Message)]
-pub struct AssociateLibrariesToProjectRequest {
+pub struct AssociateAssetCollectionsToProjectRequest {
     #[prost(string, tag="1")]
     pub project_id: ::prost::alloc::string::String,
     #[prost(string, tag="2")]
-    pub library_ids: ::prost::alloc::string::String,
+    pub collection_ids: ::prost::alloc::string::String,
 }
 #[derive(Clone, PartialEq, ::prost::Message)]
-pub struct AssociateLibrariesToProjectResponse {
+pub struct AssociateAssetCollectionsToProjectResponse {
     /// "ok" if succeed
     #[prost(string, tag="1")]
     pub result: ::prost::alloc::string::String,
 }
 /// 标记项目已经完成
 #[derive(Clone, PartialEq, ::prost::Message)]
-pub struct MarkProjectFinishedRequest {
+pub struct MarkProjectStatusRequest {
     #[prost(string, tag="1")]
     pub project_id: ::prost::alloc::string::String,
 }
 #[derive(Clone, PartialEq, ::prost::Message)]
-pub struct MarkProjectFinishedResponse {
+pub struct MarkProjectStatusResponse {
     #[prost(string, tag="1")]
     pub result: ::prost::alloc::string::String,
 }
+/// 取得关联库表
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct GetProjectAssociatedAssetCollectionsRequest {
+    #[prost(string, tag="1")]
+    pub project_id: ::prost::alloc::string::String,
+    #[prost(string, repeated, tag="2")]
+    pub collection_ids: ::prost::alloc::vec::Vec<::prost::alloc::string::String>,
+}
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct GetProjectAssociatedAssetCollectionsResponse {
+    #[prost(bytes="vec", repeated, tag="1")]
+    pub asset_collections: ::prost::alloc::vec::Vec<::prost::alloc::vec::Vec<u8>>,
+}
+/// 取得项目景表
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct GetProjectAssociatedSetsRequest {
+    #[prost(string, tag="1")]
+    pub project_id: ::prost::alloc::string::String,
+    #[prost(string, repeated, tag="2")]
+    pub set_ids: ::prost::alloc::vec::Vec<::prost::alloc::string::String>,
+}
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct GetProjectAssociatedSetsResponse {
+    #[prost(bytes="vec", repeated, tag="1")]
+    pub sets: ::prost::alloc::vec::Vec<::prost::alloc::vec::Vec<u8>>,
+}
+/// 取得项目集表
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct GetProjectEpicsRequest {
+    #[prost(string, tag="1")]
+    pub project_id: ::prost::alloc::string::String,
+}
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct GetProjectEpicsResponse {
+    #[prost(bytes="vec", repeated, tag="1")]
+    pub epics: ::prost::alloc::vec::Vec<::prost::alloc::vec::Vec<u8>>,
+}
 /// 新项目
 #[derive(Clone, PartialEq, ::prost::Message)]
-pub struct NewLibraryRequest {
+pub struct NewAssetCollectionRequest {
     #[prost(message, optional, tag="1")]
     pub name: ::core::option::Option<::manage_define::cashmere::Name>,
     #[prost(string, tag="2")]
@@ -58,10 +95,40 @@ pub struct NewLibraryRequest {
     pub description: ::prost::alloc::string::String,
 }
 #[derive(Clone, PartialEq, ::prost::Message)]
-pub struct NewLibraryResponse {
+pub struct NewAssetCollectionResponse {
     /// 成功返回项目id
     #[prost(string, tag="1")]
     pub result: ::prost::alloc::string::String,
+}
+/// 取得资产页
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct GetAssetCollectionAssetsPageRequest {
+    #[prost(string, tag="1")]
+    pub collection_id: ::prost::alloc::string::String,
+    #[prost(uint32, tag="2")]
+    pub page_index: u32,
+    #[prost(uint32, tag="3")]
+    pub total_page_count: u32,
+}
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct GetAssetCollectionAssetsPageResponse {
+    #[prost(bytes="vec", repeated, tag="1")]
+    pub assets: ::prost::alloc::vec::Vec<::prost::alloc::vec::Vec<u8>>,
+}
+/// 取得组合页
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct GetAssetCollectionAssembliesPageRequest {
+    #[prost(string, tag="1")]
+    pub collection_id: ::prost::alloc::string::String,
+    #[prost(uint32, tag="2")]
+    pub page_index: u32,
+    #[prost(uint32, tag="3")]
+    pub total_page_count: u32,
+}
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct GetAssetCollectionAssembliesPageResponse {
+    #[prost(bytes="vec", repeated, tag="1")]
+    pub assemblies: ::prost::alloc::vec::Vec<::prost::alloc::vec::Vec<u8>>,
 }
 /// 新建资产
 #[derive(Clone, PartialEq, ::prost::Message)]
@@ -78,6 +145,58 @@ pub struct NewAssetRequest {
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct NewAssetResponse {
     /// 成功返回新资产id
+    #[prost(string, tag="1")]
+    pub result: ::prost::alloc::string::String,
+}
+/// 取得资产规格表
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct GetAssetSpecsesRequest {
+    #[prost(string, tag="1")]
+    pub asset_id: ::prost::alloc::string::String,
+}
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct GetAssetSpecsesResponse {
+    #[prost(bytes="vec", repeated, tag="1")]
+    pub specses: ::prost::alloc::vec::Vec<::prost::alloc::vec::Vec<u8>>,
+}
+/// 取得资产预制件表
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct GetAssetPrefabsRequest {
+    #[prost(string, tag="1")]
+    pub asset_id: ::prost::alloc::string::String,
+}
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct GetAssetPrefabsResponse {
+    #[prost(bytes="vec", repeated, tag="1")]
+    pub prefabs: ::prost::alloc::vec::Vec<::prost::alloc::vec::Vec<u8>>,
+}
+/// 引用
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct ReferenceAssetsRequest {
+    /// 主管理编号
+    #[prost(int32, tag="1")]
+    pub manage_id: i32,
+    /// 主实体
+    #[prost(string, tag="2")]
+    pub entity_id: ::prost::alloc::string::String,
+    #[prost(string, repeated, tag="3")]
+    pub asset_ids: ::prost::alloc::vec::Vec<::prost::alloc::string::String>,
+}
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct ReferenceAssetsResponse {
+    /// 成功返回 "ok"
+    #[prost(string, tag="1")]
+    pub result: ::prost::alloc::string::String,
+}
+/// 标记状态
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct MarkAssetStatusRequest {
+    #[prost(string, tag="1")]
+    pub asset_id: ::prost::alloc::string::String,
+}
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct MarkAssetStatusResponse {
+    /// 成功返回  "ok"
     #[prost(string, tag="1")]
     pub result: ::prost::alloc::string::String,
 }
@@ -112,6 +231,24 @@ pub struct UpdateAssemblyResponse {
     #[prost(string, tag="1")]
     pub result: ::prost::alloc::string::String,
 }
+/// 引用资产
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct ReferenceAssembliesRequest {
+    /// 主管理编号
+    #[prost(int32, tag="1")]
+    pub manage_id: i32,
+    /// 主实体
+    #[prost(string, tag="2")]
+    pub entity_id: ::prost::alloc::string::String,
+    #[prost(string, repeated, tag="3")]
+    pub asset_ids: ::prost::alloc::vec::Vec<::prost::alloc::string::String>,
+}
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct ReferenceAssembliesResponse {
+    /// 成功返回 "ok"
+    #[prost(string, tag="1")]
+    pub result: ::prost::alloc::string::String,
+}
 /// 新建集
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct NewEpicRequest {
@@ -130,6 +267,17 @@ pub struct NewEpicResponse {
     #[prost(string, tag="1")]
     pub result: ::prost::alloc::string::String,
 }
+/// 取得集的章节
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct GetEpicSequencesRequest {
+    #[prost(string, tag="1")]
+    pub epic_id: ::prost::alloc::string::String,
+}
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct GetEpicSequencesResponse {
+    #[prost(bytes="vec", repeated, tag="1")]
+    pub sequences: ::prost::alloc::vec::Vec<::prost::alloc::vec::Vec<u8>>,
+}
 /// 新建章节
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct NewSequenceRequest {
@@ -147,6 +295,134 @@ pub struct NewSequenceResponse {
     /// 成功返回新id
     #[prost(string, tag="1")]
     pub result: ::prost::alloc::string::String,
+}
+/// 取得章节的镜头表
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct GetSequenceCutsRequest {
+    #[prost(string, tag="1")]
+    pub sequence_id: ::prost::alloc::string::String,
+}
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct GetSequenceCutsResponse {
+    #[prost(bytes="vec", repeated, tag="1")]
+    pub cuts: ::prost::alloc::vec::Vec<::prost::alloc::vec::Vec<u8>>,
+}
+/// 新建镜头
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct NewCutRequest {
+    #[prost(string, tag="1")]
+    pub sequence_id: ::prost::alloc::string::String,
+    #[prost(message, optional, tag="2")]
+    pub name: ::core::option::Option<::manage_define::cashmere::Name>,
+    #[prost(string, tag="3")]
+    pub description: ::prost::alloc::string::String,
+    #[prost(string, tag="4")]
+    pub template_id: ::prost::alloc::string::String,
+}
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct NewCutResponse {
+    /// 成功返回新id
+    #[prost(string, tag="1")]
+    pub result: ::prost::alloc::string::String,
+}
+/// 引用资产
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct CutReferenceAssetsRequest {
+    #[prost(string, tag="1")]
+    pub cut_id: ::prost::alloc::string::String,
+    #[prost(string, repeated, tag="2")]
+    pub asset_ids: ::prost::alloc::vec::Vec<::prost::alloc::string::String>,
+}
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct CutReferenceAssetsResponse {
+    /// 成功返回  "ok"
+    #[prost(string, tag="1")]
+    pub result: ::prost::alloc::string::String,
+}
+/// 引用景
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct CutRefereceSetsRequest {
+    #[prost(string, tag="1")]
+    pub cut_id: ::prost::alloc::string::String,
+}
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct CutRefereceSetsResponse {
+    /// 成功返回 "ok"
+    #[prost(string, tag="1")]
+    pub result: ::prost::alloc::string::String,
+}
+/// 标记状态
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct MarkCutStatusRequest {
+    #[prost(string, tag="1")]
+    pub cut_id: ::prost::alloc::string::String,
+}
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct MarkCutStatusResponse {
+    /// 成功返回  "ok"
+    #[prost(string, tag="1")]
+    pub result: ::prost::alloc::string::String,
+}
+/// 取得引用的资产
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct GetCutReferencedAssetsRequest {
+    #[prost(string, tag="1")]
+    pub cut_id: ::prost::alloc::string::String,
+}
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct GetCutReferencedAssetsResponse {
+    #[prost(bytes="vec", repeated, tag="1")]
+    pub assets: ::prost::alloc::vec::Vec<::prost::alloc::vec::Vec<u8>>,
+}
+/// 新项目
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct NewSetCollectionRequest {
+    #[prost(message, optional, tag="1")]
+    pub name: ::core::option::Option<::manage_define::cashmere::Name>,
+    #[prost(string, tag="2")]
+    pub inner_root_path: ::prost::alloc::string::String,
+    #[prost(string, tag="3")]
+    pub external_root_path: ::prost::alloc::string::String,
+    #[prost(bytes="vec", tag="4")]
+    pub picture: ::prost::alloc::vec::Vec<u8>,
+    #[prost(string, tag="5")]
+    pub description: ::prost::alloc::string::String,
+}
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct NewSetCollectionResponse {
+    /// 成功返回项目id
+    #[prost(string, tag="1")]
+    pub result: ::prost::alloc::string::String,
+}
+/// 取得资产页
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct GetSetCollectionAssetsPageRequest {
+    #[prost(string, tag="1")]
+    pub library_id: ::prost::alloc::string::String,
+    #[prost(uint32, tag="2")]
+    pub page_index: u32,
+    #[prost(uint32, tag="3")]
+    pub total_page_count: u32,
+}
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct GetSetCollectionAssetsPageResponse {
+    #[prost(bytes="vec", repeated, tag="1")]
+    pub assets: ::prost::alloc::vec::Vec<::prost::alloc::vec::Vec<u8>>,
+}
+/// 取得组合页
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct GetSetCollectionAssembliesPageRequest {
+    #[prost(string, tag="1")]
+    pub library_id: ::prost::alloc::string::String,
+    #[prost(uint32, tag="2")]
+    pub page_index: u32,
+    #[prost(uint32, tag="3")]
+    pub total_page_count: u32,
+}
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct GetSetCollectionAssembliesPageResponse {
+    #[prost(bytes="vec", repeated, tag="1")]
+    pub assets: ::prost::alloc::vec::Vec<::prost::alloc::vec::Vec<u8>>,
 }
 /// 新建景
 #[derive(Clone, PartialEq, ::prost::Message)]
@@ -194,21 +470,33 @@ pub struct UpdateReferencedAssetsResponse {
     #[prost(string, tag="1")]
     pub result: ::prost::alloc::string::String,
 }
-/// 新建镜头
+/// 引用，原则上只被章节引用
 #[derive(Clone, PartialEq, ::prost::Message)]
-pub struct NewCutRequest {
-    #[prost(string, tag="1")]
-    pub sequence_id: ::prost::alloc::string::String,
-    #[prost(message, optional, tag="2")]
-    pub name: ::core::option::Option<::manage_define::cashmere::Name>,
-    #[prost(string, tag="3")]
-    pub description: ::prost::alloc::string::String,
-    #[prost(string, tag="4")]
-    pub template_id: ::prost::alloc::string::String,
+pub struct ReferenceSetsRequest {
+    /// 主管理编号
+    #[prost(int32, tag="1")]
+    pub manage_id: i32,
+    /// 主实体
+    #[prost(string, tag="2")]
+    pub entity_id: ::prost::alloc::string::String,
+    #[prost(string, repeated, tag="3")]
+    pub set_ids: ::prost::alloc::vec::Vec<::prost::alloc::string::String>,
 }
 #[derive(Clone, PartialEq, ::prost::Message)]
-pub struct NewCutResponse {
-    /// 成功返回新id
+pub struct ReferenceSetsResponse {
+    /// 成功返回 "ok"
+    #[prost(string, tag="1")]
+    pub result: ::prost::alloc::string::String,
+}
+/// 标记状态
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct MarkSetStatusRequest {
+    #[prost(string, tag="1")]
+    pub set_id: ::prost::alloc::string::String,
+}
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct MarkSetStatusResponse {
+    /// 成功返回  "ok"
     #[prost(string, tag="1")]
     pub result: ::prost::alloc::string::String,
 }
@@ -469,48 +757,128 @@ pub mod knitter_grpc_server {
             &self,
             request: tonic::Request<super::NewProjectRequest>,
         ) -> Result<tonic::Response<super::NewProjectResponse>, tonic::Status>;
-        async fn associate_libraries_to_project(
+        async fn associate_asset_collections_to_project(
             &self,
-            request: tonic::Request<super::AssociateLibrariesToProjectRequest>,
+            request: tonic::Request<super::AssociateAssetCollectionsToProjectRequest>,
         ) -> Result<
-            tonic::Response<super::AssociateLibrariesToProjectResponse>,
+            tonic::Response<super::AssociateAssetCollectionsToProjectResponse>,
+            tonic::Status,
+        >;
+        async fn get_project_associated_asset_collections(
+            &self,
+            request: tonic::Request<super::GetProjectAssociatedAssetCollectionsRequest>,
+        ) -> Result<
+            tonic::Response<super::GetProjectAssociatedAssetCollectionsResponse>,
+            tonic::Status,
+        >;
+        async fn get_project_associated_sets(
+            &self,
+            request: tonic::Request<super::GetProjectAssociatedSetsRequest>,
+        ) -> Result<
+            tonic::Response<super::GetProjectAssociatedSetsResponse>,
             tonic::Status,
         >;
         /// 库
-        async fn new_library(
+        async fn new_asset_collection(
             &self,
-            request: tonic::Request<super::NewLibraryRequest>,
-        ) -> Result<tonic::Response<super::NewLibraryResponse>, tonic::Status>;
+            request: tonic::Request<super::NewAssetCollectionRequest>,
+        ) -> Result<tonic::Response<super::NewAssetCollectionResponse>, tonic::Status>;
+        async fn get_asset_collection_associated_assets_page(
+            &self,
+            request: tonic::Request<super::GetAssetCollectionAssetsPageRequest>,
+        ) -> Result<
+            tonic::Response<super::GetAssetCollectionAssetsPageResponse>,
+            tonic::Status,
+        >;
+        async fn get_asset_collection_associated_assemblies_page(
+            &self,
+            request: tonic::Request<super::GetAssetCollectionAssembliesPageRequest>,
+        ) -> Result<
+            tonic::Response<super::GetAssetCollectionAssembliesPageResponse>,
+            tonic::Status,
+        >;
         /// 资产
         async fn new_asset(
             &self,
             request: tonic::Request<super::NewAssetRequest>,
         ) -> Result<tonic::Response<super::NewAssetResponse>, tonic::Status>;
+        async fn get_asset_specses(
+            &self,
+            request: tonic::Request<super::GetAssetSpecsesRequest>,
+        ) -> Result<tonic::Response<super::GetAssetSpecsesResponse>, tonic::Status>;
+        async fn get_asset_prefabs(
+            &self,
+            request: tonic::Request<super::GetAssetPrefabsRequest>,
+        ) -> Result<tonic::Response<super::GetAssetPrefabsResponse>, tonic::Status>;
+        async fn reference_assets(
+            &self,
+            request: tonic::Request<super::ReferenceAssetsRequest>,
+        ) -> Result<tonic::Response<super::ReferenceAssetsResponse>, tonic::Status>;
+        async fn mart_asset_satus(
+            &self,
+            request: tonic::Request<super::MarkAssetStatusRequest>,
+        ) -> Result<tonic::Response<super::MarkAssetStatusResponse>, tonic::Status>;
         /// 组合
         async fn new_assembly(
             &self,
             request: tonic::Request<super::NewAssemblyRequest>,
         ) -> Result<tonic::Response<super::NewAssemblyResponse>, tonic::Status>;
+        async fn reference_assemblies(
+            &self,
+            request: tonic::Request<super::ReferenceAssembliesRequest>,
+        ) -> Result<tonic::Response<super::ReferenceAssembliesResponse>, tonic::Status>;
         /// 集
         async fn new_epic(
             &self,
             request: tonic::Request<super::NewEpicRequest>,
         ) -> Result<tonic::Response<super::NewEpicResponse>, tonic::Status>;
+        async fn get_epic_sequences(
+            &self,
+            request: tonic::Request<super::GetEpicSequencesRequest>,
+        ) -> Result<tonic::Response<super::GetEpicSequencesResponse>, tonic::Status>;
         /// 章节
         async fn new_sequence(
             &self,
             request: tonic::Request<super::NewSequenceRequest>,
         ) -> Result<tonic::Response<super::NewSequenceResponse>, tonic::Status>;
+        async fn get_sequence_cuts(
+            &self,
+            request: tonic::Request<super::GetSequenceCutsRequest>,
+        ) -> Result<tonic::Response<super::GetSequenceCutsResponse>, tonic::Status>;
         /// 镜头
         async fn new_cut(
             &self,
             request: tonic::Request<super::NewCutRequest>,
         ) -> Result<tonic::Response<super::NewCutResponse>, tonic::Status>;
+        async fn get_cut_referenced_assets(
+            &self,
+            request: tonic::Request<super::GetCutReferencedAssetsRequest>,
+        ) -> Result<
+            tonic::Response<super::GetCutReferencedAssetsResponse>,
+            tonic::Status,
+        >;
+        async fn mark_cut_status(
+            &self,
+            request: tonic::Request<super::MarkCutStatusRequest>,
+        ) -> Result<tonic::Response<super::MarkCutStatusResponse>, tonic::Status>;
+        /// 景集合
+        async fn new_set_collection(
+            &self,
+            request: tonic::Request<super::NewSetCollectionRequest>,
+        ) -> Result<tonic::Response<super::NewSetCollectionResponse>, tonic::Status>;
         /// 景
         async fn new_set(
             &self,
             request: tonic::Request<super::NewSetRequest>,
         ) -> Result<tonic::Response<super::NewSetResponse>, tonic::Status>;
+        async fn reference_sets(
+            &self,
+            request: tonic::Request<super::ReferenceSetsRequest>,
+        ) -> Result<tonic::Response<super::ReferenceSetsResponse>, tonic::Status>;
+        async fn mart_set_satus(
+            &self,
+            request: tonic::Request<super::MarkSetStatusRequest>,
+        ) -> Result<tonic::Response<super::MarkSetStatusResponse>, tonic::Status>;
     }
     #[derive(Debug)]
     pub struct KnitterGrpcServer<T: KnitterGrpc> {
@@ -1792,15 +2160,17 @@ pub mod knitter_grpc_server {
                     };
                     Box::pin(fut)
                 }
-                "/io.knitter.KnitterGrpc/AssociateLibrariesToProject" => {
+                "/io.knitter.KnitterGrpc/AssociateAssetCollectionsToProject" => {
                     #[allow(non_camel_case_types)]
-                    struct AssociateLibrariesToProjectSvc<T: KnitterGrpc>(pub Arc<T>);
+                    struct AssociateAssetCollectionsToProjectSvc<T: KnitterGrpc>(
+                        pub Arc<T>,
+                    );
                     impl<
                         T: KnitterGrpc,
                     > tonic::server::UnaryService<
-                        super::AssociateLibrariesToProjectRequest,
-                    > for AssociateLibrariesToProjectSvc<T> {
-                        type Response = super::AssociateLibrariesToProjectResponse;
+                        super::AssociateAssetCollectionsToProjectRequest,
+                    > for AssociateAssetCollectionsToProjectSvc<T> {
+                        type Response = super::AssociateAssetCollectionsToProjectResponse;
                         type Future = BoxFuture<
                             tonic::Response<Self::Response>,
                             tonic::Status,
@@ -1808,12 +2178,14 @@ pub mod knitter_grpc_server {
                         fn call(
                             &mut self,
                             request: tonic::Request<
-                                super::AssociateLibrariesToProjectRequest,
+                                super::AssociateAssetCollectionsToProjectRequest,
                             >,
                         ) -> Self::Future {
                             let inner = self.0.clone();
                             let fut = async move {
-                                (*inner).associate_libraries_to_project(request).await
+                                (*inner)
+                                    .associate_asset_collections_to_project(request)
+                                    .await
                             };
                             Box::pin(fut)
                         }
@@ -1823,7 +2195,7 @@ pub mod knitter_grpc_server {
                     let inner = self.inner.clone();
                     let fut = async move {
                         let inner = inner.0;
-                        let method = AssociateLibrariesToProjectSvc(inner);
+                        let method = AssociateAssetCollectionsToProjectSvc(inner);
                         let codec = tonic::codec::ProstCodec::default();
                         let mut grpc = tonic::server::Grpc::new(codec)
                             .apply_compression_config(
@@ -1835,24 +2207,33 @@ pub mod knitter_grpc_server {
                     };
                     Box::pin(fut)
                 }
-                "/io.knitter.KnitterGrpc/NewLibrary" => {
+                "/io.knitter.KnitterGrpc/GetProjectAssociatedAssetCollections" => {
                     #[allow(non_camel_case_types)]
-                    struct NewLibrarySvc<T: KnitterGrpc>(pub Arc<T>);
+                    struct GetProjectAssociatedAssetCollectionsSvc<T: KnitterGrpc>(
+                        pub Arc<T>,
+                    );
                     impl<
                         T: KnitterGrpc,
-                    > tonic::server::UnaryService<super::NewLibraryRequest>
-                    for NewLibrarySvc<T> {
-                        type Response = super::NewLibraryResponse;
+                    > tonic::server::UnaryService<
+                        super::GetProjectAssociatedAssetCollectionsRequest,
+                    > for GetProjectAssociatedAssetCollectionsSvc<T> {
+                        type Response = super::GetProjectAssociatedAssetCollectionsResponse;
                         type Future = BoxFuture<
                             tonic::Response<Self::Response>,
                             tonic::Status,
                         >;
                         fn call(
                             &mut self,
-                            request: tonic::Request<super::NewLibraryRequest>,
+                            request: tonic::Request<
+                                super::GetProjectAssociatedAssetCollectionsRequest,
+                            >,
                         ) -> Self::Future {
                             let inner = self.0.clone();
-                            let fut = async move { (*inner).new_library(request).await };
+                            let fut = async move {
+                                (*inner)
+                                    .get_project_associated_asset_collections(request)
+                                    .await
+                            };
                             Box::pin(fut)
                         }
                     }
@@ -1861,7 +2242,185 @@ pub mod knitter_grpc_server {
                     let inner = self.inner.clone();
                     let fut = async move {
                         let inner = inner.0;
-                        let method = NewLibrarySvc(inner);
+                        let method = GetProjectAssociatedAssetCollectionsSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/io.knitter.KnitterGrpc/GetProjectAssociatedSets" => {
+                    #[allow(non_camel_case_types)]
+                    struct GetProjectAssociatedSetsSvc<T: KnitterGrpc>(pub Arc<T>);
+                    impl<
+                        T: KnitterGrpc,
+                    > tonic::server::UnaryService<super::GetProjectAssociatedSetsRequest>
+                    for GetProjectAssociatedSetsSvc<T> {
+                        type Response = super::GetProjectAssociatedSetsResponse;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<
+                                super::GetProjectAssociatedSetsRequest,
+                            >,
+                        ) -> Self::Future {
+                            let inner = self.0.clone();
+                            let fut = async move {
+                                (*inner).get_project_associated_sets(request).await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let inner = inner.0;
+                        let method = GetProjectAssociatedSetsSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/io.knitter.KnitterGrpc/NewAssetCollection" => {
+                    #[allow(non_camel_case_types)]
+                    struct NewAssetCollectionSvc<T: KnitterGrpc>(pub Arc<T>);
+                    impl<
+                        T: KnitterGrpc,
+                    > tonic::server::UnaryService<super::NewAssetCollectionRequest>
+                    for NewAssetCollectionSvc<T> {
+                        type Response = super::NewAssetCollectionResponse;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::NewAssetCollectionRequest>,
+                        ) -> Self::Future {
+                            let inner = self.0.clone();
+                            let fut = async move {
+                                (*inner).new_asset_collection(request).await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let inner = inner.0;
+                        let method = NewAssetCollectionSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/io.knitter.KnitterGrpc/GetAssetCollectionAssociatedAssetsPage" => {
+                    #[allow(non_camel_case_types)]
+                    struct GetAssetCollectionAssociatedAssetsPageSvc<T: KnitterGrpc>(
+                        pub Arc<T>,
+                    );
+                    impl<
+                        T: KnitterGrpc,
+                    > tonic::server::UnaryService<
+                        super::GetAssetCollectionAssetsPageRequest,
+                    > for GetAssetCollectionAssociatedAssetsPageSvc<T> {
+                        type Response = super::GetAssetCollectionAssetsPageResponse;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<
+                                super::GetAssetCollectionAssetsPageRequest,
+                            >,
+                        ) -> Self::Future {
+                            let inner = self.0.clone();
+                            let fut = async move {
+                                (*inner)
+                                    .get_asset_collection_associated_assets_page(request)
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let inner = inner.0;
+                        let method = GetAssetCollectionAssociatedAssetsPageSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/io.knitter.KnitterGrpc/GetAssetCollectionAssociatedAssembliesPage" => {
+                    #[allow(non_camel_case_types)]
+                    struct GetAssetCollectionAssociatedAssembliesPageSvc<T: KnitterGrpc>(
+                        pub Arc<T>,
+                    );
+                    impl<
+                        T: KnitterGrpc,
+                    > tonic::server::UnaryService<
+                        super::GetAssetCollectionAssembliesPageRequest,
+                    > for GetAssetCollectionAssociatedAssembliesPageSvc<T> {
+                        type Response = super::GetAssetCollectionAssembliesPageResponse;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<
+                                super::GetAssetCollectionAssembliesPageRequest,
+                            >,
+                        ) -> Self::Future {
+                            let inner = self.0.clone();
+                            let fut = async move {
+                                (*inner)
+                                    .get_asset_collection_associated_assemblies_page(request)
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let inner = inner.0;
+                        let method = GetAssetCollectionAssociatedAssembliesPageSvc(
+                            inner,
+                        );
                         let codec = tonic::codec::ProstCodec::default();
                         let mut grpc = tonic::server::Grpc::new(codec)
                             .apply_compression_config(
@@ -1900,6 +2459,166 @@ pub mod knitter_grpc_server {
                     let fut = async move {
                         let inner = inner.0;
                         let method = NewAssetSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/io.knitter.KnitterGrpc/GetAssetSpecses" => {
+                    #[allow(non_camel_case_types)]
+                    struct GetAssetSpecsesSvc<T: KnitterGrpc>(pub Arc<T>);
+                    impl<
+                        T: KnitterGrpc,
+                    > tonic::server::UnaryService<super::GetAssetSpecsesRequest>
+                    for GetAssetSpecsesSvc<T> {
+                        type Response = super::GetAssetSpecsesResponse;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::GetAssetSpecsesRequest>,
+                        ) -> Self::Future {
+                            let inner = self.0.clone();
+                            let fut = async move {
+                                (*inner).get_asset_specses(request).await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let inner = inner.0;
+                        let method = GetAssetSpecsesSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/io.knitter.KnitterGrpc/GetAssetPrefabs" => {
+                    #[allow(non_camel_case_types)]
+                    struct GetAssetPrefabsSvc<T: KnitterGrpc>(pub Arc<T>);
+                    impl<
+                        T: KnitterGrpc,
+                    > tonic::server::UnaryService<super::GetAssetPrefabsRequest>
+                    for GetAssetPrefabsSvc<T> {
+                        type Response = super::GetAssetPrefabsResponse;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::GetAssetPrefabsRequest>,
+                        ) -> Self::Future {
+                            let inner = self.0.clone();
+                            let fut = async move {
+                                (*inner).get_asset_prefabs(request).await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let inner = inner.0;
+                        let method = GetAssetPrefabsSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/io.knitter.KnitterGrpc/ReferenceAssets" => {
+                    #[allow(non_camel_case_types)]
+                    struct ReferenceAssetsSvc<T: KnitterGrpc>(pub Arc<T>);
+                    impl<
+                        T: KnitterGrpc,
+                    > tonic::server::UnaryService<super::ReferenceAssetsRequest>
+                    for ReferenceAssetsSvc<T> {
+                        type Response = super::ReferenceAssetsResponse;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::ReferenceAssetsRequest>,
+                        ) -> Self::Future {
+                            let inner = self.0.clone();
+                            let fut = async move {
+                                (*inner).reference_assets(request).await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let inner = inner.0;
+                        let method = ReferenceAssetsSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/io.knitter.KnitterGrpc/MartAssetSatus" => {
+                    #[allow(non_camel_case_types)]
+                    struct MartAssetSatusSvc<T: KnitterGrpc>(pub Arc<T>);
+                    impl<
+                        T: KnitterGrpc,
+                    > tonic::server::UnaryService<super::MarkAssetStatusRequest>
+                    for MartAssetSatusSvc<T> {
+                        type Response = super::MarkAssetStatusResponse;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::MarkAssetStatusRequest>,
+                        ) -> Self::Future {
+                            let inner = self.0.clone();
+                            let fut = async move {
+                                (*inner).mart_asset_satus(request).await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let inner = inner.0;
+                        let method = MartAssetSatusSvc(inner);
                         let codec = tonic::codec::ProstCodec::default();
                         let mut grpc = tonic::server::Grpc::new(codec)
                             .apply_compression_config(
@@ -1951,6 +2670,46 @@ pub mod knitter_grpc_server {
                     };
                     Box::pin(fut)
                 }
+                "/io.knitter.KnitterGrpc/ReferenceAssemblies" => {
+                    #[allow(non_camel_case_types)]
+                    struct ReferenceAssembliesSvc<T: KnitterGrpc>(pub Arc<T>);
+                    impl<
+                        T: KnitterGrpc,
+                    > tonic::server::UnaryService<super::ReferenceAssembliesRequest>
+                    for ReferenceAssembliesSvc<T> {
+                        type Response = super::ReferenceAssembliesResponse;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::ReferenceAssembliesRequest>,
+                        ) -> Self::Future {
+                            let inner = self.0.clone();
+                            let fut = async move {
+                                (*inner).reference_assemblies(request).await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let inner = inner.0;
+                        let method = ReferenceAssembliesSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
                 "/io.knitter.KnitterGrpc/NewEpic" => {
                     #[allow(non_camel_case_types)]
                     struct NewEpicSvc<T: KnitterGrpc>(pub Arc<T>);
@@ -1978,6 +2737,46 @@ pub mod knitter_grpc_server {
                     let fut = async move {
                         let inner = inner.0;
                         let method = NewEpicSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/io.knitter.KnitterGrpc/GetEpicSequences" => {
+                    #[allow(non_camel_case_types)]
+                    struct GetEpicSequencesSvc<T: KnitterGrpc>(pub Arc<T>);
+                    impl<
+                        T: KnitterGrpc,
+                    > tonic::server::UnaryService<super::GetEpicSequencesRequest>
+                    for GetEpicSequencesSvc<T> {
+                        type Response = super::GetEpicSequencesResponse;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::GetEpicSequencesRequest>,
+                        ) -> Self::Future {
+                            let inner = self.0.clone();
+                            let fut = async move {
+                                (*inner).get_epic_sequences(request).await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let inner = inner.0;
+                        let method = GetEpicSequencesSvc(inner);
                         let codec = tonic::codec::ProstCodec::default();
                         let mut grpc = tonic::server::Grpc::new(codec)
                             .apply_compression_config(
@@ -2029,6 +2828,46 @@ pub mod knitter_grpc_server {
                     };
                     Box::pin(fut)
                 }
+                "/io.knitter.KnitterGrpc/GetSequenceCuts" => {
+                    #[allow(non_camel_case_types)]
+                    struct GetSequenceCutsSvc<T: KnitterGrpc>(pub Arc<T>);
+                    impl<
+                        T: KnitterGrpc,
+                    > tonic::server::UnaryService<super::GetSequenceCutsRequest>
+                    for GetSequenceCutsSvc<T> {
+                        type Response = super::GetSequenceCutsResponse;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::GetSequenceCutsRequest>,
+                        ) -> Self::Future {
+                            let inner = self.0.clone();
+                            let fut = async move {
+                                (*inner).get_sequence_cuts(request).await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let inner = inner.0;
+                        let method = GetSequenceCutsSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
                 "/io.knitter.KnitterGrpc/NewCut" => {
                     #[allow(non_camel_case_types)]
                     struct NewCutSvc<T: KnitterGrpc>(pub Arc<T>);
@@ -2067,6 +2906,126 @@ pub mod knitter_grpc_server {
                     };
                     Box::pin(fut)
                 }
+                "/io.knitter.KnitterGrpc/GetCutReferencedAssets" => {
+                    #[allow(non_camel_case_types)]
+                    struct GetCutReferencedAssetsSvc<T: KnitterGrpc>(pub Arc<T>);
+                    impl<
+                        T: KnitterGrpc,
+                    > tonic::server::UnaryService<super::GetCutReferencedAssetsRequest>
+                    for GetCutReferencedAssetsSvc<T> {
+                        type Response = super::GetCutReferencedAssetsResponse;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::GetCutReferencedAssetsRequest>,
+                        ) -> Self::Future {
+                            let inner = self.0.clone();
+                            let fut = async move {
+                                (*inner).get_cut_referenced_assets(request).await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let inner = inner.0;
+                        let method = GetCutReferencedAssetsSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/io.knitter.KnitterGrpc/MarkCutStatus" => {
+                    #[allow(non_camel_case_types)]
+                    struct MarkCutStatusSvc<T: KnitterGrpc>(pub Arc<T>);
+                    impl<
+                        T: KnitterGrpc,
+                    > tonic::server::UnaryService<super::MarkCutStatusRequest>
+                    for MarkCutStatusSvc<T> {
+                        type Response = super::MarkCutStatusResponse;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::MarkCutStatusRequest>,
+                        ) -> Self::Future {
+                            let inner = self.0.clone();
+                            let fut = async move {
+                                (*inner).mark_cut_status(request).await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let inner = inner.0;
+                        let method = MarkCutStatusSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/io.knitter.KnitterGrpc/NewSetCollection" => {
+                    #[allow(non_camel_case_types)]
+                    struct NewSetCollectionSvc<T: KnitterGrpc>(pub Arc<T>);
+                    impl<
+                        T: KnitterGrpc,
+                    > tonic::server::UnaryService<super::NewSetCollectionRequest>
+                    for NewSetCollectionSvc<T> {
+                        type Response = super::NewSetCollectionResponse;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::NewSetCollectionRequest>,
+                        ) -> Self::Future {
+                            let inner = self.0.clone();
+                            let fut = async move {
+                                (*inner).new_set_collection(request).await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let inner = inner.0;
+                        let method = NewSetCollectionSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
                 "/io.knitter.KnitterGrpc/NewSet" => {
                     #[allow(non_camel_case_types)]
                     struct NewSetSvc<T: KnitterGrpc>(pub Arc<T>);
@@ -2094,6 +3053,86 @@ pub mod knitter_grpc_server {
                     let fut = async move {
                         let inner = inner.0;
                         let method = NewSetSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/io.knitter.KnitterGrpc/ReferenceSets" => {
+                    #[allow(non_camel_case_types)]
+                    struct ReferenceSetsSvc<T: KnitterGrpc>(pub Arc<T>);
+                    impl<
+                        T: KnitterGrpc,
+                    > tonic::server::UnaryService<super::ReferenceSetsRequest>
+                    for ReferenceSetsSvc<T> {
+                        type Response = super::ReferenceSetsResponse;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::ReferenceSetsRequest>,
+                        ) -> Self::Future {
+                            let inner = self.0.clone();
+                            let fut = async move {
+                                (*inner).reference_sets(request).await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let inner = inner.0;
+                        let method = ReferenceSetsSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/io.knitter.KnitterGrpc/MartSetSatus" => {
+                    #[allow(non_camel_case_types)]
+                    struct MartSetSatusSvc<T: KnitterGrpc>(pub Arc<T>);
+                    impl<
+                        T: KnitterGrpc,
+                    > tonic::server::UnaryService<super::MarkSetStatusRequest>
+                    for MartSetSatusSvc<T> {
+                        type Response = super::MarkSetStatusResponse;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::MarkSetStatusRequest>,
+                        ) -> Self::Future {
+                            let inner = self.0.clone();
+                            let fut = async move {
+                                (*inner).mart_set_satus(request).await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let inner = inner.0;
+                        let method = MartSetSatusSvc(inner);
                         let codec = tonic::codec::ProstCodec::default();
                         let mut grpc = tonic::server::Grpc::new(codec)
                             .apply_compression_config(

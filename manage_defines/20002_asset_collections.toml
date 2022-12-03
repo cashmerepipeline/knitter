@@ -3,7 +3,7 @@
 #
 
 id = 20002
-name_map = { zh = "库", en = "libraries" }
+name_map = { zh = "库", en = "asset_collections" }
 
 # 数据描写 或者 模式
 schema = [

@@ -7,11 +7,11 @@ name_map = { zh = "资产", en = "assets" }
 
 # 数据描写 或者 模式
 schema = [
-    { data_type = "List", name_map = { zh = "原始库", en = "original_library"}, removed = false },
+    { data_type = "List", name_map = { zh = "原始库", en = "original_collection"}, removed = false },
     { data_type = "String", name_map = { zh = "存储路径", en = "relative_path"}, removed = false },
     { data_type = "Map", name_map = { zh = "变体", en = "variants"}, removed = false },
 
-    { data_type = "List", name_map = { zh = "关联库", en = "associated_libraries"}, removed = false },
+    { data_type = "List", name_map = { zh = "关联库", en = "associated_collections"}, removed = false },
     { data_type = "String", name_map = { zh = "关联镜头", en = "associated_cuts"}, removed = false },
 
     # done, suspending, cancal
