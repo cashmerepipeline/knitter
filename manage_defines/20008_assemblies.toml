@@ -7,7 +7,7 @@ name_map = { zh = "预组件", en = "assemblies" }
 
 # 数据描写 或者 模式
 schema = [
-    { data_type = "String", name_map = { zh = "库编号", en = "library_id"}, removed = false },
+    { data_type = "String", name_map = { zh = "库编号", en = "asset_collection_id"}, removed = false },
     { data_type = "List", name_map = { zh = "引用资产表", en = "referenced_asset_ids"}, removed = false },
 
     # done, suspending, cancal

@@ -193,7 +193,9 @@ pub struct ReferenceAssetsRequest {
     /// 主实体
     #[prost(string, tag="2")]
     pub entity_id: ::prost::alloc::string::String,
-    #[prost(string, repeated, tag="3")]
+    #[prost(string, tag="3")]
+    pub reference_field_id: ::prost::alloc::string::String,
+    #[prost(string, repeated, tag="4")]
     pub asset_ids: ::prost::alloc::vec::Vec<::prost::alloc::string::String>,
 }
 #[derive(Clone, PartialEq, ::prost::Message)]
@@ -213,6 +215,24 @@ pub struct MarkAssetStatusResponse {
     /// 成功返回  "ok"
     #[prost(string, tag="1")]
     pub result: ::prost::alloc::string::String,
+}
+/// 引用
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct GetReferencedAssetsRequest {
+    /// 主管理编号
+    #[prost(int32, tag="1")]
+    pub manage_id: i32,
+    /// 主实体
+    #[prost(string, tag="2")]
+    pub entity_id: ::prost::alloc::string::String,
+    #[prost(string, repeated, tag="3")]
+    pub asset_ids: ::prost::alloc::vec::Vec<::prost::alloc::string::String>,
+}
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct GetReferencedAssetsResponse {
+    /// 成功返回 "ok"
+    #[prost(bytes="vec", repeated, tag="1")]
+    pub assets: ::prost::alloc::vec::Vec<::prost::alloc::vec::Vec<u8>>,
 }
 /// 新建组装
 #[derive(Clone, PartialEq, ::prost::Message)]
@@ -254,8 +274,10 @@ pub struct ReferenceAssembliesRequest {
     /// 主实体
     #[prost(string, tag="2")]
     pub entity_id: ::prost::alloc::string::String,
-    #[prost(string, repeated, tag="3")]
-    pub asset_ids: ::prost::alloc::vec::Vec<::prost::alloc::string::String>,
+    #[prost(string, tag="3")]
+    pub reference_field_id: ::prost::alloc::string::String,
+    #[prost(string, repeated, tag="4")]
+    pub assembly_ids: ::prost::alloc::vec::Vec<::prost::alloc::string::String>,
 }
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct ReferenceAssembliesResponse {
@@ -865,6 +887,10 @@ pub mod knitter_grpc_server {
             &self,
             request: tonic::Request<super::ReferenceAssetsRequest>,
         ) -> Result<tonic::Response<super::ReferenceAssetsResponse>, tonic::Status>;
+        async fn get_referenced_assets(
+            &self,
+            request: tonic::Request<super::GetReferencedAssetsRequest>,
+        ) -> Result<tonic::Response<super::GetReferencedAssetsResponse>, tonic::Status>;
         async fn mart_asset_satus(
             &self,
             request: tonic::Request<super::MarkAssetStatusRequest>,
@@ -2690,6 +2716,46 @@ pub mod knitter_grpc_server {
                     let fut = async move {
                         let inner = inner.0;
                         let method = ReferenceAssetsSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/io.knitter.KnitterGrpc/GetReferencedAssets" => {
+                    #[allow(non_camel_case_types)]
+                    struct GetReferencedAssetsSvc<T: KnitterGrpc>(pub Arc<T>);
+                    impl<
+                        T: KnitterGrpc,
+                    > tonic::server::UnaryService<super::GetReferencedAssetsRequest>
+                    for GetReferencedAssetsSvc<T> {
+                        type Response = super::GetReferencedAssetsResponse;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::GetReferencedAssetsRequest>,
+                        ) -> Self::Future {
+                            let inner = self.0.clone();
+                            let fut = async move {
+                                (*inner).get_referenced_assets(request).await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let inner = inner.0;
+                        let method = GetReferencedAssetsSvc(inner);
                         let codec = tonic::codec::ProstCodec::default();
                         let mut grpc = tonic::server::Grpc::new(codec)
                             .apply_compression_config(

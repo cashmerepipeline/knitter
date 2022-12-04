@@ -26,8 +26,8 @@ impl KnitterServer {
         let role_group = auth::get_current_role(metadata).unwrap();
 
         let name = &request.get_ref().name;
-        let description = &request.get_ref().description;
         let collection_id = &request.get_ref().collection_id;
+        let description = &request.get_ref().description;
 
        if !view::can_collection_write(&account_id, &role_group, &SETS_MANAGE_ID.to_string())
             .await

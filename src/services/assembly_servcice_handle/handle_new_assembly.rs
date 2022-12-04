@@ -25,7 +25,7 @@ impl KnitterServer {
         let (account_id, groups) = auth::get_claims_account_and_roles(&token).unwrap();
         let role_group = auth::get_current_role(metadata).unwrap();
 
-        let library_id = &request.get_ref().library_id;
+        let asset_collection_id = &request.get_ref().library_id;
         let name = &request.get_ref().name;
         let description = &request.get_ref().description;
         let template_id = &request.get_ref().template_id;
@@ -56,8 +56,8 @@ impl KnitterServer {
             doc! {name.language.clone():name.name.clone()},
         );
         new_entity_doc.insert(
-            ASSEMBLIES_LIBRARY_ID_FIELD_ID.to_string(),
-            library_id.clone(),
+            ASSEMBLIES_ASSET_COLLECTION_ID_FIELD_ID.to_string(),
+            asset_collection_id.clone(),
         );
         new_entity_doc.insert(DESCRIPTIONS_FIELD_ID.to_string(), description.clone());
 

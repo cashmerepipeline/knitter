@@ -29,7 +29,9 @@ message ReferenceAssetsRequest {
   int32 manage_id = 1;
   // 主实体
   string entity_id = 2;
-  repeated string asset_ids = 3;
+  string field_id = 3;
+  string reference_field_id = 4;
+  repeated string asset_ids = 5;
 }
 message ReferenceAssetsResponse {
   // 成功返回 "ok"
@@ -41,4 +43,17 @@ message MarkAssetStatusRequest { string asset_id = 1; }
 message MarkAssetStatusResponse {
   // 成功返回  "ok"
   string result = 1;
+}
+
+// 引用
+message GetReferencedAssetsRequest {
+  // 主管理编号
+  int32 manage_id = 1;
+  // 主实体
+  string entity_id = 2;
+  repeated string asset_ids = 3;
+}
+message GetReferencedAssetsResponse {
+  // 成功返回 "ok"
+  repeated bytes result = 1;
 }

@@ -9,6 +9,7 @@ name_map = { zh = "预组件", en = "prefabs" }
 schema = [
     { data_type = "Int32", name_map = { zh = "主管理", en = "owner_manage_id"}, removed = false },
     { data_type = "String", name_map = { zh = "主实体", en = "owner_entity_id"}, removed = false },
+    { data_type = "String", name_map = { zh = "基规格", en = "base_specs_id"}, removed = false },
 
     # done, suspending, cancel
     { data_type = "String", name_map = { zh = "状态", en = "status"}, removed = false },

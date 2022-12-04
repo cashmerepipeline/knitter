@@ -68,7 +68,7 @@ use crate::services::protocol::{
     NewPrefabResponse, NewProjectRequest, NewProjectResponse, NewSequenceRequest,
     NewSequenceResponse, NewSetRequest, NewSetResponse, NewSpecsRequest, NewSpecsResponse,
     ReferenceAssembliesRequest, ReferenceAssembliesResponse, ReferenceAssetsRequest,
-    ReferenceAssetsResponse, ReferenceSetsRequest, ReferenceSetsResponse,
+    ReferenceAssetsResponse, ReferenceSetsRequest, ReferenceSetsResponse,GetReferencedAssetsRequest, GetReferencedAssetsResponse,
 };
 
 use self::protocol::{
@@ -412,6 +412,13 @@ impl KnitterGrpc for KnitterServer {
         request: Request<ReferenceAssetsRequest>,
     ) -> Result<Response<ReferenceAssetsResponse>, Status> {
         todo!()
+    }
+
+    async fn get_referenced_assets(
+        &self,
+        request: Request<GetReferencedAssetsRequest>
+    ) -> Result<Response<GetReferencedAssetsResponse>, Status> {
+        self.get_referenced_assets(request).await
     }
 
     async fn mart_asset_satus(
