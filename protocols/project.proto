@@ -16,8 +16,15 @@ message NewProjectResponse {
   string result = 1;
 }
 
+// 标记项目已经完成
+message MarkProjectStatusRequest {
+  string project_id = 1;
+}
+message MarkProjectStatusResponse {
+  string result = 1;
+}
 
-// 关联库到项目
+// 关联资产集合到项目
 message AssociateAssetCollectionsToProjectRequest {
   string project_id = 1;
   string collection_ids = 2;
@@ -28,13 +35,16 @@ message AssociateAssetCollectionsToProjectResponse {
 }
 
 
-// 标记项目已经完成
-message MarkProjectStatusRequest {
+// 关联布景集合到项目
+message AssociateSetCollectionsToProjectRequest {
   string project_id = 1;
+  string collection_ids = 2;
 }
-message MarkProjectStatusResponse {
+message AssociateSetCollectionsToProjectResponse {
+  // "ok" if succeed
   string result = 1;
 }
+
 
 // 取得关联库表
 message GetProjectAssociatedAssetCollectionsRequest {
@@ -46,12 +56,12 @@ message GetProjectAssociatedAssetCollectionsResponse {
 }
 
 // 取得项目景表
-message GetProjectAssociatedSetsRequest {
+message GetProjectAssociatedSetCollectionsRequest {
   string project_id = 1;
-  repeated string set_ids = 2;
+  repeated string set_collection_ids = 2;
 }
-message GetProjectAssociatedSetsResponse {
-  repeated bytes sets = 1;
+message GetProjectAssociatedSetCollectionsResponse {
+  repeated bytes set_collections = 1;
 }
 
 // 取得项目集表

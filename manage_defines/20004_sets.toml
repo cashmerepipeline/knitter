@@ -1,5 +1,5 @@
 #
-# 景，环境，能被多个工程章节引用
+# 景，布景，环境，能被多个工程章节引用
 #
 
 id = 20004
@@ -7,10 +7,15 @@ name_map = { zh = "景", en = "sets" }
 
 # 数据描写 或者 模式
 schema = [
-    { data_type = "String", name_map = { zh = "引用资产表", en = "set_collections_id"}, removed = false },
-    { data_type = "List", name_map = { zh = "引用资产表", en = "referenced_asset_ids"}, removed = false },
-    { data_type = "List", name_map = { zh = "引用资产表", en = "referenced_assembly_ids"}, removed = false },
+    { data_type = "String", name_map = { zh = "原始合集", en = "original_collection"}, removed = false },
+    { data_type = "List", name_map = { zh = "关联合集", en = "associated_collections"}, removed = false },
+
+    { data_type = "List", name_map = { zh = "引用资产", en = "referenced_asset_ids"}, removed = false },
+    { data_type = "List", name_map = { zh = "引用组合", en = "referenced_assembly_ids"}, removed = false },
     { data_type = "Map", name_map = { zh = "灯光系统", en = "lights"}, removed = false },
+
+    { data_type = "Map", name_map = { zh = "规格", en = "specses"}, removed = false },
+    { data_type = "Map", name_map = { zh = "预制件", en = "prefabs"}, removed = false },
 
     # done, suspending, cancal
     { data_type = "String", name_map = { zh = "状态", en = "status"}, removed = false },

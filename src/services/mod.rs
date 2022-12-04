@@ -59,8 +59,8 @@ use crate::services::protocol::{
     GetAssetPrefabsRequest, GetAssetPrefabsResponse, GetAssetSpecsesRequest,
     GetAssetSpecsesResponse, GetCutReferencedAssetsRequest, GetCutReferencedAssetsResponse,
     GetEpicSequencesRequest, GetEpicSequencesResponse, GetProjectAssociatedAssetCollectionsRequest,
-    GetProjectAssociatedAssetCollectionsResponse, GetProjectAssociatedSetsRequest,
-    GetProjectAssociatedSetsResponse, GetSequenceCutsRequest, GetSequenceCutsResponse,
+    GetProjectAssociatedAssetCollectionsResponse, GetProjectAssociatedSetCollectionsRequest,
+    GetProjectAssociatedSetCollectionsResponse, GetSequenceCutsRequest, GetSequenceCutsResponse,
     MarkAssetStatusRequest, MarkAssetStatusResponse, MarkCutStatusRequest, MarkCutStatusResponse,
     MarkSetStatusRequest, MarkSetStatusResponse, NewAssemblyRequest, NewAssemblyResponse,
     NewAssetCollectionRequest, NewAssetCollectionResponse, NewAssetRequest, NewAssetResponse,
@@ -73,7 +73,7 @@ use crate::services::protocol::{
 
 use self::protocol::{
     AssociateAssetCollectionsToProjectRequest, AssociateAssetCollectionsToProjectResponse,
-    NewSetCollectionRequest, NewSetCollectionResponse,
+    NewSetCollectionRequest, NewSetCollectionResponse, AssociateSetCollectionsToProjectRequest, AssociateSetCollectionsToProjectResponse,
 };
 
 /// 管理服务
@@ -343,6 +343,14 @@ impl KnitterGrpc for KnitterServer {
             .await
     }
 
+    async fn associate_set_collections_to_project(
+        &self,
+        request: Request<AssociateSetCollectionsToProjectRequest>,
+    ) -> Result<Response<AssociateSetCollectionsToProjectResponse>, Status> {
+        self.handle_associate_set_collections_to_project(request)
+            .await
+    }
+
     async fn get_project_associated_asset_collections(
         &self,
         request: Request<GetProjectAssociatedAssetCollectionsRequest>,
@@ -350,11 +358,11 @@ impl KnitterGrpc for KnitterServer {
         todo!()
     }
 
-    async fn get_project_associated_sets(
+    async fn get_project_associated_set_collections(
         &self,
-        request: Request<GetProjectAssociatedSetsRequest>,
-    ) -> Result<Response<GetProjectAssociatedSetsResponse>, Status> {
-        todo!()
+        request: Request<GetProjectAssociatedSetCollectionsRequest>,
+    ) -> Result<Response<GetProjectAssociatedSetCollectionsResponse>, Status> {
+        self.handle_get_project_associated_set_collections(request).await
     }
 
     async fn new_asset_collection(

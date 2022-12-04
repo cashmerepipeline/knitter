@@ -91,8 +91,9 @@ service KnitterGrpc{
   // 项目
   rpc NewProject(NewProjectRequest) returns (NewProjectResponse);
   rpc AssociateAssetCollectionsToProject(AssociateAssetCollectionsToProjectRequest) returns (AssociateAssetCollectionsToProjectResponse);
+  rpc AssociateSetCollectionsToProject(AssociateSetCollectionsToProjectRequest) returns (AssociateSetCollectionsToProjectResponse);
   rpc GetProjectAssociatedAssetCollections(GetProjectAssociatedAssetCollectionsRequest) returns (GetProjectAssociatedAssetCollectionsResponse);
-  rpc GetProjectAssociatedSets(GetProjectAssociatedSetsRequest) returns (GetProjectAssociatedSetsResponse);
+  rpc GetProjectAssociatedSetCollections(GetProjectAssociatedSetCollectionsRequest) returns (GetProjectAssociatedSetCollectionsResponse);
 
   // 库
   rpc NewAssetCollection(NewAssetCollectionRequest) returns (NewAssetCollectionResponse);

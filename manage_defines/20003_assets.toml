@@ -7,12 +7,12 @@ name_map = { zh = "资产", en = "assets" }
 
 # 数据描写 或者 模式
 schema = [
-    { data_type = "List", name_map = { zh = "原始库", en = "original_collection"}, removed = false },
-    { data_type = "String", name_map = { zh = "存储路径", en = "relative_path"}, removed = false },
-    { data_type = "Map", name_map = { zh = "变体", en = "variants"}, removed = false },
+    { data_type = "String", name_map = { zh = "原始合集", en = "original_collection"}, removed = false },
+    { data_type = "List", name_map = { zh = "关联合集", en = "associated_collections"}, removed = false },
 
-    { data_type = "List", name_map = { zh = "关联库", en = "associated_collections"}, removed = false },
-    { data_type = "String", name_map = { zh = "关联镜头", en = "associated_cuts"}, removed = false },
+    { data_type = "String", name_map = { zh = "存储路径", en = "relative_path"}, removed = false },
+    { data_type = "Map", name_map = { zh = "规格", en = "specses"}, removed = false },
+    { data_type = "Map", name_map = { zh = "预制件", en = "prefabs"}, removed = false },
 
     # done, suspending, cancal
     { data_type = "String", name_map = { zh = "状态", en = "status"}, removed = false },

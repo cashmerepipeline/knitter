@@ -12,10 +12,10 @@ use crate::services::KnitterServer;
 
 impl KnitterServer {
     /// 新建产品
-    pub(crate) async fn handle_get_project_associated_sets(
+    pub(crate) async fn handle_get_project_associated_set_collections(
         &self,
-        request: Request<GetProjectAssociatedSetsRequest>,
-    ) -> UnaryResponseResult<GetProjectAssociatedSetsResponse> {
+        request: Request<GetProjectAssociatedSetCollectionsRequest>,
+    ) -> UnaryResponseResult<GetProjectAssociatedSetCollectionsResponse> {
         let metadata = request.metadata();
         // 已检查过，不需要再检查正确性
         let token = auth::get_auth_token(metadata).unwrap();
@@ -23,14 +23,14 @@ impl KnitterServer {
         let role_group = auth::get_current_role(metadata).unwrap();
 
         let project_id = &request.get_ref().project_id;
-        let set_ids = &request.get_ref().set_ids;
+        let set_collection_ids = &request.get_ref().set_collection_ids;
 
         if !view::can_collection_read(&account_id, &role_group, &PROJECTS_MANAGE_ID.to_string())
             .await
         {
             return Err(Status::unauthenticated("用户不具有工程可读权限"));
         }
-        if !view::can_collection_read(&account_id, &role_group, &SETS_MANAGE_ID.to_string()).await
+        if !view::can_collection_read(&account_id, &role_group, &SET_COLLECTIONS_MANAGE_ID.to_string()).await
         {
             return Err(Status::unauthenticated("用户不具有景可读权限"));
         }
@@ -39,19 +39,19 @@ impl KnitterServer {
 
         let majordomo_arc = get_majordomo().await;
         let manager = majordomo_arc
-            .get_manager_by_id(SETS_MANAGE_ID)
+            .get_manager_by_id(SET_COLLECTIONS_MANAGE_ID)
             .await
             .unwrap();
 
         let query_doc = doc! {
-            ID_FIELD_ID.to_string():doc! {"$in":set_ids.clone()},
+            ID_FIELD_ID.to_string():doc! {"$in":set_collection_ids.clone()},
         };
 
         let result = manager.get_entities_by_filter(&Some(query_doc)).await;
 
         match result {
-            Ok(r) => Ok(Response::new(GetProjectAssociatedSetsResponse {
-                sets: r.iter().map(|x| bson::to_vec(x).unwrap()).collect(),
+            Ok(r) => Ok(Response::new(GetProjectAssociatedSetCollectionsResponse {
+                set_collections: r.iter().map(|x| bson::to_vec(x).unwrap()).collect(),
             })),
             Err(e) => Err(Status::aborted(format!(
                 "{} {}",

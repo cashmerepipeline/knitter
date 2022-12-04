@@ -55,7 +55,7 @@ impl KnitterServer {
             doc! {name.language.clone():name.name.clone()},
         );
         new_entity_doc.insert(
-            SETS_SET_COLLECTIONS_ID_FIELD_ID.to_string(),
+            SETS_ORIGINAL_COLLECTION_FIELD_ID.to_string(),
             collection_id.clone()
         );
         new_entity_doc.insert(
