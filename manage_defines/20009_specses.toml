@@ -1,5 +1,5 @@
 #
-# 规格
+# 规格, 资产、资产组合、布景的不同规格（变体），内容不同
 #
 
 id = 20009
@@ -7,7 +7,8 @@ name_map = { zh = "规格", en = "specses" }
 
 # 数据描写 或者 模式
 schema = [
-    { data_type = "String", name_map = { zh = "资产编号", en = "asset_id"}, removed = false },
+    { data_type = "Int32", name_map = { zh = "主管理", en = "owner_manage_id"}, removed = false },
+    { data_type = "String", name_map = { zh = "主实体", en = "owner_entity_id"}, removed = false },
 
     # done, suspending, cancel
     { data_type = "String", name_map = { zh = "状态", en = "status"}, removed = false },

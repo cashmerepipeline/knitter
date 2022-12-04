@@ -1,7 +1,7 @@
 use bson::{doc, Document};
 use majordomo::{self, get_majordomo};
 use manage_define::general_field_ids::{
-    DESCRIPTIONS_FIELD_ID, ID_FIELD_ID, NAME_MAP_FIELD_ID, TAGS_FIELD_ID,
+    DESCRIPTIONS_FIELD_ID, ID_FIELD_ID, NAME_MAP_FIELD_ID, 
 };
 use managers::traits::ManagerTrait;
 use service_common_handles::name_utils::validate_name;
@@ -15,10 +15,10 @@ use crate::services::KnitterServer;
 
 impl KnitterServer {
     /// 新建产品
-    pub(crate) async fn handle_new_set(
+    pub(crate) async fn handle_new_prefab(
         &self,
-        request: Request<NewSetRequest>,
-    ) -> UnaryResponseResult<NewSetResponse> {
+        request: Request<NewPrefabRequest>,
+    ) -> UnaryResponseResult<NewPrefabResponse> {
         let metadata = request.metadata();
         // 已检查过，不需要再检查正确性
         let token = auth::get_auth_token(metadata).unwrap();
@@ -26,11 +26,11 @@ impl KnitterServer {
         let role_group = auth::get_current_role(metadata).unwrap();
 
         let name = &request.get_ref().name;
-        let project_id = &request.get_ref().project_id;
+        let owner_manage_id = &request.get_ref().owner_manage_id;
+        let owner_entity_id = &request.get_ref().owner_entity_id;
         let description = &request.get_ref().description;
-        let template_id = &request.get_ref().template_id;
 
-       if !view::can_collection_write(&account_id, &role_group, &SETS_MANAGE_ID.to_string())
+       if !view::can_collection_write(&account_id, &role_group, &PREFABS_MANAGE_ID.to_string())
             .await
         {
             return Err(Status::unauthenticated("用户不具有可写权限"));
@@ -43,7 +43,7 @@ impl KnitterServer {
 
         let majordomo_arc = get_majordomo().await;
         let manager = majordomo_arc
-            .get_manager_by_id(SETS_MANAGE_ID)
+            .get_manager_by_id(PREFABS_MANAGE_ID)
             .await
             .unwrap();
 
@@ -56,8 +56,12 @@ impl KnitterServer {
             doc! {name.language.clone():name.name.clone()},
         );
         new_entity_doc.insert(
-            SETS_PROJECT_ID_FIELD_ID.to_string(),
-            project_id.clone()
+            PREFABS_OWNER_MANAGE_ID_FIELD_ID.to_string(),
+            owner_manage_id.clone()
+        );
+        new_entity_doc.insert(
+            PREFABS_OWNER_ENTITY_ID_FIELD_ID.to_string(),
+            owner_manage_id.clone()
         );
         new_entity_doc.insert(
             DESCRIPTIONS_FIELD_ID.to_string(),
@@ -69,7 +73,7 @@ impl KnitterServer {
             .await;
 
         match result {
-            Ok(_r) => Ok(Response::new(NewSetResponse {
+            Ok(_r) => Ok(Response::new(NewPrefabResponse {
                 // TODO: 发送新建事件
                 result: "ok".to_string(),
             })),

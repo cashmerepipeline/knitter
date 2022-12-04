@@ -35,15 +35,17 @@ use service_common_handles::{
 };
 
 mod assembly_servcice_handle;
+mod asset_collection_servcice_handle;
 mod assets_servcice_handle;
 mod cut_servcice_handle;
 mod epic_servcice_handle;
 mod init;
-mod asset_collection_servcice_handle;
+mod prefab_service_handle;
 mod project_servcice_handle;
 mod sequence_servcice_handle;
-mod sets_servcice_handle;
 mod set_collection_service_handle;
+mod set_servcice_handle;
+mod specs_service_handle;
 
 pub mod protocol {
     include!("./io.knitter.rs");
@@ -51,9 +53,28 @@ pub mod protocol {
 
 // use protocol::{LoginRequest, LoginResponse, NewManageRequest, NewManageResponse};
 use crate::services::protocol::knitter_grpc_server::KnitterGrpc;
-use crate::services::protocol::{GetAssetPrefabsRequest, GetAssetPrefabsResponse, GetAssetSpecsesRequest, GetAssetSpecsesResponse, GetCutReferencedAssetsRequest, GetCutReferencedAssetsResponse, GetEpicSequencesRequest, GetEpicSequencesResponse, GetAssetCollectionAssembliesPageRequest, GetAssetCollectionAssembliesPageResponse, GetAssetCollectionAssetsPageRequest, GetAssetCollectionAssetsPageResponse, GetProjectAssociatedAssetCollectionsRequest, GetProjectAssociatedAssetCollectionsResponse, GetProjectAssociatedSetsRequest, GetProjectAssociatedSetsResponse, GetSequenceCutsRequest, GetSequenceCutsResponse, MarkAssetStatusRequest, MarkAssetStatusResponse, MarkCutStatusRequest, MarkCutStatusResponse, MarkSetStatusRequest, MarkSetStatusResponse, NewAssemblyRequest, NewAssemblyResponse, NewAssetRequest, NewAssetResponse, NewCutRequest, NewCutResponse, NewEpicRequest, NewEpicResponse, NewAssetCollectionRequest, NewAssetCollectionResponse, NewProjectRequest, NewProjectResponse, NewSequenceRequest, NewSequenceResponse, NewSetRequest, NewSetResponse, ReferenceAssembliesRequest, ReferenceAssembliesResponse, ReferenceAssetsRequest, ReferenceAssetsResponse, ReferenceSetsRequest, ReferenceSetsResponse};
+use crate::services::protocol::{
+    GetAssetCollectionAssembliesPageRequest, GetAssetCollectionAssembliesPageResponse,
+    GetAssetCollectionAssetsPageRequest, GetAssetCollectionAssetsPageResponse,
+    GetAssetPrefabsRequest, GetAssetPrefabsResponse, GetAssetSpecsesRequest,
+    GetAssetSpecsesResponse, GetCutReferencedAssetsRequest, GetCutReferencedAssetsResponse,
+    GetEpicSequencesRequest, GetEpicSequencesResponse, GetProjectAssociatedAssetCollectionsRequest,
+    GetProjectAssociatedAssetCollectionsResponse, GetProjectAssociatedSetsRequest,
+    GetProjectAssociatedSetsResponse, GetSequenceCutsRequest, GetSequenceCutsResponse,
+    MarkAssetStatusRequest, MarkAssetStatusResponse, MarkCutStatusRequest, MarkCutStatusResponse,
+    MarkSetStatusRequest, MarkSetStatusResponse, NewAssemblyRequest, NewAssemblyResponse,
+    NewAssetCollectionRequest, NewAssetCollectionResponse, NewAssetRequest, NewAssetResponse,
+    NewCutRequest, NewCutResponse, NewEpicRequest, NewEpicResponse, NewPrefabRequest,
+    NewPrefabResponse, NewProjectRequest, NewProjectResponse, NewSequenceRequest,
+    NewSequenceResponse, NewSetRequest, NewSetResponse, NewSpecsRequest, NewSpecsResponse,
+    ReferenceAssembliesRequest, ReferenceAssembliesResponse, ReferenceAssetsRequest,
+    ReferenceAssetsResponse, ReferenceSetsRequest, ReferenceSetsResponse,
+};
 
-use self::protocol::{AssociateAssetCollectionsToProjectRequest, AssociateAssetCollectionsToProjectResponse, NewSetCollectionRequest, NewSetCollectionResponse};
+use self::protocol::{
+    AssociateAssetCollectionsToProjectRequest, AssociateAssetCollectionsToProjectResponse,
+    NewSetCollectionRequest, NewSetCollectionResponse,
+};
 
 /// 管理服务
 #[derive(Default)]
@@ -318,14 +339,21 @@ impl KnitterGrpc for KnitterServer {
         &self,
         request: Request<AssociateAssetCollectionsToProjectRequest>,
     ) -> Result<Response<AssociateAssetCollectionsToProjectResponse>, Status> {
-        self.handle_associate_asset_collections_to_project(request).await
+        self.handle_associate_asset_collections_to_project(request)
+            .await
     }
 
-    async fn get_project_associated_asset_collections(&self, request: Request<GetProjectAssociatedAssetCollectionsRequest>) -> Result<Response<GetProjectAssociatedAssetCollectionsResponse>, Status> {
+    async fn get_project_associated_asset_collections(
+        &self,
+        request: Request<GetProjectAssociatedAssetCollectionsRequest>,
+    ) -> Result<Response<GetProjectAssociatedAssetCollectionsResponse>, Status> {
         todo!()
     }
 
-    async fn get_project_associated_sets(&self, request: Request<GetProjectAssociatedSetsRequest>) -> Result<Response<GetProjectAssociatedSetsResponse>, Status> {
+    async fn get_project_associated_sets(
+        &self,
+        request: Request<GetProjectAssociatedSetsRequest>,
+    ) -> Result<Response<GetProjectAssociatedSetsResponse>, Status> {
         todo!()
     }
 
@@ -336,11 +364,17 @@ impl KnitterGrpc for KnitterServer {
         self.handle_new_asset_collection(request).await
     }
 
-    async fn get_asset_collection_associated_assets_page(&self, request: Request<GetAssetCollectionAssetsPageRequest>) -> Result<Response<GetAssetCollectionAssetsPageResponse>, Status> {
+    async fn get_asset_collection_associated_assets_page(
+        &self,
+        request: Request<GetAssetCollectionAssetsPageRequest>,
+    ) -> Result<Response<GetAssetCollectionAssetsPageResponse>, Status> {
         todo!()
     }
 
-    async fn get_asset_collection_associated_assemblies_page(&self, request: Request<GetAssetCollectionAssembliesPageRequest>) -> Result<Response<GetAssetCollectionAssembliesPageResponse>, Status> {
+    async fn get_asset_collection_associated_assemblies_page(
+        &self,
+        request: Request<GetAssetCollectionAssembliesPageRequest>,
+    ) -> Result<Response<GetAssetCollectionAssembliesPageResponse>, Status> {
         todo!()
     }
 
@@ -351,19 +385,31 @@ impl KnitterGrpc for KnitterServer {
         self.handle_new_asset(request).await
     }
 
-    async fn get_asset_specses(&self, request: Request<GetAssetSpecsesRequest>) -> Result<Response<GetAssetSpecsesResponse>, Status> {
+    async fn get_asset_specses(
+        &self,
+        request: Request<GetAssetSpecsesRequest>,
+    ) -> Result<Response<GetAssetSpecsesResponse>, Status> {
         todo!()
     }
 
-    async fn get_asset_prefabs(&self, request: Request<GetAssetPrefabsRequest>) -> Result<Response<GetAssetPrefabsResponse>, Status> {
+    async fn get_asset_prefabs(
+        &self,
+        request: Request<GetAssetPrefabsRequest>,
+    ) -> Result<Response<GetAssetPrefabsResponse>, Status> {
         todo!()
     }
 
-    async fn reference_assets(&self, request: Request<ReferenceAssetsRequest>) -> Result<Response<ReferenceAssetsResponse>, Status> {
+    async fn reference_assets(
+        &self,
+        request: Request<ReferenceAssetsRequest>,
+    ) -> Result<Response<ReferenceAssetsResponse>, Status> {
         todo!()
     }
 
-    async fn mart_asset_satus(&self, request: Request<MarkAssetStatusRequest>) -> Result<Response<MarkAssetStatusResponse>, Status> {
+    async fn mart_asset_satus(
+        &self,
+        request: Request<MarkAssetStatusRequest>,
+    ) -> Result<Response<MarkAssetStatusResponse>, Status> {
         todo!()
     }
 
@@ -374,7 +420,10 @@ impl KnitterGrpc for KnitterServer {
         self.handle_new_assembly(request).await
     }
 
-    async fn reference_assemblies(&self, request: Request<ReferenceAssembliesRequest>) -> Result<Response<ReferenceAssembliesResponse>, Status> {
+    async fn reference_assemblies(
+        &self,
+        request: Request<ReferenceAssembliesRequest>,
+    ) -> Result<Response<ReferenceAssembliesResponse>, Status> {
         todo!()
     }
 
@@ -385,7 +434,10 @@ impl KnitterGrpc for KnitterServer {
         self.handle_new_epic(request).await
     }
 
-    async fn get_epic_sequences(&self, request: Request<GetEpicSequencesRequest>) -> Result<Response<GetEpicSequencesResponse>, Status> {
+    async fn get_epic_sequences(
+        &self,
+        request: Request<GetEpicSequencesRequest>,
+    ) -> Result<Response<GetEpicSequencesResponse>, Status> {
         todo!()
     }
 
@@ -396,7 +448,10 @@ impl KnitterGrpc for KnitterServer {
         self.handle_new_sequence(request).await
     }
 
-    async fn get_sequence_cuts(&self, request: Request<GetSequenceCutsRequest>) -> Result<Response<GetSequenceCutsResponse>, Status> {
+    async fn get_sequence_cuts(
+        &self,
+        request: Request<GetSequenceCutsRequest>,
+    ) -> Result<Response<GetSequenceCutsResponse>, Status> {
         todo!()
     }
 
@@ -407,11 +462,17 @@ impl KnitterGrpc for KnitterServer {
         self.handle_new_cut(request).await
     }
 
-    async fn get_cut_referenced_assets(&self, request: Request<GetCutReferencedAssetsRequest>) -> Result<Response<GetCutReferencedAssetsResponse>, Status> {
+    async fn get_cut_referenced_assets(
+        &self,
+        request: Request<GetCutReferencedAssetsRequest>,
+    ) -> Result<Response<GetCutReferencedAssetsResponse>, Status> {
         todo!()
     }
 
-    async fn mark_cut_status(&self, request: Request<MarkCutStatusRequest>) -> Result<Response<MarkCutStatusResponse>, Status> {
+    async fn mark_cut_status(
+        &self,
+        request: Request<MarkCutStatusRequest>,
+    ) -> Result<Response<MarkCutStatusResponse>, Status> {
         todo!()
     }
 
@@ -429,11 +490,31 @@ impl KnitterGrpc for KnitterServer {
         self.handle_new_set(request).await
     }
 
-    async fn reference_sets(&self, request: Request<ReferenceSetsRequest>) -> Result<Response<ReferenceSetsResponse>, Status> {
+    async fn reference_sets(
+        &self,
+        request: Request<ReferenceSetsRequest>,
+    ) -> Result<Response<ReferenceSetsResponse>, Status> {
         todo!()
     }
 
-    async fn mart_set_satus(&self, request: Request<MarkSetStatusRequest>) -> Result<Response<MarkSetStatusResponse>, Status> {
+    async fn mart_set_satus(
+        &self,
+        request: Request<MarkSetStatusRequest>,
+    ) -> Result<Response<MarkSetStatusResponse>, Status> {
         todo!()
+    }
+
+    async fn new_specs(
+        &self,
+        request: Request<NewSpecsRequest>,
+    ) -> Result<Response<NewSpecsResponse>, Status> {
+        self.handle_new_specs(request).await
+    }
+
+    async fn new_prefab(
+        &self,
+        request: Request<NewPrefabRequest>,
+    ) -> Result<Response<NewPrefabResponse>, Status> {
+        self.handle_new_prefab(request).await
     }
 }

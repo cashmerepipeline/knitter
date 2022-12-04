@@ -36,6 +36,8 @@ import "sequence.proto";
 import "cut.proto";
 import "set_collection.proto";
 import "set.proto";
+import "specs.proto";
+import "prefab.proto";
 
 service KnitterGrpc{
   // 管理
@@ -128,6 +130,12 @@ service KnitterGrpc{
   rpc NewSet(NewSetRequest) returns (NewSetResponse);
   rpc ReferenceSets(ReferenceSetsRequest) returns (ReferenceSetsResponse);
   rpc MartSetSatus(MarkSetStatusRequest) returns (MarkSetStatusResponse);
+
+  // 规格
+  rpc NewSpecs(NewSpecsRequest) returns (NewSpecsResponse);
+
+  // 预制件
+  rpc NewPrefab(NewPrefabRequest) returns (NewPrefabResponse);
 
   // =====工作=====
   // 工作管理

@@ -7,6 +7,7 @@ name_map = { zh = "景", en = "sets" }
 
 # 数据描写 或者 模式
 schema = [
+    { data_type = "String", name_map = { zh = "引用资产表", en = "set_collections_id"}, removed = false },
     { data_type = "List", name_map = { zh = "引用资产表", en = "referenced_asset_ids"}, removed = false },
     { data_type = "List", name_map = { zh = "引用资产表", en = "referenced_assembly_ids"}, removed = false },
     { data_type = "Map", name_map = { zh = "灯光系统", en = "lights"}, removed = false },

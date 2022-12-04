@@ -1,0 +1,15 @@
+syntax = "proto3";
+package io.knitter;
+
+import "name.proto";
+
+message NewSpecsRequest{
+    int32 owner_manage_id = 1;
+    string owner_entity_id = 2;
+    cashmere.Name name = 3;
+    string description = 4;
+}
+message NewSpecsResponse{
+    string result = 1;
+}
+

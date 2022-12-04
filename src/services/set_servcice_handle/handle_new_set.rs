@@ -9,6 +9,7 @@ use service_common_handles::UnaryResponseResult;
 use tonic::{Request, Response, Status};
 
 use crate::ids_codes::manage_ids::*;
+use crate::ids_codes::field_ids::*;
 use crate::services::protocol::*;
 use crate::services::KnitterServer;
 
@@ -26,7 +27,7 @@ impl KnitterServer {
 
         let name = &request.get_ref().name;
         let description = &request.get_ref().description;
-        let template_id = &request.get_ref().template_id;
+        let collection_id = &request.get_ref().collection_id;
 
        if !view::can_collection_write(&account_id, &role_group, &SETS_MANAGE_ID.to_string())
             .await
@@ -52,6 +53,10 @@ impl KnitterServer {
         new_entity_doc.insert(
             NAME_MAP_FIELD_ID.to_string(),
             doc! {name.language.clone():name.name.clone()},
+        );
+        new_entity_doc.insert(
+            SETS_SET_COLLECTIONS_ID_FIELD_ID.to_string(),
+            collection_id.clone()
         );
         new_entity_doc.insert(
             DESCRIPTIONS_FIELD_ID.to_string(),

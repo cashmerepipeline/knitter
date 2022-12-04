@@ -5,10 +5,9 @@ import "name.proto";
 
 // 新建景
 message NewSetRequest {
-  string project_id = 1;
+  string collection_id = 1;
   cashmere.Name name = 2;
   string description = 3;
-  string template_id = 4;
 }
 message NewSetResponse {
   // 成功返回新id
