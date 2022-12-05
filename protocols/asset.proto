@@ -2,6 +2,7 @@ syntax = "proto3";
 package io.knitter;
 
 import "name.proto";
+import "reference.proto";
 
 // 新建资产
 message NewAssetRequest {
@@ -23,21 +24,6 @@ message GetAssetSpecsesResponse { repeated bytes specses = 1; }
 message GetAssetPrefabsRequest { string asset_id = 1; }
 message GetAssetPrefabsResponse { repeated bytes prefabs = 1; }
 
-// 引用
-message ReferenceAssetsRequest {
-  // 主管理编号
-  int32 manage_id = 1;
-  // 主实体
-  string entity_id = 2;
-  string field_id = 3;
-  string reference_field_id = 4;
-  repeated string asset_ids = 5;
-}
-message ReferenceAssetsResponse {
-  // 成功返回 "ok"
-  string result = 1;
-}
-
 // 标记状态
 message MarkAssetStatusRequest { string asset_id = 1; }
 message MarkAssetStatusResponse {
@@ -45,7 +31,7 @@ message MarkAssetStatusResponse {
   string result = 1;
 }
 
-// 引用
+// 取得引用
 message GetReferencedAssetsRequest {
   // 主管理编号
   int32 manage_id = 1;
@@ -55,5 +41,5 @@ message GetReferencedAssetsRequest {
 }
 message GetReferencedAssetsResponse {
   // 成功返回 "ok"
-  repeated bytes result = 1;
+  repeated bytes assets = 1;
 }

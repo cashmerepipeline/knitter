@@ -6,6 +6,7 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
         .extern_path(".cashmere", "::manage_define::cashmere")
         .build_client(false)
         .build_server(true)
+        .type_attribute("Reference", "#[derive(serde::Serialize, serde::Deserialize)]")
         .compile_well_known_types(true)
         .compile(
             &["protocols/knitter.proto"],

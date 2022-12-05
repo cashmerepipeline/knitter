@@ -10,8 +10,7 @@ schema = [
     { data_type = "String", name_map = { zh = "原始合集", en = "original_collection"}, removed = false },
     { data_type = "List", name_map = { zh = "关联合集", en = "associated_collections"}, removed = false },
 
-    { data_type = "List", name_map = { zh = "引用资产", en = "referenced_asset_ids"}, removed = false },
-    { data_type = "List", name_map = { zh = "引用组合", en = "referenced_assembly_ids"}, removed = false },
+    { data_type = "List", name_map = { zh = "引用表", en = "references"}, removed = false },
     { data_type = "Map", name_map = { zh = "灯光系统", en = "lights"}, removed = false },
 
     { data_type = "Map", name_map = { zh = "规格", en = "specses"}, removed = false },

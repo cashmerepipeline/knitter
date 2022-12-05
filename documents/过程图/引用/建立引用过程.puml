@@ -1,0 +1,10 @@
+@startuml
+'https://plantuml.com/sequence-diagram
+
+autonumber
+
+艺术家 -> 纺织机: 引用(主体信息,对象编号,对象预制件)
+纺织机->纺织机: 检查主体和被引用对象信息数据
+纺织机->纺织机: 将引用加入主体引用表
+纺织机->艺术家: 引用结果
+@enduml

@@ -105,6 +105,7 @@ service KnitterGrpc{
   rpc GetAssetSpecses(GetAssetSpecsesRequest) returns (GetAssetSpecsesResponse);
   rpc GetAssetPrefabs(GetAssetPrefabsRequest) returns (GetAssetPrefabsResponse);
   rpc ReferenceAssets(ReferenceAssetsRequest) returns (ReferenceAssetsResponse);
+  rpc GetReferencedAssets(GetReferencedAssetsRequest) returns (GetReferencedAssetsResponse);
   rpc MartAssetSatus(MarkAssetStatusRequest) returns (MarkAssetStatusResponse);
 
   // 组合

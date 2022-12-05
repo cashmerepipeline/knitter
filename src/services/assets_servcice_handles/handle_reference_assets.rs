@@ -25,7 +25,7 @@ impl KnitterServer {
         let manage_id = &request.get_ref().manage_id;
         let entity_id = &request.get_ref().entity_id;
         let reference_field_id = &request.get_ref().reference_field_id;
-        let asset_ids = &request.get_ref().asset_ids;
+        let references = &request.get_ref().references;
 
         if !view::can_collection_write(&account_id, &role_group, &manage_id.to_string())
             .await
@@ -47,7 +47,7 @@ impl KnitterServer {
         let mut modify_doc = Document::new();
         modify_doc.insert(
             reference_field_id,
-            doc! {"$each":asset_ids.clone()}
+            doc! {"$each":bson::to_document(references).unwrap()}
         );
 
         let result = manager

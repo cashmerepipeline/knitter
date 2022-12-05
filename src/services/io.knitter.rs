@@ -144,6 +144,23 @@ pub struct GetAssetCollectionAssembliesPageResponse {
     #[prost(bytes="vec", repeated, tag="1")]
     pub assemblies: ::prost::alloc::vec::Vec<::prost::alloc::vec::Vec<u8>>,
 }
+#[derive(serde::Serialize, serde::Deserialize)]
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct Reference {
+    #[prost(enumeration="ReferenceType", tag="1")]
+    pub ref_type: i32,
+    #[prost(string, tag="2")]
+    pub source_id: ::prost::alloc::string::String,
+    #[prost(string, tag="3")]
+    pub prefab_id: ::prost::alloc::string::String,
+}
+#[derive(Clone, Copy, Debug, PartialEq, Eq, Hash, PartialOrd, Ord, ::prost::Enumeration)]
+#[repr(i32)]
+pub enum ReferenceType {
+    RefAsset = 0,
+    RefAssembly = 1,
+    RefSet = 2,
+}
 /// 新建资产
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct NewAssetRequest {
@@ -195,8 +212,8 @@ pub struct ReferenceAssetsRequest {
     pub entity_id: ::prost::alloc::string::String,
     #[prost(string, tag="3")]
     pub reference_field_id: ::prost::alloc::string::String,
-    #[prost(string, repeated, tag="4")]
-    pub asset_ids: ::prost::alloc::vec::Vec<::prost::alloc::string::String>,
+    #[prost(message, repeated, tag="4")]
+    pub references: ::prost::alloc::vec::Vec<Reference>,
 }
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct ReferenceAssetsResponse {

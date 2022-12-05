@@ -1,0 +1,27 @@
+syntax = "proto3";
+package io.knitter;
+
+enum ReferenceType{
+  RefAsset = 0;
+  RefAssembly = 1;
+  RefSet = 2;
+}
+message Reference {
+  ReferenceType ref_type = 1;
+  string source_id = 2;
+  string prefab_id = 3;
+}
+
+// 引用
+message ReferenceRequest {
+  // 主管理编号
+  int32 subject_manage_id = 1;
+  // 主实体
+  string subject_entity_id = 2;
+  string reference_field_id = 3;
+  repeated Reference references = 4;
+}
+message ReferenceResponse {
+  // 成功返回 "ok"
+  string result = 1;
+}

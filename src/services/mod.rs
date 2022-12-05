@@ -34,18 +34,19 @@ use service_common_handles::{
     view_rules_service_handles::HandleChangeManageReadrule,
 };
 
-mod assembly_servcice_handle;
-mod asset_collection_servcice_handle;
-mod assets_servcice_handle;
-mod cut_servcice_handle;
-mod epic_servcice_handle;
+mod assembly_servcice_handles;
+mod asset_collection_servcice_handles;
+mod assets_servcice_handles;
+mod cut_servcice_handles;
+mod epic_servcice_handles;
 mod init;
-mod prefab_service_handle;
-mod project_servcice_handle;
-mod sequence_servcice_handle;
-mod set_collection_service_handle;
-mod set_servcice_handle;
-mod specs_service_handle;
+mod prefab_service_handles;
+mod project_servcice_handles;
+mod sequence_servcice_handles;
+mod set_collection_service_handles;
+mod set_servcice_handles;
+mod specs_service_handles;
+mod reference_service_handles;
 
 pub mod protocol {
     include!("./io.knitter.rs");

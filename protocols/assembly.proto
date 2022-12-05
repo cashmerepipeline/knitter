@@ -31,7 +31,8 @@ message ReferenceAssembliesRequest {
   int32 manage_id = 1;
   // 主实体
   string entity_id = 2;
-  repeated string asset_ids = 3;
+  string reference_field_id = 3;
+  repeated string assembly_ids = 4;
 }
 message ReferenceAssembliesResponse {
   // 成功返回 "ok"
