@@ -54,28 +54,7 @@ pub mod protocol {
 
 // use protocol::{LoginRequest, LoginResponse, NewManageRequest, NewManageResponse};
 use crate::services::protocol::knitter_grpc_server::KnitterGrpc;
-use crate::services::protocol::{
-    GetAssetCollectionAssembliesPageRequest, GetAssetCollectionAssembliesPageResponse,
-    GetAssetCollectionAssetsPageRequest, GetAssetCollectionAssetsPageResponse,
-    GetAssetPrefabsRequest, GetAssetPrefabsResponse, GetAssetSpecsesRequest,
-    GetAssetSpecsesResponse, GetCutReferencedAssetsRequest, GetCutReferencedAssetsResponse,
-    GetEpicSequencesRequest, GetEpicSequencesResponse, GetProjectAssociatedAssetCollectionsRequest,
-    GetProjectAssociatedAssetCollectionsResponse, GetProjectAssociatedSetCollectionsRequest,
-    GetProjectAssociatedSetCollectionsResponse, GetSequenceCutsRequest, GetSequenceCutsResponse,
-    MarkAssetStatusRequest, MarkAssetStatusResponse, MarkCutStatusRequest, MarkCutStatusResponse,
-    MarkSetStatusRequest, MarkSetStatusResponse, NewAssemblyRequest, NewAssemblyResponse,
-    NewAssetCollectionRequest, NewAssetCollectionResponse, NewAssetRequest, NewAssetResponse,
-    NewCutRequest, NewCutResponse, NewEpicRequest, NewEpicResponse, NewPrefabRequest,
-    NewPrefabResponse, NewProjectRequest, NewProjectResponse, NewSequenceRequest,
-    NewSequenceResponse, NewSetRequest, NewSetResponse, NewSpecsRequest, NewSpecsResponse,
-    ReferenceAssembliesRequest, ReferenceAssembliesResponse, ReferenceAssetsRequest,
-    ReferenceAssetsResponse, ReferenceSetsRequest, ReferenceSetsResponse,GetReferencedAssetsRequest, GetReferencedAssetsResponse,
-};
-
-use self::protocol::{
-    AssociateAssetCollectionsToProjectRequest, AssociateAssetCollectionsToProjectResponse,
-    NewSetCollectionRequest, NewSetCollectionResponse, AssociateSetCollectionsToProjectRequest, AssociateSetCollectionsToProjectResponse,
-};
+use crate::services::protocol::*;
 
 /// 管理服务
 #[derive(Default)]
@@ -408,13 +387,6 @@ impl KnitterGrpc for KnitterServer {
         todo!()
     }
 
-    async fn reference_assets(
-        &self,
-        request: Request<ReferenceAssetsRequest>,
-    ) -> Result<Response<ReferenceAssetsResponse>, Status> {
-        todo!()
-    }
-
     async fn get_referenced_assets(
         &self,
         request: Request<GetReferencedAssetsRequest>
@@ -434,13 +406,6 @@ impl KnitterGrpc for KnitterServer {
         request: Request<NewAssemblyRequest>,
     ) -> Result<Response<NewAssemblyResponse>, Status> {
         self.handle_new_assembly(request).await
-    }
-
-    async fn reference_assemblies(
-        &self,
-        request: Request<ReferenceAssembliesRequest>,
-    ) -> Result<Response<ReferenceAssembliesResponse>, Status> {
-        todo!()
     }
 
     async fn new_epic(
@@ -506,13 +471,6 @@ impl KnitterGrpc for KnitterServer {
         self.handle_new_set(request).await
     }
 
-    async fn reference_sets(
-        &self,
-        request: Request<ReferenceSetsRequest>,
-    ) -> Result<Response<ReferenceSetsResponse>, Status> {
-        todo!()
-    }
-
     async fn mart_set_satus(
         &self,
         request: Request<MarkSetStatusRequest>,
@@ -532,5 +490,21 @@ impl KnitterGrpc for KnitterServer {
         request: Request<NewPrefabRequest>,
     ) -> Result<Response<NewPrefabResponse>, Status> {
         self.handle_new_prefab(request).await
+    }
+
+    async fn add_references(&self, request: Request<AddReferencesRequest>) -> Result<Response<AddReferencesResponse>, Status> {
+        self.handle_add_references(request).await
+    }
+
+    async fn remove_references(&self, request: Request<RemoveReferencesRequest>) -> Result<Response<RemoveReferencesResponse>, Status> {
+        self.handle_remove_references(request).await
+    }
+
+    async fn list_references(&self, request: Request<ListReferencesRequest>) -> Result<Response<ListReferencesResponse>, Status> {
+        self.handle_list_references(request).await
+    }
+
+    async fn change_reference(&self, request: Request<ChangeReferencePrefabRequest>) -> Result<Response<ChangeReferencePrefabResponse>, Status> {
+        todo!()
     }
 }

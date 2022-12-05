@@ -1,19 +1,19 @@
 syntax = "proto3";
 package io.knitter;
 
-enum ReferenceType{
+enum ReferenceType {
   RefAsset = 0;
   RefAssembly = 1;
   RefSet = 2;
 }
 message Reference {
-  ReferenceType ref_type = 1;
+  ReferenceType reference_type = 1;
   string source_id = 2;
   string prefab_id = 3;
 }
 
 // 引用
-message ReferenceRequest {
+message AddReferencesRequest {
   // 主管理编号
   int32 subject_manage_id = 1;
   // 主实体
@@ -21,7 +21,46 @@ message ReferenceRequest {
   string reference_field_id = 3;
   repeated Reference references = 4;
 }
-message ReferenceResponse {
+message AddReferencesResponse {
+  // 成功返回 "ok"
+  string result = 1;
+}
+
+// 列出引用
+message ListReferencesRequest {
+  // 主管理编号
+  int32 subject_manage_id = 1;
+  // 主实体
+  string subject_entity_id = 2;
+  string reference_field_id = 3;
+}
+message ListReferencesResponse { repeated bytes references = 1; }
+
+// 移除引用
+message RemoveReferencesRequest {
+  // 主管理编号
+  int32 subject_manage_id = 1;
+  // 主实体
+  string subject_entity_id = 2;
+  string reference_field_id = 3;
+  repeated Reference references = 4;
+}
+message RemoveReferencesResponse {
+  // 成功返回 "ok"
+  string result = 1;
+}
+
+// 修改引用预制件
+message ChangeReferencePrefabRequest {
+  // 主管理编号
+  int32 subject_manage_id = 1;
+  // 主实体
+  string subject_entity_id = 2;
+  string reference_field_id = 3;
+  Reference old_reference = 4;
+  Reference new_reference = 5;
+}
+message ChangeReferencePrefabResponse {
   // 成功返回 "ok"
   string result = 1;
 }

@@ -12,18 +12,18 @@ use crate::services::KnitterServer;
 
 impl KnitterServer {
     /// 新建产品
-    pub(crate) async fn handle_reference_assets(
+    pub(crate) async fn handle_add_references(
         &self,
-        request: Request<ReferenceAssetsRequest>,
-    ) -> UnaryResponseResult<ReferenceAssetsResponse> {
+        request: Request<AddReferencesRequest>,
+    ) -> UnaryResponseResult<AddReferencesResponse> {
         let metadata = request.metadata();
         // 已检查过，不需要再检查正确性
         let token = auth::get_auth_token(metadata).unwrap();
         let (account_id, _groups) = auth::get_claims_account_and_roles(&token).unwrap();
         let role_group = auth::get_current_role(metadata).unwrap();
 
-        let manage_id = &request.get_ref().manage_id;
-        let entity_id = &request.get_ref().entity_id;
+        let manage_id = &request.get_ref().subject_manage_id;
+        let entity_id = &request.get_ref().subject_entity_id;
         let reference_field_id = &request.get_ref().reference_field_id;
         let references = &request.get_ref().references;
 
@@ -55,7 +55,7 @@ impl KnitterServer {
             .await;
 
         match result {
-            Ok(r) => Ok(Response::new(ReferenceAssetsResponse {
+            Ok(r) => Ok(Response::new(AddReferencesResponse {
                 result: "ok".to_string(),
             })),
             Err(e) => Err(Status::aborted(format!(

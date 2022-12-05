@@ -38,6 +38,7 @@ import "set_collection.proto";
 import "set.proto";
 import "specs.proto";
 import "prefab.proto";
+import "reference.proto";
 
 service KnitterGrpc{
   // 管理
@@ -104,13 +105,11 @@ service KnitterGrpc{
   rpc NewAsset(NewAssetRequest) returns (NewAssetResponse);
   rpc GetAssetSpecses(GetAssetSpecsesRequest) returns (GetAssetSpecsesResponse);
   rpc GetAssetPrefabs(GetAssetPrefabsRequest) returns (GetAssetPrefabsResponse);
-  rpc ReferenceAssets(ReferenceAssetsRequest) returns (ReferenceAssetsResponse);
   rpc GetReferencedAssets(GetReferencedAssetsRequest) returns (GetReferencedAssetsResponse);
   rpc MartAssetSatus(MarkAssetStatusRequest) returns (MarkAssetStatusResponse);
 
   // 组合
   rpc NewAssembly(NewAssemblyRequest) returns (NewAssemblyResponse);
-  rpc ReferenceAssemblies(ReferenceAssembliesRequest) returns (ReferenceAssembliesResponse);
 
   // 集
   rpc NewEpic(NewEpicRequest) returns (NewEpicResponse);
@@ -130,7 +129,6 @@ service KnitterGrpc{
 
   // 景
   rpc NewSet(NewSetRequest) returns (NewSetResponse);
-  rpc ReferenceSets(ReferenceSetsRequest) returns (ReferenceSetsResponse);
   rpc MartSetSatus(MarkSetStatusRequest) returns (MarkSetStatusResponse);
 
   // 规格
@@ -138,6 +136,12 @@ service KnitterGrpc{
 
   // 预制件
   rpc NewPrefab(NewPrefabRequest) returns (NewPrefabResponse);
+
+  // 引用
+  rpc AddReferences(AddReferencesRequest) returns (AddReferencesResponse);
+  rpc RemoveReferences(RemoveReferencesRequest) returns (RemoveReferencesResponse);
+  rpc ListReferences(ListReferencesRequest) returns (ListReferencesResponse);
+  rpc ChangeReference(ChangeReferencePrefabRequest) returns (ChangeReferencePrefabResponse);
 
   // =====工作=====
   // 工作管理
