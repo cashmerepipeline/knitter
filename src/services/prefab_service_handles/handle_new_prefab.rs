@@ -26,11 +26,10 @@ impl KnitterServer {
         let role_group = auth::get_current_role(metadata).unwrap();
 
         let name = &request.get_ref().name;
-        let owner_manage_id = &request.get_ref().owner_manage_id;
-        let owner_entity_id = &request.get_ref().owner_entity_id;
+        let specs_id = &request.get_ref().specs_id;
         let description = &request.get_ref().description;
 
-       if !view::can_collection_write(&account_id, &role_group, &PREFABS_MANAGE_ID.to_string())
+        if !view::can_collection_write(&account_id, &role_group, &PREFABS_MANAGE_ID.to_string())
             .await
         {
             return Err(Status::unauthenticated("用户不具有可写权限"));
@@ -56,12 +55,8 @@ impl KnitterServer {
             doc! {name.language.clone():name.name.clone()},
         );
         new_entity_doc.insert(
-            PREFABS_OWNER_MANAGE_ID_FIELD_ID.to_string(),
-            owner_manage_id.clone()
-        );
-        new_entity_doc.insert(
-            PREFABS_OWNER_ENTITY_ID_FIELD_ID.to_string(),
-            owner_manage_id.clone()
+            PREFABS_SPECS_ID_FIELD_ID.to_string(),
+            specs_id.clone()
         );
         new_entity_doc.insert(
             DESCRIPTIONS_FIELD_ID.to_string(),

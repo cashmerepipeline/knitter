@@ -30,15 +30,19 @@ server_key_path = "tls/server.key"
 server_ca_path = "tls/server.crt"
 client_ca_path = "tls/client.crt"
 
-[data]
-root = "data_root"
+[data_server]
+root_dir_path = "data_root"
 # 文件最大大小, 16MB
 max_file_size = 16777216
 # 文件集最大数量, 1000
-max_set_file_number = 1000
+max_set_size = 1000
 # 文件序列最大数量
-max_sequence_file_number = 7200
+max_sequence_length = 10000
+# 最大文件上传连接
+max_file_upload_number = 256
+# 最大文件下载连接
+max_file_download_number = 256
 # 块最大大小，1024*128=128KB
-max_chunk_size = 131072
-
-
+transfer_chunk_size = 131072
+# 内部文件路径，不需要通过服务器上传文件, 可将文件直接存储到目标位置
+internal_root_dir_map = {"windows"="X:/data_root/dir", "linux"="/mnt/data_root/dir", "macos" = "/mnt/data_root/dir"}

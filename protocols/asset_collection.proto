@@ -3,7 +3,7 @@ package io.knitter;
 
 import "name.proto";
 
-// 新项目
+// 新资产集合
 message NewAssetCollectionRequest{
   cashmere.Name name = 1;
   string inner_root_path = 2;

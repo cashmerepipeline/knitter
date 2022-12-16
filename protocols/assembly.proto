@@ -15,7 +15,6 @@ message NewAssemblyResponse {
   string result = 1;
 }
 
-
 // 更新资产到组
 message UpdateAssemblyRequest {
   string assembly_id = 1;

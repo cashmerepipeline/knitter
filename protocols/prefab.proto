@@ -4,11 +4,10 @@ package io.knitter;
 import "name.proto";
 
 message NewPrefabRequest{
-    int32 owner_manage_id = 1;
-    string owner_entity_id = 2;
-    cashmere.Name name = 3;
-    string description = 4;
+    string specs_id = 1;
+    cashmere.Name name = 2;
+    string description = 3;
 }
 message NewPrefabResponse{
     string result = 1;
-  }
+}

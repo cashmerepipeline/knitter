@@ -94,7 +94,7 @@ pub struct GetProjectEpicsResponse {
     #[prost(bytes="vec", repeated, tag="1")]
     pub epics: ::prost::alloc::vec::Vec<::prost::alloc::vec::Vec<u8>>,
 }
-/// 新项目
+/// 新资产集合
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct NewAssetCollectionRequest {
     #[prost(message, optional, tag="1")]
@@ -628,13 +628,11 @@ pub struct NewSpecsResponse {
 }
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct NewPrefabRequest {
-    #[prost(int32, tag="1")]
-    pub owner_manage_id: i32,
-    #[prost(string, tag="2")]
-    pub owner_entity_id: ::prost::alloc::string::String,
-    #[prost(message, optional, tag="3")]
+    #[prost(string, tag="1")]
+    pub specs_id: ::prost::alloc::string::String,
+    #[prost(message, optional, tag="2")]
     pub name: ::core::option::Option<::manage_define::cashmere::Name>,
-    #[prost(string, tag="4")]
+    #[prost(string, tag="3")]
     pub description: ::prost::alloc::string::String,
 }
 #[derive(Clone, PartialEq, ::prost::Message)]
@@ -858,6 +856,15 @@ pub mod knitter_grpc_server {
             tonic::Status,
         >;
         /// 数据
+        async fn get_data_server_configs(
+            &self,
+            request: tonic::Request<
+                ::manage_define::cashmere::GetDataServerConfigsRequest,
+            >,
+        ) -> Result<
+            tonic::Response<::manage_define::cashmere::GetDataServerConfigsResponse>,
+            tonic::Status,
+        >;
         async fn new_data(
             &self,
             request: tonic::Request<::manage_define::cashmere::NewDataRequest>,
@@ -865,11 +872,27 @@ pub mod knitter_grpc_server {
             tonic::Response<::manage_define::cashmere::NewDataResponse>,
             tonic::Status,
         >;
-        async fn get_data_list(
+        async fn list_data(
             &self,
-            request: tonic::Request<::manage_define::cashmere::GetDataListRequest>,
+            request: tonic::Request<::manage_define::cashmere::ListDataRequest>,
         ) -> Result<
-            tonic::Response<::manage_define::cashmere::GetDataListResponse>,
+            tonic::Response<::manage_define::cashmere::ListDataResponse>,
+            tonic::Status,
+        >;
+        async fn list_data_stages(
+            &self,
+            request: tonic::Request<::manage_define::cashmere::ListDataStagesRequest>,
+        ) -> Result<
+            tonic::Response<::manage_define::cashmere::ListDataStagesResponse>,
+            tonic::Status,
+        >;
+        async fn add_data_stage_version(
+            &self,
+            request: tonic::Request<
+                ::manage_define::cashmere::AddDataStageVersionRequest,
+            >,
+        ) -> Result<
+            tonic::Response<::manage_define::cashmere::AddDataStageVersionResponse>,
             tonic::Status,
         >;
         async fn mark_data_removed(
@@ -888,12 +911,28 @@ pub mod knitter_grpc_server {
             >
             + Send
             + 'static;
+        /// 数据操作
         async fn file_data_upload_file(
             &self,
             request: tonic::Request<
                 tonic::Streaming<::manage_define::cashmere::FileDataUploadFileRequest>,
             >,
         ) -> Result<tonic::Response<Self::FileDataUploadFileStream>, tonic::Status>;
+        ///Server streaming response type for the FileDataDownloadFile method.
+        type FileDataDownloadFileStream: futures_core::Stream<
+                Item = Result<
+                    ::manage_define::cashmere::FileDataDownloadFileResponse,
+                    tonic::Status,
+                >,
+            >
+            + Send
+            + 'static;
+        async fn file_data_download_file(
+            &self,
+            request: tonic::Request<
+                tonic::Streaming<::manage_define::cashmere::FileDataDownloadFileRequest>,
+            >,
+        ) -> Result<tonic::Response<Self::FileDataDownloadFileStream>, tonic::Status>;
         /// 项目
         async fn new_project(
             &self,
@@ -2120,6 +2159,49 @@ pub mod knitter_grpc_server {
                     };
                     Box::pin(fut)
                 }
+                "/io.knitter.KnitterGrpc/GetDataServerConfigs" => {
+                    #[allow(non_camel_case_types)]
+                    struct GetDataServerConfigsSvc<T: KnitterGrpc>(pub Arc<T>);
+                    impl<
+                        T: KnitterGrpc,
+                    > tonic::server::UnaryService<
+                        ::manage_define::cashmere::GetDataServerConfigsRequest,
+                    > for GetDataServerConfigsSvc<T> {
+                        type Response = ::manage_define::cashmere::GetDataServerConfigsResponse;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<
+                                ::manage_define::cashmere::GetDataServerConfigsRequest,
+                            >,
+                        ) -> Self::Future {
+                            let inner = self.0.clone();
+                            let fut = async move {
+                                (*inner).get_data_server_configs(request).await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let inner = inner.0;
+                        let method = GetDataServerConfigsSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
                 "/io.knitter.KnitterGrpc/NewData" => {
                     #[allow(non_camel_case_types)]
                     struct NewDataSvc<T: KnitterGrpc>(pub Arc<T>);
@@ -2161,15 +2243,15 @@ pub mod knitter_grpc_server {
                     };
                     Box::pin(fut)
                 }
-                "/io.knitter.KnitterGrpc/GetDataList" => {
+                "/io.knitter.KnitterGrpc/ListData" => {
                     #[allow(non_camel_case_types)]
-                    struct GetDataListSvc<T: KnitterGrpc>(pub Arc<T>);
+                    struct ListDataSvc<T: KnitterGrpc>(pub Arc<T>);
                     impl<
                         T: KnitterGrpc,
                     > tonic::server::UnaryService<
-                        ::manage_define::cashmere::GetDataListRequest,
-                    > for GetDataListSvc<T> {
-                        type Response = ::manage_define::cashmere::GetDataListResponse;
+                        ::manage_define::cashmere::ListDataRequest,
+                    > for ListDataSvc<T> {
+                        type Response = ::manage_define::cashmere::ListDataResponse;
                         type Future = BoxFuture<
                             tonic::Response<Self::Response>,
                             tonic::Status,
@@ -2177,12 +2259,53 @@ pub mod knitter_grpc_server {
                         fn call(
                             &mut self,
                             request: tonic::Request<
-                                ::manage_define::cashmere::GetDataListRequest,
+                                ::manage_define::cashmere::ListDataRequest,
+                            >,
+                        ) -> Self::Future {
+                            let inner = self.0.clone();
+                            let fut = async move { (*inner).list_data(request).await };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let inner = inner.0;
+                        let method = ListDataSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/io.knitter.KnitterGrpc/ListDataStages" => {
+                    #[allow(non_camel_case_types)]
+                    struct ListDataStagesSvc<T: KnitterGrpc>(pub Arc<T>);
+                    impl<
+                        T: KnitterGrpc,
+                    > tonic::server::UnaryService<
+                        ::manage_define::cashmere::ListDataStagesRequest,
+                    > for ListDataStagesSvc<T> {
+                        type Response = ::manage_define::cashmere::ListDataStagesResponse;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<
+                                ::manage_define::cashmere::ListDataStagesRequest,
                             >,
                         ) -> Self::Future {
                             let inner = self.0.clone();
                             let fut = async move {
-                                (*inner).get_data_list(request).await
+                                (*inner).list_data_stages(request).await
                             };
                             Box::pin(fut)
                         }
@@ -2192,7 +2315,50 @@ pub mod knitter_grpc_server {
                     let inner = self.inner.clone();
                     let fut = async move {
                         let inner = inner.0;
-                        let method = GetDataListSvc(inner);
+                        let method = ListDataStagesSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/io.knitter.KnitterGrpc/AddDataStageVersion" => {
+                    #[allow(non_camel_case_types)]
+                    struct AddDataStageVersionSvc<T: KnitterGrpc>(pub Arc<T>);
+                    impl<
+                        T: KnitterGrpc,
+                    > tonic::server::UnaryService<
+                        ::manage_define::cashmere::AddDataStageVersionRequest,
+                    > for AddDataStageVersionSvc<T> {
+                        type Response = ::manage_define::cashmere::AddDataStageVersionResponse;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<
+                                ::manage_define::cashmere::AddDataStageVersionRequest,
+                            >,
+                        ) -> Self::Future {
+                            let inner = self.0.clone();
+                            let fut = async move {
+                                (*inner).add_data_stage_version(request).await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let inner = inner.0;
+                        let method = AddDataStageVersionSvc(inner);
                         let codec = tonic::codec::ProstCodec::default();
                         let mut grpc = tonic::server::Grpc::new(codec)
                             .apply_compression_config(
@@ -2282,6 +2448,52 @@ pub mod knitter_grpc_server {
                     let fut = async move {
                         let inner = inner.0;
                         let method = FileDataUploadFileSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            );
+                        let res = grpc.streaming(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/io.knitter.KnitterGrpc/FileDataDownloadFile" => {
+                    #[allow(non_camel_case_types)]
+                    struct FileDataDownloadFileSvc<T: KnitterGrpc>(pub Arc<T>);
+                    impl<
+                        T: KnitterGrpc,
+                    > tonic::server::StreamingService<
+                        ::manage_define::cashmere::FileDataDownloadFileRequest,
+                    > for FileDataDownloadFileSvc<T> {
+                        type Response = ::manage_define::cashmere::FileDataDownloadFileResponse;
+                        type ResponseStream = T::FileDataDownloadFileStream;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::ResponseStream>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<
+                                tonic::Streaming<
+                                    ::manage_define::cashmere::FileDataDownloadFileRequest,
+                                >,
+                            >,
+                        ) -> Self::Future {
+                            let inner = self.0.clone();
+                            let fut = async move {
+                                (*inner).file_data_download_file(request).await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let inner = inner.0;
+                        let method = FileDataDownloadFileSvc(inner);
                         let codec = tonic::codec::ProstCodec::default();
                         let mut grpc = tonic::server::Grpc::new(codec)
                             .apply_compression_config(

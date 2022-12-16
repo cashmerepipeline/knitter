@@ -6,33 +6,36 @@ Created:  2021-01-17T04:31:08.729Z
 Modified: !date!
 */
 use manage_define::cashmere::*;
-use tonic::{Request, Response, Status, Streaming};
-
-use service_common_handles::view_rules_service_handles::{
-    HandleChangeCollectionReadrule, HandleChangeCollectionWriteRule, HandleChangeFieldReadrule,
-    HandleChangeFieldWriteRule, HandleChangeManageWriteRule,
-};
-use service_common_handles::ResponseStream;
 use service_common_handles::{
     area_service_handles::HandleEditArea,
     area_service_handles::HandleNewArea,
     country_service_handles::HandleNewCountry,
-    data_service_handles::{HandleFileDataUploadFile, HandleNewData},
+    data_service_handles::{HandleAddDataStageVersion, HandleGetDataServerConfigs, HandleListDataStages, HandleNewData, HandleUploadFile},
     entity_service_handles::{
         HandleEditEntityField, HandleEditEntityListFieldAddItems,
         HandleEditEntityListFieldRemoveItems, HandleEditEntityMapField,
-        HandleEditEntityMapFieldRemoveKey, HandleGetDataList, HandleGetEntities,
-        HandleGetEntitiesPage, HandleGetEntity,
+        HandleEditEntityMapFieldRemoveKey, HandleGetEntities, HandleGetEntitiesPage,
+        HandleGetEntity, HandleListData,
     },
     group_service_handles::HandleNewGroup,
     language_code_handles::{HandleEditLanguageCode, HandleNewLanguageCode},
     manage_service_handle::{
-        HandleEditSchemaFieldName, HandleGetManageEntryCount, HandleGetManageSchema,
-        HandleGetManages, HandleMarkSchemaFieldRemoved,
+        HandleEditSchemaFieldName, HandleGetManageEntryCount, HandleGetManages,
+        HandleGetManageSchema, HandleMarkSchemaFieldRemoved,
     },
     name_service_handles::{HandleNewLanguageName, HandleRename},
     view_rules_service_handles::HandleChangeManageReadrule,
 };
+use service_common_handles::ResponseStream;
+use service_common_handles::view_rules_service_handles::{
+    HandleChangeCollectionReadrule, HandleChangeCollectionWriteRule, HandleChangeFieldReadrule,
+    HandleChangeFieldWriteRule, HandleChangeManageWriteRule,
+};
+use tonic::{Request, Response, Status, Streaming};
+
+use crate::services::protocol::*;
+// use protocol::{LoginRequest, LoginResponse, NewManageRequest, NewManageResponse};
+use crate::services::protocol::knitter_grpc_server::KnitterGrpc;
 
 mod assembly_servcice_handles;
 mod asset_collection_servcice_handles;
@@ -42,23 +45,20 @@ mod epic_servcice_handles;
 mod init;
 mod prefab_service_handles;
 mod project_servcice_handles;
+mod reference_service_handles;
 mod sequence_servcice_handles;
 mod set_collection_service_handles;
 mod set_servcice_handles;
 mod specs_service_handles;
-mod reference_service_handles;
 
 pub mod protocol {
     include!("./io.knitter.rs");
 }
 
-// use protocol::{LoginRequest, LoginResponse, NewManageRequest, NewManageResponse};
-use crate::services::protocol::knitter_grpc_server::KnitterGrpc;
-use crate::services::protocol::*;
-
 /// 管理服务
 #[derive(Default)]
 pub struct KnitterServer;
+
 // 组
 impl HandleNewGroup for KnitterServer {}
 
@@ -67,44 +67,71 @@ impl HandleNewCountry for KnitterServer {}
 
 // 地区
 impl HandleNewArea for KnitterServer {}
+
 impl HandleEditArea for KnitterServer {}
 
 // 语言
 impl HandleNewLanguageCode for KnitterServer {}
+
 impl HandleEditLanguageCode for KnitterServer {}
 
 // 管理
 impl HandleGetManages for KnitterServer {}
+
 impl HandleGetManageSchema for KnitterServer {}
+
 impl HandleMarkSchemaFieldRemoved for KnitterServer {}
+
 impl HandleGetManageEntryCount for KnitterServer {}
 
 // 可见性权限管理
 impl HandleChangeManageReadrule for KnitterServer {}
+
 impl HandleChangeManageWriteRule for KnitterServer {}
+
 impl HandleChangeCollectionReadrule for KnitterServer {}
+
 impl HandleChangeCollectionWriteRule for KnitterServer {}
+
 impl HandleChangeFieldReadrule for KnitterServer {}
+
 impl HandleChangeFieldWriteRule for KnitterServer {}
 
 // 实体
 impl HandleGetEntity for KnitterServer {}
+
 impl HandleGetEntities for KnitterServer {}
+
 impl HandleGetEntitiesPage for KnitterServer {}
+
 impl HandleEditEntityField for KnitterServer {}
+
 impl HandleEditEntityListFieldAddItems for KnitterServer {}
+
 impl HandleEditEntityListFieldRemoveItems for KnitterServer {}
+
 impl HandleEditEntityMapField for KnitterServer {}
+
 impl HandleEditEntityMapFieldRemoveKey for KnitterServer {}
 
 // 名字
 impl HandleRename for KnitterServer {}
+
 impl HandleNewLanguageName for KnitterServer {}
 
 // 数据
+impl HandleGetDataServerConfigs for KnitterServer {}
+
 impl HandleNewData for KnitterServer {}
-impl HandleFileDataUploadFile for KnitterServer {}
-impl HandleGetDataList for KnitterServer {}
+
+impl HandleUploadFile for KnitterServer {}
+
+impl HandleListData for KnitterServer {}
+
+impl HandleAddDataStageVersion for KnitterServer {}
+
+impl HandleListDataStages for KnitterServer {}
+
 
 #[tonic::async_trait]
 impl KnitterGrpc for KnitterServer {
@@ -278,17 +305,32 @@ impl KnitterGrpc for KnitterServer {
         self.handle_new_group(request).await
     }
 
+    async fn get_data_server_configs(
+        &self,
+        request: Request<GetDataServerConfigsRequest>,
+    ) -> Result<Response<GetDataServerConfigsResponse>, Status> {
+        self.handle_get_data_server_configs(request).await
+    }
+
     async fn new_data(
         &self,
         request: Request<NewDataRequest>,
     ) -> Result<Response<NewDataResponse>, Status> {
         self.handle_new_data(request).await
     }
-    async fn get_data_list(
+    async fn list_data(
         &self,
-        request: Request<GetDataListRequest>,
-    ) -> Result<Response<GetDataListResponse>, Status> {
-        self.handle_get_data_list(request).await
+        request: Request<ListDataRequest>,
+    ) -> Result<Response<ListDataResponse>, Status> {
+        self.handle_list_data(request).await
+    }
+
+    async fn list_data_stages(&self, request: Request<ListDataStagesRequest>) -> Result<Response<ListDataStagesResponse>, Status> {
+        self.handle_list_data_stages(request).await
+    }
+
+    async fn add_data_stage_version(&self, request: Request<AddDataStageVersionRequest>) -> Result<Response<AddDataStageVersionResponse>, Status> {
+        self.handle_add_data_stage_version(request).await
     }
 
     async fn mark_data_removed(
@@ -305,7 +347,14 @@ impl KnitterGrpc for KnitterServer {
         &self,
         request: Request<Streaming<FileDataUploadFileRequest>>,
     ) -> Result<Response<Self::FileDataUploadFileStream>, Status> {
-        self.handle_file_data_upload_file(request).await
+        self.handle_upload_file(request).await
+    }
+
+    // 必须要有这个声明
+    type FileDataDownloadFileStream = ResponseStream<FileDataDownloadFileResponse>;
+
+    async fn file_data_download_file(&self, request: Request<Streaming<FileDataDownloadFileRequest>>) -> Result<Response<Self::FileDataDownloadFileStream>, Status> {
+        todo!()
     }
 
     async fn new_project(
@@ -342,7 +391,8 @@ impl KnitterGrpc for KnitterServer {
         &self,
         request: Request<GetProjectAssociatedSetCollectionsRequest>,
     ) -> Result<Response<GetProjectAssociatedSetCollectionsResponse>, Status> {
-        self.handle_get_project_associated_set_collections(request).await
+        self.handle_get_project_associated_set_collections(request)
+            .await
     }
 
     async fn new_asset_collection(
@@ -389,7 +439,7 @@ impl KnitterGrpc for KnitterServer {
 
     async fn get_referenced_assets(
         &self,
-        request: Request<GetReferencedAssetsRequest>
+        request: Request<GetReferencedAssetsRequest>,
     ) -> Result<Response<GetReferencedAssetsResponse>, Status> {
         self.get_referenced_assets(request).await
     }
@@ -492,19 +542,31 @@ impl KnitterGrpc for KnitterServer {
         self.handle_new_prefab(request).await
     }
 
-    async fn add_references(&self, request: Request<AddReferencesRequest>) -> Result<Response<AddReferencesResponse>, Status> {
+    async fn add_references(
+        &self,
+        request: Request<AddReferencesRequest>,
+    ) -> Result<Response<AddReferencesResponse>, Status> {
         self.handle_add_references(request).await
     }
 
-    async fn remove_references(&self, request: Request<RemoveReferencesRequest>) -> Result<Response<RemoveReferencesResponse>, Status> {
+    async fn remove_references(
+        &self,
+        request: Request<RemoveReferencesRequest>,
+    ) -> Result<Response<RemoveReferencesResponse>, Status> {
         self.handle_remove_references(request).await
     }
 
-    async fn list_references(&self, request: Request<ListReferencesRequest>) -> Result<Response<ListReferencesResponse>, Status> {
+    async fn list_references(
+        &self,
+        request: Request<ListReferencesRequest>,
+    ) -> Result<Response<ListReferencesResponse>, Status> {
         self.handle_list_references(request).await
     }
 
-    async fn change_reference(&self, request: Request<ChangeReferencePrefabRequest>) -> Result<Response<ChangeReferencePrefabResponse>, Status> {
+    async fn change_reference(
+        &self,
+        request: Request<ChangeReferencePrefabRequest>,
+    ) -> Result<Response<ChangeReferencePrefabResponse>, Status> {
         todo!()
     }
 }

@@ -15,6 +15,8 @@ import "group.proto";
 import "entity.proto";
 import "name.proto";
 import "data.proto";
+import "data_server.proto";
+import "data_stage.proto";
 import "file_data.proto";
 import "area.proto";
 import "language_code.proto";
@@ -84,10 +86,16 @@ service KnitterGrpc{
   rpc NewGroup (cashmere.NewGroupRequest) returns (cashmere.NewGroupResponse);
 
   // 数据
+  rpc GetDataServerConfigs(cashmere.GetDataServerConfigsRequest) returns (cashmere.GetDataServerConfigsResponse);
   rpc NewData(cashmere.NewDataRequest) returns (cashmere.NewDataResponse);
-  rpc GetDataList(cashmere.GetDataListRequest) returns (cashmere.GetDataListResponse);
+  rpc ListData(cashmere.ListDataRequest) returns (cashmere.ListDataResponse);
+  rpc ListDataStages(cashmere.ListDataStagesRequest) returns (cashmere.ListDataStagesResponse);
+  rpc AddDataStageVersion(cashmere.AddDataStageVersionRequest) returns (cashmere.AddDataStageVersionResponse);
   rpc MarkDataRemoved(cashmere.MarkDataRemovedRequest) returns (cashmere.MarkDataRemovedResponse);
+
+  // 数据操作
   rpc FileDataUploadFile(stream cashmere.FileDataUploadFileRequest) returns (stream cashmere.FileDataUploadFileResponse);
+  rpc FileDataDownloadFile(stream cashmere.FileDataDownloadFileRequest) returns (stream cashmere.FileDataDownloadFileResponse);
 
   // 项目
   rpc NewProject(NewProjectRequest) returns (NewProjectResponse);
