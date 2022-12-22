@@ -62,14 +62,14 @@ service KnitterGrpc{
   rpc GetEntities(cashmere.GetEntitiesRequest) returns (cashmere.GetEntitiesResponse);
   rpc GetEntitiesPage(cashmere.GetEntitiesPageRequest) returns (cashmere.GetEntitiesPageResponse);
 
-  // 编辑实体属性，非数据结构
+  // 通用编辑实体属性，非数据结构
   rpc EditEntityField(cashmere.EditEntityFieldRequest) returns (cashmere.EditEntityFieldResponse);
-  // 编辑实体属性，MAP数据结构
+  // 通用编辑实体属性，MAP数据结构
   rpc EditEntityMapField(cashmere.EditEntityMapFieldRequest) returns (cashmere.EditEntityMapFieldResponse);
   rpc EditEntityMapFieldRemoveKey(cashmere.EditEntityMapFieldRemoveKeyRequest) returns (cashmere.EditEntityMapFieldRemoveKeyResponse);
-  // 编辑实体属性，List数据结构
-  rpc EditEntityListFieldAddItems(cashmere.EditEntityListFieldAddItemsRequest) returns (cashmere.EditEntityListFieldAddItemsResponse);
-  rpc EditEntityListFieldRemoveItems(cashmere.EditEntityListFieldRemoveItemsRequest) returns (cashmere.EditEntityListFieldRemoveItemsResponse);
+  // 通用编辑实体属性，List数据结构
+  rpc EditEntityArrayFieldAddItems(cashmere.EditEntityArrayFieldAddItemsRequest) returns (cashmere.EditEntityArrayFieldAddItemsResponse);
+  rpc EditEntityArrayFieldRemoveItems(cashmere.EditEntityArrayFieldRemoveItemsRequest) returns (cashmere.EditEntityArrayFieldRemoveItemsResponse);
 
   // 名字
   rpc Rename(cashmere.RenameRequest) returns (cashmere.RenameResponse);
@@ -114,7 +114,7 @@ service KnitterGrpc{
   rpc GetAssetSpecses(GetAssetSpecsesRequest) returns (GetAssetSpecsesResponse);
   rpc GetAssetPrefabs(GetAssetPrefabsRequest) returns (GetAssetPrefabsResponse);
   rpc GetReferencedAssets(GetReferencedAssetsRequest) returns (GetReferencedAssetsResponse);
-  rpc MartAssetSatus(MarkAssetStatusRequest) returns (MarkAssetStatusResponse);
+  rpc MarkAssetSatus(MarkAssetStatusRequest) returns (MarkAssetStatusResponse);
 
   // 组合
   rpc NewAssembly(NewAssemblyRequest) returns (NewAssemblyResponse);
@@ -137,7 +137,7 @@ service KnitterGrpc{
 
   // 景
   rpc NewSet(NewSetRequest) returns (NewSetResponse);
-  rpc MartSetSatus(MarkSetStatusRequest) returns (MarkSetStatusResponse);
+  rpc MarkSetSatus(MarkSetStatusRequest) returns (MarkSetStatusResponse);
 
   // 规格
   rpc NewSpecs(NewSpecsRequest) returns (NewSpecsResponse);

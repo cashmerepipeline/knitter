@@ -11,26 +11,14 @@ use service_common_handles::{
     area_service_handles::HandleNewArea,
     country_service_handles::HandleNewCountry,
     data_service_handles::{HandleAddDataStageVersion, HandleGetDataServerConfigs, HandleListDataStages, HandleNewData, HandleUploadFile},
-    entity_service_handles::{
-        HandleEditEntityField, HandleEditEntityListFieldAddItems,
-        HandleEditEntityListFieldRemoveItems, HandleEditEntityMapField,
-        HandleEditEntityMapFieldRemoveKey, HandleGetEntities, HandleGetEntitiesPage,
-        HandleGetEntity, HandleListData,
-    },
+    entity_service_handles::*,
     group_service_handles::HandleNewGroup,
     language_code_handles::{HandleEditLanguageCode, HandleNewLanguageCode},
-    manage_service_handle::{
-        HandleEditSchemaFieldName, HandleGetManageEntryCount, HandleGetManages,
-        HandleGetManageSchema, HandleMarkSchemaFieldRemoved,
-    },
+    manage_service_handle::*,
     name_service_handles::{HandleNewLanguageName, HandleRename},
-    view_rules_service_handles::HandleChangeManageReadrule,
 };
 use service_common_handles::ResponseStream;
-use service_common_handles::view_rules_service_handles::{
-    HandleChangeCollectionReadrule, HandleChangeCollectionWriteRule, HandleChangeFieldReadrule,
-    HandleChangeFieldWriteRule, HandleChangeManageWriteRule,
-};
+use service_common_handles::view_rules_service_handles::*;
 use tonic::{Request, Response, Status, Streaming};
 
 use crate::services::protocol::*;
@@ -106,9 +94,9 @@ impl HandleGetEntitiesPage for KnitterServer {}
 
 impl HandleEditEntityField for KnitterServer {}
 
-impl HandleEditEntityListFieldAddItems for KnitterServer {}
+impl HandleEditEntityArrayFieldAddItems for KnitterServer {}
 
-impl HandleEditEntityListFieldRemoveItems for KnitterServer {}
+impl HandleEditEntityArrayFieldRemoveItems for KnitterServer {}
 
 impl HandleEditEntityMapField for KnitterServer {}
 
@@ -160,7 +148,7 @@ impl KnitterGrpc for KnitterServer {
         &self,
         request: Request<MarkSchemaFieldRemovedRequest>,
     ) -> Result<Response<MarkSchemaFieldRemovedResponse>, Status> {
-        self.mark_schema_field_removed(request).await
+        self.handle_mark_schema_field_removed(request).await
     }
 
     async fn change_manage_read_rule(
@@ -247,18 +235,18 @@ impl KnitterGrpc for KnitterServer {
         self.handle_edit_entity_map_field_remove_key(request).await
     }
 
-    async fn edit_entity_list_field_add_items(
+    async fn edit_entity_array_field_add_items(
         &self,
-        request: Request<EditEntityListFieldAddItemsRequest>,
-    ) -> Result<Response<EditEntityListFieldAddItemsResponse>, Status> {
-        self.handle_edit_entity_list_field_add_items(request).await
+        request: Request<EditEntityArrayFieldAddItemsRequest>,
+    ) -> Result<Response<EditEntityArrayFieldAddItemsResponse>, Status> {
+        self.handle_edit_entity_array_field_add_items(request).await
     }
 
-    async fn edit_entity_list_field_remove_items(
+    async fn edit_entity_array_field_remove_items(
         &self,
-        request: Request<EditEntityListFieldRemoveItemsRequest>,
-    ) -> Result<Response<EditEntityListFieldRemoveItemsResponse>, Status> {
-        self.handle_edit_entity_list_field_remove_items(request)
+        request: Request<EditEntityArrayFieldRemoveItemsRequest>,
+    ) -> Result<Response<EditEntityArrayFieldRemoveItemsResponse>, Status> {
+        self.handle_edit_entity_array_field_remove_items(request)
             .await
     }
 
@@ -444,7 +432,7 @@ impl KnitterGrpc for KnitterServer {
         self.get_referenced_assets(request).await
     }
 
-    async fn mart_asset_satus(
+    async fn mark_asset_satus(
         &self,
         request: Request<MarkAssetStatusRequest>,
     ) -> Result<Response<MarkAssetStatusResponse>, Status> {
@@ -521,7 +509,7 @@ impl KnitterGrpc for KnitterServer {
         self.handle_new_set(request).await
     }
 
-    async fn mart_set_satus(
+    async fn mark_set_satus(
         &self,
         request: Request<MarkSetStatusRequest>,
     ) -> Result<Response<MarkSetStatusResponse>, Status> {

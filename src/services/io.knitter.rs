@@ -759,7 +759,7 @@ pub mod knitter_grpc_server {
             tonic::Response<::manage_define::cashmere::GetEntitiesPageResponse>,
             tonic::Status,
         >;
-        /// 编辑实体属性，非数据结构
+        /// 通用编辑实体属性，非数据结构
         async fn edit_entity_field(
             &self,
             request: tonic::Request<::manage_define::cashmere::EditEntityFieldRequest>,
@@ -767,7 +767,7 @@ pub mod knitter_grpc_server {
             tonic::Response<::manage_define::cashmere::EditEntityFieldResponse>,
             tonic::Status,
         >;
-        /// 编辑实体属性，MAP数据结构
+        /// 通用编辑实体属性，MAP数据结构
         async fn edit_entity_map_field(
             &self,
             request: tonic::Request<::manage_define::cashmere::EditEntityMapFieldRequest>,
@@ -786,26 +786,26 @@ pub mod knitter_grpc_server {
             >,
             tonic::Status,
         >;
-        /// 编辑实体属性，List数据结构
-        async fn edit_entity_list_field_add_items(
+        /// 通用编辑实体属性，List数据结构
+        async fn edit_entity_array_field_add_items(
             &self,
             request: tonic::Request<
-                ::manage_define::cashmere::EditEntityListFieldAddItemsRequest,
+                ::manage_define::cashmere::EditEntityArrayFieldAddItemsRequest,
             >,
         ) -> Result<
             tonic::Response<
-                ::manage_define::cashmere::EditEntityListFieldAddItemsResponse,
+                ::manage_define::cashmere::EditEntityArrayFieldAddItemsResponse,
             >,
             tonic::Status,
         >;
-        async fn edit_entity_list_field_remove_items(
+        async fn edit_entity_array_field_remove_items(
             &self,
             request: tonic::Request<
-                ::manage_define::cashmere::EditEntityListFieldRemoveItemsRequest,
+                ::manage_define::cashmere::EditEntityArrayFieldRemoveItemsRequest,
             >,
         ) -> Result<
             tonic::Response<
-                ::manage_define::cashmere::EditEntityListFieldRemoveItemsResponse,
+                ::manage_define::cashmere::EditEntityArrayFieldRemoveItemsResponse,
             >,
             tonic::Status,
         >;
@@ -1002,7 +1002,7 @@ pub mod knitter_grpc_server {
             &self,
             request: tonic::Request<super::GetReferencedAssetsRequest>,
         ) -> Result<tonic::Response<super::GetReferencedAssetsResponse>, tonic::Status>;
-        async fn mart_asset_satus(
+        async fn mark_asset_satus(
             &self,
             request: tonic::Request<super::MarkAssetStatusRequest>,
         ) -> Result<tonic::Response<super::MarkAssetStatusResponse>, tonic::Status>;
@@ -1055,7 +1055,7 @@ pub mod knitter_grpc_server {
             &self,
             request: tonic::Request<super::NewSetRequest>,
         ) -> Result<tonic::Response<super::NewSetResponse>, tonic::Status>;
-        async fn mart_set_satus(
+        async fn mark_set_satus(
             &self,
             request: tonic::Request<super::MarkSetStatusRequest>,
         ) -> Result<tonic::Response<super::MarkSetStatusResponse>, tonic::Status>;
@@ -1821,15 +1821,15 @@ pub mod knitter_grpc_server {
                     };
                     Box::pin(fut)
                 }
-                "/io.knitter.KnitterGrpc/EditEntityListFieldAddItems" => {
+                "/io.knitter.KnitterGrpc/EditEntityArrayFieldAddItems" => {
                     #[allow(non_camel_case_types)]
-                    struct EditEntityListFieldAddItemsSvc<T: KnitterGrpc>(pub Arc<T>);
+                    struct EditEntityArrayFieldAddItemsSvc<T: KnitterGrpc>(pub Arc<T>);
                     impl<
                         T: KnitterGrpc,
                     > tonic::server::UnaryService<
-                        ::manage_define::cashmere::EditEntityListFieldAddItemsRequest,
-                    > for EditEntityListFieldAddItemsSvc<T> {
-                        type Response = ::manage_define::cashmere::EditEntityListFieldAddItemsResponse;
+                        ::manage_define::cashmere::EditEntityArrayFieldAddItemsRequest,
+                    > for EditEntityArrayFieldAddItemsSvc<T> {
+                        type Response = ::manage_define::cashmere::EditEntityArrayFieldAddItemsResponse;
                         type Future = BoxFuture<
                             tonic::Response<Self::Response>,
                             tonic::Status,
@@ -1837,12 +1837,12 @@ pub mod knitter_grpc_server {
                         fn call(
                             &mut self,
                             request: tonic::Request<
-                                ::manage_define::cashmere::EditEntityListFieldAddItemsRequest,
+                                ::manage_define::cashmere::EditEntityArrayFieldAddItemsRequest,
                             >,
                         ) -> Self::Future {
                             let inner = self.0.clone();
                             let fut = async move {
-                                (*inner).edit_entity_list_field_add_items(request).await
+                                (*inner).edit_entity_array_field_add_items(request).await
                             };
                             Box::pin(fut)
                         }
@@ -1852,7 +1852,7 @@ pub mod knitter_grpc_server {
                     let inner = self.inner.clone();
                     let fut = async move {
                         let inner = inner.0;
-                        let method = EditEntityListFieldAddItemsSvc(inner);
+                        let method = EditEntityArrayFieldAddItemsSvc(inner);
                         let codec = tonic::codec::ProstCodec::default();
                         let mut grpc = tonic::server::Grpc::new(codec)
                             .apply_compression_config(
@@ -1864,15 +1864,17 @@ pub mod knitter_grpc_server {
                     };
                     Box::pin(fut)
                 }
-                "/io.knitter.KnitterGrpc/EditEntityListFieldRemoveItems" => {
+                "/io.knitter.KnitterGrpc/EditEntityArrayFieldRemoveItems" => {
                     #[allow(non_camel_case_types)]
-                    struct EditEntityListFieldRemoveItemsSvc<T: KnitterGrpc>(pub Arc<T>);
+                    struct EditEntityArrayFieldRemoveItemsSvc<T: KnitterGrpc>(
+                        pub Arc<T>,
+                    );
                     impl<
                         T: KnitterGrpc,
                     > tonic::server::UnaryService<
-                        ::manage_define::cashmere::EditEntityListFieldRemoveItemsRequest,
-                    > for EditEntityListFieldRemoveItemsSvc<T> {
-                        type Response = ::manage_define::cashmere::EditEntityListFieldRemoveItemsResponse;
+                        ::manage_define::cashmere::EditEntityArrayFieldRemoveItemsRequest,
+                    > for EditEntityArrayFieldRemoveItemsSvc<T> {
+                        type Response = ::manage_define::cashmere::EditEntityArrayFieldRemoveItemsResponse;
                         type Future = BoxFuture<
                             tonic::Response<Self::Response>,
                             tonic::Status,
@@ -1880,12 +1882,12 @@ pub mod knitter_grpc_server {
                         fn call(
                             &mut self,
                             request: tonic::Request<
-                                ::manage_define::cashmere::EditEntityListFieldRemoveItemsRequest,
+                                ::manage_define::cashmere::EditEntityArrayFieldRemoveItemsRequest,
                             >,
                         ) -> Self::Future {
                             let inner = self.0.clone();
                             let fut = async move {
-                                (*inner).edit_entity_list_field_remove_items(request).await
+                                (*inner).edit_entity_array_field_remove_items(request).await
                             };
                             Box::pin(fut)
                         }
@@ -1895,7 +1897,7 @@ pub mod knitter_grpc_server {
                     let inner = self.inner.clone();
                     let fut = async move {
                         let inner = inner.0;
-                        let method = EditEntityListFieldRemoveItemsSvc(inner);
+                        let method = EditEntityArrayFieldRemoveItemsSvc(inner);
                         let codec = tonic::codec::ProstCodec::default();
                         let mut grpc = tonic::server::Grpc::new(codec)
                             .apply_compression_config(
@@ -3023,13 +3025,13 @@ pub mod knitter_grpc_server {
                     };
                     Box::pin(fut)
                 }
-                "/io.knitter.KnitterGrpc/MartAssetSatus" => {
+                "/io.knitter.KnitterGrpc/MarkAssetSatus" => {
                     #[allow(non_camel_case_types)]
-                    struct MartAssetSatusSvc<T: KnitterGrpc>(pub Arc<T>);
+                    struct MarkAssetSatusSvc<T: KnitterGrpc>(pub Arc<T>);
                     impl<
                         T: KnitterGrpc,
                     > tonic::server::UnaryService<super::MarkAssetStatusRequest>
-                    for MartAssetSatusSvc<T> {
+                    for MarkAssetSatusSvc<T> {
                         type Response = super::MarkAssetStatusResponse;
                         type Future = BoxFuture<
                             tonic::Response<Self::Response>,
@@ -3041,7 +3043,7 @@ pub mod knitter_grpc_server {
                         ) -> Self::Future {
                             let inner = self.0.clone();
                             let fut = async move {
-                                (*inner).mart_asset_satus(request).await
+                                (*inner).mark_asset_satus(request).await
                             };
                             Box::pin(fut)
                         }
@@ -3051,7 +3053,7 @@ pub mod knitter_grpc_server {
                     let inner = self.inner.clone();
                     let fut = async move {
                         let inner = inner.0;
-                        let method = MartAssetSatusSvc(inner);
+                        let method = MarkAssetSatusSvc(inner);
                         let codec = tonic::codec::ProstCodec::default();
                         let mut grpc = tonic::server::Grpc::new(codec)
                             .apply_compression_config(
@@ -3457,13 +3459,13 @@ pub mod knitter_grpc_server {
                     };
                     Box::pin(fut)
                 }
-                "/io.knitter.KnitterGrpc/MartSetSatus" => {
+                "/io.knitter.KnitterGrpc/MarkSetSatus" => {
                     #[allow(non_camel_case_types)]
-                    struct MartSetSatusSvc<T: KnitterGrpc>(pub Arc<T>);
+                    struct MarkSetSatusSvc<T: KnitterGrpc>(pub Arc<T>);
                     impl<
                         T: KnitterGrpc,
                     > tonic::server::UnaryService<super::MarkSetStatusRequest>
-                    for MartSetSatusSvc<T> {
+                    for MarkSetSatusSvc<T> {
                         type Response = super::MarkSetStatusResponse;
                         type Future = BoxFuture<
                             tonic::Response<Self::Response>,
@@ -3475,7 +3477,7 @@ pub mod knitter_grpc_server {
                         ) -> Self::Future {
                             let inner = self.0.clone();
                             let fut = async move {
-                                (*inner).mart_set_satus(request).await
+                                (*inner).mark_set_satus(request).await
                             };
                             Box::pin(fut)
                         }
@@ -3485,7 +3487,7 @@ pub mod knitter_grpc_server {
                     let inner = self.inner.clone();
                     let fut = async move {
                         let inner = inner.0;
-                        let method = MartSetSatusSvc(inner);
+                        let method = MarkSetSatusSvc(inner);
                         let codec = tonic::codec::ProstCodec::default();
                         let mut grpc = tonic::server::Grpc::new(codec)
                             .apply_compression_config(
