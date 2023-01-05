@@ -8,7 +8,6 @@ message NewSequenceRequest {
   string epic_id = 1;
   cashmere.Name name = 2;
   string description = 3;
-  string template_id = 4;
 }
 message NewSequenceResponse {
   // 成功返回新id

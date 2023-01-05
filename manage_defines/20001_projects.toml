@@ -9,8 +9,8 @@ name_map = { zh = "项目", en = "projects" }
 schema = [
     { data_type = "String", name_map = { zh = "内部根路径", en = "inner_root_path"}, removed = false },
     { data_type = "String", name_map = { zh = "外部根路径", en = "external_root_path"}, removed = false },
-    { data_type = "List", name_map = { zh = "关联资产库", en = "associated_asset_collections"}, removed = false },
-    { data_type = "List", name_map = { zh = "关联资产库", en = "associated_set_collections"}, removed = false },
+    { data_type = "List", name_map = { zh = "关联资产库", en = "asset_collections"}, removed = false },
+    { data_type = "List", name_map = { zh = "关联资产库", en = "set_collections"}, removed = false },
     { data_type = "List", name_map = { zh = "项目图片", en = "picture"}, removed = false },
     { data_type = "List", name_map = { zh = "项目成员", en = "members"}, removed = false },
 

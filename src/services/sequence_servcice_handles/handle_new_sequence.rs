@@ -28,7 +28,6 @@ impl KnitterServer {
         let name = &request.get_ref().name;
         let epic_id = &request.get_ref().epic_id;
         let description = &request.get_ref().description;
-        let template_id = &request.get_ref().template_id;
 
        if !view::can_collection_write(&account_id, &role_group, &SEQUENCES_MANAGE_ID.to_string())
             .await
@@ -69,9 +68,9 @@ impl KnitterServer {
             .await;
 
         match result {
-            Ok(_r) => Ok(Response::new(NewSequenceResponse {
+            Ok(r) => Ok(Response::new(NewSequenceResponse {
                 // TODO: 发送新建事件
-                result: "ok".to_string(),
+                result: r,
             })),
             Err(e) => Err(Status::aborted(format!(
                 "{} {}",

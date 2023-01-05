@@ -63,9 +63,9 @@ impl KnitterServer {
             .await;
 
         match result {
-            Ok(_r) => Ok(Response::new(NewAssetCollectionResponse {
+            Ok(r) => Ok(Response::new(NewAssetCollectionResponse {
                 // TODO: 发送新建事件
-                result: "ok".to_string(),
+                result: r,
             })),
             Err(e) => Err(Status::aborted(format!(
                 "{} {}",

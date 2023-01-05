@@ -28,7 +28,6 @@ impl KnitterServer {
         let name = &request.get_ref().name;
         let sequence_id = &request.get_ref().sequence_id;
         let description = &request.get_ref().description;
-        let template_id = &request.get_ref().template_id;
 
        if !view::can_collection_write(&account_id, &role_group, &CUTS_MANAGE_ID.to_string())
             .await
@@ -71,8 +70,8 @@ impl KnitterServer {
         //TODO: 发出新镜头事件
 
         match result {
-            Ok(_r) => Ok(Response::new(NewCutResponse {
-                result: "ok".to_string(),
+            Ok(r) => Ok(Response::new(NewCutResponse {
+                result: r,
             })),
             Err(e) => Err(Status::aborted(format!(
                 "{} {}",

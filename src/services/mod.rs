@@ -279,13 +279,6 @@ impl KnitterGrpc for KnitterServer {
         self.handle_new_language_code(request).await
     }
 
-    async fn edit_language_code(
-        &self,
-        request: Request<EditLanguageCodeRequest>,
-    ) -> Result<Response<EditLanguageCodeResponse>, Status> {
-        self.handle_edit_language_code(request).await
-    }
-
     async fn new_group(
         &self,
         request: Request<NewGroupRequest>,

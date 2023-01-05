@@ -9,7 +9,7 @@ message NewProjectRequest{
   string inner_root_path = 2;
   string external_root_path = 3;
   bytes picture = 4;
-  repeated string accociated_libraries = 5;
+  string description = 5;
 }
 message NewProjectResponse {
   // 成功返回项目id

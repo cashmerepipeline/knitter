@@ -25,10 +25,9 @@ impl KnitterServer {
         let (account_id, groups) = auth::get_claims_account_and_roles(&token).unwrap();
         let role_group = auth::get_current_role(metadata).unwrap();
 
-        let asset_collection_id = &request.get_ref().library_id;
+        let asset_collection_id = &request.get_ref().asset_collection_id;
         let name = &request.get_ref().name;
         let description = &request.get_ref().description;
-        let template_id = &request.get_ref().template_id;
 
         if !view::can_collection_write(&account_id, &role_group, &ASSEMBLIES_MANAGE_ID.to_string())
             .await
@@ -66,9 +65,9 @@ impl KnitterServer {
             .await;
 
         match result {
-            Ok(_r) => Ok(Response::new(NewAssemblyResponse {
+            Ok(r) => Ok(Response::new(NewAssemblyResponse {
                 // TODO: 发出新组合件事件, template_id + ctx
-                result: "ok".to_string(),
+                result: r,
             })),
             Err(e) => Err(Status::aborted(format!(
                 "{} {}",

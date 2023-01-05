@@ -5,7 +5,7 @@ import "name.proto";
 
 // 新建景
 message NewSetRequest {
-  string collection_id = 1;
+  string set_collection_id = 1;
   cashmere.Name name = 2;
   string description = 3;
 }

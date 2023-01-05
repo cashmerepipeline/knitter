@@ -28,9 +28,8 @@ impl KnitterServer {
         let name = &request.get_ref().name;
         let project_id = &request.get_ref().project_id;
         let description = &request.get_ref().description;
-        let template_id = &request.get_ref().template_id;
 
-       if !view::can_collection_write(&account_id, &role_group, &PROJECTS_MANAGE_ID.to_string())
+       if !view::can_collection_write(&account_id, &role_group, &EPICS_MANAGE_ID.to_string())
             .await
         {
             return Err(Status::unauthenticated("用户不具有可写权限"));
@@ -43,7 +42,7 @@ impl KnitterServer {
 
         let majordomo_arc = get_majordomo().await;
         let manager = majordomo_arc
-            .get_manager_by_id(PROJECTS_MANAGE_ID)
+            .get_manager_by_id(EPICS_MANAGE_ID)
             .await
             .unwrap();
 
@@ -69,9 +68,9 @@ impl KnitterServer {
             .await;
 
         match result {
-            Ok(_r) => Ok(Response::new(NewEpicResponse {
+            Ok(r) => Ok(Response::new(NewEpicResponse {
                 // TODO: 发送新建事件
-                result: "ok".to_string(),
+                result: r,
             })),
             Err(e) => Err(Status::aborted(format!(
                 "{} {}",

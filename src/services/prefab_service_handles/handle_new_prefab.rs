@@ -68,9 +68,9 @@ impl KnitterServer {
             .await;
 
         match result {
-            Ok(_r) => Ok(Response::new(NewPrefabResponse {
+            Ok(r) => Ok(Response::new(NewPrefabResponse {
                 // TODO: 发送新建事件
-                result: "ok".to_string(),
+                result: r,
             })),
             Err(e) => Err(Status::aborted(format!(
                 "{} {}",

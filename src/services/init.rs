@@ -11,7 +11,8 @@ use managers::{
 
 use crate::managers::{
     assemblies_manager, assets_manager, cuts_manager, epics_manager, 
-    projects_manager, sequences_manager, sets_manager, asset_collections_manager,
+    projects_manager, sequences_manager, sets_manager, set_collections_manager, asset_collections_manager,
+    specses_manager, prefabs_manager
 };
 
 use super::KnitterServer;
@@ -38,12 +39,15 @@ impl KnitterServer {
             // knitter system
             projects_manager::get_manager().await,
             asset_collections_manager::get_manager().await,
+            set_collections_manager::get_manager().await,
             sets_manager::get_manager().await,
             assemblies_manager::get_manager().await,
             assets_manager::get_manager().await,
             epics_manager::get_manager().await,
             sequences_manager::get_manager().await,
             cuts_manager::get_manager().await,
+            specses_manager::get_manager().await,
+            prefabs_manager::get_manager().await,
         ];
         
         majordomo::init_managers(manager_arcs).await;

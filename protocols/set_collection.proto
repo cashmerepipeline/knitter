@@ -12,7 +12,7 @@ message NewSetCollectionRequest{
   string description = 5;
 }
 message NewSetCollectionResponse {
-  // 成功返回项目id
+  // 成功返回id
   string result = 1;
 }
 
