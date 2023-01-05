@@ -1,8 +1,6 @@
 use bson::{doc, Document};
 use majordomo::{self, get_majordomo};
-use manage_define::general_field_ids::{
-     ID_FIELD_ID, NAME_MAP_FIELD_ID,
-};
+use manage_define::general_field_ids::{ID_FIELD_ID, NAME_MAP_FIELD_ID};
 use managers::traits::ManagerTrait;
 use service_common_handles::name_utils::validate_name;
 use service_common_handles::UnaryResponseResult;
@@ -51,21 +49,25 @@ impl KnitterServer {
         );
         new_entity_doc.insert(
             SET_COLLECTIONS_INNER_ROOT_PATH_FIELD_ID.to_string(),
-            inner_root.clone()
+            inner_root.clone(),
         );
         new_entity_doc.insert(
             SET_COLLECTIONS_EXTERNAL_ROOT_PATH_FIELD_ID.to_string(),
-            external_root.clone()
+            external_root.clone(),
         );
-        
+        new_entity_doc.insert(
+            SET_COLLECTIONS_PICTURE_FIELD_ID.to_string(),
+            bson::to_bson(picture).unwrap(),
+        );
+
         let result = manager
             .sink_entity(&mut new_entity_doc, &account_id, &role_group)
             .await;
 
         match result {
-            Ok(_r) => Ok(Response::new(NewSetCollectionResponse {
+            Ok(r) => Ok(Response::new(NewSetCollectionResponse {
                 // TODO: 发送新建事件
-                result: "ok".to_string(),
+                result: r,
             })),
             Err(e) => Err(Status::aborted(format!(
                 "{} {}",
@@ -75,6 +77,3 @@ impl KnitterServer {
         }
     }
 }
-
-
-

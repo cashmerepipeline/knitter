@@ -9,6 +9,9 @@ use std::fs::File;
 // 日志相关
 use log::info;
 use simplelog::{ColorChoice, CombinedLogger, LevelFilter, TermLogger, TerminalMode, WriteLogger};
+#[macro_use]
+extern crate rust_i18n;
+i18n!("locales");
 
 // 终止相关
 use tokio::runtime::{self};
@@ -28,11 +31,12 @@ use runtime_handle::set_runtime_handle;
 
 // #[tokio::main]
 fn main() -> Result<(), Box<dyn std::error::Error>> {
-    configs::init_configs_path("./configs.toml".to_string()).expect("需要指定配置文件");
+    configs::init_configs_path("./configs.toml".to_string()).expect(t!("config.toml文件不存在").as_str());
     let configs = configs::get_configs();
+    rust_i18n::set_locale(configs.server.language_code.as_str());
 
     // 初始化日志
-    server_utils::init_log_dir(&configs.server.log_dir).expect("初始化日志路径失败");
+    server_utils::init_log_dir(&configs.server.log_dir).expect(t!("创建日志目录失败").as_str());
 
     let log_config = simplelog::ConfigBuilder::new()
         .set_time_format_rfc3339()
@@ -76,27 +80,27 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
             // 服务地址
             let address = format!("{}:{}", server_address, server_port)
                 .parse()
-                .expect("address and port error");
+                .expect(t!("地址或端口解析错误").as_str());
 
             // tls文件读取
             let cert = tokio::fs::read(server_ca_path)
                 .await
-                .expect("read server crt file failed");
+                .expect(t!("读取crt文件失败").as_str());
             let key = tokio::fs::read(server_key_path)
                 .await
-                .expect("read server key file failed");
+                .expect(t!("读取服务key文件失败").as_str());
             let server_identity = Identity::from_pem(cert, key);
 
             let client_ca_cert = tokio::fs::read(client_ca_path)
                 .await
-                .expect("read client crt file failed");
+                .expect("读取客户端crt文件失败");
             let client_ca_cert = Certificate::from_pem(client_ca_cert);
 
             let tls = ServerTlsConfig::new()
                 .identity(server_identity)
                 .client_ca_root(client_ca_cert);
 
-            info!("imix server listening on: {}", address);
+            info!("{}: {}", t!("服务监听地址-端口"), address);
 
             let knitter_server = KnitterServer::default();
             let account_server = AccountServer::default();
@@ -120,7 +124,7 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
                     .serve_with_shutdown(address, async {
                         rx.await.ok();
                         // 关闭操作
-                        info!("服务器正常关闭");
+                        info!("{}", t!("服务器正常关闭"));
                     })
                     .await
             } else {
@@ -130,12 +134,12 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
                     .serve_with_shutdown(address, async {
                         rx.await.ok();
                         // 关闭操作
-                        info!("服务器正常关闭");
+                        info!("{}", t!("服务器正常关闭"));
                     })
                     .await
             }
         })
-        .expect("bad");
+        .expect(t!("启动服务失败").as_str());
 
     Ok(())
 }
@@ -143,6 +147,6 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
 // 退出程序信号
 async fn wait_for_end_signal(tx: oneshot::Sender<()>) {
     let _ = signal::ctrl_c().await;
-    info!("SIGINT 事件发生, 开始终止程序");
+    info!("{}", t!("发出程序中止中断, 开始停止服务"));
     let _ = tx.send(());
 }

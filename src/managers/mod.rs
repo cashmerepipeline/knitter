@@ -1,6 +1,7 @@
 pub mod projects_manager;
 pub mod asset_collections_manager;
 pub mod sets_manager;
+pub mod set_collections_manager;
 pub mod assemblies_manager;
 pub mod assets_manager;
 pub mod cuts_manager;

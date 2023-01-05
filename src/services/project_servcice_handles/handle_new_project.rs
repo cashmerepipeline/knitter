@@ -1,7 +1,8 @@
-use bson::{doc, Document};
+use bson::{doc};
 use majordomo::{self, get_majordomo};
+use manage_define::general_field_ids::DESCRIPTIONS_FIELD_ID;
 use manage_define::general_field_ids::{
-    DESCRIPTIONS_FIELD_ID, ID_FIELD_ID, NAME_MAP_FIELD_ID, TAGS_FIELD_ID,
+    ID_FIELD_ID, NAME_MAP_FIELD_ID,
 };
 use managers::traits::ManagerTrait;
 use managers::utils::make_new_entity_document;
@@ -30,6 +31,7 @@ impl KnitterServer {
         let inner_root_path = &request.get_ref().inner_root_path;
         let external_root_path = &request.get_ref().external_root_path;
         let picture = &request.get_ref().picture;
+        let description = &request.get_ref().description;
 
         if !view::can_collection_write(&account_id, &role_group, &PROJECTS_MANAGE_ID.to_string())
             .await
@@ -50,11 +52,6 @@ impl KnitterServer {
 
         // 新建
         if let Some(mut new_entity_doc) = make_new_entity_document(&manager).await {
-            let new_id = new_entity_doc
-                .get_str(ID_FIELD_ID.to_string())
-                .unwrap()
-                .to_owned();
-
             new_entity_doc.insert(
                 NAME_MAP_FIELD_ID.to_string(),
                 doc! {name.language.clone():name.name.clone()},
@@ -71,15 +68,19 @@ impl KnitterServer {
                 PROJECTS_PICTURE_FIELD_ID.to_string(),
                 bson::to_bson(picture).unwrap(),
             );
+            new_entity_doc.insert(
+                DESCRIPTIONS_FIELD_ID.to_string(),
+                description,
+            );
 
             let result = manager
                 .sink_entity(&mut new_entity_doc, &account_id, &role_group)
                 .await;
 
             match result {
-                Ok(_r) => Ok(Response::new(NewProjectResponse {
+                Ok(r) => Ok(Response::new(NewProjectResponse {
                     // TODO: 发送新建事件
-                    result: new_id.to_string(),
+                    result: r,
                 })),
                 Err(e) => Err(Status::aborted(format!(
                     "{} {}",

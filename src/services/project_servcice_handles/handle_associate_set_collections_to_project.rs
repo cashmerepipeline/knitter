@@ -42,7 +42,7 @@ impl KnitterServer {
         };
         let mut modify_doc = Document::new();
         modify_doc.insert(
-            PROJECTS_ASSOCIATED_SET_COLLECTIONS_FIELD_ID.to_string(),
+            PROJECTS_SET_COLLECTIONS_FIELD_ID.to_string(),
             doc! {"$each":library_ids.clone()},
         );
 

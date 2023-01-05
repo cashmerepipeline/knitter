@@ -9,8 +9,8 @@ pub struct NewProjectRequest {
     pub external_root_path: ::prost::alloc::string::String,
     #[prost(bytes="vec", tag="4")]
     pub picture: ::prost::alloc::vec::Vec<u8>,
-    #[prost(string, repeated, tag="5")]
-    pub accociated_libraries: ::prost::alloc::vec::Vec<::prost::alloc::string::String>,
+    #[prost(string, tag="5")]
+    pub description: ::prost::alloc::string::String,
 }
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct NewProjectResponse {
@@ -244,13 +244,11 @@ pub enum ReferenceType {
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct NewAssetRequest {
     #[prost(string, tag="1")]
-    pub library_id: ::prost::alloc::string::String,
+    pub asset_collection_id: ::prost::alloc::string::String,
     #[prost(message, optional, tag="2")]
     pub name: ::core::option::Option<::manage_define::cashmere::Name>,
     #[prost(string, tag="3")]
     pub description: ::prost::alloc::string::String,
-    #[prost(string, tag="4")]
-    pub template_id: ::prost::alloc::string::String,
 }
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct NewAssetResponse {
@@ -314,17 +312,15 @@ pub struct GetReferencedAssetsResponse {
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct NewAssemblyRequest {
     #[prost(string, tag="1")]
-    pub library_id: ::prost::alloc::string::String,
+    pub asset_collection_id: ::prost::alloc::string::String,
     #[prost(message, optional, tag="2")]
     pub name: ::core::option::Option<::manage_define::cashmere::Name>,
     #[prost(string, tag="3")]
     pub description: ::prost::alloc::string::String,
-    #[prost(string, tag="4")]
-    pub template_id: ::prost::alloc::string::String,
 }
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct NewAssemblyResponse {
-    /// 成功返回新资产id
+    /// 成功返回新资产组合id
     #[prost(string, tag="1")]
     pub result: ::prost::alloc::string::String,
 }
@@ -502,7 +498,7 @@ pub struct NewSetCollectionRequest {
 }
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct NewSetCollectionResponse {
-    /// 成功返回项目id
+    /// 成功返回id
     #[prost(string, tag="1")]
     pub result: ::prost::alloc::string::String,
 }
@@ -540,7 +536,7 @@ pub struct GetSetCollectionAssembliesPageResponse {
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct NewSetRequest {
     #[prost(string, tag="1")]
-    pub collection_id: ::prost::alloc::string::String,
+    pub set_collection_id: ::prost::alloc::string::String,
     #[prost(message, optional, tag="2")]
     pub name: ::core::option::Option<::manage_define::cashmere::Name>,
     #[prost(string, tag="3")]
@@ -838,13 +834,6 @@ pub mod knitter_grpc_server {
             request: tonic::Request<::manage_define::cashmere::NewLanguageCodeRequest>,
         ) -> Result<
             tonic::Response<::manage_define::cashmere::NewLanguageCodeResponse>,
-            tonic::Status,
-        >;
-        async fn edit_language_code(
-            &self,
-            request: tonic::Request<::manage_define::cashmere::EditLanguageCodeRequest>,
-        ) -> Result<
-            tonic::Response<::manage_define::cashmere::EditLanguageCodeResponse>,
             tonic::Status,
         >;
         /// 组
@@ -2066,49 +2055,6 @@ pub mod knitter_grpc_server {
                     let fut = async move {
                         let inner = inner.0;
                         let method = NewLanguageCodeSvc(inner);
-                        let codec = tonic::codec::ProstCodec::default();
-                        let mut grpc = tonic::server::Grpc::new(codec)
-                            .apply_compression_config(
-                                accept_compression_encodings,
-                                send_compression_encodings,
-                            );
-                        let res = grpc.unary(method, req).await;
-                        Ok(res)
-                    };
-                    Box::pin(fut)
-                }
-                "/io.knitter.KnitterGrpc/EditLanguageCode" => {
-                    #[allow(non_camel_case_types)]
-                    struct EditLanguageCodeSvc<T: KnitterGrpc>(pub Arc<T>);
-                    impl<
-                        T: KnitterGrpc,
-                    > tonic::server::UnaryService<
-                        ::manage_define::cashmere::EditLanguageCodeRequest,
-                    > for EditLanguageCodeSvc<T> {
-                        type Response = ::manage_define::cashmere::EditLanguageCodeResponse;
-                        type Future = BoxFuture<
-                            tonic::Response<Self::Response>,
-                            tonic::Status,
-                        >;
-                        fn call(
-                            &mut self,
-                            request: tonic::Request<
-                                ::manage_define::cashmere::EditLanguageCodeRequest,
-                            >,
-                        ) -> Self::Future {
-                            let inner = self.0.clone();
-                            let fut = async move {
-                                (*inner).edit_language_code(request).await
-                            };
-                            Box::pin(fut)
-                        }
-                    }
-                    let accept_compression_encodings = self.accept_compression_encodings;
-                    let send_compression_encodings = self.send_compression_encodings;
-                    let inner = self.inner.clone();
-                    let fut = async move {
-                        let inner = inner.0;
-                        let method = EditLanguageCodeSvc(inner);
                         let codec = tonic::codec::ProstCodec::default();
                         let mut grpc = tonic::server::Grpc::new(codec)
                             .apply_compression_config(

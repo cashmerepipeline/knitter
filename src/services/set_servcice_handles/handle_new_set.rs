@@ -26,7 +26,7 @@ impl KnitterServer {
         let role_group = auth::get_current_role(metadata).unwrap();
 
         let name = &request.get_ref().name;
-        let collection_id = &request.get_ref().collection_id;
+        let collection_id = &request.get_ref().set_collection_id;
         let description = &request.get_ref().description;
 
        if !view::can_collection_write(&account_id, &role_group, &SETS_MANAGE_ID.to_string())
@@ -68,9 +68,9 @@ impl KnitterServer {
             .await;
 
         match result {
-            Ok(_r) => Ok(Response::new(NewSetResponse {
+            Ok(r) => Ok(Response::new(NewSetResponse {
                 // TODO: 发送新建事件
-                result: "ok".to_string(),
+                result: r,
             })),
             Err(e) => Err(Status::aborted(format!(
                 "{} {}",

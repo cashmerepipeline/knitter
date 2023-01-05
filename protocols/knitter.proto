@@ -80,7 +80,6 @@ service KnitterGrpc{
 
   // 语言编码
   rpc NewLanguageCode(cashmere.NewLanguageCodeRequest) returns (cashmere.NewLanguageCodeResponse);
-  rpc EditLanguageCode(cashmere.EditLanguageCodeRequest) returns (cashmere.EditLanguageCodeResponse);
 
   // 组
   rpc NewGroup (cashmere.NewGroupRequest) returns (cashmere.NewGroupResponse);

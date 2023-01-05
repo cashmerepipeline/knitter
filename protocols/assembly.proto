@@ -5,13 +5,12 @@ import "name.proto";
 
 // 新建组装
 message NewAssemblyRequest {
-  string library_id = 1;
+  string asset_collection_id = 1;
   cashmere.Name name = 2;
   string description = 3;
-  string template_id = 4;
 }
 message NewAssemblyResponse {
-  // 成功返回新资产id
+  // 成功返回新资产组合id
   string result = 1;
 }
 
