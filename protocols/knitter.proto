@@ -61,6 +61,7 @@ service KnitterGrpc{
   rpc GetEntity(cashmere.GetEntityRequest) returns (cashmere.GetEntityResponse);
   rpc GetEntities(cashmere.GetEntitiesRequest) returns (cashmere.GetEntitiesResponse);
   rpc GetEntitiesPage(cashmere.GetEntitiesPageRequest) returns (cashmere.GetEntitiesPageResponse);
+  rpc MarkEntityRemoved(cashmere.MarkEntityRemovedRequest) returns (cashmere.MarkEntityRemovedResponse);
 
   // 通用编辑实体属性，非数据结构
   rpc EditEntityField(cashmere.EditEntityFieldRequest) returns (cashmere.EditEntityFieldResponse);
@@ -140,6 +141,8 @@ service KnitterGrpc{
 
   // 规格
   rpc NewSpecs(NewSpecsRequest) returns (NewSpecsResponse);
+  rpc ListSpecs(ListSpecsRequest) returns (ListSpecsResponse);
+  rpc ListSpecsPrefabs(ListSpecsPrefabsRequest) returns (ListSpecsPrefabsResponse);
 
   // 预制件
   rpc NewPrefab(NewPrefabRequest) returns (NewPrefabResponse);

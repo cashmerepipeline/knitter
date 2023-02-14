@@ -23,7 +23,7 @@ use view::init_view_rules;
 impl KnitterServer {
     pub async fn init_managers(&self) {
         let manager_arcs = vec![
-            // common services
+            // cashmere services
             manages_manager::get_manager().await,
             countries_manager::get_manager().await,
             areas_manager::get_manager().await,

@@ -47,7 +47,7 @@ impl KnitterServer {
         let mut modify_doc = Document::new();
         modify_doc.insert(
             reference_field_id,
-            doc! {"$each":bson::to_document(references).unwrap()}
+            doc! {"$each": references.iter().map(|r| bson::to_document(r).unwrap()).collect::<Vec<Document>>()}
         );
 
         let result = manager

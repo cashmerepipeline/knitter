@@ -2,13 +2,20 @@ syntax = "proto3";
 package io.knitter;
 
 enum ReferenceType {
+  // 资产
   RefAsset = 0;
+  // 组合
   RefAssembly = 1;
+  // 景
   RefSet = 2;
 }
 message Reference {
   ReferenceType reference_type = 1;
+  // 源
   string source_id = 2;
+  // 规格
+  string specs_id = 4;
+  // 预制件
   string prefab_id = 3;
 }
 
@@ -18,6 +25,7 @@ message AddReferencesRequest {
   int32 subject_manage_id = 1;
   // 主实体
   string subject_entity_id = 2;
+  // 主引用字段编码
   string reference_field_id = 3;
   repeated Reference references = 4;
 }
@@ -32,6 +40,7 @@ message ListReferencesRequest {
   int32 subject_manage_id = 1;
   // 主实体
   string subject_entity_id = 2;
+  // 主引用字段编码
   string reference_field_id = 3;
 }
 message ListReferencesResponse { repeated bytes references = 1; }

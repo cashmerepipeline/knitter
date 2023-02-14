@@ -6,24 +6,23 @@ Created:  2021-01-17T04:31:08.729Z
 Modified: !date!
 */
 use manage_define::cashmere::*;
+use service_common_handles::view_rules_service_handles::*;
+use service_common_handles::ResponseStream;
 use service_common_handles::{
     area_service_handles::HandleEditArea,
     area_service_handles::HandleNewArea,
     country_service_handles::HandleNewCountry,
-    data_service_handles::{HandleAddDataStageVersion, HandleGetDataServerConfigs, HandleListDataStages, HandleNewData, HandleUploadFile},
+    data_service_handles::*,
     entity_service_handles::*,
     group_service_handles::HandleNewGroup,
     language_code_handles::{HandleEditLanguageCode, HandleNewLanguageCode},
     manage_service_handle::*,
     name_service_handles::{HandleNewLanguageName, HandleRename},
 };
-use service_common_handles::ResponseStream;
-use service_common_handles::view_rules_service_handles::*;
 use tonic::{Request, Response, Status, Streaming};
 
-use crate::services::protocol::*;
-// use protocol::{LoginRequest, LoginResponse, NewManageRequest, NewManageResponse};
 use crate::services::protocol::knitter_grpc_server::KnitterGrpc;
+use crate::services::protocol::*;
 
 mod assembly_servcice_handles;
 mod asset_collection_servcice_handles;
@@ -102,6 +101,8 @@ impl HandleEditEntityMapField for KnitterServer {}
 
 impl HandleEditEntityMapFieldRemoveKey for KnitterServer {}
 
+impl HandleMarkEntityRemoved for KnitterServer {}
+
 // 名字
 impl HandleRename for KnitterServer {}
 
@@ -119,7 +120,6 @@ impl HandleListData for KnitterServer {}
 impl HandleAddDataStageVersion for KnitterServer {}
 
 impl HandleListDataStages for KnitterServer {}
-
 
 #[tonic::async_trait]
 impl KnitterGrpc for KnitterServer {
@@ -214,6 +214,13 @@ impl KnitterGrpc for KnitterServer {
         self.handle_get_entities_page(request).await
     }
 
+    async fn mark_entity_removed(
+        &self,
+        request: Request<MarkEntityRemovedRequest>,
+    ) -> Result<Response<MarkEntityRemovedResponse>, Status> {
+        self.handle_mark_entity_remved(request).await
+    }
+
     async fn edit_entity_field(
         &self,
         request: Request<EditEntityFieldRequest>,
@@ -306,11 +313,17 @@ impl KnitterGrpc for KnitterServer {
         self.handle_list_data(request).await
     }
 
-    async fn list_data_stages(&self, request: Request<ListDataStagesRequest>) -> Result<Response<ListDataStagesResponse>, Status> {
+    async fn list_data_stages(
+        &self,
+        request: Request<ListDataStagesRequest>,
+    ) -> Result<Response<ListDataStagesResponse>, Status> {
         self.handle_list_data_stages(request).await
     }
 
-    async fn add_data_stage_version(&self, request: Request<AddDataStageVersionRequest>) -> Result<Response<AddDataStageVersionResponse>, Status> {
+    async fn add_data_stage_version(
+        &self,
+        request: Request<AddDataStageVersionRequest>,
+    ) -> Result<Response<AddDataStageVersionResponse>, Status> {
         self.handle_add_data_stage_version(request).await
     }
 
@@ -334,7 +347,10 @@ impl KnitterGrpc for KnitterServer {
     // 必须要有这个声明
     type FileDataDownloadFileStream = ResponseStream<FileDataDownloadFileResponse>;
 
-    async fn file_data_download_file(&self, request: Request<Streaming<FileDataDownloadFileRequest>>) -> Result<Response<Self::FileDataDownloadFileStream>, Status> {
+    async fn file_data_download_file(
+        &self,
+        request: Request<Streaming<FileDataDownloadFileRequest>>,
+    ) -> Result<Response<Self::FileDataDownloadFileStream>, Status> {
         todo!()
     }
 
@@ -514,6 +530,20 @@ impl KnitterGrpc for KnitterServer {
         request: Request<NewSpecsRequest>,
     ) -> Result<Response<NewSpecsResponse>, Status> {
         self.handle_new_specs(request).await
+    }
+
+    async fn list_specs(
+        &self,
+        request: Request<ListSpecsRequest>,
+    ) -> Result<Response<ListSpecsResponse>, Status> {
+        self.handle_list_specs(request).await
+    }
+
+    async fn list_specs_prefabs(
+        &self,
+        request: Request<ListSpecsPrefabsRequest>,
+    ) -> Result<Response<ListSpecsPrefabsResponse>, Status> {
+        self.handle_list_specs_prefabs(request).await
     }
 
     async fn new_prefab(

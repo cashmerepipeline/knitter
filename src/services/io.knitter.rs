@@ -149,8 +149,13 @@ pub struct GetAssetCollectionAssembliesPageResponse {
 pub struct Reference {
     #[prost(enumeration="ReferenceType", tag="1")]
     pub reference_type: i32,
+    /// 源
     #[prost(string, tag="2")]
     pub source_id: ::prost::alloc::string::String,
+    /// 规格
+    #[prost(string, tag="4")]
+    pub specs_id: ::prost::alloc::string::String,
+    /// 预制件
     #[prost(string, tag="3")]
     pub prefab_id: ::prost::alloc::string::String,
 }
@@ -163,6 +168,7 @@ pub struct AddReferencesRequest {
     /// 主实体
     #[prost(string, tag="2")]
     pub subject_entity_id: ::prost::alloc::string::String,
+    /// 主引用字段编码
     #[prost(string, tag="3")]
     pub reference_field_id: ::prost::alloc::string::String,
     #[prost(message, repeated, tag="4")]
@@ -183,6 +189,7 @@ pub struct ListReferencesRequest {
     /// 主实体
     #[prost(string, tag="2")]
     pub subject_entity_id: ::prost::alloc::string::String,
+    /// 主引用字段编码
     #[prost(string, tag="3")]
     pub reference_field_id: ::prost::alloc::string::String,
 }
@@ -236,8 +243,11 @@ pub struct ChangeReferencePrefabResponse {
 #[derive(Clone, Copy, Debug, PartialEq, Eq, Hash, PartialOrd, Ord, ::prost::Enumeration)]
 #[repr(i32)]
 pub enum ReferenceType {
+    /// 资产
     RefAsset = 0,
+    /// 组合
     RefAssembly = 1,
+    /// 景
     RefSet = 2,
 }
 /// 新建资产
@@ -617,6 +627,28 @@ pub struct NewSpecsResponse {
     pub result: ::prost::alloc::string::String,
 }
 #[derive(Clone, PartialEq, ::prost::Message)]
+pub struct ListSpecsRequest {
+    #[prost(int32, tag="1")]
+    pub owner_manage_id: i32,
+    #[prost(string, tag="2")]
+    pub owner_entity_id: ::prost::alloc::string::String,
+}
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct ListSpecsResponse {
+    #[prost(bytes="vec", repeated, tag="1")]
+    pub specses: ::prost::alloc::vec::Vec<::prost::alloc::vec::Vec<u8>>,
+}
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct ListSpecsPrefabsRequest {
+    #[prost(string, tag="1")]
+    pub specs_id: ::prost::alloc::string::String,
+}
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct ListSpecsPrefabsResponse {
+    #[prost(bytes="vec", repeated, tag="1")]
+    pub prefabs: ::prost::alloc::vec::Vec<::prost::alloc::vec::Vec<u8>>,
+}
+#[derive(Clone, PartialEq, ::prost::Message)]
 pub struct NewPrefabRequest {
     #[prost(string, tag="1")]
     pub specs_id: ::prost::alloc::string::String,
@@ -747,6 +779,13 @@ pub mod knitter_grpc_server {
             request: tonic::Request<::manage_define::cashmere::GetEntitiesPageRequest>,
         ) -> Result<
             tonic::Response<::manage_define::cashmere::GetEntitiesPageResponse>,
+            tonic::Status,
+        >;
+        async fn mark_entity_removed(
+            &self,
+            request: tonic::Request<::manage_define::cashmere::MarkEntityRemovedRequest>,
+        ) -> Result<
+            tonic::Response<::manage_define::cashmere::MarkEntityRemovedResponse>,
             tonic::Status,
         >;
         /// 通用编辑实体属性，非数据结构
@@ -1047,6 +1086,14 @@ pub mod knitter_grpc_server {
             &self,
             request: tonic::Request<super::NewSpecsRequest>,
         ) -> Result<tonic::Response<super::NewSpecsResponse>, tonic::Status>;
+        async fn list_specs(
+            &self,
+            request: tonic::Request<super::ListSpecsRequest>,
+        ) -> Result<tonic::Response<super::ListSpecsResponse>, tonic::Status>;
+        async fn list_specs_prefabs(
+            &self,
+            request: tonic::Request<super::ListSpecsPrefabsRequest>,
+        ) -> Result<tonic::Response<super::ListSpecsPrefabsResponse>, tonic::Status>;
         /// 预制件
         async fn new_prefab(
             &self,
@@ -1664,6 +1711,49 @@ pub mod knitter_grpc_server {
                     let fut = async move {
                         let inner = inner.0;
                         let method = GetEntitiesPageSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/io.knitter.KnitterGrpc/MarkEntityRemoved" => {
+                    #[allow(non_camel_case_types)]
+                    struct MarkEntityRemovedSvc<T: KnitterGrpc>(pub Arc<T>);
+                    impl<
+                        T: KnitterGrpc,
+                    > tonic::server::UnaryService<
+                        ::manage_define::cashmere::MarkEntityRemovedRequest,
+                    > for MarkEntityRemovedSvc<T> {
+                        type Response = ::manage_define::cashmere::MarkEntityRemovedResponse;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<
+                                ::manage_define::cashmere::MarkEntityRemovedRequest,
+                            >,
+                        ) -> Self::Future {
+                            let inner = self.0.clone();
+                            let fut = async move {
+                                (*inner).mark_entity_removed(request).await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let inner = inner.0;
+                        let method = MarkEntityRemovedSvc(inner);
                         let codec = tonic::codec::ProstCodec::default();
                         let mut grpc = tonic::server::Grpc::new(codec)
                             .apply_compression_config(
@@ -3466,6 +3556,84 @@ pub mod knitter_grpc_server {
                     let fut = async move {
                         let inner = inner.0;
                         let method = NewSpecsSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/io.knitter.KnitterGrpc/ListSpecs" => {
+                    #[allow(non_camel_case_types)]
+                    struct ListSpecsSvc<T: KnitterGrpc>(pub Arc<T>);
+                    impl<
+                        T: KnitterGrpc,
+                    > tonic::server::UnaryService<super::ListSpecsRequest>
+                    for ListSpecsSvc<T> {
+                        type Response = super::ListSpecsResponse;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::ListSpecsRequest>,
+                        ) -> Self::Future {
+                            let inner = self.0.clone();
+                            let fut = async move { (*inner).list_specs(request).await };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let inner = inner.0;
+                        let method = ListSpecsSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/io.knitter.KnitterGrpc/ListSpecsPrefabs" => {
+                    #[allow(non_camel_case_types)]
+                    struct ListSpecsPrefabsSvc<T: KnitterGrpc>(pub Arc<T>);
+                    impl<
+                        T: KnitterGrpc,
+                    > tonic::server::UnaryService<super::ListSpecsPrefabsRequest>
+                    for ListSpecsPrefabsSvc<T> {
+                        type Response = super::ListSpecsPrefabsResponse;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::ListSpecsPrefabsRequest>,
+                        ) -> Self::Future {
+                            let inner = self.0.clone();
+                            let fut = async move {
+                                (*inner).list_specs_prefabs(request).await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let inner = inner.0;
+                        let method = ListSpecsPrefabsSvc(inner);
                         let codec = tonic::codec::ProstCodec::default();
                         let mut grpc = tonic::server::Grpc::new(codec)
                             .apply_compression_config(

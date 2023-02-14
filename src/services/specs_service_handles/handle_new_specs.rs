@@ -1,9 +1,8 @@
 use bson::{doc, Document};
 use majordomo::{self, get_majordomo};
-use manage_define::general_field_ids::{
-    DESCRIPTIONS_FIELD_ID, ID_FIELD_ID, NAME_MAP_FIELD_ID,
-};
+use manage_define::general_field_ids::{DESCRIPTIONS_FIELD_ID, ID_FIELD_ID, NAME_MAP_FIELD_ID};
 use managers::traits::ManagerTrait;
+use managers::utils::make_new_entity_document;
 use service_common_handles::name_utils::validate_name;
 use service_common_handles::UnaryResponseResult;
 use tonic::{Request, Response, Status};
@@ -30,7 +29,7 @@ impl KnitterServer {
         let owner_entity_id = &request.get_ref().owner_entity_id;
         let description = &request.get_ref().description;
 
-       if !view::can_collection_write(&account_id, &role_group, &SPECSES_MANAGE_ID.to_string())
+        if !view::can_collection_write(&account_id, &role_group, &SPECSES_MANAGE_ID.to_string())
             .await
         {
             return Err(Status::unauthenticated("用户不具有可写权限"));
@@ -42,13 +41,13 @@ impl KnitterServer {
         let name = name.as_ref().unwrap();
 
         let majordomo_arc = get_majordomo().await;
-        let manager = majordomo_arc
+        let specs_manager = majordomo_arc
             .get_manager_by_id(SPECSES_MANAGE_ID)
             .await
             .unwrap();
 
         // 新建条目
-        let new_id = manager.get_new_entity_id().await.unwrap();
+        let new_id = specs_manager.get_new_entity_id().await.unwrap();
         let mut new_entity_doc = Document::new();
         new_entity_doc.insert(ID_FIELD_ID.to_string(), new_id.to_string());
         new_entity_doc.insert(
@@ -57,25 +56,35 @@ impl KnitterServer {
         );
         new_entity_doc.insert(
             SPECSES_OWNER_MANAGE_ID_FIELD_ID.to_string(),
-            owner_manage_id.clone()
+            owner_manage_id.clone(),
         );
         new_entity_doc.insert(
             SPECSES_OWNER_ENTITY_ID_FIELD_ID.to_string(),
-            owner_entity_id.clone()
+            owner_entity_id.clone(),
         );
-        new_entity_doc.insert(
-            DESCRIPTIONS_FIELD_ID.to_string(),
-            description.clone()
-        );
-        
-        let result = manager
-            .sink_entity(&mut new_entity_doc, &account_id, &role_group)
-            .await;
+        new_entity_doc.insert(DESCRIPTIONS_FIELD_ID.to_string(), description.clone());
 
-        match result {
+        // TODO: 新基础预制件
+        let prefabs_manager = majordomo_arc
+            .get_manager_by_id(PREFABS_MANAGE_ID)
+            .await
+            .unwrap();
+        let mut basic_prefab_entity_doc = make_new_entity_document(&prefabs_manager).await.unwrap();
+        basic_prefab_entity_doc
+            .insert(NAME_MAP_FIELD_ID.to_string(), doc! {name.language.clone(): "basic"});
+        basic_prefab_entity_doc.insert(PREFABS_SPECS_ID_FIELD_ID.to_string(), new_id.to_string());
+        basic_prefab_entity_doc.insert(DESCRIPTIONS_FIELD_ID.to_string(), "basic prefab");
+
+        let new_specs_result = specs_manager
+            .sink_entity(&mut new_entity_doc, &account_id, &role_group);
+        let new_prefab_result = prefabs_manager
+            .sink_entity(&mut basic_prefab_entity_doc, &account_id, &role_group);
+
+        match tokio::try_join!(new_specs_result, new_prefab_result) {
             Ok(r) => Ok(Response::new(NewSpecsResponse {
                 // TODO: 发送新建事件
-                result: r,
+                // 返回specs id
+                result: r.0,
             })),
             Err(e) => Err(Status::aborted(format!(
                 "{} {}",
@@ -85,5 +94,3 @@ impl KnitterServer {
         }
     }
 }
-
-

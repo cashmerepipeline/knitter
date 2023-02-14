@@ -8,8 +8,24 @@ message NewSpecsRequest{
     string owner_entity_id = 2;
     cashmere.Name name = 3;
     string description = 4;
+    
 }
 message NewSpecsResponse{
     string result = 1;
+}
+
+message ListSpecsRequest{
+    int32 owner_manage_id = 1;
+    string owner_entity_id = 2;
+}
+message ListSpecsResponse{
+    repeated bytes specses = 1;
+}
+
+message ListSpecsPrefabsRequest{
+    string specs_id = 1;
+}
+message ListSpecsPrefabsResponse{
+    repeated bytes prefabs = 1;
 }
 
