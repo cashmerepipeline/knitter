@@ -38,7 +38,8 @@
 ## 安装和编译运行
 
   1. 使用rustup安装rust
-  2. 克隆本仓库到本地
-  3. 克隆cashmere_core并且和本仓库在同一目录下
-  4. cd knitter && cargo run
-  5. 运行knitter_python_api测试
+  2. 安装mongodb，并启动服务（默认设置为本地服务，如果在其他机器上，可以修改configs.toml的数据库地址端口字段）
+  3. 克隆本仓库到本地
+  4. 克隆cashmere_core并且和本仓库在同一目录下
+  5. cd knitter && cargo run
+  6. 运行knitter_python_api测试
