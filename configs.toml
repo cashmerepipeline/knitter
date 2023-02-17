@@ -22,7 +22,8 @@ events_dbs_dir = "events_dbs"
 # 默认语音
 language_code = "zh"
 
-# 日志位置
+# 日志
+# log_level = "Info"
 log_dir = "log"
 
 [tls]

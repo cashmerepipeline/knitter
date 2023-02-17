@@ -1,3 +1,5 @@
+use std::sync::Arc;
+
 /*
 Author: 闫刚 (yes7rose@sina.com)
 mod.rs (c) 2021
@@ -424,7 +426,7 @@ impl KnitterGrpc for KnitterServer {
         &self,
         request: Request<GetAssetCollectionAssembliesPageRequest>,
     ) -> Result<Response<GetAssetCollectionAssembliesPageResponse>, Status> {
-        todo!()
+        self.handle_get_asset_collection_assemblies_page(request).await
     }
 
     async fn mark_asset_collection_status(

@@ -68,7 +68,7 @@ impl KnitterServer {
         let mut matches = doc! {};
         matches.insert(
             ASSETS_ASSOCIATED_COLLECTIONS_FIELD_ID.to_string(),
-            doc! {"$elemMatch": doc! {"$eq":collection_id}},
+            doc! {"$in":vec![collection_id.clone()]}
         );
 
         // zh: 描写字段可见性过滤, 加入mongodb的project方法
@@ -95,7 +95,7 @@ impl KnitterServer {
         };
 
         let result = manager
-            .get_entities_by_page(index, &None, &None, &project_doc)
+            .get_entities_by_page(index, &Some(matches), &None, &project_doc)
             .await;
 
         match result {
