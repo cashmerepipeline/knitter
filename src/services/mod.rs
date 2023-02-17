@@ -399,17 +399,38 @@ impl KnitterGrpc for KnitterServer {
         self.handle_new_asset_collection(request).await
     }
 
-    async fn get_asset_collection_associated_assets_page(
+    async fn get_asset_collection_asset_total_pages_count(
         &self,
-        request: Request<GetAssetCollectionAssetsPageRequest>,
-    ) -> Result<Response<GetAssetCollectionAssetsPageResponse>, Status> {
+        request: Request<GetAssetCollectionAssetTotalPagesCountRequest>,
+    ) -> Result<Response<GetAssetCollectionAssetTotalPagesCountResponse>, Status> {
         todo!()
     }
 
-    async fn get_asset_collection_associated_assemblies_page(
+    async fn get_asset_collection_assembly_total_pages_count(
+        &self,
+        request: Request<GetAssetCollectionAssemblyTotalPagesCountRequest>,
+    ) -> Result<Response<GetAssetCollectionAssemblyTotalPagesCountResponse>, Status> {
+        todo!()
+    }
+
+    async fn get_asset_collection_assets_page(
+        &self,
+        request: Request<GetAssetCollectionAssetsPageRequest>,
+    ) -> Result<Response<GetAssetCollectionAssetsPageResponse>, Status> {
+        self.handle_get_asset_collection_assets_page(request).await
+    }
+
+    async fn get_asset_collection_assemblies_page(
         &self,
         request: Request<GetAssetCollectionAssembliesPageRequest>,
     ) -> Result<Response<GetAssetCollectionAssembliesPageResponse>, Status> {
+        todo!()
+    }
+
+    async fn mark_asset_collection_status(
+        &self,
+        request: Request<MarkAssetCollectionStatusRequest>,
+    ) -> Result<Response<MarkAssetCollectionStatusResponse>, Status> {
         todo!()
     }
 
@@ -420,20 +441,6 @@ impl KnitterGrpc for KnitterServer {
         self.handle_new_asset(request).await
     }
 
-    async fn get_asset_specses(
-        &self,
-        request: Request<GetAssetSpecsesRequest>,
-    ) -> Result<Response<GetAssetSpecsesResponse>, Status> {
-        todo!()
-    }
-
-    async fn get_asset_prefabs(
-        &self,
-        request: Request<GetAssetPrefabsRequest>,
-    ) -> Result<Response<GetAssetPrefabsResponse>, Status> {
-        todo!()
-    }
-
     async fn get_referenced_assets(
         &self,
         request: Request<GetReferencedAssetsRequest>,
@@ -441,7 +448,7 @@ impl KnitterGrpc for KnitterServer {
         self.get_referenced_assets(request).await
     }
 
-    async fn mark_asset_satus(
+    async fn mark_asset_status(
         &self,
         request: Request<MarkAssetStatusRequest>,
     ) -> Result<Response<MarkAssetStatusResponse>, Status> {

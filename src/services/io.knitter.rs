@@ -114,6 +114,28 @@ pub struct NewAssetCollectionResponse {
     #[prost(string, tag="1")]
     pub result: ::prost::alloc::string::String,
 }
+/// 取得资产数量
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct GetAssetCollectionAssetTotalPagesCountRequest {
+    #[prost(string, tag="1")]
+    pub collection_id: ::prost::alloc::string::String,
+}
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct GetAssetCollectionAssetTotalPagesCountResponse {
+    #[prost(uint32, tag="1")]
+    pub total_count: u32,
+}
+/// 取得组合件数量
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct GetAssetCollectionAssemblyTotalPagesCountRequest {
+    #[prost(string, tag="1")]
+    pub colllection_id: ::prost::alloc::string::String,
+}
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct GetAssetCollectionAssemblyTotalPagesCountResponse {
+    #[prost(uint32, tag="1")]
+    pub totao_count: u32,
+}
 /// 取得资产页
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct GetAssetCollectionAssetsPageRequest {
@@ -122,10 +144,11 @@ pub struct GetAssetCollectionAssetsPageRequest {
     #[prost(uint32, tag="2")]
     pub page_index: u32,
     #[prost(uint32, tag="3")]
-    pub total_page_count: u32,
+    pub total_pages_count: u32,
 }
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct GetAssetCollectionAssetsPageResponse {
+    /// bson list
     #[prost(bytes="vec", repeated, tag="1")]
     pub assets: ::prost::alloc::vec::Vec<::prost::alloc::vec::Vec<u8>>,
 }
@@ -137,12 +160,34 @@ pub struct GetAssetCollectionAssembliesPageRequest {
     #[prost(uint32, tag="2")]
     pub page_index: u32,
     #[prost(uint32, tag="3")]
-    pub total_page_count: u32,
+    pub total_pages_count: u32,
 }
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct GetAssetCollectionAssembliesPageResponse {
+    /// bson list
     #[prost(bytes="vec", repeated, tag="1")]
     pub assemblies: ::prost::alloc::vec::Vec<::prost::alloc::vec::Vec<u8>>,
+}
+/// 标记资产集状态
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct MarkAssetCollectionStatusRequest {
+    #[prost(string, tag="1")]
+    pub collection_id: ::prost::alloc::string::String,
+    #[prost(enumeration="AssetCollectionStatus", tag="2")]
+    pub status: i32,
+}
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct MarkAssetCollectionStatusResponse {
+    /// 修改成功返回当前集状态
+    #[prost(enumeration="AssetCollectionStatus", tag="1")]
+    pub status: i32,
+}
+/// 资产集合状态
+#[derive(Clone, Copy, Debug, PartialEq, Eq, Hash, PartialOrd, Ord, ::prost::Enumeration)]
+#[repr(i32)]
+pub enum AssetCollectionStatus {
+    AssetCollectionClosed = 0,
+    AssetCollectionOpenning = 1,
 }
 #[derive(serde::Serialize, serde::Deserialize)]
 #[derive(Clone, PartialEq, ::prost::Message)]
@@ -266,33 +311,13 @@ pub struct NewAssetResponse {
     #[prost(string, tag="1")]
     pub result: ::prost::alloc::string::String,
 }
-/// 取得资产规格表
-#[derive(Clone, PartialEq, ::prost::Message)]
-pub struct GetAssetSpecsesRequest {
-    #[prost(string, tag="1")]
-    pub asset_id: ::prost::alloc::string::String,
-}
-#[derive(Clone, PartialEq, ::prost::Message)]
-pub struct GetAssetSpecsesResponse {
-    #[prost(bytes="vec", repeated, tag="1")]
-    pub specses: ::prost::alloc::vec::Vec<::prost::alloc::vec::Vec<u8>>,
-}
-/// 取得资产预制件表
-#[derive(Clone, PartialEq, ::prost::Message)]
-pub struct GetAssetPrefabsRequest {
-    #[prost(string, tag="1")]
-    pub asset_id: ::prost::alloc::string::String,
-}
-#[derive(Clone, PartialEq, ::prost::Message)]
-pub struct GetAssetPrefabsResponse {
-    #[prost(bytes="vec", repeated, tag="1")]
-    pub prefabs: ::prost::alloc::vec::Vec<::prost::alloc::vec::Vec<u8>>,
-}
 /// 标记状态
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct MarkAssetStatusRequest {
     #[prost(string, tag="1")]
     pub asset_id: ::prost::alloc::string::String,
+    #[prost(enumeration="AssetStatus", tag="2")]
+    pub status: i32,
 }
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct MarkAssetStatusResponse {
@@ -317,6 +342,14 @@ pub struct GetReferencedAssetsResponse {
     /// 成功返回 "ok"
     #[prost(bytes="vec", repeated, tag="1")]
     pub assets: ::prost::alloc::vec::Vec<::prost::alloc::vec::Vec<u8>>,
+}
+/// 资产状态
+#[derive(Clone, Copy, Debug, PartialEq, Eq, Hash, PartialOrd, Ord, ::prost::Enumeration)]
+#[repr(i32)]
+pub enum AssetStatus {
+    AssetDone = 0,
+    AssetSuspended = 1,
+    AssetCanceled = 2,
 }
 /// 新建组装
 #[derive(Clone, PartialEq, ::prost::Message)]
@@ -988,23 +1021,46 @@ pub mod knitter_grpc_server {
             tonic::Response<super::GetProjectAssociatedSetCollectionsResponse>,
             tonic::Status,
         >;
-        /// 库
+        /// 资产集
         async fn new_asset_collection(
             &self,
             request: tonic::Request<super::NewAssetCollectionRequest>,
         ) -> Result<tonic::Response<super::NewAssetCollectionResponse>, tonic::Status>;
-        async fn get_asset_collection_associated_assets_page(
+        async fn get_asset_collection_asset_total_pages_count(
+            &self,
+            request: tonic::Request<super::GetAssetCollectionAssetTotalPagesCountRequest>,
+        ) -> Result<
+            tonic::Response<super::GetAssetCollectionAssetTotalPagesCountResponse>,
+            tonic::Status,
+        >;
+        async fn get_asset_collection_assembly_total_pages_count(
+            &self,
+            request: tonic::Request<
+                super::GetAssetCollectionAssemblyTotalPagesCountRequest,
+            >,
+        ) -> Result<
+            tonic::Response<super::GetAssetCollectionAssemblyTotalPagesCountResponse>,
+            tonic::Status,
+        >;
+        async fn get_asset_collection_assets_page(
             &self,
             request: tonic::Request<super::GetAssetCollectionAssetsPageRequest>,
         ) -> Result<
             tonic::Response<super::GetAssetCollectionAssetsPageResponse>,
             tonic::Status,
         >;
-        async fn get_asset_collection_associated_assemblies_page(
+        async fn get_asset_collection_assemblies_page(
             &self,
             request: tonic::Request<super::GetAssetCollectionAssembliesPageRequest>,
         ) -> Result<
             tonic::Response<super::GetAssetCollectionAssembliesPageResponse>,
+            tonic::Status,
+        >;
+        async fn mark_asset_collection_status(
+            &self,
+            request: tonic::Request<super::MarkAssetCollectionStatusRequest>,
+        ) -> Result<
+            tonic::Response<super::MarkAssetCollectionStatusResponse>,
             tonic::Status,
         >;
         /// 资产
@@ -1012,19 +1068,11 @@ pub mod knitter_grpc_server {
             &self,
             request: tonic::Request<super::NewAssetRequest>,
         ) -> Result<tonic::Response<super::NewAssetResponse>, tonic::Status>;
-        async fn get_asset_specses(
-            &self,
-            request: tonic::Request<super::GetAssetSpecsesRequest>,
-        ) -> Result<tonic::Response<super::GetAssetSpecsesResponse>, tonic::Status>;
-        async fn get_asset_prefabs(
-            &self,
-            request: tonic::Request<super::GetAssetPrefabsRequest>,
-        ) -> Result<tonic::Response<super::GetAssetPrefabsResponse>, tonic::Status>;
         async fn get_referenced_assets(
             &self,
             request: tonic::Request<super::GetReferencedAssetsRequest>,
         ) -> Result<tonic::Response<super::GetReferencedAssetsResponse>, tonic::Status>;
-        async fn mark_asset_satus(
+        async fn mark_asset_status(
             &self,
             request: tonic::Request<super::MarkAssetStatusRequest>,
         ) -> Result<tonic::Response<super::MarkAssetStatusResponse>, tonic::Status>;
@@ -2801,16 +2849,108 @@ pub mod knitter_grpc_server {
                     };
                     Box::pin(fut)
                 }
-                "/io.knitter.KnitterGrpc/GetAssetCollectionAssociatedAssetsPage" => {
+                "/io.knitter.KnitterGrpc/GetAssetCollectionAssetTotalPagesCount" => {
                     #[allow(non_camel_case_types)]
-                    struct GetAssetCollectionAssociatedAssetsPageSvc<T: KnitterGrpc>(
+                    struct GetAssetCollectionAssetTotalPagesCountSvc<T: KnitterGrpc>(
                         pub Arc<T>,
                     );
                     impl<
                         T: KnitterGrpc,
                     > tonic::server::UnaryService<
+                        super::GetAssetCollectionAssetTotalPagesCountRequest,
+                    > for GetAssetCollectionAssetTotalPagesCountSvc<T> {
+                        type Response = super::GetAssetCollectionAssetTotalPagesCountResponse;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<
+                                super::GetAssetCollectionAssetTotalPagesCountRequest,
+                            >,
+                        ) -> Self::Future {
+                            let inner = self.0.clone();
+                            let fut = async move {
+                                (*inner)
+                                    .get_asset_collection_asset_total_pages_count(request)
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let inner = inner.0;
+                        let method = GetAssetCollectionAssetTotalPagesCountSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/io.knitter.KnitterGrpc/GetAssetCollectionAssemblyTotalPagesCount" => {
+                    #[allow(non_camel_case_types)]
+                    struct GetAssetCollectionAssemblyTotalPagesCountSvc<T: KnitterGrpc>(
+                        pub Arc<T>,
+                    );
+                    impl<
+                        T: KnitterGrpc,
+                    > tonic::server::UnaryService<
+                        super::GetAssetCollectionAssemblyTotalPagesCountRequest,
+                    > for GetAssetCollectionAssemblyTotalPagesCountSvc<T> {
+                        type Response = super::GetAssetCollectionAssemblyTotalPagesCountResponse;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<
+                                super::GetAssetCollectionAssemblyTotalPagesCountRequest,
+                            >,
+                        ) -> Self::Future {
+                            let inner = self.0.clone();
+                            let fut = async move {
+                                (*inner)
+                                    .get_asset_collection_assembly_total_pages_count(request)
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let inner = inner.0;
+                        let method = GetAssetCollectionAssemblyTotalPagesCountSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/io.knitter.KnitterGrpc/GetAssetCollectionAssetsPage" => {
+                    #[allow(non_camel_case_types)]
+                    struct GetAssetCollectionAssetsPageSvc<T: KnitterGrpc>(pub Arc<T>);
+                    impl<
+                        T: KnitterGrpc,
+                    > tonic::server::UnaryService<
                         super::GetAssetCollectionAssetsPageRequest,
-                    > for GetAssetCollectionAssociatedAssetsPageSvc<T> {
+                    > for GetAssetCollectionAssetsPageSvc<T> {
                         type Response = super::GetAssetCollectionAssetsPageResponse;
                         type Future = BoxFuture<
                             tonic::Response<Self::Response>,
@@ -2824,9 +2964,7 @@ pub mod knitter_grpc_server {
                         ) -> Self::Future {
                             let inner = self.0.clone();
                             let fut = async move {
-                                (*inner)
-                                    .get_asset_collection_associated_assets_page(request)
-                                    .await
+                                (*inner).get_asset_collection_assets_page(request).await
                             };
                             Box::pin(fut)
                         }
@@ -2836,7 +2974,7 @@ pub mod knitter_grpc_server {
                     let inner = self.inner.clone();
                     let fut = async move {
                         let inner = inner.0;
-                        let method = GetAssetCollectionAssociatedAssetsPageSvc(inner);
+                        let method = GetAssetCollectionAssetsPageSvc(inner);
                         let codec = tonic::codec::ProstCodec::default();
                         let mut grpc = tonic::server::Grpc::new(codec)
                             .apply_compression_config(
@@ -2848,16 +2986,16 @@ pub mod knitter_grpc_server {
                     };
                     Box::pin(fut)
                 }
-                "/io.knitter.KnitterGrpc/GetAssetCollectionAssociatedAssembliesPage" => {
+                "/io.knitter.KnitterGrpc/GetAssetCollectionAssembliesPage" => {
                     #[allow(non_camel_case_types)]
-                    struct GetAssetCollectionAssociatedAssembliesPageSvc<T: KnitterGrpc>(
+                    struct GetAssetCollectionAssembliesPageSvc<T: KnitterGrpc>(
                         pub Arc<T>,
                     );
                     impl<
                         T: KnitterGrpc,
                     > tonic::server::UnaryService<
                         super::GetAssetCollectionAssembliesPageRequest,
-                    > for GetAssetCollectionAssociatedAssembliesPageSvc<T> {
+                    > for GetAssetCollectionAssembliesPageSvc<T> {
                         type Response = super::GetAssetCollectionAssembliesPageResponse;
                         type Future = BoxFuture<
                             tonic::Response<Self::Response>,
@@ -2871,9 +3009,7 @@ pub mod knitter_grpc_server {
                         ) -> Self::Future {
                             let inner = self.0.clone();
                             let fut = async move {
-                                (*inner)
-                                    .get_asset_collection_associated_assemblies_page(request)
-                                    .await
+                                (*inner).get_asset_collection_assemblies_page(request).await
                             };
                             Box::pin(fut)
                         }
@@ -2883,9 +3019,50 @@ pub mod knitter_grpc_server {
                     let inner = self.inner.clone();
                     let fut = async move {
                         let inner = inner.0;
-                        let method = GetAssetCollectionAssociatedAssembliesPageSvc(
-                            inner,
-                        );
+                        let method = GetAssetCollectionAssembliesPageSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/io.knitter.KnitterGrpc/MarkAssetCollectionStatus" => {
+                    #[allow(non_camel_case_types)]
+                    struct MarkAssetCollectionStatusSvc<T: KnitterGrpc>(pub Arc<T>);
+                    impl<
+                        T: KnitterGrpc,
+                    > tonic::server::UnaryService<
+                        super::MarkAssetCollectionStatusRequest,
+                    > for MarkAssetCollectionStatusSvc<T> {
+                        type Response = super::MarkAssetCollectionStatusResponse;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<
+                                super::MarkAssetCollectionStatusRequest,
+                            >,
+                        ) -> Self::Future {
+                            let inner = self.0.clone();
+                            let fut = async move {
+                                (*inner).mark_asset_collection_status(request).await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let inner = inner.0;
+                        let method = MarkAssetCollectionStatusSvc(inner);
                         let codec = tonic::codec::ProstCodec::default();
                         let mut grpc = tonic::server::Grpc::new(codec)
                             .apply_compression_config(
@@ -2924,86 +3101,6 @@ pub mod knitter_grpc_server {
                     let fut = async move {
                         let inner = inner.0;
                         let method = NewAssetSvc(inner);
-                        let codec = tonic::codec::ProstCodec::default();
-                        let mut grpc = tonic::server::Grpc::new(codec)
-                            .apply_compression_config(
-                                accept_compression_encodings,
-                                send_compression_encodings,
-                            );
-                        let res = grpc.unary(method, req).await;
-                        Ok(res)
-                    };
-                    Box::pin(fut)
-                }
-                "/io.knitter.KnitterGrpc/GetAssetSpecses" => {
-                    #[allow(non_camel_case_types)]
-                    struct GetAssetSpecsesSvc<T: KnitterGrpc>(pub Arc<T>);
-                    impl<
-                        T: KnitterGrpc,
-                    > tonic::server::UnaryService<super::GetAssetSpecsesRequest>
-                    for GetAssetSpecsesSvc<T> {
-                        type Response = super::GetAssetSpecsesResponse;
-                        type Future = BoxFuture<
-                            tonic::Response<Self::Response>,
-                            tonic::Status,
-                        >;
-                        fn call(
-                            &mut self,
-                            request: tonic::Request<super::GetAssetSpecsesRequest>,
-                        ) -> Self::Future {
-                            let inner = self.0.clone();
-                            let fut = async move {
-                                (*inner).get_asset_specses(request).await
-                            };
-                            Box::pin(fut)
-                        }
-                    }
-                    let accept_compression_encodings = self.accept_compression_encodings;
-                    let send_compression_encodings = self.send_compression_encodings;
-                    let inner = self.inner.clone();
-                    let fut = async move {
-                        let inner = inner.0;
-                        let method = GetAssetSpecsesSvc(inner);
-                        let codec = tonic::codec::ProstCodec::default();
-                        let mut grpc = tonic::server::Grpc::new(codec)
-                            .apply_compression_config(
-                                accept_compression_encodings,
-                                send_compression_encodings,
-                            );
-                        let res = grpc.unary(method, req).await;
-                        Ok(res)
-                    };
-                    Box::pin(fut)
-                }
-                "/io.knitter.KnitterGrpc/GetAssetPrefabs" => {
-                    #[allow(non_camel_case_types)]
-                    struct GetAssetPrefabsSvc<T: KnitterGrpc>(pub Arc<T>);
-                    impl<
-                        T: KnitterGrpc,
-                    > tonic::server::UnaryService<super::GetAssetPrefabsRequest>
-                    for GetAssetPrefabsSvc<T> {
-                        type Response = super::GetAssetPrefabsResponse;
-                        type Future = BoxFuture<
-                            tonic::Response<Self::Response>,
-                            tonic::Status,
-                        >;
-                        fn call(
-                            &mut self,
-                            request: tonic::Request<super::GetAssetPrefabsRequest>,
-                        ) -> Self::Future {
-                            let inner = self.0.clone();
-                            let fut = async move {
-                                (*inner).get_asset_prefabs(request).await
-                            };
-                            Box::pin(fut)
-                        }
-                    }
-                    let accept_compression_encodings = self.accept_compression_encodings;
-                    let send_compression_encodings = self.send_compression_encodings;
-                    let inner = self.inner.clone();
-                    let fut = async move {
-                        let inner = inner.0;
-                        let method = GetAssetPrefabsSvc(inner);
                         let codec = tonic::codec::ProstCodec::default();
                         let mut grpc = tonic::server::Grpc::new(codec)
                             .apply_compression_config(
@@ -3055,13 +3152,13 @@ pub mod knitter_grpc_server {
                     };
                     Box::pin(fut)
                 }
-                "/io.knitter.KnitterGrpc/MarkAssetSatus" => {
+                "/io.knitter.KnitterGrpc/MarkAssetStatus" => {
                     #[allow(non_camel_case_types)]
-                    struct MarkAssetSatusSvc<T: KnitterGrpc>(pub Arc<T>);
+                    struct MarkAssetStatusSvc<T: KnitterGrpc>(pub Arc<T>);
                     impl<
                         T: KnitterGrpc,
                     > tonic::server::UnaryService<super::MarkAssetStatusRequest>
-                    for MarkAssetSatusSvc<T> {
+                    for MarkAssetStatusSvc<T> {
                         type Response = super::MarkAssetStatusResponse;
                         type Future = BoxFuture<
                             tonic::Response<Self::Response>,
@@ -3073,7 +3170,7 @@ pub mod knitter_grpc_server {
                         ) -> Self::Future {
                             let inner = self.0.clone();
                             let fut = async move {
-                                (*inner).mark_asset_satus(request).await
+                                (*inner).mark_asset_status(request).await
                             };
                             Box::pin(fut)
                         }
@@ -3083,7 +3180,7 @@ pub mod knitter_grpc_server {
                     let inner = self.inner.clone();
                     let fut = async move {
                         let inner = inner.0;
-                        let method = MarkAssetSatusSvc(inner);
+                        let method = MarkAssetStatusSvc(inner);
                         let codec = tonic::codec::ProstCodec::default();
                         let mut grpc = tonic::server::Grpc::new(codec)
                             .apply_compression_config(

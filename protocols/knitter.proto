@@ -104,17 +104,18 @@ service KnitterGrpc{
   rpc GetProjectAssociatedAssetCollections(GetProjectAssociatedAssetCollectionsRequest) returns (GetProjectAssociatedAssetCollectionsResponse);
   rpc GetProjectAssociatedSetCollections(GetProjectAssociatedSetCollectionsRequest) returns (GetProjectAssociatedSetCollectionsResponse);
 
-  // 库
+  // 资产集 
   rpc NewAssetCollection(NewAssetCollectionRequest) returns (NewAssetCollectionResponse);
-  rpc GetAssetCollectionAssociatedAssetsPage(GetAssetCollectionAssetsPageRequest) returns (GetAssetCollectionAssetsPageResponse);
-  rpc GetAssetCollectionAssociatedAssembliesPage(GetAssetCollectionAssembliesPageRequest) returns (GetAssetCollectionAssembliesPageResponse);
+  rpc GetAssetCollectionAssetTotalPagesCount(GetAssetCollectionAssetTotalPagesCountRequest) returns (GetAssetCollectionAssetTotalPagesCountResponse);
+  rpc GetAssetCollectionAssemblyTotalPagesCount(GetAssetCollectionAssemblyTotalPagesCountRequest) returns (GetAssetCollectionAssemblyTotalPagesCountResponse);
+  rpc GetAssetCollectionAssetsPage(GetAssetCollectionAssetsPageRequest) returns (GetAssetCollectionAssetsPageResponse);
+  rpc GetAssetCollectionAssembliesPage(GetAssetCollectionAssembliesPageRequest) returns (GetAssetCollectionAssembliesPageResponse);
+  rpc MarkAssetCollectionStatus(MarkAssetCollectionStatusRequest) returns (MarkAssetCollectionStatusResponse);
 
   // 资产
   rpc NewAsset(NewAssetRequest) returns (NewAssetResponse);
-  rpc GetAssetSpecses(GetAssetSpecsesRequest) returns (GetAssetSpecsesResponse);
-  rpc GetAssetPrefabs(GetAssetPrefabsRequest) returns (GetAssetPrefabsResponse);
   rpc GetReferencedAssets(GetReferencedAssetsRequest) returns (GetReferencedAssetsResponse);
-  rpc MarkAssetSatus(MarkAssetStatusRequest) returns (MarkAssetStatusResponse);
+  rpc MarkAssetStatus(MarkAssetStatusRequest) returns (MarkAssetStatusResponse);
 
   // 组合
   rpc NewAssembly(NewAssemblyRequest) returns (NewAssemblyResponse);
