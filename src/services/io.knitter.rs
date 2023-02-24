@@ -821,6 +821,24 @@ pub mod knitter_grpc_server {
             tonic::Response<::manage_define::cashmere::MarkEntityRemovedResponse>,
             tonic::Status,
         >;
+        async fn recover_removed_entity(
+            &self,
+            request: tonic::Request<
+                ::manage_define::cashmere::RecoverRemovedEntityRequest,
+            >,
+        ) -> Result<
+            tonic::Response<::manage_define::cashmere::RecoverRemovedEntityResponse>,
+            tonic::Status,
+        >;
+        async fn get_removed_entities_page(
+            &self,
+            request: tonic::Request<
+                ::manage_define::cashmere::GetRemovedEntitiesPageRequest,
+            >,
+        ) -> Result<
+            tonic::Response<::manage_define::cashmere::GetRemovedEntitiesPageResponse>,
+            tonic::Status,
+        >;
         /// 通用编辑实体属性，非数据结构
         async fn edit_entity_field(
             &self,
@@ -1802,6 +1820,92 @@ pub mod knitter_grpc_server {
                     let fut = async move {
                         let inner = inner.0;
                         let method = MarkEntityRemovedSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/io.knitter.KnitterGrpc/RecoverRemovedEntity" => {
+                    #[allow(non_camel_case_types)]
+                    struct RecoverRemovedEntitySvc<T: KnitterGrpc>(pub Arc<T>);
+                    impl<
+                        T: KnitterGrpc,
+                    > tonic::server::UnaryService<
+                        ::manage_define::cashmere::RecoverRemovedEntityRequest,
+                    > for RecoverRemovedEntitySvc<T> {
+                        type Response = ::manage_define::cashmere::RecoverRemovedEntityResponse;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<
+                                ::manage_define::cashmere::RecoverRemovedEntityRequest,
+                            >,
+                        ) -> Self::Future {
+                            let inner = self.0.clone();
+                            let fut = async move {
+                                (*inner).recover_removed_entity(request).await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let inner = inner.0;
+                        let method = RecoverRemovedEntitySvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/io.knitter.KnitterGrpc/GetRemovedEntitiesPage" => {
+                    #[allow(non_camel_case_types)]
+                    struct GetRemovedEntitiesPageSvc<T: KnitterGrpc>(pub Arc<T>);
+                    impl<
+                        T: KnitterGrpc,
+                    > tonic::server::UnaryService<
+                        ::manage_define::cashmere::GetRemovedEntitiesPageRequest,
+                    > for GetRemovedEntitiesPageSvc<T> {
+                        type Response = ::manage_define::cashmere::GetRemovedEntitiesPageResponse;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<
+                                ::manage_define::cashmere::GetRemovedEntitiesPageRequest,
+                            >,
+                        ) -> Self::Future {
+                            let inner = self.0.clone();
+                            let fut = async move {
+                                (*inner).get_removed_entities_page(request).await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let inner = inner.0;
+                        let method = GetRemovedEntitiesPageSvc(inner);
                         let codec = tonic::codec::ProstCodec::default();
                         let mut grpc = tonic::server::Grpc::new(codec)
                             .apply_compression_config(

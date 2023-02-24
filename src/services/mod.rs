@@ -104,6 +104,8 @@ impl HandleEditEntityMapField for KnitterServer {}
 impl HandleEditEntityMapFieldRemoveKey for KnitterServer {}
 
 impl HandleMarkEntityRemoved for KnitterServer {}
+impl HandleRecoverRemovedEntity for KnitterServer {}
+impl HandleGetRemovedEntitiesPage for KnitterServer {}
 
 // 名字
 impl HandleRename for KnitterServer {}
@@ -222,6 +224,21 @@ impl KnitterGrpc for KnitterServer {
     ) -> Result<Response<MarkEntityRemovedResponse>, Status> {
         self.handle_mark_entity_remved(request).await
     }
+
+    async fn recover_removed_entity(
+        &self,
+        request: Request<RecoverRemovedEntityRequest>,
+    ) -> Result<Response<RecoverRemovedEntityResponse>, Status> {
+        self.handle_recover_removed_entity(request).await
+    }
+
+    async fn get_removed_entities_page(
+        &self,
+        request: Request<GetRemovedEntitiesPageRequest>,
+    ) -> Result<Response<GetRemovedEntitiesPageResponse>, Status> {
+        self.handle_get_removed_entities_page(request).await
+    }
+
 
     async fn edit_entity_field(
         &self,

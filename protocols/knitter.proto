@@ -62,6 +62,8 @@ service KnitterGrpc{
   rpc GetEntities(cashmere.GetEntitiesRequest) returns (cashmere.GetEntitiesResponse);
   rpc GetEntitiesPage(cashmere.GetEntitiesPageRequest) returns (cashmere.GetEntitiesPageResponse);
   rpc MarkEntityRemoved(cashmere.MarkEntityRemovedRequest) returns (cashmere.MarkEntityRemovedResponse);
+  rpc RecoverRemovedEntity(cashmere.RecoverRemovedEntityRequest) returns (cashmere.RecoverRemovedEntityResponse);
+  rpc GetRemovedEntitiesPage(cashmere.GetRemovedEntitiesPageRequest) returns (cashmere.GetRemovedEntitiesPageResponse);
 
   // 通用编辑实体属性，非数据结构
   rpc EditEntityField(cashmere.EditEntityFieldRequest) returns (cashmere.EditEntityFieldResponse);
