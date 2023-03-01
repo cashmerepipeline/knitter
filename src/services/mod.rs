@@ -239,7 +239,6 @@ impl KnitterGrpc for KnitterServer {
         self.handle_get_removed_entities_page(request).await
     }
 
-
     async fn edit_entity_field(
         &self,
         request: Request<EditEntityFieldRequest>,
@@ -418,18 +417,18 @@ impl KnitterGrpc for KnitterServer {
         self.handle_new_asset_collection(request).await
     }
 
-    async fn get_asset_collection_asset_total_pages_count(
+    async fn get_asset_collection_asset_total_count(
         &self,
-        request: Request<GetAssetCollectionAssetTotalPagesCountRequest>,
-    ) -> Result<Response<GetAssetCollectionAssetTotalPagesCountResponse>, Status> {
-        todo!()
+        request: Request<GetAssetCollectionAssetTotalCountRequest>,
+    ) -> Result<Response<GetAssetCollectionAssetTotalCountResponse>, Status> {
+        self.handle_get_asset_collection_asset_total_count(request).await
     }
 
-    async fn get_asset_collection_assembly_total_pages_count(
+    async fn get_asset_collection_assembly_total_count(
         &self,
-        request: Request<GetAssetCollectionAssemblyTotalPagesCountRequest>,
-    ) -> Result<Response<GetAssetCollectionAssemblyTotalPagesCountResponse>, Status> {
-        todo!()
+        request: Request<GetAssetCollectionAssemblyTotalCountRequest>,
+    ) -> Result<Response<GetAssetCollectionAssemblyTotalCountResponse>, Status> {
+        self.handle_get_asset_collection_assembly_total_count(request).await
     }
 
     async fn get_asset_collection_assets_page(
@@ -443,7 +442,8 @@ impl KnitterGrpc for KnitterServer {
         &self,
         request: Request<GetAssetCollectionAssembliesPageRequest>,
     ) -> Result<Response<GetAssetCollectionAssembliesPageResponse>, Status> {
-        self.handle_get_asset_collection_assemblies_page(request).await
+        self.handle_get_asset_collection_assemblies_page(request)
+            .await
     }
 
     async fn mark_asset_collection_status(

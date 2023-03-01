@@ -116,25 +116,25 @@ pub struct NewAssetCollectionResponse {
 }
 /// 取得资产数量
 #[derive(Clone, PartialEq, ::prost::Message)]
-pub struct GetAssetCollectionAssetTotalPagesCountRequest {
+pub struct GetAssetCollectionAssetTotalCountRequest {
     #[prost(string, tag="1")]
     pub collection_id: ::prost::alloc::string::String,
 }
 #[derive(Clone, PartialEq, ::prost::Message)]
-pub struct GetAssetCollectionAssetTotalPagesCountResponse {
-    #[prost(uint32, tag="1")]
-    pub total_count: u32,
+pub struct GetAssetCollectionAssetTotalCountResponse {
+    #[prost(uint64, tag="1")]
+    pub total_count: u64,
 }
 /// 取得组合件数量
 #[derive(Clone, PartialEq, ::prost::Message)]
-pub struct GetAssetCollectionAssemblyTotalPagesCountRequest {
+pub struct GetAssetCollectionAssemblyTotalCountRequest {
     #[prost(string, tag="1")]
-    pub colllection_id: ::prost::alloc::string::String,
+    pub collection_id: ::prost::alloc::string::String,
 }
 #[derive(Clone, PartialEq, ::prost::Message)]
-pub struct GetAssetCollectionAssemblyTotalPagesCountResponse {
-    #[prost(uint32, tag="1")]
-    pub totao_count: u32,
+pub struct GetAssetCollectionAssemblyTotalCountResponse {
+    #[prost(uint64, tag="1")]
+    pub total_count: u64,
 }
 /// 取得资产页
 #[derive(Clone, PartialEq, ::prost::Message)]
@@ -159,8 +159,6 @@ pub struct GetAssetCollectionAssembliesPageRequest {
     pub collection_id: ::prost::alloc::string::String,
     #[prost(uint32, tag="2")]
     pub page_index: u32,
-    #[prost(uint32, tag="3")]
-    pub total_pages_count: u32,
 }
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct GetAssetCollectionAssembliesPageResponse {
@@ -1044,20 +1042,18 @@ pub mod knitter_grpc_server {
             &self,
             request: tonic::Request<super::NewAssetCollectionRequest>,
         ) -> Result<tonic::Response<super::NewAssetCollectionResponse>, tonic::Status>;
-        async fn get_asset_collection_asset_total_pages_count(
+        async fn get_asset_collection_asset_total_count(
             &self,
-            request: tonic::Request<super::GetAssetCollectionAssetTotalPagesCountRequest>,
+            request: tonic::Request<super::GetAssetCollectionAssetTotalCountRequest>,
         ) -> Result<
-            tonic::Response<super::GetAssetCollectionAssetTotalPagesCountResponse>,
+            tonic::Response<super::GetAssetCollectionAssetTotalCountResponse>,
             tonic::Status,
         >;
-        async fn get_asset_collection_assembly_total_pages_count(
+        async fn get_asset_collection_assembly_total_count(
             &self,
-            request: tonic::Request<
-                super::GetAssetCollectionAssemblyTotalPagesCountRequest,
-            >,
+            request: tonic::Request<super::GetAssetCollectionAssemblyTotalCountRequest>,
         ) -> Result<
-            tonic::Response<super::GetAssetCollectionAssemblyTotalPagesCountResponse>,
+            tonic::Response<super::GetAssetCollectionAssemblyTotalCountResponse>,
             tonic::Status,
         >;
         async fn get_asset_collection_assets_page(
@@ -2953,17 +2949,17 @@ pub mod knitter_grpc_server {
                     };
                     Box::pin(fut)
                 }
-                "/io.knitter.KnitterGrpc/GetAssetCollectionAssetTotalPagesCount" => {
+                "/io.knitter.KnitterGrpc/GetAssetCollectionAssetTotalCount" => {
                     #[allow(non_camel_case_types)]
-                    struct GetAssetCollectionAssetTotalPagesCountSvc<T: KnitterGrpc>(
+                    struct GetAssetCollectionAssetTotalCountSvc<T: KnitterGrpc>(
                         pub Arc<T>,
                     );
                     impl<
                         T: KnitterGrpc,
                     > tonic::server::UnaryService<
-                        super::GetAssetCollectionAssetTotalPagesCountRequest,
-                    > for GetAssetCollectionAssetTotalPagesCountSvc<T> {
-                        type Response = super::GetAssetCollectionAssetTotalPagesCountResponse;
+                        super::GetAssetCollectionAssetTotalCountRequest,
+                    > for GetAssetCollectionAssetTotalCountSvc<T> {
+                        type Response = super::GetAssetCollectionAssetTotalCountResponse;
                         type Future = BoxFuture<
                             tonic::Response<Self::Response>,
                             tonic::Status,
@@ -2971,13 +2967,13 @@ pub mod knitter_grpc_server {
                         fn call(
                             &mut self,
                             request: tonic::Request<
-                                super::GetAssetCollectionAssetTotalPagesCountRequest,
+                                super::GetAssetCollectionAssetTotalCountRequest,
                             >,
                         ) -> Self::Future {
                             let inner = self.0.clone();
                             let fut = async move {
                                 (*inner)
-                                    .get_asset_collection_asset_total_pages_count(request)
+                                    .get_asset_collection_asset_total_count(request)
                                     .await
                             };
                             Box::pin(fut)
@@ -2988,7 +2984,7 @@ pub mod knitter_grpc_server {
                     let inner = self.inner.clone();
                     let fut = async move {
                         let inner = inner.0;
-                        let method = GetAssetCollectionAssetTotalPagesCountSvc(inner);
+                        let method = GetAssetCollectionAssetTotalCountSvc(inner);
                         let codec = tonic::codec::ProstCodec::default();
                         let mut grpc = tonic::server::Grpc::new(codec)
                             .apply_compression_config(
@@ -3000,17 +2996,17 @@ pub mod knitter_grpc_server {
                     };
                     Box::pin(fut)
                 }
-                "/io.knitter.KnitterGrpc/GetAssetCollectionAssemblyTotalPagesCount" => {
+                "/io.knitter.KnitterGrpc/GetAssetCollectionAssemblyTotalCount" => {
                     #[allow(non_camel_case_types)]
-                    struct GetAssetCollectionAssemblyTotalPagesCountSvc<T: KnitterGrpc>(
+                    struct GetAssetCollectionAssemblyTotalCountSvc<T: KnitterGrpc>(
                         pub Arc<T>,
                     );
                     impl<
                         T: KnitterGrpc,
                     > tonic::server::UnaryService<
-                        super::GetAssetCollectionAssemblyTotalPagesCountRequest,
-                    > for GetAssetCollectionAssemblyTotalPagesCountSvc<T> {
-                        type Response = super::GetAssetCollectionAssemblyTotalPagesCountResponse;
+                        super::GetAssetCollectionAssemblyTotalCountRequest,
+                    > for GetAssetCollectionAssemblyTotalCountSvc<T> {
+                        type Response = super::GetAssetCollectionAssemblyTotalCountResponse;
                         type Future = BoxFuture<
                             tonic::Response<Self::Response>,
                             tonic::Status,
@@ -3018,13 +3014,13 @@ pub mod knitter_grpc_server {
                         fn call(
                             &mut self,
                             request: tonic::Request<
-                                super::GetAssetCollectionAssemblyTotalPagesCountRequest,
+                                super::GetAssetCollectionAssemblyTotalCountRequest,
                             >,
                         ) -> Self::Future {
                             let inner = self.0.clone();
                             let fut = async move {
                                 (*inner)
-                                    .get_asset_collection_assembly_total_pages_count(request)
+                                    .get_asset_collection_assembly_total_count(request)
                                     .await
                             };
                             Box::pin(fut)
@@ -3035,7 +3031,7 @@ pub mod knitter_grpc_server {
                     let inner = self.inner.clone();
                     let fut = async move {
                         let inner = inner.0;
-                        let method = GetAssetCollectionAssemblyTotalPagesCountSvc(inner);
+                        let method = GetAssetCollectionAssemblyTotalCountSvc(inner);
                         let codec = tonic::codec::ProstCodec::default();
                         let mut grpc = tonic::server::Grpc::new(codec)
                             .apply_compression_config(

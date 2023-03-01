@@ -23,19 +23,19 @@ message NewAssetCollectionResponse {
 }
 
 // 取得资产数量
-message GetAssetCollectionAssetTotalPagesCountRequest{
+message GetAssetCollectionAssetTotalCountRequest{
   string collection_id =1;
 }
-message GetAssetCollectionAssetTotalPagesCountResponse {
-  uint32 total_count = 1;
+message GetAssetCollectionAssetTotalCountResponse {
+  uint64 total_count = 1;
 }
 
 // 取得组合件数量
-message GetAssetCollectionAssemblyTotalPagesCountRequest{
-  string colllection_id =1;
+message GetAssetCollectionAssemblyTotalCountRequest{
+  string collection_id =1;
 }
-message GetAssetCollectionAssemblyTotalPagesCountResponse {
-  uint32 totao_count = 1;
+message GetAssetCollectionAssemblyTotalCountResponse {
+  uint64 total_count = 1;
 }
 
 // 取得资产页
@@ -53,7 +53,6 @@ message GetAssetCollectionAssetsPageResponse {
 message GetAssetCollectionAssembliesPageRequest {
   string collection_id = 1;
   uint32 page_index = 2;
-  uint32 total_pages_count = 3;
 }
 message GetAssetCollectionAssembliesPageResponse {
   // bson list

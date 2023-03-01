@@ -33,7 +33,6 @@ impl KnitterServer {
 
         let collection_id = &request.get_ref().collection_id;
         let page_index = &request.get_ref().page_index;
-        let total_pages_count = &request.get_ref().total_pages_count;
 
         let manage_id = ASSEMBLIES_MANAGE_ID;
 

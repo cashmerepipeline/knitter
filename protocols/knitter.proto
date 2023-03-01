@@ -108,8 +108,8 @@ service KnitterGrpc{
 
   // 资产集 
   rpc NewAssetCollection(NewAssetCollectionRequest) returns (NewAssetCollectionResponse);
-  rpc GetAssetCollectionAssetTotalPagesCount(GetAssetCollectionAssetTotalPagesCountRequest) returns (GetAssetCollectionAssetTotalPagesCountResponse);
-  rpc GetAssetCollectionAssemblyTotalPagesCount(GetAssetCollectionAssemblyTotalPagesCountRequest) returns (GetAssetCollectionAssemblyTotalPagesCountResponse);
+  rpc GetAssetCollectionAssetTotalCount(GetAssetCollectionAssetTotalCountRequest) returns (GetAssetCollectionAssetTotalCountResponse);
+  rpc GetAssetCollectionAssemblyTotalCount(GetAssetCollectionAssemblyTotalCountRequest) returns (GetAssetCollectionAssemblyTotalCountResponse);
   rpc GetAssetCollectionAssetsPage(GetAssetCollectionAssetsPageRequest) returns (GetAssetCollectionAssetsPageResponse);
   rpc GetAssetCollectionAssembliesPage(GetAssetCollectionAssembliesPageRequest) returns (GetAssetCollectionAssembliesPageResponse);
   rpc MarkAssetCollectionStatus(MarkAssetCollectionStatusRequest) returns (MarkAssetCollectionStatusResponse);
