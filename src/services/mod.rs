@@ -1,5 +1,3 @@
-use std::sync::Arc;
-
 /*
 Author: 闫刚 (yes7rose@sina.com)
 mod.rs (c) 2021
@@ -7,6 +5,8 @@ Desc: 服务模块
 Created:  2021-01-17T04:31:08.729Z
 Modified: !date!
 */
+
+use std::sync::Arc;
 use manage_define::cashmere::*;
 use service_common_handles::view_rules_service_handles::*;
 use service_common_handles::ResponseStream;
@@ -387,11 +387,27 @@ impl KnitterGrpc for KnitterServer {
             .await
     }
 
+    async fn deassociate_asset_collections_from_project(
+        &self,
+        request: Request<DeassociateAssetCollectionsFromProjectRequest>,
+    ) -> Result<Response<DeassociateAssetCollectionsFromProjectResponse>, Status> {
+        self.handle_deassociate_asset_collections_from_project(request)
+            .await
+    }
+
     async fn associate_set_collections_to_project(
         &self,
         request: Request<AssociateSetCollectionsToProjectRequest>,
     ) -> Result<Response<AssociateSetCollectionsToProjectResponse>, Status> {
         self.handle_associate_set_collections_to_project(request)
+            .await
+    }
+
+    async fn deassociate_set_collections_from_project(
+        &self,
+        request: Request<DeassociateSetCollectionsFromProjectRequest>,
+    ) -> Result<Response<DeassociateSetCollectionsFromProjectResponse>, Status> {
+        self.handle_deassociate_set_collections_from_project(request)
             .await
     }
 
@@ -408,6 +424,13 @@ impl KnitterGrpc for KnitterServer {
     ) -> Result<Response<GetProjectAssociatedSetCollectionsResponse>, Status> {
         self.handle_get_project_associated_set_collections(request)
             .await
+    }
+    
+    async fn change_project_status(
+        &self,
+        request: Request<ChangeProjectStatusRequest>
+    ) -> Result<Response<ChangeProjectStatusResponse>, Status> {
+        self.handle_change_project_status(request).await
     }
 
     async fn new_asset_collection(
@@ -446,12 +469,12 @@ impl KnitterGrpc for KnitterServer {
             .await
     }
 
-    async fn mark_asset_collection_status(
-        &self,
-        request: Request<MarkAssetCollectionStatusRequest>,
-    ) -> Result<Response<MarkAssetCollectionStatusResponse>, Status> {
-        todo!()
-    }
+    // async fn mark_asset_collection_status(
+    //     &self,
+    //     request: Request<MarkAssetCollectionStatusRequest>,
+    // ) -> Result<Response<MarkAssetCollectionStatusResponse>, Status> {
+    //     todo!()
+    // }
 
     async fn new_asset(
         &self,

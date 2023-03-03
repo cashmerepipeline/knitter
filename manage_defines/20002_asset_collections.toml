@@ -7,8 +7,11 @@ name_map = { zh = "库", en = "asset_collections" }
 
 # 数据描写 或者 模式
 schema = [
+    # 2001
     { data_type = "String", name_map = { zh = "根路径", en = "inner_root_path"}, removed = false },
+    # 2002
     { data_type = "String", name_map = { zh = "根路径", en = "external_root_path"}, removed = false },
+    # 2003
     { data_type = "List", name_map = { zh = "库目图片", en = "picture"}, removed = false },
 ]
 
@@ -150,6 +153,7 @@ massage_queue = []
 10000 = { read_rule = "Read", write_rule = "Write", read_filters = [
     "NoLimit",
 ], write_filters = [
+    "NoLimit",
 ] }
 10001 = { read_rule = "Read", write_rule = "InVisible", read_filters = [
 ], write_filters = [
@@ -158,6 +162,7 @@ massage_queue = []
 10000 = { read_rule = "Read", write_rule = "Write", read_filters = [
     "NoLimit",
 ], write_filters = [
+    "NoLimit",
 ] }
 10001 = { read_rule = "Read", write_rule = "InVisible", read_filters = [
 ], write_filters = [
@@ -166,6 +171,7 @@ massage_queue = []
 10000 = { read_rule = "Read", write_rule = "Write", read_filters = [
     "NoLimit",
 ], write_filters = [
+    "NoLimit",
 ] }
 10001 = { read_rule = "InVisible", write_rule = "InVisible", read_filters = [
 ], write_filters = [

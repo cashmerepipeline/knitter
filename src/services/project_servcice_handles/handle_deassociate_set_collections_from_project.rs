@@ -11,11 +11,12 @@ use crate::services::KnitterServer;
 use manage_define::general_field_ids::ID_FIELD_ID;
 
 impl KnitterServer {
-    /// 新建产品
-    pub(crate) async fn handle_associate_asset_collections_to_project(
+    /// 取消关联项目资产集合，
+    /// NOTE: 特化方法，可能需要特殊操作而暂时保留
+    pub(crate) async fn handle_deassociate_set_collections_from_project(
         &self,
-        request: Request<AssociateAssetCollectionsToProjectRequest>,
-    ) -> UnaryResponseResult<AssociateAssetCollectionsToProjectResponse> {
+        request: Request<DeassociateSetCollectionsFromProjectRequest>,
+    ) -> UnaryResponseResult<DeassociateSetCollectionsFromProjectResponse> {
         let metadata = request.metadata();
         // 已检查过，不需要再检查正确性
         let token = auth::get_auth_token(metadata).unwrap();
@@ -47,16 +48,16 @@ impl KnitterServer {
         };
         let mut modify_doc = Document::new();
         modify_doc.insert(
-            PROJECTS_ASSET_COLLECTIONS_FIELD_ID.to_string(),
-            doc! {"$each":collection_ids.clone()},
+            PROJECTS_SET_COLLECTIONS_FIELD_ID.to_string(),
+            doc! {"$in":collection_ids.clone()},
         );
 
         let result = manager
-            .push_entity_array_field(query_doc, modify_doc, &account_id)
+            .pull_entity_array_field(query_doc, modify_doc, &account_id)
             .await;
 
         match result {
-            Ok(_r) => Ok(Response::new(AssociateAssetCollectionsToProjectResponse {
+            Ok(_r) => Ok(Response::new(DeassociateSetCollectionsFromProjectResponse {
                 result: "ok".to_string(),
             })),
             Err(e) => Err(Status::aborted(format!(

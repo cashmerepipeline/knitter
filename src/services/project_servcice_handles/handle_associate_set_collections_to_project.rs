@@ -30,6 +30,11 @@ impl KnitterServer {
         {
             return Err(Status::unauthenticated("用户不具有可写权限"));
         }
+        if !view::can_entity_write(&account_id, &role_group, &PROJECTS_MANAGE_ID.to_string())
+            .await
+        {
+            return Err(Status::unauthenticated(t!("用户不具有本项目可写权限")));
+        }
 
         let majordomo_arc = get_majordomo().await;
         let manager = majordomo_arc

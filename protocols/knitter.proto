@@ -102,9 +102,12 @@ service KnitterGrpc{
   // 项目
   rpc NewProject(NewProjectRequest) returns (NewProjectResponse);
   rpc AssociateAssetCollectionsToProject(AssociateAssetCollectionsToProjectRequest) returns (AssociateAssetCollectionsToProjectResponse);
+  rpc DeassociateAssetCollectionsFromProject(DeassociateAssetCollectionsFromProjectRequest) returns (DeassociateAssetCollectionsFromProjectResponse);
   rpc AssociateSetCollectionsToProject(AssociateSetCollectionsToProjectRequest) returns (AssociateSetCollectionsToProjectResponse);
+  rpc DeassociateSetCollectionsFromProject(DeassociateSetCollectionsFromProjectRequest) returns (DeassociateSetCollectionsFromProjectResponse);
   rpc GetProjectAssociatedAssetCollections(GetProjectAssociatedAssetCollectionsRequest) returns (GetProjectAssociatedAssetCollectionsResponse);
   rpc GetProjectAssociatedSetCollections(GetProjectAssociatedSetCollectionsRequest) returns (GetProjectAssociatedSetCollectionsResponse);
+  rpc ChangeProjectStatus(ChangeProjectStatusRequest) returns (ChangeProjectStatusResponse);
 
   // 资产集 
   rpc NewAssetCollection(NewAssetCollectionRequest) returns (NewAssetCollectionResponse);
@@ -112,7 +115,7 @@ service KnitterGrpc{
   rpc GetAssetCollectionAssemblyTotalCount(GetAssetCollectionAssemblyTotalCountRequest) returns (GetAssetCollectionAssemblyTotalCountResponse);
   rpc GetAssetCollectionAssetsPage(GetAssetCollectionAssetsPageRequest) returns (GetAssetCollectionAssetsPageResponse);
   rpc GetAssetCollectionAssembliesPage(GetAssetCollectionAssembliesPageRequest) returns (GetAssetCollectionAssembliesPageResponse);
-  rpc MarkAssetCollectionStatus(MarkAssetCollectionStatusRequest) returns (MarkAssetCollectionStatusResponse);
+  // rpc MarkAssetCollectionStatus(MarkAssetCollectionStatusRequest) returns (MarkAssetCollectionStatusResponse);
 
   // 资产
   rpc NewAsset(NewAssetRequest) returns (NewAssetResponse);

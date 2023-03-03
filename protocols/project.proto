@@ -3,6 +3,13 @@ package io.knitter;
 
 import "name.proto";
 
+enum ProjectStatus {
+  ProjectCanceled = 0;
+  ProjectRunning = 1;
+  ProjectSuspended = 2;
+  ProjectComplete = 3;
+}
+
 // 新项目
 message NewProjectRequest{
   cashmere.Name name = 1;
@@ -17,36 +24,53 @@ message NewProjectResponse {
 }
 
 // 标记项目已经完成
-message MarkProjectStatusRequest {
+message ChangeProjectStatusRequest {
   string project_id = 1;
+  ProjectStatus status = 2;
 }
-message MarkProjectStatusResponse {
-  string result = 1;
+message ChangeProjectStatusResponse {
+  ProjectStatus status = 1;
 }
 
 // 关联资产集合到项目
 message AssociateAssetCollectionsToProjectRequest {
   string project_id = 1;
-  string collection_ids = 2;
+  repeated string collection_ids = 2;
 }
 message AssociateAssetCollectionsToProjectResponse {
   // "ok" if succeed
   string result = 1;
 }
-
+// 取消项目关联资产集合
+message DeassociateAssetCollectionsFromProjectRequest {
+  string project_id = 1;
+  repeated string collection_ids = 2;
+}
+message DeassociateAssetCollectionsFromProjectResponse {
+  // "ok" if succeed
+  string result = 1;
+}
 
 // 关联布景集合到项目
 message AssociateSetCollectionsToProjectRequest {
   string project_id = 1;
-  string collection_ids = 2;
+  repeated string collection_ids = 2;
 }
 message AssociateSetCollectionsToProjectResponse {
   // "ok" if succeed
   string result = 1;
 }
+// 取消关联项目布景集合
+message DeassociateSetCollectionsFromProjectRequest {
+  string project_id = 1;
+  repeated string collection_ids = 2;
+}
+message DeassociateSetCollectionsFromProjectResponse {
+  // "ok" if succeed
+  string result = 1;
+}
 
-
-// 取得关联库表
+// 取得关联资产集表
 message GetProjectAssociatedAssetCollectionsRequest {
   string project_id = 1;
   repeated string collection_ids = 2;
@@ -55,7 +79,7 @@ message GetProjectAssociatedAssetCollectionsResponse {
   repeated bytes asset_collections = 1;
 }
 
-// 取得项目景表
+// 取得项目景集合表
 message GetProjectAssociatedSetCollectionsRequest {
   string project_id = 1;
   repeated string set_collection_ids = 2;
