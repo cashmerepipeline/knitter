@@ -415,7 +415,7 @@ impl KnitterGrpc for KnitterServer {
         &self,
         request: Request<GetProjectAssociatedAssetCollectionsRequest>,
     ) -> Result<Response<GetProjectAssociatedAssetCollectionsResponse>, Status> {
-        todo!()
+        self.handle_get_project_associated_asset_collections(request).await
     }
 
     async fn get_project_associated_set_collections(

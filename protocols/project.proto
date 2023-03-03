@@ -82,7 +82,7 @@ message GetProjectAssociatedAssetCollectionsResponse {
 // 取得项目景集合表
 message GetProjectAssociatedSetCollectionsRequest {
   string project_id = 1;
-  repeated string set_collection_ids = 2;
+  repeated string collection_ids = 2;
 }
 message GetProjectAssociatedSetCollectionsResponse {
   repeated bytes set_collections = 1;

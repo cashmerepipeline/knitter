@@ -106,7 +106,7 @@ pub struct GetProjectAssociatedSetCollectionsRequest {
     #[prost(string, tag="1")]
     pub project_id: ::prost::alloc::string::String,
     #[prost(string, repeated, tag="2")]
-    pub set_collection_ids: ::prost::alloc::vec::Vec<::prost::alloc::string::String>,
+    pub collection_ids: ::prost::alloc::vec::Vec<::prost::alloc::string::String>,
 }
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct GetProjectAssociatedSetCollectionsResponse {

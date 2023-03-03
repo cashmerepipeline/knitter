@@ -12,7 +12,7 @@ use crate::services::KnitterServer;
 
 impl KnitterServer {
     /// 新建产品
-    pub(crate) async fn handle_get_project_associated_libraries(
+    pub(crate) async fn handle_get_project_associated_asset_collections(
         &self,
         request: Request<GetProjectAssociatedAssetCollectionsRequest>,
     ) -> UnaryResponseResult<GetProjectAssociatedAssetCollectionsResponse> {

@@ -23,7 +23,7 @@ impl KnitterServer {
         let role_group = auth::get_current_role(metadata).unwrap();
 
         let project_id = &request.get_ref().project_id;
-        let set_collection_ids = &request.get_ref().set_collection_ids;
+        let set_collection_ids = &request.get_ref().collection_ids;
 
         if !view::can_collection_read(&account_id, &role_group, &PROJECTS_MANAGE_ID.to_string())
             .await
@@ -36,6 +36,7 @@ impl KnitterServer {
         }
 
         // TODO: 可能需要关联用户工程可读检查
+        // TODO: 需要检查工程是有关联，列出漏洞
 
         let majordomo_arc = get_majordomo().await;
         let manager = majordomo_arc
