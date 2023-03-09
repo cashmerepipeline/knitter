@@ -515,7 +515,7 @@ impl KnitterGrpc for KnitterServer {
         &self,
         request: Request<GetEpicSequencesRequest>,
     ) -> Result<Response<GetEpicSequencesResponse>, Status> {
-        todo!()
+        self.handle_get_epic_sequences(request).await
     }
 
     async fn new_sequence(

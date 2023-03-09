@@ -41,6 +41,7 @@ message AssociateAssetCollectionsToProjectResponse {
   // "ok" if succeed
   string result = 1;
 }
+
 // 取消项目关联资产集合
 message DeassociateAssetCollectionsFromProjectRequest {
   string project_id = 1;
