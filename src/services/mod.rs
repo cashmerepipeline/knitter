@@ -559,6 +559,22 @@ impl KnitterGrpc for KnitterServer {
     ) -> Result<Response<NewSetCollectionResponse>, Status> {
         self.handle_new_set_collection(request).await
     }
+    
+    
+    async fn get_set_collection_set_total_count(
+        &self,
+        request: Request<GetSetCollectionSetTotalCountRequest>,
+    ) -> Result<Response<GetSetCollectionSetTotalCountResponse>, Status> {
+        self.handle_get_set_collection_set_total_count(request).await
+    }
+
+    async fn get_set_collection_sets_page(
+        &self,
+        request: Request<GetSetCollectionSetsPageRequest>,
+    ) -> Result<Response<GetSetCollectionSetsPageResponse>, Status> {
+        self.handle_get_set_collection_sets_page(request).await
+    }
+    
 
     async fn new_set(
         &self,

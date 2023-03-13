@@ -17,21 +17,18 @@ message NewSetCollectionResponse {
 }
 
 // 取得资产页
-message GetSetCollectionAssetsPageRequest {
-  string library_id = 1;
+message GetSetCollectionSetsPageRequest {
+  string collection_id = 1;
   uint32 page_index = 2;
-  uint32 total_page_count = 3;
 }
-message GetSetCollectionAssetsPageResponse {
-  repeated bytes assets = 1;
+message GetSetCollectionSetsPageResponse {
+  repeated bytes sets = 1;
 }
 
-// 取得组合页
-message GetSetCollectionAssembliesPageRequest {
-  string library_id = 1;
-  uint32 page_index = 2;
-  uint32 total_page_count = 3;
+// 取得景数量
+message GetSetCollectionSetTotalCountRequest{
+  string collection_id =1;
 }
-message GetSetCollectionAssembliesPageResponse {
-  repeated bytes assets = 1;
+message GetSetCollectionSetTotalCountResponse {
+  uint64 total_count = 1;
 }

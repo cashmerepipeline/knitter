@@ -8,8 +8,8 @@ use service_common_handles::name_utils::validate_name;
 use service_common_handles::UnaryResponseResult;
 use tonic::{Request, Response, Status};
 
-use crate::ids_codes::manage_ids::*;
 use crate::ids_codes::field_ids::*;
+use crate::ids_codes::manage_ids::*;
 use crate::services::protocol::*;
 use crate::services::KnitterServer;
 
@@ -29,8 +29,7 @@ impl KnitterServer {
         let collection_id = &request.get_ref().set_collection_id;
         let description = &request.get_ref().description;
 
-       if !view::can_collection_write(&account_id, &role_group, &SETS_MANAGE_ID.to_string())
-            .await
+        if !view::can_collection_write(&account_id, &role_group, &SETS_MANAGE_ID.to_string()).await
         {
             return Err(Status::unauthenticated("用户不具有可写权限"));
         }
@@ -56,13 +55,14 @@ impl KnitterServer {
         );
         new_entity_doc.insert(
             SETS_ORIGINAL_COLLECTION_FIELD_ID.to_string(),
-            collection_id.clone()
+            collection_id.clone(),
         );
         new_entity_doc.insert(
-            DESCRIPTIONS_FIELD_ID.to_string(),
-            description.clone()
+            SETS_ASSOCIATED_COLLECTIONS_FIELD_ID.to_string(),
+            collection_id.clone(),
         );
-        
+        new_entity_doc.insert(DESCRIPTIONS_FIELD_ID.to_string(), description.clone());
+
         let result = manager
             .sink_entity(&mut new_entity_doc, &account_id, &role_group)
             .await;
@@ -80,5 +80,3 @@ impl KnitterServer {
         }
     }
 }
-
-

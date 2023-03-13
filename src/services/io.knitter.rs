@@ -577,33 +577,27 @@ pub struct NewSetCollectionResponse {
 }
 /// 取得资产页
 #[derive(Clone, PartialEq, ::prost::Message)]
-pub struct GetSetCollectionAssetsPageRequest {
+pub struct GetSetCollectionSetsPageRequest {
     #[prost(string, tag="1")]
-    pub library_id: ::prost::alloc::string::String,
+    pub collection_id: ::prost::alloc::string::String,
     #[prost(uint32, tag="2")]
     pub page_index: u32,
-    #[prost(uint32, tag="3")]
-    pub total_page_count: u32,
 }
 #[derive(Clone, PartialEq, ::prost::Message)]
-pub struct GetSetCollectionAssetsPageResponse {
+pub struct GetSetCollectionSetsPageResponse {
     #[prost(bytes="vec", repeated, tag="1")]
-    pub assets: ::prost::alloc::vec::Vec<::prost::alloc::vec::Vec<u8>>,
+    pub sets: ::prost::alloc::vec::Vec<::prost::alloc::vec::Vec<u8>>,
 }
-/// 取得组合页
+/// 取得景数量
 #[derive(Clone, PartialEq, ::prost::Message)]
-pub struct GetSetCollectionAssembliesPageRequest {
+pub struct GetSetCollectionSetTotalCountRequest {
     #[prost(string, tag="1")]
-    pub library_id: ::prost::alloc::string::String,
-    #[prost(uint32, tag="2")]
-    pub page_index: u32,
-    #[prost(uint32, tag="3")]
-    pub total_page_count: u32,
+    pub collection_id: ::prost::alloc::string::String,
 }
 #[derive(Clone, PartialEq, ::prost::Message)]
-pub struct GetSetCollectionAssembliesPageResponse {
-    #[prost(bytes="vec", repeated, tag="1")]
-    pub assets: ::prost::alloc::vec::Vec<::prost::alloc::vec::Vec<u8>>,
+pub struct GetSetCollectionSetTotalCountResponse {
+    #[prost(uint64, tag="1")]
+    pub total_count: u64,
 }
 /// 新建景
 #[derive(Clone, PartialEq, ::prost::Message)]
@@ -1183,6 +1177,20 @@ pub mod knitter_grpc_server {
             &self,
             request: tonic::Request<super::NewSetCollectionRequest>,
         ) -> Result<tonic::Response<super::NewSetCollectionResponse>, tonic::Status>;
+        async fn get_set_collection_sets_page(
+            &self,
+            request: tonic::Request<super::GetSetCollectionSetsPageRequest>,
+        ) -> Result<
+            tonic::Response<super::GetSetCollectionSetsPageResponse>,
+            tonic::Status,
+        >;
+        async fn get_set_collection_set_total_count(
+            &self,
+            request: tonic::Request<super::GetSetCollectionSetTotalCountRequest>,
+        ) -> Result<
+            tonic::Response<super::GetSetCollectionSetTotalCountResponse>,
+            tonic::Status,
+        >;
         /// 景
         async fn new_set(
             &self,
@@ -3777,6 +3785,91 @@ pub mod knitter_grpc_server {
                     let fut = async move {
                         let inner = inner.0;
                         let method = NewSetCollectionSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/io.knitter.KnitterGrpc/GetSetCollectionSetsPage" => {
+                    #[allow(non_camel_case_types)]
+                    struct GetSetCollectionSetsPageSvc<T: KnitterGrpc>(pub Arc<T>);
+                    impl<
+                        T: KnitterGrpc,
+                    > tonic::server::UnaryService<super::GetSetCollectionSetsPageRequest>
+                    for GetSetCollectionSetsPageSvc<T> {
+                        type Response = super::GetSetCollectionSetsPageResponse;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<
+                                super::GetSetCollectionSetsPageRequest,
+                            >,
+                        ) -> Self::Future {
+                            let inner = self.0.clone();
+                            let fut = async move {
+                                (*inner).get_set_collection_sets_page(request).await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let inner = inner.0;
+                        let method = GetSetCollectionSetsPageSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/io.knitter.KnitterGrpc/GetSetCollectionSetTotalCount" => {
+                    #[allow(non_camel_case_types)]
+                    struct GetSetCollectionSetTotalCountSvc<T: KnitterGrpc>(pub Arc<T>);
+                    impl<
+                        T: KnitterGrpc,
+                    > tonic::server::UnaryService<
+                        super::GetSetCollectionSetTotalCountRequest,
+                    > for GetSetCollectionSetTotalCountSvc<T> {
+                        type Response = super::GetSetCollectionSetTotalCountResponse;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<
+                                super::GetSetCollectionSetTotalCountRequest,
+                            >,
+                        ) -> Self::Future {
+                            let inner = self.0.clone();
+                            let fut = async move {
+                                (*inner).get_set_collection_set_total_count(request).await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let inner = inner.0;
+                        let method = GetSetCollectionSetTotalCountSvc(inner);
                         let codec = tonic::codec::ProstCodec::default();
                         let mut grpc = tonic::server::Grpc::new(codec)
                             .apply_compression_config(

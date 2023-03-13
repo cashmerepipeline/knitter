@@ -140,6 +140,8 @@ service KnitterGrpc{
 
   // 景集合
   rpc NewSetCollection(NewSetCollectionRequest) returns (NewSetCollectionResponse);
+  rpc GetSetCollectionSetsPage(GetSetCollectionSetsPageRequest) returns (GetSetCollectionSetsPageResponse);
+  rpc GetSetCollectionSetTotalCount(GetSetCollectionSetTotalCountRequest) returns (GetSetCollectionSetTotalCountResponse);
 
   // 景
   rpc NewSet(NewSetRequest) returns (NewSetResponse);
