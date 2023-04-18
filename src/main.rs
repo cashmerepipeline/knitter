@@ -45,7 +45,7 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
         .build();
     CombinedLogger::init(vec![
         TermLogger::new(
-            LevelFilter::Debug,
+            LevelFilter::Info,
             log_config.clone(),
             TerminalMode::Mixed,
             ColorChoice::Always,

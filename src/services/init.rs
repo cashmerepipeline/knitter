@@ -6,13 +6,12 @@ use log::info;
 use managers::{
     accounts_manager, areas_manager, comments_manager, countries_manager, datas_manager,
     groups_manager, language_codes_manager, manages_manager, messages_manager, persons_manager,
-    phone_area_codes_manager, view_rules_manager,
+    phone_area_codes_manager, view_rules_manager, specses_manager, prefabs_manager,
 };
 
 use crate::managers::{
     assemblies_manager, assets_manager, cuts_manager, epics_manager, 
     projects_manager, sequences_manager, sets_manager, set_collections_manager, asset_collections_manager,
-    specses_manager, prefabs_manager
 };
 
 use super::KnitterServer;

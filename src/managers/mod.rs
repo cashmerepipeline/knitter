@@ -7,5 +7,3 @@ pub mod assets_manager;
 pub mod cuts_manager;
 pub mod epics_manager;
 pub mod sequences_manager;
-pub mod specses_manager;
-pub mod prefabs_manager;

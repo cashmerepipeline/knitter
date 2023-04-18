@@ -10,11 +10,8 @@ use view::{add_query_filters, get_manage_schema_view};
 
 use crate::{
     ids_codes::{
-        field_ids::{
-            ASSETS_ASSOCIATED_COLLECTIONS_FIELD_ID, PREFABS_SPECS_ID_FIELD_ID,
-            SPECSES_OWNER_ENTITY_ID_FIELD_ID, ASSEMBLIES_ASSOCIATED_COLLECTIONS_FIELD_ID, ASSEMBLIES_ORIGINAL_COLLECTION_FIELD_ID,
-        },
-        manage_ids::{ASSETS_MANAGE_ID, PREFABS_MANAGE_ID, SPECSES_MANAGE_ID, ASSEMBLIES_MANAGE_ID},
+        field_ids::*,
+        manage_ids::*,
     },
     services::{protocol::*, KnitterServer},
 };

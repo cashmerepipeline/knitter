@@ -9,13 +9,7 @@ use managers::traits::ManagerTrait;
 use view::{add_query_filters, get_manage_schema_view};
 
 use crate::{
-    ids_codes::{
-        field_ids::{
-            ASSETS_ASSOCIATED_COLLECTIONS_FIELD_ID, PREFABS_SPECS_ID_FIELD_ID,
-            SPECSES_OWNER_ENTITY_ID_FIELD_ID,
-        },
-        manage_ids::{ASSETS_MANAGE_ID, PREFABS_MANAGE_ID, SPECSES_MANAGE_ID},
-    },
+    ids_codes::{field_ids::ASSETS_ASSOCIATED_COLLECTIONS_FIELD_ID, manage_ids::ASSETS_MANAGE_ID},
     services::{protocol::*, KnitterServer},
 };
 
@@ -64,11 +58,11 @@ impl KnitterServer {
                 "没有可读描写字段，用户不具有集合可读权限",
             ));
         };
-        
+
         let mut matches = doc! {};
         matches.insert(
             ASSETS_ASSOCIATED_COLLECTIONS_FIELD_ID.to_string(),
-            doc! {"$in":vec![collection_id.clone()]}
+            doc! {"$in":vec![collection_id.clone()]},
         );
 
         // zh: 描写字段可见性过滤, 加入mongodb的project方法

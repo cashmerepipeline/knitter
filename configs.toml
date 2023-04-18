@@ -33,7 +33,7 @@ client_ca_path = "tls/client.crt"
 
 [data_server]
 root_dir_path = "data_root"
-# 文件最大大小, 16MB
+# 文件最大大小, 默认16MB，是Mongodb的最大document大小，可以根据需要调整
 max_file_size = 16777216
 # 文件集最大数量, 1000
 max_set_size = 1000
@@ -43,7 +43,7 @@ max_sequence_length = 10000
 max_file_upload_number = 256
 # 最大文件下载连接
 max_file_download_number = 256
-# 块最大大小，1024*128=128KB
-transfer_chunk_size = 131072
+# 块大小，1024*16=16KB，bytes库缓存流支持的最大块大小为16KB
+transfer_chunk_size = 16384
 # 内部文件路径，不需要通过服务器上传文件, 可将文件直接存储到目标位置
 internal_root_dir_map = {"windows"="X:/data_root/dir", "linux"="/mnt/data_root/dir", "macos" = "/mnt/data_root/dir"}

@@ -16,8 +16,10 @@ import "entity.proto";
 import "name.proto";
 import "data.proto";
 import "data_server.proto";
-import "data_stage.proto";
-import "file_data.proto";
+import "specs.proto";
+import "stage.proto";
+import "prefab.proto";
+import "file_transfer.proto";
 import "area.proto";
 import "language_code.proto";
 import "country.proto";
@@ -38,8 +40,6 @@ import "sequence.proto";
 import "cut.proto";
 import "set_collection.proto";
 import "set.proto";
-import "specs.proto";
-import "prefab.proto";
 import "reference.proto";
 
 service KnitterGrpc{
@@ -90,14 +90,32 @@ service KnitterGrpc{
   // 数据
   rpc GetDataServerConfigs(cashmere.GetDataServerConfigsRequest) returns (cashmere.GetDataServerConfigsResponse);
   rpc NewData(cashmere.NewDataRequest) returns (cashmere.NewDataResponse);
-  rpc ListData(cashmere.ListDataRequest) returns (cashmere.ListDataResponse);
-  rpc ListDataStages(cashmere.ListDataStagesRequest) returns (cashmere.ListDataStagesResponse);
-  rpc AddDataStageVersion(cashmere.AddDataStageVersionRequest) returns (cashmere.AddDataStageVersionResponse);
+  rpc ListEntityData(cashmere.ListEntityDataRequest) returns (cashmere.ListEntityDataResponse);
+  rpc GetDataInfo(cashmere.GetDataInfoRequest) returns (cashmere.GetDataInfoResponse);
   rpc MarkDataRemoved(cashmere.MarkDataRemovedRequest) returns (cashmere.MarkDataRemovedResponse);
+  
+  // 规格
+  rpc NewSpecs(cashmere.NewSpecsRequest) returns (cashmere.NewSpecsResponse);
+  rpc ListSpecs(cashmere.ListSpecsRequest) returns (cashmere.ListSpecsResponse);
+  rpc ListSpecsPrefabs(cashmere.ListSpecsPrefabsRequest) returns (cashmere.ListSpecsPrefabsResponse);
+
+  // 数据阶段
+  rpc NewStage(cashmere.NewStageRequest) returns (cashmere.NewStageResponse);
+  rpc ListStages(cashmere.ListStagesRequest) returns (cashmere.ListStagesResponse);
+  rpc RemoveStage(cashmere.RemoveStageRequest) returns (cashmere.RemoveStageResponse);
+
+  // 预制件
+  rpc NewPrefab(cashmere.NewPrefabRequest) returns (cashmere.NewPrefabResponse);
+
+  // 数据阶段
+  rpc AddStageVersion(cashmere.AddStageVersionRequest) returns (cashmere.AddStageVersionResponse);
+  rpc ListStageVersions(cashmere.ListStageVersionsRequest) returns (cashmere.ListStageVersionsResponse);
+  rpc SetStageCurrentVersion(cashmere.SetStageCurrentVersionRequest) returns (cashmere.SetStageCurrentVersionResponse);
+  rpc RemoveStageVersion(cashmere.RemoveStageVersionRequest) returns (cashmere.RemoveStageVersionResponse);
 
   // 数据操作
-  rpc FileDataUploadFile(stream cashmere.FileDataUploadFileRequest) returns (stream cashmere.FileDataUploadFileResponse);
-  rpc FileDataDownloadFile(stream cashmere.FileDataDownloadFileRequest) returns (stream cashmere.FileDataDownloadFileResponse);
+  rpc UploadFile(stream cashmere.UploadFileRequest) returns (stream cashmere.UploadFileResponse);
+  rpc DownloadFile(stream cashmere.DownloadFileRequest) returns (stream cashmere.DownloadFileResponse);
 
   // 项目
   rpc NewProject(NewProjectRequest) returns (NewProjectResponse);
@@ -147,13 +165,6 @@ service KnitterGrpc{
   rpc NewSet(NewSetRequest) returns (NewSetResponse);
   rpc MarkSetSatus(MarkSetStatusRequest) returns (MarkSetStatusResponse);
 
-  // 规格
-  rpc NewSpecs(NewSpecsRequest) returns (NewSpecsResponse);
-  rpc ListSpecs(ListSpecsRequest) returns (ListSpecsResponse);
-  rpc ListSpecsPrefabs(ListSpecsPrefabsRequest) returns (ListSpecsPrefabsResponse);
-
-  // 预制件
-  rpc NewPrefab(NewPrefabRequest) returns (NewPrefabResponse);
 
   // 引用
   rpc AddReferences(AddReferencesRequest) returns (AddReferencesResponse);
