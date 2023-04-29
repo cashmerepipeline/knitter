@@ -9,17 +9,21 @@ Modified: !date!
 syntax = "proto3";
 package io.knitter;
 
+import "name.proto";
+
 import "manage.proto";
 import "manage_schema.proto";
 import "group.proto";
 import "entity.proto";
-import "name.proto";
+
 import "data.proto";
 import "data_server.proto";
 import "specs.proto";
 import "stage.proto";
+import "version.proto";
 import "prefab.proto";
 import "file_transfer.proto";
+
 import "area.proto";
 import "language_code.proto";
 import "country.proto";
@@ -102,18 +106,27 @@ service KnitterGrpc{
   // 数据阶段
   rpc NewStage(cashmere.NewStageRequest) returns (cashmere.NewStageResponse);
   rpc ListStages(cashmere.ListStagesRequest) returns (cashmere.ListStagesResponse);
-  rpc RemoveStage(cashmere.RemoveStageRequest) returns (cashmere.RemoveStageResponse);
 
   // 预制件
   rpc NewPrefab(cashmere.NewPrefabRequest) returns (cashmere.NewPrefabResponse);
 
-  // 数据阶段
+  // 阶段版本
   rpc AddStageVersion(cashmere.AddStageVersionRequest) returns (cashmere.AddStageVersionResponse);
   rpc ListStageVersions(cashmere.ListStageVersionsRequest) returns (cashmere.ListStageVersionsResponse);
   rpc SetStageCurrentVersion(cashmere.SetStageCurrentVersionRequest) returns (cashmere.SetStageCurrentVersionResponse);
   rpc RemoveStageVersion(cashmere.RemoveStageVersionRequest) returns (cashmere.RemoveStageVersionResponse);
 
-  // 数据操作
+  // 文件操作
+  rpc AddFileToVersion(cashmere.AddFileToVersionRequest) returns (cashmere.AddFileToVersionResponse);
+  rpc AddFileSetToVersion(cashmere.AddFileSetToVersionRequest) returns (cashmere.AddFileSetToVersionResponse);
+  rpc AddFileSequenceToVersion(cashmere.AddFileSequenceToVersionRequest) returns (cashmere.AddFileSequenceToVersionResponse);
+  // 只对文件和文件集有效，文件序列不支持
+  rpc RemoveFilesFromVersion(cashmere.RemoveFilesFromVersionRequest) returns (cashmere.RemoveFilesFromVersionResponse);
+
+  rpc ListVersionFolder(cashmere.ListVersionFolderRequest) returns (cashmere.ListVersionFolderResponse);
+  // 手动删除版本文件夹下的无关文件或文件夹
+  rpc DeleteVersionFolderEntries(cashmere.DeleteVersionFolderEntriesRequest) returns (cashmere.DeleteVersionFolderEntriesResponse);
+  
   rpc UploadFile(stream cashmere.UploadFileRequest) returns (stream cashmere.UploadFileResponse);
   rpc DownloadFile(stream cashmere.DownloadFileRequest) returns (stream cashmere.DownloadFileResponse);
 

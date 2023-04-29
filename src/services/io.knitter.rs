@@ -981,13 +981,6 @@ pub mod knitter_grpc_server {
             tonic::Response<::manage_define::cashmere::ListStagesResponse>,
             tonic::Status,
         >;
-        async fn remove_stage(
-            &self,
-            request: tonic::Request<::manage_define::cashmere::RemoveStageRequest>,
-        ) -> Result<
-            tonic::Response<::manage_define::cashmere::RemoveStageResponse>,
-            tonic::Status,
-        >;
         /// 预制件
         async fn new_prefab(
             &self,
@@ -996,7 +989,7 @@ pub mod knitter_grpc_server {
             tonic::Response<::manage_define::cashmere::NewPrefabResponse>,
             tonic::Status,
         >;
-        /// 数据阶段
+        /// 阶段版本
         async fn add_stage_version(
             &self,
             request: tonic::Request<::manage_define::cashmere::AddStageVersionRequest>,
@@ -1027,6 +1020,61 @@ pub mod knitter_grpc_server {
             tonic::Response<::manage_define::cashmere::RemoveStageVersionResponse>,
             tonic::Status,
         >;
+        /// 文件操作
+        async fn add_file_to_version(
+            &self,
+            request: tonic::Request<::manage_define::cashmere::AddFileToVersionRequest>,
+        ) -> Result<
+            tonic::Response<::manage_define::cashmere::AddFileToVersionResponse>,
+            tonic::Status,
+        >;
+        async fn add_file_set_to_version(
+            &self,
+            request: tonic::Request<
+                ::manage_define::cashmere::AddFileSetToVersionRequest,
+            >,
+        ) -> Result<
+            tonic::Response<::manage_define::cashmere::AddFileSetToVersionResponse>,
+            tonic::Status,
+        >;
+        async fn add_file_sequence_to_version(
+            &self,
+            request: tonic::Request<
+                ::manage_define::cashmere::AddFileSequenceToVersionRequest,
+            >,
+        ) -> Result<
+            tonic::Response<::manage_define::cashmere::AddFileSequenceToVersionResponse>,
+            tonic::Status,
+        >;
+        /// 只对文件和文件集有效，文件序列不支持
+        async fn remove_files_from_version(
+            &self,
+            request: tonic::Request<
+                ::manage_define::cashmere::RemoveFilesFromVersionRequest,
+            >,
+        ) -> Result<
+            tonic::Response<::manage_define::cashmere::RemoveFilesFromVersionResponse>,
+            tonic::Status,
+        >;
+        async fn list_version_folder(
+            &self,
+            request: tonic::Request<::manage_define::cashmere::ListVersionFolderRequest>,
+        ) -> Result<
+            tonic::Response<::manage_define::cashmere::ListVersionFolderResponse>,
+            tonic::Status,
+        >;
+        /// 手动删除版本文件夹下的无关文件或文件夹
+        async fn delete_version_folder_entries(
+            &self,
+            request: tonic::Request<
+                ::manage_define::cashmere::DeleteVersionFolderEntriesRequest,
+            >,
+        ) -> Result<
+            tonic::Response<
+                ::manage_define::cashmere::DeleteVersionFolderEntriesResponse,
+            >,
+            tonic::Status,
+        >;
         ///Server streaming response type for the UploadFile method.
         type UploadFileStream: futures_core::Stream<
                 Item = Result<
@@ -1036,7 +1084,6 @@ pub mod knitter_grpc_server {
             >
             + Send
             + 'static;
-        /// 数据操作
         async fn upload_file(
             &self,
             request: tonic::Request<
@@ -2820,49 +2867,6 @@ pub mod knitter_grpc_server {
                     };
                     Box::pin(fut)
                 }
-                "/io.knitter.KnitterGrpc/RemoveStage" => {
-                    #[allow(non_camel_case_types)]
-                    struct RemoveStageSvc<T: KnitterGrpc>(pub Arc<T>);
-                    impl<
-                        T: KnitterGrpc,
-                    > tonic::server::UnaryService<
-                        ::manage_define::cashmere::RemoveStageRequest,
-                    > for RemoveStageSvc<T> {
-                        type Response = ::manage_define::cashmere::RemoveStageResponse;
-                        type Future = BoxFuture<
-                            tonic::Response<Self::Response>,
-                            tonic::Status,
-                        >;
-                        fn call(
-                            &mut self,
-                            request: tonic::Request<
-                                ::manage_define::cashmere::RemoveStageRequest,
-                            >,
-                        ) -> Self::Future {
-                            let inner = self.0.clone();
-                            let fut = async move {
-                                (*inner).remove_stage(request).await
-                            };
-                            Box::pin(fut)
-                        }
-                    }
-                    let accept_compression_encodings = self.accept_compression_encodings;
-                    let send_compression_encodings = self.send_compression_encodings;
-                    let inner = self.inner.clone();
-                    let fut = async move {
-                        let inner = inner.0;
-                        let method = RemoveStageSvc(inner);
-                        let codec = tonic::codec::ProstCodec::default();
-                        let mut grpc = tonic::server::Grpc::new(codec)
-                            .apply_compression_config(
-                                accept_compression_encodings,
-                                send_compression_encodings,
-                            );
-                        let res = grpc.unary(method, req).await;
-                        Ok(res)
-                    };
-                    Box::pin(fut)
-                }
                 "/io.knitter.KnitterGrpc/NewPrefab" => {
                     #[allow(non_camel_case_types)]
                     struct NewPrefabSvc<T: KnitterGrpc>(pub Arc<T>);
@@ -3065,6 +3069,264 @@ pub mod knitter_grpc_server {
                     let fut = async move {
                         let inner = inner.0;
                         let method = RemoveStageVersionSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/io.knitter.KnitterGrpc/AddFileToVersion" => {
+                    #[allow(non_camel_case_types)]
+                    struct AddFileToVersionSvc<T: KnitterGrpc>(pub Arc<T>);
+                    impl<
+                        T: KnitterGrpc,
+                    > tonic::server::UnaryService<
+                        ::manage_define::cashmere::AddFileToVersionRequest,
+                    > for AddFileToVersionSvc<T> {
+                        type Response = ::manage_define::cashmere::AddFileToVersionResponse;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<
+                                ::manage_define::cashmere::AddFileToVersionRequest,
+                            >,
+                        ) -> Self::Future {
+                            let inner = self.0.clone();
+                            let fut = async move {
+                                (*inner).add_file_to_version(request).await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let inner = inner.0;
+                        let method = AddFileToVersionSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/io.knitter.KnitterGrpc/AddFileSetToVersion" => {
+                    #[allow(non_camel_case_types)]
+                    struct AddFileSetToVersionSvc<T: KnitterGrpc>(pub Arc<T>);
+                    impl<
+                        T: KnitterGrpc,
+                    > tonic::server::UnaryService<
+                        ::manage_define::cashmere::AddFileSetToVersionRequest,
+                    > for AddFileSetToVersionSvc<T> {
+                        type Response = ::manage_define::cashmere::AddFileSetToVersionResponse;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<
+                                ::manage_define::cashmere::AddFileSetToVersionRequest,
+                            >,
+                        ) -> Self::Future {
+                            let inner = self.0.clone();
+                            let fut = async move {
+                                (*inner).add_file_set_to_version(request).await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let inner = inner.0;
+                        let method = AddFileSetToVersionSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/io.knitter.KnitterGrpc/AddFileSequenceToVersion" => {
+                    #[allow(non_camel_case_types)]
+                    struct AddFileSequenceToVersionSvc<T: KnitterGrpc>(pub Arc<T>);
+                    impl<
+                        T: KnitterGrpc,
+                    > tonic::server::UnaryService<
+                        ::manage_define::cashmere::AddFileSequenceToVersionRequest,
+                    > for AddFileSequenceToVersionSvc<T> {
+                        type Response = ::manage_define::cashmere::AddFileSequenceToVersionResponse;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<
+                                ::manage_define::cashmere::AddFileSequenceToVersionRequest,
+                            >,
+                        ) -> Self::Future {
+                            let inner = self.0.clone();
+                            let fut = async move {
+                                (*inner).add_file_sequence_to_version(request).await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let inner = inner.0;
+                        let method = AddFileSequenceToVersionSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/io.knitter.KnitterGrpc/RemoveFilesFromVersion" => {
+                    #[allow(non_camel_case_types)]
+                    struct RemoveFilesFromVersionSvc<T: KnitterGrpc>(pub Arc<T>);
+                    impl<
+                        T: KnitterGrpc,
+                    > tonic::server::UnaryService<
+                        ::manage_define::cashmere::RemoveFilesFromVersionRequest,
+                    > for RemoveFilesFromVersionSvc<T> {
+                        type Response = ::manage_define::cashmere::RemoveFilesFromVersionResponse;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<
+                                ::manage_define::cashmere::RemoveFilesFromVersionRequest,
+                            >,
+                        ) -> Self::Future {
+                            let inner = self.0.clone();
+                            let fut = async move {
+                                (*inner).remove_files_from_version(request).await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let inner = inner.0;
+                        let method = RemoveFilesFromVersionSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/io.knitter.KnitterGrpc/ListVersionFolder" => {
+                    #[allow(non_camel_case_types)]
+                    struct ListVersionFolderSvc<T: KnitterGrpc>(pub Arc<T>);
+                    impl<
+                        T: KnitterGrpc,
+                    > tonic::server::UnaryService<
+                        ::manage_define::cashmere::ListVersionFolderRequest,
+                    > for ListVersionFolderSvc<T> {
+                        type Response = ::manage_define::cashmere::ListVersionFolderResponse;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<
+                                ::manage_define::cashmere::ListVersionFolderRequest,
+                            >,
+                        ) -> Self::Future {
+                            let inner = self.0.clone();
+                            let fut = async move {
+                                (*inner).list_version_folder(request).await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let inner = inner.0;
+                        let method = ListVersionFolderSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/io.knitter.KnitterGrpc/DeleteVersionFolderEntries" => {
+                    #[allow(non_camel_case_types)]
+                    struct DeleteVersionFolderEntriesSvc<T: KnitterGrpc>(pub Arc<T>);
+                    impl<
+                        T: KnitterGrpc,
+                    > tonic::server::UnaryService<
+                        ::manage_define::cashmere::DeleteVersionFolderEntriesRequest,
+                    > for DeleteVersionFolderEntriesSvc<T> {
+                        type Response = ::manage_define::cashmere::DeleteVersionFolderEntriesResponse;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<
+                                ::manage_define::cashmere::DeleteVersionFolderEntriesRequest,
+                            >,
+                        ) -> Self::Future {
+                            let inner = self.0.clone();
+                            let fut = async move {
+                                (*inner).delete_version_folder_entries(request).await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let inner = inner.0;
+                        let method = DeleteVersionFolderEntriesSvc(inner);
                         let codec = tonic::codec::ProstCodec::default();
                         let mut grpc = tonic::server::Grpc::new(codec)
                             .apply_compression_config(

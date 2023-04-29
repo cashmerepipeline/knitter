@@ -401,12 +401,6 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "572f695136211188308f16ad2ca5c851a712c464060ae6974944458eb83880ba"
 
 [[package]]
-name = "byteorder"
-version = "1.4.3"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "14c189c53d098945499cdfa7ecc63567cf3886b3332b312a5b4585d8d3a6a610"
-
-[[package]]
 name = "bytes"
 version = "1.4.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -428,7 +422,7 @@ dependencies = [
  "futures",
  "linked-hash-map",
  "manage_define",
- "parking_lot 0.12.1",
+ "parking_lot",
  "property_field",
  "serde",
  "serde_derive",
@@ -575,28 +569,6 @@ dependencies = [
 ]
 
 [[package]]
-name = "crc32fast"
-version = "1.3.2"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "b540bd8bc810d3885c6ea91e2018302f68baba2129ab3e88f32389ee9370880d"
-dependencies = [
- "cfg-if",
-]
-
-[[package]]
-name = "crossbeam-epoch"
-version = "0.9.11"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "f916dfc5d356b0ed9dae65f1db9fc9770aa2851d2662b988ccf4fe3516e86348"
-dependencies = [
- "autocfg",
- "cfg-if",
- "crossbeam-utils",
- "memoffset",
- "scopeguard",
-]
-
-[[package]]
 name = "crossbeam-utils"
 version = "0.8.12"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -712,7 +684,7 @@ checksum = "3ee2393c4a91429dffb4bedf19f4d6abf27d8a732c8ce4980305d782e5426d57"
 
 [[package]]
 name = "data_server"
-version = "0.2.0"
+version = "0.3.0"
 dependencies = [
  "bytes",
  "cash_result",
@@ -723,7 +695,7 @@ dependencies = [
  "manage_define",
  "md-5",
  "once_cell",
- "parking_lot 0.12.1",
+ "parking_lot",
  "rust-i18n",
  "serde",
  "serde_derive",
@@ -816,28 +788,6 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "0206175f82b8d6bf6652ff7d71a1e27fd2e4efde587fd368662814d6ec1d9ce0"
 
 [[package]]
-name = "event_system"
-version = "0.1.0"
-dependencies = [
- "bson",
- "cash_core",
- "cash_result",
- "configs",
- "database",
- "entity",
- "futures",
- "manage_define",
- "md-5",
- "parking_lot 0.12.1",
- "serde",
- "serde_derive",
- "sled",
- "tokio",
- "uuid 1.2.2",
- "view",
-]
-
-[[package]]
 name = "fastrand"
 version = "1.8.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -865,16 +815,6 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "a9c384f161156f5260c24a097c56119f9be8c798586aecc13afbcbe7b7e26bf8"
 dependencies = [
  "percent-encoding",
-]
-
-[[package]]
-name = "fs2"
-version = "0.4.3"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "9564fc758e15025b46aa6643b1b77d047d1a56a1aea6e01002ac0c7026876213"
-dependencies = [
- "libc",
- "winapi",
 ]
 
 [[package]]
@@ -991,15 +931,6 @@ dependencies = [
  "pin-project-lite",
  "pin-utils",
  "slab",
-]
-
-[[package]]
-name = "fxhash"
-version = "0.2.1"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "c31b6d751ae2c7f11320402d34e41349dd1016f8d5d45e48c4312bc8625af50c"
-dependencies = [
- "byteorder",
 ]
 
 [[package]]
@@ -1341,7 +1272,7 @@ dependencies = [
 ]
 
 [[package]]
-name = "knitter"
+name = "knitter_base"
 version = "0.1.0"
 dependencies = [
  "account",
@@ -1360,7 +1291,7 @@ dependencies = [
  "manage_define",
  "managers",
  "once_cell",
- "parking_lot 0.12.1",
+ "parking_lot",
  "prost",
  "runtime_handle",
  "rust-i18n",
@@ -1455,7 +1386,7 @@ dependencies = [
  "log",
  "manage_define",
  "managers",
- "parking_lot 0.12.1",
+ "parking_lot",
  "property_field",
 ]
 
@@ -1487,11 +1418,10 @@ dependencies = [
  "configs",
  "database",
  "entity",
- "event_system",
  "linked-hash-map",
  "log",
  "manage_define",
- "parking_lot 0.12.1",
+ "parking_lot",
  "property_field",
  "serde",
  "serde_derive",
@@ -1531,15 +1461,6 @@ name = "memchr"
 version = "2.5.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "2dffe52ecf27772e601905b7522cb4ef790d2cc203488bbd0e2fe85fcb74566d"
-
-[[package]]
-name = "memoffset"
-version = "0.6.5"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "5aa361d4faea93603064a027415f07bd8e1d5c88c9fbf68bf56a285428fd79ce"
-dependencies = [
- "autocfg",
-]
 
 [[package]]
 name = "mime"
@@ -1690,37 +1611,12 @@ checksum = "427c3892f9e783d91cc128285287e70a59e206ca452770ece88a76f7a3eddd72"
 
 [[package]]
 name = "parking_lot"
-version = "0.11.2"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "7d17b78036a60663b797adeaee46f5c9dfebb86948d1255007a1d6be0271ff99"
-dependencies = [
- "instant",
- "lock_api",
- "parking_lot_core 0.8.5",
-]
-
-[[package]]
-name = "parking_lot"
 version = "0.12.1"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "3742b2c103b9f06bc9fff0a37ff4912935851bee6d36f3c02bcc755bcfec228f"
 dependencies = [
  "lock_api",
- "parking_lot_core 0.9.4",
-]
-
-[[package]]
-name = "parking_lot_core"
-version = "0.8.5"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "d76e8e1493bcac0d2766c42737f34458f1c8c50c0d23bcb24ea953affb273216"
-dependencies = [
- "cfg-if",
- "instant",
- "libc",
- "redox_syscall",
- "smallvec",
- "winapi",
+ "parking_lot_core",
 ]
 
 [[package]]
@@ -1987,6 +1883,14 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "3acd125665422973a33ac9d3dd2df85edad0f4ae9b00dafb1a05e43a9f5ef8e7"
 dependencies = [
  "winapi",
+]
+
+[[package]]
+name = "request_utils"
+version = "0.1.0"
+dependencies = [
+ "auth",
+ "tonic",
 ]
 
 [[package]]
@@ -2286,7 +2190,7 @@ version = "0.1.0"
 
 [[package]]
 name = "service_common_handles"
-version = "0.3.6"
+version = "0.4.1"
 dependencies = [
  "account",
  "async-trait",
@@ -2298,7 +2202,6 @@ dependencies = [
  "configs",
  "data_server",
  "entity",
- "event_system",
  "futures",
  "h2",
  "linked-hash-map",
@@ -2309,6 +2212,7 @@ dependencies = [
  "once_cell",
  "property_field",
  "prost",
+ "request_utils",
  "rust-i18n",
  "serde",
  "serde_derive",
@@ -2389,22 +2293,6 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "4614a76b2a8be0058caa9dbbaf66d988527d86d003c11a94fbd335d7661edcef"
 dependencies = [
  "autocfg",
-]
-
-[[package]]
-name = "sled"
-version = "0.34.7"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "7f96b4737c2ce5987354855aed3797279def4ebf734436c6aa4552cf8e169935"
-dependencies = [
- "crc32fast",
- "crossbeam-epoch",
- "crossbeam-utils",
- "fs2",
- "fxhash",
- "libc",
- "log",
- "parking_lot 0.11.2",
 ]
 
 [[package]]
@@ -2614,7 +2502,7 @@ dependencies = [
  "memchr",
  "mio",
  "num_cpus",
- "parking_lot 0.12.1",
+ "parking_lot",
  "pin-project-lite",
  "signal-hook-registry",
  "socket2",
@@ -2867,7 +2755,7 @@ dependencies = [
  "lazy_static",
  "log",
  "lru-cache",
- "parking_lot 0.12.1",
+ "parking_lot",
  "resolv-conf",
  "smallvec",
  "thiserror",
@@ -3000,7 +2888,7 @@ dependencies = [
  "manage_define",
  "mongodb",
  "once_cell",
- "parking_lot 0.12.1",
+ "parking_lot",
  "property_field",
  "rust-i18n",
  "serde",

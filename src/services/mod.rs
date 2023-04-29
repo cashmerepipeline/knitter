@@ -6,7 +6,6 @@ Created:  2021-01-17T04:31:08.729Z
 Modified: !date!
 */
 
-use std::sync::Arc;
 use manage_define::cashmere::*;
 use service_common_handles::view_rules_service_handles::*;
 use service_common_handles::ResponseStream;
@@ -15,31 +14,33 @@ use service_common_handles::{
     area_service_handles::HandleNewArea,
     country_service_handles::HandleNewCountry,
     data_service_handles::*,
-    specses_service_handles::*,
-    stage_service_handles::*,
-    prefab_service_handles::*,
     entity_service_handles::*,
     group_service_handles::HandleNewGroup,
     language_code_handles::{HandleEditLanguageCode, HandleNewLanguageCode},
     manage_service_handle::*,
     name_service_handles::{HandleNewLanguageName, HandleRename},
+    prefab_service_handles::*,
+    specses_service_handles::*,
+    stage_service_handles::*,
 };
+use std::sync::Arc;
 use tonic::{Request, Response, Status, Streaming};
 
 use crate::services::protocol::knitter_grpc_server::KnitterGrpc;
 use crate::services::protocol::*;
 
-mod assembly_servcice_handles;
-mod asset_collection_servcice_handles;
-mod assets_servcice_handles;
-mod cut_servcice_handles;
-mod epic_servcice_handles;
+pub mod assembly_servcice_handles;
+pub mod asset_collection_servcice_handles;
+pub mod assets_servcice_handles;
+pub mod cut_servcice_handles;
+pub mod epic_servcice_handles;
+pub mod project_servcice_handles;
+pub mod reference_service_handles;
+pub mod sequence_servcice_handles;
+pub mod set_collection_service_handles;
+pub mod set_servcice_handles;
+
 mod init;
-mod project_servcice_handles;
-mod reference_service_handles;
-mod sequence_servcice_handles;
-mod set_collection_service_handles;
-mod set_servcice_handles;
 
 pub mod protocol {
     include!("./io.knitter.rs");
@@ -116,8 +117,20 @@ impl HandleNewSpecs for KnitterServer {}
 impl HandleListSpecs for KnitterServer {}
 impl HandleListSpecsPrefabs for KnitterServer {}
 
-impl HandleAddStageVersion for KnitterServer {}
+impl HandleNewStage for KnitterServer {}
 impl HandleListStages for KnitterServer {}
+impl HandleAddStageVersion for KnitterServer {}
+impl HandleListStageVersions for KnitterServer {}
+impl HandleSetStageCurrentVersion for KnitterServer {}
+impl HandleRemoveStageVersion for KnitterServer {}
+impl HandleAddFileToVersion for KnitterServer {}
+impl HandleAddFileSetToVersion for KnitterServer {}
+impl HandleAddFileSequenceToVersion for KnitterServer {}
+impl HandleRemoveFilesFromVersion for KnitterServer {}
+
+impl HandleListVersionFolder for KnitterServer {}
+impl HandleDeleteVersionFolderEntries for KnitterServer {}
+
 impl HandleGetDataInfo for KnitterServer {}
 
 impl HandleNewPrefab for KnitterServer {}
@@ -342,8 +355,31 @@ impl KnitterGrpc for KnitterServer {
         todo!()
     }
 
-    async fn new_stage(&self, request: Request<NewStageRequest>) -> Result<Response<NewStageResponse>, Status> {
-        todo!()
+    async fn new_specs(
+        &self,
+        request: Request<NewSpecsRequest>,
+    ) -> Result<Response<NewSpecsResponse>, Status> {
+        self.handle_new_specs(request).await
+    }
+
+    async fn list_specs(
+        &self,
+        request: Request<ListSpecsRequest>,
+    ) -> Result<Response<ListSpecsResponse>, Status> {
+        self.handle_list_specs(request).await
+    }
+
+    async fn list_specs_prefabs(
+        &self,
+        request: Request<ListSpecsPrefabsRequest>,
+    ) -> Result<Response<ListSpecsPrefabsResponse>, Status> {
+        self.handle_list_specs_prefabs(request).await
+    }
+    async fn new_stage(
+        &self,
+        request: Request<NewStageRequest>,
+    ) -> Result<Response<NewStageResponse>, Status> {
+        self.handle_new_stage(request).await
     }
 
     async fn list_stages(
@@ -353,9 +389,13 @@ impl KnitterGrpc for KnitterServer {
         self.handle_list_stages(request).await
     }
 
-    async fn remove_stage(&self, request: Request<::manage_define::cashmere::RemoveStageRequest>) -> Result<Response<RemoveStageResponse>, Status> {
-        todo!()
+    async fn new_prefab(
+        &self,
+        request: Request<NewPrefabRequest>,
+    ) -> Result<Response<NewPrefabResponse>, Status> {
+        self.handle_new_prefab(request).await
     }
+
     async fn add_stage_version(
         &self,
         request: Request<AddStageVersionRequest>,
@@ -363,19 +403,78 @@ impl KnitterGrpc for KnitterServer {
         self.handle_add_stage_version(request).await
     }
 
-    async fn list_stage_versions(&self, request: Request<ListStageVersionsRequest>) -> Result<Response<ListStageVersionsResponse>, Status> {
-        todo!()
-    }
-    async fn set_stage_current_version(&self, request: Request<SetStageCurrentVersionRequest>) -> Result<Response<SetStageCurrentVersionResponse>, Status> {
-        todo!()
+    async fn list_stage_versions(
+        &self,
+        request: Request<ListStageVersionsRequest>,
+    ) -> Result<Response<ListStageVersionsResponse>, Status> {
+        self.handle_list_stage_versions(request).await
     }
 
-    async fn remove_stage_version(&self, request: Request<RemoveStageVersionRequest>) -> Result<Response<RemoveStageVersionResponse>, Status> {
-        todo!()
+    async fn set_stage_current_version(
+        &self,
+        request: Request<SetStageCurrentVersionRequest>,
+    ) -> Result<Response<SetStageCurrentVersionResponse>, Status> {
+        self.handle_set_stage_current_version(request).await
+    }
+
+    async fn remove_stage_version(
+        &self,
+        request: Request<RemoveStageVersionRequest>,
+    ) -> Result<Response<RemoveStageVersionResponse>, Status> {
+        self.handle_remove_stage_version(request).await
+    }
+
+    async fn add_file_to_version(
+        &self,
+        request: Request<AddFileToVersionRequest>,
+    ) -> Result<Response<AddFileToVersionResponse>, Status> {
+        self.handle_add_file_to_version(request).await
+    }
+
+    async fn add_file_set_to_version(
+        &self,
+        request: Request<AddFileSetToVersionRequest>,
+    ) -> Result<Response<AddFileSetToVersionResponse>, Status> {
+        self.handle_add_file_set_to_version(request).await
+    }
+
+    async fn add_file_sequence_to_version(
+        &self,
+        request: Request<AddFileSequenceToVersionRequest>,
+    ) -> Result<Response<AddFileSequenceToVersionResponse>, Status> {
+        self.handle_add_file_sequence_to_version(request).await
+    }
+
+    async fn remove_files_from_version(
+        &self,
+        request: Request<RemoveFilesFromVersionRequest>,
+    ) -> Result<Response<RemoveFilesFromVersionResponse>, Status> {
+        self.handle_remove_files_from_version(request).await
+    }
+
+    async fn list_version_folder(
+        &self,
+        request: Request<ListVersionFolderRequest>,
+    ) -> Result<Response<ListVersionFolderResponse>, Status> {
+        self.handle_list_version_folder(request).await
+    }
+
+    async fn delete_version_folder_entries(
+        &self,
+        request: Request<DeleteVersionFolderEntriesRequest>,
+    ) -> Result<Response<DeleteVersionFolderEntriesResponse>, Status> {
+        self.handle_delete_version_folder_entries(request).await
     }
 
     // 必须要有这个声明
     type UploadFileStream = ResponseStream<UploadFileResponse>;
+
+    // async fn mark_asset_collection_status(
+    //     &self,
+    //     request: Request<MarkAssetCollectionStatusRequest>,
+    // ) -> Result<Response<MarkAssetCollectionStatusResponse>, Status> {
+    //     todo!()
+    // }
 
     async fn upload_file(
         &self,
@@ -437,7 +536,8 @@ impl KnitterGrpc for KnitterServer {
         &self,
         request: Request<GetProjectAssociatedAssetCollectionsRequest>,
     ) -> Result<Response<GetProjectAssociatedAssetCollectionsResponse>, Status> {
-        self.handle_get_project_associated_asset_collections(request).await
+        self.handle_get_project_associated_asset_collections(request)
+            .await
     }
 
     async fn get_project_associated_set_collections(
@@ -450,17 +550,10 @@ impl KnitterGrpc for KnitterServer {
 
     async fn change_project_status(
         &self,
-        request: Request<ChangeProjectStatusRequest>
+        request: Request<ChangeProjectStatusRequest>,
     ) -> Result<Response<ChangeProjectStatusResponse>, Status> {
         self.handle_change_project_status(request).await
     }
-
-    // async fn mark_asset_collection_status(
-    //     &self,
-    //     request: Request<MarkAssetCollectionStatusRequest>,
-    // ) -> Result<Response<MarkAssetCollectionStatusResponse>, Status> {
-    //     todo!()
-    // }
 
     async fn new_asset_collection(
         &self,
@@ -473,14 +566,16 @@ impl KnitterGrpc for KnitterServer {
         &self,
         request: Request<GetAssetCollectionAssetTotalCountRequest>,
     ) -> Result<Response<GetAssetCollectionAssetTotalCountResponse>, Status> {
-        self.handle_get_asset_collection_asset_total_count(request).await
+        self.handle_get_asset_collection_asset_total_count(request)
+            .await
     }
 
     async fn get_asset_collection_assembly_total_count(
         &self,
         request: Request<GetAssetCollectionAssemblyTotalCountRequest>,
     ) -> Result<Response<GetAssetCollectionAssemblyTotalCountResponse>, Status> {
-        self.handle_get_asset_collection_assembly_total_count(request).await
+        self.handle_get_asset_collection_assembly_total_count(request)
+            .await
     }
 
     async fn get_asset_collection_assets_page(
@@ -547,7 +642,6 @@ impl KnitterGrpc for KnitterServer {
         self.handle_new_sequence(request).await
     }
 
-
     async fn get_sequence_cuts(
         &self,
         request: Request<GetSequenceCutsRequest>,
@@ -561,7 +655,6 @@ impl KnitterGrpc for KnitterServer {
     ) -> Result<Response<NewCutResponse>, Status> {
         self.handle_new_cut(request).await
     }
-
 
     async fn get_cut_referenced_assets(
         &self,
@@ -595,7 +688,8 @@ impl KnitterGrpc for KnitterServer {
         &self,
         request: Request<GetSetCollectionSetTotalCountRequest>,
     ) -> Result<Response<GetSetCollectionSetTotalCountResponse>, Status> {
-        self.handle_get_set_collection_set_total_count(request).await
+        self.handle_get_set_collection_set_total_count(request)
+            .await
     }
 
     async fn new_set(
@@ -610,34 +704,6 @@ impl KnitterGrpc for KnitterServer {
         request: Request<MarkSetStatusRequest>,
     ) -> Result<Response<MarkSetStatusResponse>, Status> {
         todo!()
-    }
-
-    async fn new_specs(
-        &self,
-        request: Request<NewSpecsRequest>,
-    ) -> Result<Response<NewSpecsResponse>, Status> {
-        self.handle_new_specs(request).await
-    }
-
-    async fn list_specs(
-        &self,
-        request: Request<ListSpecsRequest>,
-    ) -> Result<Response<ListSpecsResponse>, Status> {
-        self.handle_list_specs(request).await
-    }
-
-    async fn list_specs_prefabs(
-        &self,
-        request: Request<ListSpecsPrefabsRequest>,
-    ) -> Result<Response<ListSpecsPrefabsResponse>, Status> {
-        self.handle_list_specs_prefabs(request).await
-    }
-
-    async fn new_prefab(
-        &self,
-        request: Request<NewPrefabRequest>,
-    ) -> Result<Response<NewPrefabResponse>, Status> {
-        self.handle_new_prefab(request).await
     }
 
     async fn add_references(

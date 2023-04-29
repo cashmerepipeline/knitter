@@ -49,7 +49,7 @@ impl KnitterServer {
         let mut modify_doc = doc! {};
         modify_doc.insert(PROJECTS_STATUS_FIELD_ID.to_string(), status);
 
-        let result = manager.update_entity_field(query_doc, modify_doc, &account_id).await;
+        let result = manager.update_entity_field(query_doc, &mut modify_doc, &account_id).await;
 
         match result {
             Ok(_r) => Ok(Response::new(ChangeProjectStatusResponse {

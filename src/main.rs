@@ -9,6 +9,7 @@ use std::fs::File;
 // 日志相关
 use log::info;
 use simplelog::{ColorChoice, CombinedLogger, LevelFilter, TermLogger, TerminalMode, WriteLogger};
+
 #[macro_use]
 extern crate rust_i18n;
 i18n!("locales");
@@ -31,7 +32,8 @@ use runtime_handle::set_runtime_handle;
 
 // #[tokio::main]
 fn main() -> Result<(), Box<dyn std::error::Error>> {
-    configs::init_configs_path("./configs.toml".to_string()).expect(t!("config.toml文件不存在").as_str());
+    configs::init_configs_path("./configs.toml".to_string())
+        .expect(t!("config.toml文件不存在").as_str());
     let configs = configs::get_configs();
     rust_i18n::set_locale(configs.server.language_code.as_str());
 
@@ -57,7 +59,6 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
         ),
     ])
     .unwrap();
-
 
     let runtime = runtime::Runtime::new().expect("新建tokio运行时失败");
     let handle = runtime.handle().clone();

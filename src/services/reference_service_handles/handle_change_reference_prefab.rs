@@ -57,8 +57,8 @@ impl KnitterServer {
             doc! {"$each":bson::to_document(&vec![bson::to_document(new_reference).unwrap()]).unwrap()}
         );
 
-        let pull_result = manager.pull_entity_array_field(query_doc.clone(), modify_doc, &account_id);
-        let push_result = manager.push_entity_array_field(query_doc, push_modify_doc, &account_id);
+        let pull_result = manager.add_to_array_field(query_doc.clone(), modify_doc, &account_id);
+        let push_result = manager.add_to_array_field(query_doc, push_modify_doc, &account_id);
 
         let result = tokio::try_join!(pull_result, push_result);
 

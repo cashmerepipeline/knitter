@@ -1,5 +1,5 @@
 [package]
-name = "knitter"
+name = "knitter_base"
 version = "0.1.0"
 authors = ["闫刚 <yes7rose@sina.com>"]
 edition = "2021"
