@@ -1,8 +1,10 @@
 #![recursion_limit = "256"]
 
-mod ids_codes;
-mod managers;
 mod services;
+mod protocol {
+    include!("io.knitter.rs");
+}
+
 
 use std::fs::File;
 
@@ -25,7 +27,7 @@ use account_server::account_grpc_server::AccountGrpcServer;
 use account_server::AccountServer;
 use auth::check::check_auth_token;
 
-use services::protocol::knitter_grpc_server::KnitterGrpcServer;
+use crate::protocol::knitter_grpc_server::KnitterGrpcServer;
 use services::KnitterServer;
 
 use runtime_handle::set_runtime_handle;
@@ -76,7 +78,7 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
 
             // Ctrl+c 终止程序
             let (tx, rx) = oneshot::channel();
-            let _ = tokio::spawn(wait_for_end_signal(tx));
+            let _sig = tokio::spawn(wait_for_end_signal(tx));
 
             // 服务地址
             let address = format!("{}:{}", server_address, server_port)

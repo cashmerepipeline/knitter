@@ -23,28 +23,23 @@ use service_common_handles::{
     specses_service_handles::*,
     stage_service_handles::*,
 };
-use std::sync::Arc;
+
 use tonic::{Request, Response, Status, Streaming};
 
-use crate::services::protocol::knitter_grpc_server::KnitterGrpc;
-use crate::services::protocol::*;
-
-pub mod assembly_servcice_handles;
-pub mod asset_collection_servcice_handles;
-pub mod assets_servcice_handles;
-pub mod cut_servcice_handles;
-pub mod epic_servcice_handles;
-pub mod project_servcice_handles;
-pub mod reference_service_handles;
-pub mod sequence_servcice_handles;
-pub mod set_collection_service_handles;
-pub mod set_servcice_handles;
+use crate::protocol::knitter_grpc_server::KnitterGrpc;
+use knitter_module::protocols::*;
+use knitter_module::service_handles::assembly_service_handles::*;
+use knitter_module::service_handles::asset_collection_servcice_handles::*;
+use knitter_module::service_handles::asset_service_handles::*;
+use knitter_module::service_handles::cut_service_handles::*;
+use knitter_module::service_handles::epic_service_handles::*;
+use knitter_module::service_handles::project_service_handles::*;
+use knitter_module::service_handles::reference_service_handles::*;
+use knitter_module::service_handles::set_collection_service_handles::*;
+use knitter_module::service_handles::set_service_handles::*;
+use knitter_module::service_handles::sequence_service_handles::*;
 
 mod init;
-
-pub mod protocol {
-    include!("./io.knitter.rs");
-}
 
 /// 管理服务
 #[derive(Default)]
@@ -134,6 +129,43 @@ impl HandleDeleteVersionFolderEntries for KnitterServer {}
 impl HandleGetDataInfo for KnitterServer {}
 
 impl HandleNewPrefab for KnitterServer {}
+
+impl HandleNewAssembly for KnitterServer {}
+impl HandleReferenceAssemblies for KnitterServer {}
+
+impl HandleNewAssetCollection for KnitterServer {}
+impl HandleGetAssetCollectionAssembliesPage for KnitterServer {}
+impl HandleGetAssetCollectionAssemblyTotalCount for KnitterServer {}
+impl HandleGetAssetCollectionAssetTotalCount for KnitterServer {}
+impl HandleGetAssetCollectionAssetsPage for KnitterServer {}
+
+impl HandleNewAsset for KnitterServer {}
+impl HandleGetReferencedAssets for KnitterServer {}
+
+impl HandleNewCut for KnitterServer {}
+
+impl HandleNewEpic for KnitterServer {}
+impl HandleGetEpicSequences for KnitterServer {}
+
+impl HandleAssociateAssetCollectionsToProject for KnitterServer {}
+impl HandleAssociateSetCollectionsToProject for KnitterServer {}
+impl HandleDeassociateAssetCollectionsFromProject for KnitterServer {}
+impl HandleDeassociateSetCollectionsFromProject for KnitterServer {}
+impl HandleChangeProjectStatus for KnitterServer {}
+impl HandleGetProjectAssociatedAssetCollections for KnitterServer {}
+impl HandleGetProjectAssociatedSetCollections for KnitterServer {}
+impl HandleGetProjectEpics for KnitterServer {}
+impl HandleNewProject for KnitterServer {}
+
+impl HandleAddReferences for KnitterServer {}
+impl HandleRemoveReferences for KnitterServer {}
+impl HandleListReferences for KnitterServer {}
+
+impl HandleNewSet for KnitterServer {}
+impl HandleGetSetCollectionSetsPage for KnitterServer {}
+impl HandleGetSetCollectionSetTotalCount for KnitterServer {}
+impl HandleNewSetCollection for KnitterServer {}
+impl HandleNewSequence for KnitterServer {}
 
 #[tonic::async_trait]
 impl KnitterGrpc for KnitterServer {

@@ -131,59 +131,59 @@ service KnitterGrpc{
   rpc DownloadFile(stream cashmere.DownloadFileRequest) returns (stream cashmere.DownloadFileResponse);
 
   // 项目
-  rpc NewProject(NewProjectRequest) returns (NewProjectResponse);
-  rpc AssociateAssetCollectionsToProject(AssociateAssetCollectionsToProjectRequest) returns (AssociateAssetCollectionsToProjectResponse);
-  rpc DeassociateAssetCollectionsFromProject(DeassociateAssetCollectionsFromProjectRequest) returns (DeassociateAssetCollectionsFromProjectResponse);
-  rpc AssociateSetCollectionsToProject(AssociateSetCollectionsToProjectRequest) returns (AssociateSetCollectionsToProjectResponse);
-  rpc DeassociateSetCollectionsFromProject(DeassociateSetCollectionsFromProjectRequest) returns (DeassociateSetCollectionsFromProjectResponse);
-  rpc GetProjectAssociatedAssetCollections(GetProjectAssociatedAssetCollectionsRequest) returns (GetProjectAssociatedAssetCollectionsResponse);
-  rpc GetProjectAssociatedSetCollections(GetProjectAssociatedSetCollectionsRequest) returns (GetProjectAssociatedSetCollectionsResponse);
-  rpc ChangeProjectStatus(ChangeProjectStatusRequest) returns (ChangeProjectStatusResponse);
+  rpc NewProject(knitter_module.NewProjectRequest) returns (knitter_module.NewProjectResponse);
+  rpc AssociateAssetCollectionsToProject(knitter_module.AssociateAssetCollectionsToProjectRequest) returns (knitter_module.AssociateAssetCollectionsToProjectResponse);
+  rpc DeassociateAssetCollectionsFromProject(knitter_module.DeassociateAssetCollectionsFromProjectRequest) returns (knitter_module.DeassociateAssetCollectionsFromProjectResponse);
+  rpc AssociateSetCollectionsToProject(knitter_module.AssociateSetCollectionsToProjectRequest) returns (knitter_module.AssociateSetCollectionsToProjectResponse);
+  rpc DeassociateSetCollectionsFromProject(knitter_module.DeassociateSetCollectionsFromProjectRequest) returns (knitter_module.DeassociateSetCollectionsFromProjectResponse);
+  rpc GetProjectAssociatedAssetCollections(knitter_module.GetProjectAssociatedAssetCollectionsRequest) returns (knitter_module.GetProjectAssociatedAssetCollectionsResponse);
+  rpc GetProjectAssociatedSetCollections(knitter_module.GetProjectAssociatedSetCollectionsRequest) returns (knitter_module.GetProjectAssociatedSetCollectionsResponse);
+  rpc ChangeProjectStatus(knitter_module.ChangeProjectStatusRequest) returns (knitter_module.ChangeProjectStatusResponse);
 
   // 资产集 
-  rpc NewAssetCollection(NewAssetCollectionRequest) returns (NewAssetCollectionResponse);
-  rpc GetAssetCollectionAssetTotalCount(GetAssetCollectionAssetTotalCountRequest) returns (GetAssetCollectionAssetTotalCountResponse);
-  rpc GetAssetCollectionAssemblyTotalCount(GetAssetCollectionAssemblyTotalCountRequest) returns (GetAssetCollectionAssemblyTotalCountResponse);
-  rpc GetAssetCollectionAssetsPage(GetAssetCollectionAssetsPageRequest) returns (GetAssetCollectionAssetsPageResponse);
-  rpc GetAssetCollectionAssembliesPage(GetAssetCollectionAssembliesPageRequest) returns (GetAssetCollectionAssembliesPageResponse);
+  rpc NewAssetCollection(knitter_module.NewAssetCollectionRequest) returns (knitter_module.NewAssetCollectionResponse);
+  rpc GetAssetCollectionAssetTotalCount(knitter_module.GetAssetCollectionAssetTotalCountRequest) returns (knitter_module.GetAssetCollectionAssetTotalCountResponse);
+  rpc GetAssetCollectionAssemblyTotalCount(knitter_module.GetAssetCollectionAssemblyTotalCountRequest) returns (knitter_module.GetAssetCollectionAssemblyTotalCountResponse);
+  rpc GetAssetCollectionAssetsPage(knitter_module.GetAssetCollectionAssetsPageRequest) returns (knitter_module.GetAssetCollectionAssetsPageResponse);
+  rpc GetAssetCollectionAssembliesPage(knitter_module.GetAssetCollectionAssembliesPageRequest) returns (knitter_module.GetAssetCollectionAssembliesPageResponse);
   // rpc MarkAssetCollectionStatus(MarkAssetCollectionStatusRequest) returns (MarkAssetCollectionStatusResponse);
 
   // 资产
-  rpc NewAsset(NewAssetRequest) returns (NewAssetResponse);
-  rpc GetReferencedAssets(GetReferencedAssetsRequest) returns (GetReferencedAssetsResponse);
-  rpc MarkAssetStatus(MarkAssetStatusRequest) returns (MarkAssetStatusResponse);
+  rpc NewAsset(knitter_module.NewAssetRequest) returns (knitter_module.NewAssetResponse);
+  rpc GetReferencedAssets(knitter_module.GetReferencedAssetsRequest) returns (knitter_module.GetReferencedAssetsResponse);
+  rpc MarkAssetStatus(knitter_module.MarkAssetStatusRequest) returns (knitter_module.MarkAssetStatusResponse);
 
   // 组合
-  rpc NewAssembly(NewAssemblyRequest) returns (NewAssemblyResponse);
+  rpc NewAssembly(knitter_module.NewAssemblyRequest) returns (knitter_module.NewAssemblyResponse);
 
   // 集
-  rpc NewEpic(NewEpicRequest) returns (NewEpicResponse);
-  rpc GetEpicSequences(GetEpicSequencesRequest) returns (GetEpicSequencesResponse);
+  rpc NewEpic(knitter_module.NewEpicRequest) returns (knitter_module.NewEpicResponse);
+  rpc GetEpicSequences(knitter_module.GetEpicSequencesRequest) returns (knitter_module.GetEpicSequencesResponse);
 
   // 章节
-  rpc NewSequence(NewSequenceRequest) returns (NewSequenceResponse);
-  rpc GetSequenceCuts(GetSequenceCutsRequest) returns (GetSequenceCutsResponse);
+  rpc NewSequence(knitter_module.NewSequenceRequest) returns (knitter_module.NewSequenceResponse);
+  rpc GetSequenceCuts(knitter_module.GetSequenceCutsRequest) returns (knitter_module.GetSequenceCutsResponse);
 
   // 镜头
-  rpc NewCut(NewCutRequest) returns (NewCutResponse);
-  rpc GetCutReferencedAssets(GetCutReferencedAssetsRequest) returns (GetCutReferencedAssetsResponse);
-  rpc MarkCutStatus(MarkCutStatusRequest) returns (MarkCutStatusResponse);
+  rpc NewCut(knitter_module.NewCutRequest) returns (knitter_module.NewCutResponse);
+  rpc GetCutReferencedAssets(knitter_module.GetCutReferencedAssetsRequest) returns (knitter_module.GetCutReferencedAssetsResponse);
+  rpc MarkCutStatus(knitter_module.MarkCutStatusRequest) returns (knitter_module.MarkCutStatusResponse);
 
   // 景集合
-  rpc NewSetCollection(NewSetCollectionRequest) returns (NewSetCollectionResponse);
-  rpc GetSetCollectionSetsPage(GetSetCollectionSetsPageRequest) returns (GetSetCollectionSetsPageResponse);
-  rpc GetSetCollectionSetTotalCount(GetSetCollectionSetTotalCountRequest) returns (GetSetCollectionSetTotalCountResponse);
+  rpc NewSetCollection(knitter_module.NewSetCollectionRequest) returns (knitter_module.NewSetCollectionResponse);
+  rpc GetSetCollectionSetsPage(knitter_module.GetSetCollectionSetsPageRequest) returns (knitter_module.GetSetCollectionSetsPageResponse);
+  rpc GetSetCollectionSetTotalCount(knitter_module.GetSetCollectionSetTotalCountRequest) returns (knitter_module.GetSetCollectionSetTotalCountResponse);
 
   // 景
-  rpc NewSet(NewSetRequest) returns (NewSetResponse);
-  rpc MarkSetSatus(MarkSetStatusRequest) returns (MarkSetStatusResponse);
+  rpc NewSet(knitter_module.NewSetRequest) returns (knitter_module.NewSetResponse);
+  rpc MarkSetSatus(knitter_module.MarkSetStatusRequest) returns (knitter_module.MarkSetStatusResponse);
 
 
   // 引用
-  rpc AddReferences(AddReferencesRequest) returns (AddReferencesResponse);
-  rpc RemoveReferences(RemoveReferencesRequest) returns (RemoveReferencesResponse);
-  rpc ListReferences(ListReferencesRequest) returns (ListReferencesResponse);
-  rpc ChangeReference(ChangeReferencePrefabRequest) returns (ChangeReferencePrefabResponse);
+  rpc AddReferences(knitter_module.AddReferencesRequest) returns (knitter_module.AddReferencesResponse);
+  rpc RemoveReferences(knitter_module.RemoveReferencesRequest) returns (knitter_module.RemoveReferencesResponse);
+  rpc ListReferences(knitter_module.ListReferencesRequest) returns (knitter_module.ListReferencesResponse);
+  rpc ChangeReference(knitter_module.ChangeReferencePrefabRequest) returns (knitter_module.ChangeReferencePrefabResponse);
 
   // =====工作=====
   // 工作管理

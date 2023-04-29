@@ -22,6 +22,8 @@ view = { path = "../cashmere_core/view" }
 manage_define = { path = "../cashmere_core/manage_define" }
 server_utils = { path = "../cashmere_core/server_utils" }
 
+knitter_module = { path = "../knitter_module" }
+
 parking_lot = "0.12.1"
 chrono = { version = "0.4.19", features = ["serde"] }
 tokio = { version = "1.21.2", features = ["full"] }
