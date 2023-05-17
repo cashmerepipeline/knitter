@@ -2,10 +2,10 @@
    初始化管理器表
 */
 
-use log::info;
+
 use managers::{
     accounts_manager, areas_manager, comments_manager, countries_manager, datas_manager,
-    groups_manager, language_codes_manager, manages_manager, messages_manager, persons_manager,
+    groups_manager, language_codes_manager, manages_manager, persons_manager,
     phone_area_codes_manager, view_rules_manager, specses_manager, prefabs_manager,
 };
 
@@ -14,8 +14,10 @@ use knitter_module::managers::{
     projects_manager, sequences_manager, sets_manager, set_collections_manager, asset_collections_manager,
 };
 
+use event_module::managers::*;
+
 use super::KnitterServer;
-use managers::traits::ManagerTrait;
+
 use view::init_view_rules;
 
 ///初始化
@@ -33,8 +35,12 @@ impl KnitterServer {
             persons_manager::get_manager().await,
             view_rules_manager::get_manager().await,
             datas_manager::get_manager().await,
-            messages_manager::get_manager().await,
             comments_manager::get_manager().await,
+            // event system
+            event_emitters_manager::get_manager().await,
+            event_listeners_manager::get_manager().await,
+            event_types_manager::get_manager().await,
+
             // knitter system
             projects_manager::get_manager().await,
             asset_collections_manager::get_manager().await,

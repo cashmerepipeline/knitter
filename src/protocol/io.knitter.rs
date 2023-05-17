@@ -430,6 +430,59 @@ pub mod knitter_grpc_server {
                 tonic::Streaming<::manage_define::cashmere::DownloadFileRequest>,
             >,
         ) -> Result<tonic::Response<Self::DownloadFileStream>, tonic::Status>;
+        /// 事件
+        async fn register_event_type(
+            &self,
+            request: tonic::Request<::event_module::protocols::RegisterEventTypeRequest>,
+        ) -> Result<
+            tonic::Response<::event_module::protocols::RegisterEventTypeResponse>,
+            tonic::Status,
+        >;
+        /// rpc DeregisterEventType(.event.cashmere.DeregisterEventTypeRequest) returns (.event.cashmere.DeregisterEventTypeResponse);
+        async fn register_event_emitter(
+            &self,
+            request: tonic::Request<
+                ::event_module::protocols::RegisterEventEmitterRequest,
+            >,
+        ) -> Result<
+            tonic::Response<::event_module::protocols::RegisterEventEmitterResponse>,
+            tonic::Status,
+        >;
+        async fn register_event_listener(
+            &self,
+            request: tonic::Request<
+                ::event_module::protocols::RegisterEventListenerRequest,
+            >,
+        ) -> Result<
+            tonic::Response<::event_module::protocols::RegisterEventListenerResponse>,
+            tonic::Status,
+        >;
+        ///Server streaming response type for the EmitEvent method.
+        type EmitEventStream: futures_core::Stream<
+                Item = Result<
+                    ::event_module::protocols::EmitEventResponse,
+                    tonic::Status,
+                >,
+            >
+            + Send
+            + 'static;
+        async fn emit_event(
+            &self,
+            request: tonic::Request<::event_module::protocols::EmitEventRequest>,
+        ) -> Result<tonic::Response<Self::EmitEventStream>, tonic::Status>;
+        ///Server streaming response type for the ListenEventType method.
+        type ListenEventTypeStream: futures_core::Stream<
+                Item = Result<
+                    ::event_module::protocols::ListenEventTypeResponse,
+                    tonic::Status,
+                >,
+            >
+            + Send
+            + 'static;
+        async fn listen_event_type(
+            &self,
+            request: tonic::Request<::event_module::protocols::ListenEventTypeRequest>,
+        ) -> Result<tonic::Response<Self::ListenEventTypeStream>, tonic::Status>;
         /// 项目
         async fn new_project(
             &self,
@@ -2864,6 +2917,221 @@ pub mod knitter_grpc_server {
                                 send_compression_encodings,
                             );
                         let res = grpc.streaming(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/io.knitter.KnitterGrpc/RegisterEventType" => {
+                    #[allow(non_camel_case_types)]
+                    struct RegisterEventTypeSvc<T: KnitterGrpc>(pub Arc<T>);
+                    impl<
+                        T: KnitterGrpc,
+                    > tonic::server::UnaryService<
+                        ::event_module::protocols::RegisterEventTypeRequest,
+                    > for RegisterEventTypeSvc<T> {
+                        type Response = ::event_module::protocols::RegisterEventTypeResponse;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<
+                                ::event_module::protocols::RegisterEventTypeRequest,
+                            >,
+                        ) -> Self::Future {
+                            let inner = self.0.clone();
+                            let fut = async move {
+                                (*inner).register_event_type(request).await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let inner = inner.0;
+                        let method = RegisterEventTypeSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/io.knitter.KnitterGrpc/RegisterEventEmitter" => {
+                    #[allow(non_camel_case_types)]
+                    struct RegisterEventEmitterSvc<T: KnitterGrpc>(pub Arc<T>);
+                    impl<
+                        T: KnitterGrpc,
+                    > tonic::server::UnaryService<
+                        ::event_module::protocols::RegisterEventEmitterRequest,
+                    > for RegisterEventEmitterSvc<T> {
+                        type Response = ::event_module::protocols::RegisterEventEmitterResponse;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<
+                                ::event_module::protocols::RegisterEventEmitterRequest,
+                            >,
+                        ) -> Self::Future {
+                            let inner = self.0.clone();
+                            let fut = async move {
+                                (*inner).register_event_emitter(request).await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let inner = inner.0;
+                        let method = RegisterEventEmitterSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/io.knitter.KnitterGrpc/RegisterEventListener" => {
+                    #[allow(non_camel_case_types)]
+                    struct RegisterEventListenerSvc<T: KnitterGrpc>(pub Arc<T>);
+                    impl<
+                        T: KnitterGrpc,
+                    > tonic::server::UnaryService<
+                        ::event_module::protocols::RegisterEventListenerRequest,
+                    > for RegisterEventListenerSvc<T> {
+                        type Response = ::event_module::protocols::RegisterEventListenerResponse;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<
+                                ::event_module::protocols::RegisterEventListenerRequest,
+                            >,
+                        ) -> Self::Future {
+                            let inner = self.0.clone();
+                            let fut = async move {
+                                (*inner).register_event_listener(request).await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let inner = inner.0;
+                        let method = RegisterEventListenerSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/io.knitter.KnitterGrpc/EmitEvent" => {
+                    #[allow(non_camel_case_types)]
+                    struct EmitEventSvc<T: KnitterGrpc>(pub Arc<T>);
+                    impl<
+                        T: KnitterGrpc,
+                    > tonic::server::ServerStreamingService<
+                        ::event_module::protocols::EmitEventRequest,
+                    > for EmitEventSvc<T> {
+                        type Response = ::event_module::protocols::EmitEventResponse;
+                        type ResponseStream = T::EmitEventStream;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::ResponseStream>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<
+                                ::event_module::protocols::EmitEventRequest,
+                            >,
+                        ) -> Self::Future {
+                            let inner = self.0.clone();
+                            let fut = async move { (*inner).emit_event(request).await };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let inner = inner.0;
+                        let method = EmitEventSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            );
+                        let res = grpc.server_streaming(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/io.knitter.KnitterGrpc/ListenEventType" => {
+                    #[allow(non_camel_case_types)]
+                    struct ListenEventTypeSvc<T: KnitterGrpc>(pub Arc<T>);
+                    impl<
+                        T: KnitterGrpc,
+                    > tonic::server::ServerStreamingService<
+                        ::event_module::protocols::ListenEventTypeRequest,
+                    > for ListenEventTypeSvc<T> {
+                        type Response = ::event_module::protocols::ListenEventTypeResponse;
+                        type ResponseStream = T::ListenEventTypeStream;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::ResponseStream>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<
+                                ::event_module::protocols::ListenEventTypeRequest,
+                            >,
+                        ) -> Self::Future {
+                            let inner = self.0.clone();
+                            let fut = async move {
+                                (*inner).listen_event_type(request).await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let inner = inner.0;
+                        let method = ListenEventTypeSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            );
+                        let res = grpc.server_streaming(method, req).await;
                         Ok(res)
                     };
                     Box::pin(fut)

@@ -1,10 +1,11 @@
-use manage_define;
+
 
 fn main() -> Result<(), Box<dyn std::error::Error>> {
     tonic_build::configure()
-        .out_dir("src")
+        .out_dir("src/protocol")
         .extern_path(".cashmere", "::manage_define::cashmere")
         .extern_path(".knitter_module", "::knitter_module::protocols")
+        .extern_path(".event.cashmere", "::event_module::protocols")
         .build_client(false)
         .build_server(true)
         .type_attribute(
@@ -18,6 +19,7 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
                 "protocols",
                 "../cashmere_core/protocols",
                 "../knitter_module/protocols",
+                "../event_module/protocols",
             ],
         )?;
 

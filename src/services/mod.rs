@@ -27,6 +27,7 @@ use service_common_handles::{
 use tonic::{Request, Response, Status, Streaming};
 
 use crate::protocol::knitter_grpc_server::KnitterGrpc;
+
 use knitter_module::protocols::*;
 use knitter_module::service_handles::assembly_service_handles::*;
 use knitter_module::service_handles::asset_collection_servcice_handles::*;
@@ -38,6 +39,9 @@ use knitter_module::service_handles::reference_service_handles::*;
 use knitter_module::service_handles::set_collection_service_handles::*;
 use knitter_module::service_handles::set_service_handles::*;
 use knitter_module::service_handles::sequence_service_handles::*;
+
+use event_module::service_handles::*;
+use event_module::protocols::*;
 
 mod init;
 
@@ -129,6 +133,14 @@ impl HandleDeleteVersionFolderEntries for KnitterServer {}
 impl HandleGetDataInfo for KnitterServer {}
 
 impl HandleNewPrefab for KnitterServer {}
+
+// 事件
+impl HandleRegisterEventType for KnitterServer {}
+// impl HandleDeregisterEventType for KnitterServer {}
+impl HandleRegisterEventEmitter for KnitterServer {}
+impl HandleRegisterEventListener for KnitterServer {}
+impl HandleEmitEvent for KnitterServer {}
+impl HandleListenEventType for KnitterServer {}
 
 impl HandleNewAssembly for KnitterServer {}
 impl HandleReferenceAssemblies for KnitterServer {}
@@ -515,7 +527,6 @@ impl KnitterGrpc for KnitterServer {
         self.handle_upload_file(request).await
     }
 
-    // 必须要有这个声明
     type DownloadFileStream = ResponseStream<DownloadFileResponse>;
 
     async fn download_file(
@@ -641,7 +652,7 @@ impl KnitterGrpc for KnitterServer {
 
     async fn mark_asset_status(
         &self,
-        request: Request<MarkAssetStatusRequest>,
+        _request: Request<MarkAssetStatusRequest>,
     ) -> Result<Response<MarkAssetStatusResponse>, Status> {
         todo!()
     }
@@ -676,7 +687,7 @@ impl KnitterGrpc for KnitterServer {
 
     async fn get_sequence_cuts(
         &self,
-        request: Request<GetSequenceCutsRequest>,
+        _request: Request<GetSequenceCutsRequest>,
     ) -> Result<Response<GetSequenceCutsResponse>, Status> {
         todo!()
     }
@@ -690,14 +701,14 @@ impl KnitterGrpc for KnitterServer {
 
     async fn get_cut_referenced_assets(
         &self,
-        request: Request<GetCutReferencedAssetsRequest>,
+        _request: Request<GetCutReferencedAssetsRequest>,
     ) -> Result<Response<GetCutReferencedAssetsResponse>, Status> {
         todo!()
     }
 
     async fn mark_cut_status(
         &self,
-        request: Request<MarkCutStatusRequest>,
+        _request: Request<MarkCutStatusRequest>,
     ) -> Result<Response<MarkCutStatusResponse>, Status> {
         todo!()
     }
@@ -733,7 +744,7 @@ impl KnitterGrpc for KnitterServer {
 
     async fn mark_set_satus(
         &self,
-        request: Request<MarkSetStatusRequest>,
+        _request: Request<MarkSetStatusRequest>,
     ) -> Result<Response<MarkSetStatusResponse>, Status> {
         todo!()
     }
@@ -761,8 +772,52 @@ impl KnitterGrpc for KnitterServer {
 
     async fn change_reference(
         &self,
-        request: Request<ChangeReferencePrefabRequest>,
+        _request: Request<ChangeReferencePrefabRequest>,
     ) -> Result<Response<ChangeReferencePrefabResponse>, Status> {
         todo!()
+    }
+    
+    async fn register_event_type(
+        &self,
+        request: Request<RegisterEventTypeRequest>,
+    ) -> Result<Response<RegisterEventTypeResponse>, Status> {
+        self.handle_register_event_type(request).await
+    }
+    
+    // async fn deregister_event_type(
+    //     &self,
+    //     request: Request<DeregisterEventTypeRequest>,
+    // ) -> Result<Response<DeregisterEventTypeResponse>, Status> {
+    //     self.handle_deregister_event_type(request).await
+    // }
+    
+    async fn register_event_emitter(
+        &self,
+        request: Request<RegisterEventEmitterRequest>,
+    ) -> Result<Response<RegisterEventEmitterResponse>, Status> {
+        self.handle_register_event_emitter(request).await
+    }
+
+    async fn register_event_listener(
+        &self,
+        request: Request<RegisterEventListenerRequest>,
+    ) -> Result<Response<RegisterEventListenerResponse>, Status> {
+        self.handle_register_event_listener(request).await
+    }
+    
+    type EmitEventStream = ResponseStream<EmitEventResponse>;
+    async fn emit_event(
+        &self,
+        request: Request<EmitEventRequest>,
+    ) -> Result<Response<Self::EmitEventStream>, Status> {
+        self.handle_emit_event(request).await
+    }
+    
+    type ListenEventTypeStream = ResponseStream<ListenEventTypeResponse>;
+    async fn listen_event_type(
+        &self,
+        request: Request<ListenEventTypeRequest>,
+    ) -> Result<Response<Self::ListenEventTypeStream>, Status> {
+        self.handle_listen_event_type(request).await
     }
 }

@@ -1,6 +1,6 @@
 [package]
-name = "knitter_base"
-version = "0.1.0"
+name = "knitter_comunication"
+version = "0.3.0"
 authors = ["闫刚 <yes7rose@sina.com>"]
 edition = "2021"
 
@@ -23,13 +23,14 @@ manage_define = { path = "../cashmere_core/manage_define" }
 server_utils = { path = "../cashmere_core/server_utils" }
 
 knitter_module = { path = "../knitter_module" }
+event_module = {path = "../event_module"}
 
 parking_lot = "0.12.1"
 chrono = { version = "0.4.19", features = ["serde"] }
 tokio = { version = "1.21.2", features = ["full"] }
 tonic = { version = "0.7.2", features = ["tls"] }
 prost = "0.10.4"
-bson = "2.2.0"
+bson = "2.6.1"
 async-trait = "0.1.51"
 serde = "1.0.131"
 serde_derive = "1.0.131"

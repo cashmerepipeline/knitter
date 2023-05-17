@@ -31,9 +31,14 @@
   - [x] 资产集管理
   - [x] 资产管理
   - [x] 资产规格和预制件
-  - [ ] 数据管理
-  - [ ] 事件驱动
-  - [ ] 任务管理
+  - [x] 数据管理
+  - [x] 事件系统
+
+以下为企业版的特性，社区版不需要
+  - [ ] 工作任务管理
+  - [ ] 通知系统
+  - [ ] 会话系统
+  - [ ] 资源管理系统
 
 ## 安装和编译运行
 
@@ -41,5 +46,7 @@
   2. 安装mongodb，并启动服务（默认设置为本地服务，如果在其他机器上，可以修改configs.toml的数据库地址端口字段）
   3. 克隆本仓库到本地
   4. 克隆cashmere_core并且和本仓库在同一目录下
-  5. cd knitter && cargo run
-  6. 运行knitter_python_api测试
+  5. 克隆knitter_modules并且和本仓库在同一目录下
+  6. 克隆event_modules并且和本仓库在同一目录下
+  7. cd knitter && cargo run
+  8.克隆knitter_python_api, 并运行knitter_python_api的测试

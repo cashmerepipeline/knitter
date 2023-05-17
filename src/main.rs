@@ -1,15 +1,13 @@
 #![recursion_limit = "256"]
 
 mod services;
-mod protocol {
-    include!("io.knitter.rs");
-}
-
+mod protocol;
 
 use std::fs::File;
 
+use event_module::protocols::Event;
 // 日志相关
-use log::info;
+use log::{info, error};
 use simplelog::{ColorChoice, CombinedLogger, LevelFilter, TermLogger, TerminalMode, WriteLogger};
 
 #[macro_use]
@@ -111,6 +109,22 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
             // 初始化服务
             knitter_server.init_managers().await;
             knitter_server.init_view_rules().await;
+            
+            // 事件系统
+            let event_service_configs = event_module::EventServiceConfigs{
+                max_concurrent_queue: 4,
+                max_event_type_queue_size: 1024,
+                max_listener_instance_size: 1024,
+            };
+            match event_module::initialize_event_service(event_service_configs).await{
+                Ok(_) => {
+                    info!("{}", t!("事件系统初始化成功"));
+                },
+                Err(e) => {
+                    error!("{}", t!("事件系统初始化失败"));
+                    error!("{}", e.details());
+                }
+            };
 
             let knitter_service =
                 KnitterGrpcServer::with_interceptor(knitter_server, check_auth_token);

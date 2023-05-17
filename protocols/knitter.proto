@@ -35,6 +35,9 @@ import "question.proto";
 import "answer.proto";
 import "comment.proto";
 
+import "event.proto";
+import "event_server.proto";
+
 import "project.proto";
 import "asset_collection.proto";
 import "asset.proto";
@@ -129,6 +132,14 @@ service KnitterGrpc{
   
   rpc UploadFile(stream cashmere.UploadFileRequest) returns (stream cashmere.UploadFileResponse);
   rpc DownloadFile(stream cashmere.DownloadFileRequest) returns (stream cashmere.DownloadFileResponse);
+  
+  // 事件
+  rpc RegisterEventType(.event.cashmere.RegisterEventTypeRequest) returns (.event.cashmere.RegisterEventTypeResponse);
+  // rpc DeregisterEventType(.event.cashmere.DeregisterEventTypeRequest) returns (.event.cashmere.DeregisterEventTypeResponse);
+  rpc RegisterEventEmitter(.event.cashmere.RegisterEventEmitterRequest) returns (.event.cashmere.RegisterEventEmitterResponse);
+  rpc RegisterEventListener(.event.cashmere.RegisterEventListenerRequest) returns (.event.cashmere.RegisterEventListenerResponse);
+  rpc EmitEvent(.event.cashmere.EmitEventRequest) returns (stream .event.cashmere.EmitEventResponse);
+  rpc ListenEventType(.event.cashmere.ListenEventTypeRequest) returns (stream .event.cashmere.ListenEventTypeResponse);
 
   // 项目
   rpc NewProject(knitter_module.NewProjectRequest) returns (knitter_module.NewProjectResponse);
