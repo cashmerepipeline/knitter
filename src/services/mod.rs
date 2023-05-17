@@ -8,7 +8,7 @@ Modified: !date!
 
 use manage_define::cashmere::*;
 use service_common_handles::view_rules_service_handles::*;
-use service_common_handles::ResponseStream;
+use service_utils::types::ResponseStream;
 use service_common_handles::{
     area_service_handles::HandleEditArea,
     area_service_handles::HandleNewArea,

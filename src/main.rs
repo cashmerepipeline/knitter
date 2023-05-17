@@ -1,40 +1,49 @@
 #![recursion_limit = "256"]
 
-mod services;
 mod protocol;
+mod services;
 
 use std::fs::File;
+use std::time::Duration;
+
+use dependencies_sync::tokio;
+use dependencies_sync::tower;
 
 use event_module::protocols::Event;
 // 日志相关
-use log::{info, error};
-use simplelog::{ColorChoice, CombinedLogger, LevelFilter, TermLogger, TerminalMode, WriteLogger};
+use dependencies_sync::log::{error, info};
+use dependencies_sync::simplelog::{
+    self, ColorChoice, CombinedLogger, LevelFilter, TermLogger, TerminalMode, WriteLogger,
+};
 
 #[macro_use]
 extern crate rust_i18n;
 i18n!("locales");
 
+use runtime_handle::set_runtime_handle;
+
 // 终止相关
-use tokio::runtime::{self};
-use tokio::signal;
-use tokio::sync::oneshot::{self};
+use dependencies_sync::tokio::runtime::{self};
+use dependencies_sync::tokio::signal;
+use dependencies_sync::tokio::sync::oneshot::{self};
 
-use tonic::transport::{Certificate, Identity, Server, ServerTlsConfig};
+use dependencies_sync::tonic::codec::CompressionEncoding;
+use dependencies_sync::tonic::transport::{Certificate, Identity, Server, ServerTlsConfig};
 
-use account_server::account_grpc_server::AccountGrpcServer;
-use account_server::AccountServer;
+use account_module::account_server::AccountServer;
+use account_module::protocols::account_grpc_server::AccountGrpcServer;
 use auth::check::check_auth_token;
 
 use crate::protocol::knitter_grpc_server::KnitterGrpcServer;
 use services::KnitterServer;
 
-use runtime_handle::set_runtime_handle;
-
-// #[tokio::main]
 fn main() -> Result<(), Box<dyn std::error::Error>> {
+    // 初始化设置
     configs::init_configs_path("./configs.toml".to_string())
         .expect(t!("config.toml文件不存在").as_str());
     let configs = configs::get_configs();
+
+    // 语言设置
     rust_i18n::set_locale(configs.server.language_code.as_str());
 
     // 初始化日志
@@ -109,25 +118,35 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
             // 初始化服务
             knitter_server.init_managers().await;
             knitter_server.init_view_rules().await;
-            
+
             // 事件系统
-            let event_service_configs = event_module::EventServiceConfigs{
+            let event_service_configs = event_module::EventServiceConfigs {
                 max_concurrent_queue: 4,
                 max_event_type_queue_size: 1024,
                 max_listener_instance_size: 1024,
             };
-            match event_module::initialize_event_service(event_service_configs).await{
+
+            match event_module::initialize_event_service(event_service_configs).await {
                 Ok(_) => {
                     info!("{}", t!("事件系统初始化成功"));
-                },
+                }
                 Err(e) => {
                     error!("{}", t!("事件系统初始化失败"));
                     error!("{}", e.details());
                 }
             };
 
-            let knitter_service =
-                KnitterGrpcServer::with_interceptor(knitter_server, check_auth_token);
+            let layer = tower::ServiceBuilder::new()
+                .timeout(Duration::from_secs(30))
+                .layer(tonic::service::interceptor(check_auth_token))
+                .into_inner();
+
+            let knitter_service = KnitterGrpcServer::new(knitter_server)
+                .send_compressed(CompressionEncoding::Gzip)
+                .accept_compressed(CompressionEncoding::Gzip);
+
+            // KnitterGrpcServer::with_interceptor( knitter_server, check_auth_token);
+
             let account_service = AccountGrpcServer::new(account_server);
 
             // 部署在ngnix后时，不使用tls， 本地测试时或者单独启动服务时使用tls
@@ -136,6 +155,7 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
                     .tls_config(tls)?
                     // .concurrency_limit_per_connection(32)
                     // .initial_connection_window_size(32)
+                    .layer(layer)
                     .add_service(knitter_service)
                     .add_optional_service(Some(account_service))
                     .serve_with_shutdown(address, async {

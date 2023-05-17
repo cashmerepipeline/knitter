@@ -1,4 +1,4 @@
-
+use dependencies_sync::tonic_build;
 
 fn main() -> Result<(), Box<dyn std::error::Error>> {
     tonic_build::configure()
@@ -8,6 +8,7 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
         .extern_path(".event.cashmere", "::event_module::protocols")
         .build_client(false)
         .build_server(true)
+        .compile_well_known_types(true)
         .type_attribute(
             "Reference",
             "#[derive(serde::Serialize, serde::Deserialize)]",

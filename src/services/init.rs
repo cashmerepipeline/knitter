@@ -4,9 +4,14 @@
 
 
 use managers::{
-    accounts_manager, areas_manager, comments_manager, countries_manager, datas_manager,
-    groups_manager, language_codes_manager, manages_manager, persons_manager,
+    groups_manager,
+    areas_manager, comments_manager, countries_manager, datas_manager,
+    language_codes_manager, manages_manager, persons_manager,
     phone_area_codes_manager, view_rules_manager, specses_manager, prefabs_manager,
+};
+
+use account_module::managers::{
+    accounts_manager
 };
 
 use knitter_module::managers::{

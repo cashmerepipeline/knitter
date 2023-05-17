@@ -46,10 +46,12 @@
   2. 安装mongodb，并启动服务（默认设置为本地服务，如果在其他机器上，可以修改configs.toml的数据库地址端口字段）
   3. 克隆本仓库到本地
   4. 克隆cashmere_core并且和本仓库在同一目录下
-  5. 克隆knitter_modules并且和本仓库在同一目录下
-  6. 克隆event_modules并且和本仓库在同一目录下
-  7. cd knitter && cargo run
-  8. 克隆knitter_python_api, 并运行knitter_python_api的测试
+  5. 克隆knitter_module并且和本仓库在同一目录下
+  6. 克隆event_module并且和本仓库在同一目录下
+  7. cd cashmere_core/minit, 运行`cargo build`，生成minit初始化工具, 将minit放到knitter仓库目录下
+  8. cd knitter, 运行init_db.ps1, 初始化数据库
+  9. cargo run 启动服务
+  10. 克隆knitter_python_api, 并运行knitter_python_api的测试
   
 ## 相关仓库地址
 

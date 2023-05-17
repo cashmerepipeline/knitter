@@ -31,8 +31,6 @@ import "view.proto";
 
 import "tag_map.proto";
 import "tag.proto";
-import "question.proto";
-import "answer.proto";
 import "comment.proto";
 
 import "event.proto";

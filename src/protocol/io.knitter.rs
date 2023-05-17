@@ -2,14 +2,14 @@
 pub mod knitter_grpc_server {
     #![allow(unused_variables, dead_code, missing_docs, clippy::let_unit_value)]
     use tonic::codegen::*;
-    ///Generated trait containing gRPC methods that should be implemented for use with KnitterGrpcServer.
+    /// Generated trait containing gRPC methods that should be implemented for use with KnitterGrpcServer.
     #[async_trait]
     pub trait KnitterGrpc: Send + Sync + 'static {
         /// 管理
         async fn get_manages(
             &self,
             request: tonic::Request<::manage_define::cashmere::GetManagesRequest>,
-        ) -> Result<
+        ) -> std::result::Result<
             tonic::Response<::manage_define::cashmere::GetManagesResponse>,
             tonic::Status,
         >;
@@ -18,14 +18,14 @@ pub mod knitter_grpc_server {
             request: tonic::Request<
                 ::manage_define::cashmere::GetManageEntryCountRequest,
             >,
-        ) -> Result<
+        ) -> std::result::Result<
             tonic::Response<::manage_define::cashmere::GetManageEntryCountResponse>,
             tonic::Status,
         >;
         async fn get_manage_schema(
             &self,
             request: tonic::Request<::manage_define::cashmere::GetManageSchemaRequest>,
-        ) -> Result<
+        ) -> std::result::Result<
             tonic::Response<::manage_define::cashmere::GetManageSchemaResponse>,
             tonic::Status,
         >;
@@ -34,7 +34,7 @@ pub mod knitter_grpc_server {
             request: tonic::Request<
                 ::manage_define::cashmere::MarkSchemaFieldRemovedRequest,
             >,
-        ) -> Result<
+        ) -> std::result::Result<
             tonic::Response<::manage_define::cashmere::MarkSchemaFieldRemovedResponse>,
             tonic::Status,
         >;
@@ -44,7 +44,7 @@ pub mod knitter_grpc_server {
             request: tonic::Request<
                 ::manage_define::cashmere::ChangeManageReadRuleRequest,
             >,
-        ) -> Result<
+        ) -> std::result::Result<
             tonic::Response<::manage_define::cashmere::ChangeManageReadRuleResponse>,
             tonic::Status,
         >;
@@ -53,7 +53,7 @@ pub mod knitter_grpc_server {
             request: tonic::Request<
                 ::manage_define::cashmere::ChangeManageWriteRuleRequest,
             >,
-        ) -> Result<
+        ) -> std::result::Result<
             tonic::Response<::manage_define::cashmere::ChangeManageWriteRuleResponse>,
             tonic::Status,
         >;
@@ -62,7 +62,7 @@ pub mod knitter_grpc_server {
             request: tonic::Request<
                 ::manage_define::cashmere::ChangeCollectionReadRuleRequest,
             >,
-        ) -> Result<
+        ) -> std::result::Result<
             tonic::Response<::manage_define::cashmere::ChangeCollectionReadRuleResponse>,
             tonic::Status,
         >;
@@ -71,7 +71,7 @@ pub mod knitter_grpc_server {
             request: tonic::Request<
                 ::manage_define::cashmere::ChangeCollectionWriteRuleRequest,
             >,
-        ) -> Result<
+        ) -> std::result::Result<
             tonic::Response<
                 ::manage_define::cashmere::ChangeCollectionWriteRuleResponse,
             >,
@@ -82,7 +82,7 @@ pub mod knitter_grpc_server {
             request: tonic::Request<
                 ::manage_define::cashmere::ChangeFieldReadRuleRequest,
             >,
-        ) -> Result<
+        ) -> std::result::Result<
             tonic::Response<::manage_define::cashmere::ChangeFieldReadRuleResponse>,
             tonic::Status,
         >;
@@ -91,7 +91,7 @@ pub mod knitter_grpc_server {
             request: tonic::Request<
                 ::manage_define::cashmere::ChangeFieldWriteRuleRequest,
             >,
-        ) -> Result<
+        ) -> std::result::Result<
             tonic::Response<::manage_define::cashmere::ChangeFieldWriteRuleResponse>,
             tonic::Status,
         >;
@@ -99,28 +99,28 @@ pub mod knitter_grpc_server {
         async fn get_entity(
             &self,
             request: tonic::Request<::manage_define::cashmere::GetEntityRequest>,
-        ) -> Result<
+        ) -> std::result::Result<
             tonic::Response<::manage_define::cashmere::GetEntityResponse>,
             tonic::Status,
         >;
         async fn get_entities(
             &self,
             request: tonic::Request<::manage_define::cashmere::GetEntitiesRequest>,
-        ) -> Result<
+        ) -> std::result::Result<
             tonic::Response<::manage_define::cashmere::GetEntitiesResponse>,
             tonic::Status,
         >;
         async fn get_entities_page(
             &self,
             request: tonic::Request<::manage_define::cashmere::GetEntitiesPageRequest>,
-        ) -> Result<
+        ) -> std::result::Result<
             tonic::Response<::manage_define::cashmere::GetEntitiesPageResponse>,
             tonic::Status,
         >;
         async fn mark_entity_removed(
             &self,
             request: tonic::Request<::manage_define::cashmere::MarkEntityRemovedRequest>,
-        ) -> Result<
+        ) -> std::result::Result<
             tonic::Response<::manage_define::cashmere::MarkEntityRemovedResponse>,
             tonic::Status,
         >;
@@ -129,7 +129,7 @@ pub mod knitter_grpc_server {
             request: tonic::Request<
                 ::manage_define::cashmere::RecoverRemovedEntityRequest,
             >,
-        ) -> Result<
+        ) -> std::result::Result<
             tonic::Response<::manage_define::cashmere::RecoverRemovedEntityResponse>,
             tonic::Status,
         >;
@@ -138,7 +138,7 @@ pub mod knitter_grpc_server {
             request: tonic::Request<
                 ::manage_define::cashmere::GetRemovedEntitiesPageRequest,
             >,
-        ) -> Result<
+        ) -> std::result::Result<
             tonic::Response<::manage_define::cashmere::GetRemovedEntitiesPageResponse>,
             tonic::Status,
         >;
@@ -146,7 +146,7 @@ pub mod knitter_grpc_server {
         async fn edit_entity_field(
             &self,
             request: tonic::Request<::manage_define::cashmere::EditEntityFieldRequest>,
-        ) -> Result<
+        ) -> std::result::Result<
             tonic::Response<::manage_define::cashmere::EditEntityFieldResponse>,
             tonic::Status,
         >;
@@ -154,7 +154,7 @@ pub mod knitter_grpc_server {
         async fn edit_entity_map_field(
             &self,
             request: tonic::Request<::manage_define::cashmere::EditEntityMapFieldRequest>,
-        ) -> Result<
+        ) -> std::result::Result<
             tonic::Response<::manage_define::cashmere::EditEntityMapFieldResponse>,
             tonic::Status,
         >;
@@ -163,7 +163,7 @@ pub mod knitter_grpc_server {
             request: tonic::Request<
                 ::manage_define::cashmere::EditEntityMapFieldRemoveKeyRequest,
             >,
-        ) -> Result<
+        ) -> std::result::Result<
             tonic::Response<
                 ::manage_define::cashmere::EditEntityMapFieldRemoveKeyResponse,
             >,
@@ -175,7 +175,7 @@ pub mod knitter_grpc_server {
             request: tonic::Request<
                 ::manage_define::cashmere::EditEntityArrayFieldAddItemsRequest,
             >,
-        ) -> Result<
+        ) -> std::result::Result<
             tonic::Response<
                 ::manage_define::cashmere::EditEntityArrayFieldAddItemsResponse,
             >,
@@ -186,7 +186,7 @@ pub mod knitter_grpc_server {
             request: tonic::Request<
                 ::manage_define::cashmere::EditEntityArrayFieldRemoveItemsRequest,
             >,
-        ) -> Result<
+        ) -> std::result::Result<
             tonic::Response<
                 ::manage_define::cashmere::EditEntityArrayFieldRemoveItemsResponse,
             >,
@@ -196,14 +196,14 @@ pub mod knitter_grpc_server {
         async fn rename(
             &self,
             request: tonic::Request<::manage_define::cashmere::RenameRequest>,
-        ) -> Result<
+        ) -> std::result::Result<
             tonic::Response<::manage_define::cashmere::RenameResponse>,
             tonic::Status,
         >;
         async fn new_language_name(
             &self,
             request: tonic::Request<::manage_define::cashmere::NewLanguageNameRequest>,
-        ) -> Result<
+        ) -> std::result::Result<
             tonic::Response<::manage_define::cashmere::NewLanguageNameResponse>,
             tonic::Status,
         >;
@@ -211,7 +211,7 @@ pub mod knitter_grpc_server {
         async fn new_country(
             &self,
             request: tonic::Request<::manage_define::cashmere::NewCountryRequest>,
-        ) -> Result<
+        ) -> std::result::Result<
             tonic::Response<::manage_define::cashmere::NewCountryResponse>,
             tonic::Status,
         >;
@@ -219,7 +219,7 @@ pub mod knitter_grpc_server {
         async fn new_language_code(
             &self,
             request: tonic::Request<::manage_define::cashmere::NewLanguageCodeRequest>,
-        ) -> Result<
+        ) -> std::result::Result<
             tonic::Response<::manage_define::cashmere::NewLanguageCodeResponse>,
             tonic::Status,
         >;
@@ -227,7 +227,7 @@ pub mod knitter_grpc_server {
         async fn new_group(
             &self,
             request: tonic::Request<::manage_define::cashmere::NewGroupRequest>,
-        ) -> Result<
+        ) -> std::result::Result<
             tonic::Response<::manage_define::cashmere::NewGroupResponse>,
             tonic::Status,
         >;
@@ -237,35 +237,35 @@ pub mod knitter_grpc_server {
             request: tonic::Request<
                 ::manage_define::cashmere::GetDataServerConfigsRequest,
             >,
-        ) -> Result<
+        ) -> std::result::Result<
             tonic::Response<::manage_define::cashmere::GetDataServerConfigsResponse>,
             tonic::Status,
         >;
         async fn new_data(
             &self,
             request: tonic::Request<::manage_define::cashmere::NewDataRequest>,
-        ) -> Result<
+        ) -> std::result::Result<
             tonic::Response<::manage_define::cashmere::NewDataResponse>,
             tonic::Status,
         >;
         async fn list_entity_data(
             &self,
             request: tonic::Request<::manage_define::cashmere::ListEntityDataRequest>,
-        ) -> Result<
+        ) -> std::result::Result<
             tonic::Response<::manage_define::cashmere::ListEntityDataResponse>,
             tonic::Status,
         >;
         async fn get_data_info(
             &self,
             request: tonic::Request<::manage_define::cashmere::GetDataInfoRequest>,
-        ) -> Result<
+        ) -> std::result::Result<
             tonic::Response<::manage_define::cashmere::GetDataInfoResponse>,
             tonic::Status,
         >;
         async fn mark_data_removed(
             &self,
             request: tonic::Request<::manage_define::cashmere::MarkDataRemovedRequest>,
-        ) -> Result<
+        ) -> std::result::Result<
             tonic::Response<::manage_define::cashmere::MarkDataRemovedResponse>,
             tonic::Status,
         >;
@@ -273,21 +273,21 @@ pub mod knitter_grpc_server {
         async fn new_specs(
             &self,
             request: tonic::Request<::manage_define::cashmere::NewSpecsRequest>,
-        ) -> Result<
+        ) -> std::result::Result<
             tonic::Response<::manage_define::cashmere::NewSpecsResponse>,
             tonic::Status,
         >;
         async fn list_specs(
             &self,
             request: tonic::Request<::manage_define::cashmere::ListSpecsRequest>,
-        ) -> Result<
+        ) -> std::result::Result<
             tonic::Response<::manage_define::cashmere::ListSpecsResponse>,
             tonic::Status,
         >;
         async fn list_specs_prefabs(
             &self,
             request: tonic::Request<::manage_define::cashmere::ListSpecsPrefabsRequest>,
-        ) -> Result<
+        ) -> std::result::Result<
             tonic::Response<::manage_define::cashmere::ListSpecsPrefabsResponse>,
             tonic::Status,
         >;
@@ -295,14 +295,14 @@ pub mod knitter_grpc_server {
         async fn new_stage(
             &self,
             request: tonic::Request<::manage_define::cashmere::NewStageRequest>,
-        ) -> Result<
+        ) -> std::result::Result<
             tonic::Response<::manage_define::cashmere::NewStageResponse>,
             tonic::Status,
         >;
         async fn list_stages(
             &self,
             request: tonic::Request<::manage_define::cashmere::ListStagesRequest>,
-        ) -> Result<
+        ) -> std::result::Result<
             tonic::Response<::manage_define::cashmere::ListStagesResponse>,
             tonic::Status,
         >;
@@ -310,7 +310,7 @@ pub mod knitter_grpc_server {
         async fn new_prefab(
             &self,
             request: tonic::Request<::manage_define::cashmere::NewPrefabRequest>,
-        ) -> Result<
+        ) -> std::result::Result<
             tonic::Response<::manage_define::cashmere::NewPrefabResponse>,
             tonic::Status,
         >;
@@ -318,14 +318,14 @@ pub mod knitter_grpc_server {
         async fn add_stage_version(
             &self,
             request: tonic::Request<::manage_define::cashmere::AddStageVersionRequest>,
-        ) -> Result<
+        ) -> std::result::Result<
             tonic::Response<::manage_define::cashmere::AddStageVersionResponse>,
             tonic::Status,
         >;
         async fn list_stage_versions(
             &self,
             request: tonic::Request<::manage_define::cashmere::ListStageVersionsRequest>,
-        ) -> Result<
+        ) -> std::result::Result<
             tonic::Response<::manage_define::cashmere::ListStageVersionsResponse>,
             tonic::Status,
         >;
@@ -334,14 +334,14 @@ pub mod knitter_grpc_server {
             request: tonic::Request<
                 ::manage_define::cashmere::SetStageCurrentVersionRequest,
             >,
-        ) -> Result<
+        ) -> std::result::Result<
             tonic::Response<::manage_define::cashmere::SetStageCurrentVersionResponse>,
             tonic::Status,
         >;
         async fn remove_stage_version(
             &self,
             request: tonic::Request<::manage_define::cashmere::RemoveStageVersionRequest>,
-        ) -> Result<
+        ) -> std::result::Result<
             tonic::Response<::manage_define::cashmere::RemoveStageVersionResponse>,
             tonic::Status,
         >;
@@ -349,7 +349,7 @@ pub mod knitter_grpc_server {
         async fn add_file_to_version(
             &self,
             request: tonic::Request<::manage_define::cashmere::AddFileToVersionRequest>,
-        ) -> Result<
+        ) -> std::result::Result<
             tonic::Response<::manage_define::cashmere::AddFileToVersionResponse>,
             tonic::Status,
         >;
@@ -358,7 +358,7 @@ pub mod knitter_grpc_server {
             request: tonic::Request<
                 ::manage_define::cashmere::AddFileSetToVersionRequest,
             >,
-        ) -> Result<
+        ) -> std::result::Result<
             tonic::Response<::manage_define::cashmere::AddFileSetToVersionResponse>,
             tonic::Status,
         >;
@@ -367,7 +367,7 @@ pub mod knitter_grpc_server {
             request: tonic::Request<
                 ::manage_define::cashmere::AddFileSequenceToVersionRequest,
             >,
-        ) -> Result<
+        ) -> std::result::Result<
             tonic::Response<::manage_define::cashmere::AddFileSequenceToVersionResponse>,
             tonic::Status,
         >;
@@ -377,14 +377,14 @@ pub mod knitter_grpc_server {
             request: tonic::Request<
                 ::manage_define::cashmere::RemoveFilesFromVersionRequest,
             >,
-        ) -> Result<
+        ) -> std::result::Result<
             tonic::Response<::manage_define::cashmere::RemoveFilesFromVersionResponse>,
             tonic::Status,
         >;
         async fn list_version_folder(
             &self,
             request: tonic::Request<::manage_define::cashmere::ListVersionFolderRequest>,
-        ) -> Result<
+        ) -> std::result::Result<
             tonic::Response<::manage_define::cashmere::ListVersionFolderResponse>,
             tonic::Status,
         >;
@@ -394,15 +394,15 @@ pub mod knitter_grpc_server {
             request: tonic::Request<
                 ::manage_define::cashmere::DeleteVersionFolderEntriesRequest,
             >,
-        ) -> Result<
+        ) -> std::result::Result<
             tonic::Response<
                 ::manage_define::cashmere::DeleteVersionFolderEntriesResponse,
             >,
             tonic::Status,
         >;
-        ///Server streaming response type for the UploadFile method.
+        /// Server streaming response type for the UploadFile method.
         type UploadFileStream: futures_core::Stream<
-                Item = Result<
+                Item = std::result::Result<
                     ::manage_define::cashmere::UploadFileResponse,
                     tonic::Status,
                 >,
@@ -414,10 +414,10 @@ pub mod knitter_grpc_server {
             request: tonic::Request<
                 tonic::Streaming<::manage_define::cashmere::UploadFileRequest>,
             >,
-        ) -> Result<tonic::Response<Self::UploadFileStream>, tonic::Status>;
-        ///Server streaming response type for the DownloadFile method.
+        ) -> std::result::Result<tonic::Response<Self::UploadFileStream>, tonic::Status>;
+        /// Server streaming response type for the DownloadFile method.
         type DownloadFileStream: futures_core::Stream<
-                Item = Result<
+                Item = std::result::Result<
                     ::manage_define::cashmere::DownloadFileResponse,
                     tonic::Status,
                 >,
@@ -429,12 +429,15 @@ pub mod knitter_grpc_server {
             request: tonic::Request<
                 tonic::Streaming<::manage_define::cashmere::DownloadFileRequest>,
             >,
-        ) -> Result<tonic::Response<Self::DownloadFileStream>, tonic::Status>;
+        ) -> std::result::Result<
+            tonic::Response<Self::DownloadFileStream>,
+            tonic::Status,
+        >;
         /// 事件
         async fn register_event_type(
             &self,
             request: tonic::Request<::event_module::protocols::RegisterEventTypeRequest>,
-        ) -> Result<
+        ) -> std::result::Result<
             tonic::Response<::event_module::protocols::RegisterEventTypeResponse>,
             tonic::Status,
         >;
@@ -444,7 +447,7 @@ pub mod knitter_grpc_server {
             request: tonic::Request<
                 ::event_module::protocols::RegisterEventEmitterRequest,
             >,
-        ) -> Result<
+        ) -> std::result::Result<
             tonic::Response<::event_module::protocols::RegisterEventEmitterResponse>,
             tonic::Status,
         >;
@@ -453,13 +456,13 @@ pub mod knitter_grpc_server {
             request: tonic::Request<
                 ::event_module::protocols::RegisterEventListenerRequest,
             >,
-        ) -> Result<
+        ) -> std::result::Result<
             tonic::Response<::event_module::protocols::RegisterEventListenerResponse>,
             tonic::Status,
         >;
-        ///Server streaming response type for the EmitEvent method.
+        /// Server streaming response type for the EmitEvent method.
         type EmitEventStream: futures_core::Stream<
-                Item = Result<
+                Item = std::result::Result<
                     ::event_module::protocols::EmitEventResponse,
                     tonic::Status,
                 >,
@@ -469,10 +472,10 @@ pub mod knitter_grpc_server {
         async fn emit_event(
             &self,
             request: tonic::Request<::event_module::protocols::EmitEventRequest>,
-        ) -> Result<tonic::Response<Self::EmitEventStream>, tonic::Status>;
-        ///Server streaming response type for the ListenEventType method.
+        ) -> std::result::Result<tonic::Response<Self::EmitEventStream>, tonic::Status>;
+        /// Server streaming response type for the ListenEventType method.
         type ListenEventTypeStream: futures_core::Stream<
-                Item = Result<
+                Item = std::result::Result<
                     ::event_module::protocols::ListenEventTypeResponse,
                     tonic::Status,
                 >,
@@ -482,12 +485,15 @@ pub mod knitter_grpc_server {
         async fn listen_event_type(
             &self,
             request: tonic::Request<::event_module::protocols::ListenEventTypeRequest>,
-        ) -> Result<tonic::Response<Self::ListenEventTypeStream>, tonic::Status>;
+        ) -> std::result::Result<
+            tonic::Response<Self::ListenEventTypeStream>,
+            tonic::Status,
+        >;
         /// 项目
         async fn new_project(
             &self,
             request: tonic::Request<::knitter_module::protocols::NewProjectRequest>,
-        ) -> Result<
+        ) -> std::result::Result<
             tonic::Response<::knitter_module::protocols::NewProjectResponse>,
             tonic::Status,
         >;
@@ -496,7 +502,7 @@ pub mod knitter_grpc_server {
             request: tonic::Request<
                 ::knitter_module::protocols::AssociateAssetCollectionsToProjectRequest,
             >,
-        ) -> Result<
+        ) -> std::result::Result<
             tonic::Response<
                 ::knitter_module::protocols::AssociateAssetCollectionsToProjectResponse,
             >,
@@ -507,7 +513,7 @@ pub mod knitter_grpc_server {
             request: tonic::Request<
                 ::knitter_module::protocols::DeassociateAssetCollectionsFromProjectRequest,
             >,
-        ) -> Result<
+        ) -> std::result::Result<
             tonic::Response<
                 ::knitter_module::protocols::DeassociateAssetCollectionsFromProjectResponse,
             >,
@@ -518,7 +524,7 @@ pub mod knitter_grpc_server {
             request: tonic::Request<
                 ::knitter_module::protocols::AssociateSetCollectionsToProjectRequest,
             >,
-        ) -> Result<
+        ) -> std::result::Result<
             tonic::Response<
                 ::knitter_module::protocols::AssociateSetCollectionsToProjectResponse,
             >,
@@ -529,7 +535,7 @@ pub mod knitter_grpc_server {
             request: tonic::Request<
                 ::knitter_module::protocols::DeassociateSetCollectionsFromProjectRequest,
             >,
-        ) -> Result<
+        ) -> std::result::Result<
             tonic::Response<
                 ::knitter_module::protocols::DeassociateSetCollectionsFromProjectResponse,
             >,
@@ -540,7 +546,7 @@ pub mod knitter_grpc_server {
             request: tonic::Request<
                 ::knitter_module::protocols::GetProjectAssociatedAssetCollectionsRequest,
             >,
-        ) -> Result<
+        ) -> std::result::Result<
             tonic::Response<
                 ::knitter_module::protocols::GetProjectAssociatedAssetCollectionsResponse,
             >,
@@ -551,7 +557,7 @@ pub mod knitter_grpc_server {
             request: tonic::Request<
                 ::knitter_module::protocols::GetProjectAssociatedSetCollectionsRequest,
             >,
-        ) -> Result<
+        ) -> std::result::Result<
             tonic::Response<
                 ::knitter_module::protocols::GetProjectAssociatedSetCollectionsResponse,
             >,
@@ -562,7 +568,7 @@ pub mod knitter_grpc_server {
             request: tonic::Request<
                 ::knitter_module::protocols::ChangeProjectStatusRequest,
             >,
-        ) -> Result<
+        ) -> std::result::Result<
             tonic::Response<::knitter_module::protocols::ChangeProjectStatusResponse>,
             tonic::Status,
         >;
@@ -572,7 +578,7 @@ pub mod knitter_grpc_server {
             request: tonic::Request<
                 ::knitter_module::protocols::NewAssetCollectionRequest,
             >,
-        ) -> Result<
+        ) -> std::result::Result<
             tonic::Response<::knitter_module::protocols::NewAssetCollectionResponse>,
             tonic::Status,
         >;
@@ -581,7 +587,7 @@ pub mod knitter_grpc_server {
             request: tonic::Request<
                 ::knitter_module::protocols::GetAssetCollectionAssetTotalCountRequest,
             >,
-        ) -> Result<
+        ) -> std::result::Result<
             tonic::Response<
                 ::knitter_module::protocols::GetAssetCollectionAssetTotalCountResponse,
             >,
@@ -592,7 +598,7 @@ pub mod knitter_grpc_server {
             request: tonic::Request<
                 ::knitter_module::protocols::GetAssetCollectionAssemblyTotalCountRequest,
             >,
-        ) -> Result<
+        ) -> std::result::Result<
             tonic::Response<
                 ::knitter_module::protocols::GetAssetCollectionAssemblyTotalCountResponse,
             >,
@@ -603,7 +609,7 @@ pub mod knitter_grpc_server {
             request: tonic::Request<
                 ::knitter_module::protocols::GetAssetCollectionAssetsPageRequest,
             >,
-        ) -> Result<
+        ) -> std::result::Result<
             tonic::Response<
                 ::knitter_module::protocols::GetAssetCollectionAssetsPageResponse,
             >,
@@ -614,7 +620,7 @@ pub mod knitter_grpc_server {
             request: tonic::Request<
                 ::knitter_module::protocols::GetAssetCollectionAssembliesPageRequest,
             >,
-        ) -> Result<
+        ) -> std::result::Result<
             tonic::Response<
                 ::knitter_module::protocols::GetAssetCollectionAssembliesPageResponse,
             >,
@@ -624,7 +630,7 @@ pub mod knitter_grpc_server {
         async fn new_asset(
             &self,
             request: tonic::Request<::knitter_module::protocols::NewAssetRequest>,
-        ) -> Result<
+        ) -> std::result::Result<
             tonic::Response<::knitter_module::protocols::NewAssetResponse>,
             tonic::Status,
         >;
@@ -633,14 +639,14 @@ pub mod knitter_grpc_server {
             request: tonic::Request<
                 ::knitter_module::protocols::GetReferencedAssetsRequest,
             >,
-        ) -> Result<
+        ) -> std::result::Result<
             tonic::Response<::knitter_module::protocols::GetReferencedAssetsResponse>,
             tonic::Status,
         >;
         async fn mark_asset_status(
             &self,
             request: tonic::Request<::knitter_module::protocols::MarkAssetStatusRequest>,
-        ) -> Result<
+        ) -> std::result::Result<
             tonic::Response<::knitter_module::protocols::MarkAssetStatusResponse>,
             tonic::Status,
         >;
@@ -648,7 +654,7 @@ pub mod knitter_grpc_server {
         async fn new_assembly(
             &self,
             request: tonic::Request<::knitter_module::protocols::NewAssemblyRequest>,
-        ) -> Result<
+        ) -> std::result::Result<
             tonic::Response<::knitter_module::protocols::NewAssemblyResponse>,
             tonic::Status,
         >;
@@ -656,14 +662,14 @@ pub mod knitter_grpc_server {
         async fn new_epic(
             &self,
             request: tonic::Request<::knitter_module::protocols::NewEpicRequest>,
-        ) -> Result<
+        ) -> std::result::Result<
             tonic::Response<::knitter_module::protocols::NewEpicResponse>,
             tonic::Status,
         >;
         async fn get_epic_sequences(
             &self,
             request: tonic::Request<::knitter_module::protocols::GetEpicSequencesRequest>,
-        ) -> Result<
+        ) -> std::result::Result<
             tonic::Response<::knitter_module::protocols::GetEpicSequencesResponse>,
             tonic::Status,
         >;
@@ -671,14 +677,14 @@ pub mod knitter_grpc_server {
         async fn new_sequence(
             &self,
             request: tonic::Request<::knitter_module::protocols::NewSequenceRequest>,
-        ) -> Result<
+        ) -> std::result::Result<
             tonic::Response<::knitter_module::protocols::NewSequenceResponse>,
             tonic::Status,
         >;
         async fn get_sequence_cuts(
             &self,
             request: tonic::Request<::knitter_module::protocols::GetSequenceCutsRequest>,
-        ) -> Result<
+        ) -> std::result::Result<
             tonic::Response<::knitter_module::protocols::GetSequenceCutsResponse>,
             tonic::Status,
         >;
@@ -686,7 +692,7 @@ pub mod knitter_grpc_server {
         async fn new_cut(
             &self,
             request: tonic::Request<::knitter_module::protocols::NewCutRequest>,
-        ) -> Result<
+        ) -> std::result::Result<
             tonic::Response<::knitter_module::protocols::NewCutResponse>,
             tonic::Status,
         >;
@@ -695,14 +701,14 @@ pub mod knitter_grpc_server {
             request: tonic::Request<
                 ::knitter_module::protocols::GetCutReferencedAssetsRequest,
             >,
-        ) -> Result<
+        ) -> std::result::Result<
             tonic::Response<::knitter_module::protocols::GetCutReferencedAssetsResponse>,
             tonic::Status,
         >;
         async fn mark_cut_status(
             &self,
             request: tonic::Request<::knitter_module::protocols::MarkCutStatusRequest>,
-        ) -> Result<
+        ) -> std::result::Result<
             tonic::Response<::knitter_module::protocols::MarkCutStatusResponse>,
             tonic::Status,
         >;
@@ -710,7 +716,7 @@ pub mod knitter_grpc_server {
         async fn new_set_collection(
             &self,
             request: tonic::Request<::knitter_module::protocols::NewSetCollectionRequest>,
-        ) -> Result<
+        ) -> std::result::Result<
             tonic::Response<::knitter_module::protocols::NewSetCollectionResponse>,
             tonic::Status,
         >;
@@ -719,7 +725,7 @@ pub mod knitter_grpc_server {
             request: tonic::Request<
                 ::knitter_module::protocols::GetSetCollectionSetsPageRequest,
             >,
-        ) -> Result<
+        ) -> std::result::Result<
             tonic::Response<
                 ::knitter_module::protocols::GetSetCollectionSetsPageResponse,
             >,
@@ -730,7 +736,7 @@ pub mod knitter_grpc_server {
             request: tonic::Request<
                 ::knitter_module::protocols::GetSetCollectionSetTotalCountRequest,
             >,
-        ) -> Result<
+        ) -> std::result::Result<
             tonic::Response<
                 ::knitter_module::protocols::GetSetCollectionSetTotalCountResponse,
             >,
@@ -740,14 +746,14 @@ pub mod knitter_grpc_server {
         async fn new_set(
             &self,
             request: tonic::Request<::knitter_module::protocols::NewSetRequest>,
-        ) -> Result<
+        ) -> std::result::Result<
             tonic::Response<::knitter_module::protocols::NewSetResponse>,
             tonic::Status,
         >;
         async fn mark_set_satus(
             &self,
             request: tonic::Request<::knitter_module::protocols::MarkSetStatusRequest>,
-        ) -> Result<
+        ) -> std::result::Result<
             tonic::Response<::knitter_module::protocols::MarkSetStatusResponse>,
             tonic::Status,
         >;
@@ -755,21 +761,21 @@ pub mod knitter_grpc_server {
         async fn add_references(
             &self,
             request: tonic::Request<::knitter_module::protocols::AddReferencesRequest>,
-        ) -> Result<
+        ) -> std::result::Result<
             tonic::Response<::knitter_module::protocols::AddReferencesResponse>,
             tonic::Status,
         >;
         async fn remove_references(
             &self,
             request: tonic::Request<::knitter_module::protocols::RemoveReferencesRequest>,
-        ) -> Result<
+        ) -> std::result::Result<
             tonic::Response<::knitter_module::protocols::RemoveReferencesResponse>,
             tonic::Status,
         >;
         async fn list_references(
             &self,
             request: tonic::Request<::knitter_module::protocols::ListReferencesRequest>,
-        ) -> Result<
+        ) -> std::result::Result<
             tonic::Response<::knitter_module::protocols::ListReferencesResponse>,
             tonic::Status,
         >;
@@ -778,7 +784,7 @@ pub mod knitter_grpc_server {
             request: tonic::Request<
                 ::knitter_module::protocols::ChangeReferencePrefabRequest,
             >,
-        ) -> Result<
+        ) -> std::result::Result<
             tonic::Response<::knitter_module::protocols::ChangeReferencePrefabResponse>,
             tonic::Status,
         >;
@@ -786,8 +792,10 @@ pub mod knitter_grpc_server {
     #[derive(Debug)]
     pub struct KnitterGrpcServer<T: KnitterGrpc> {
         inner: _Inner<T>,
-        accept_compression_encodings: (),
-        send_compression_encodings: (),
+        accept_compression_encodings: EnabledCompressionEncodings,
+        send_compression_encodings: EnabledCompressionEncodings,
+        max_decoding_message_size: Option<usize>,
+        max_encoding_message_size: Option<usize>,
     }
     struct _Inner<T>(Arc<T>);
     impl<T: KnitterGrpc> KnitterGrpcServer<T> {
@@ -800,6 +808,8 @@ pub mod knitter_grpc_server {
                 inner,
                 accept_compression_encodings: Default::default(),
                 send_compression_encodings: Default::default(),
+                max_decoding_message_size: None,
+                max_encoding_message_size: None,
             }
         }
         pub fn with_interceptor<F>(
@@ -810,6 +820,34 @@ pub mod knitter_grpc_server {
             F: tonic::service::Interceptor,
         {
             InterceptedService::new(Self::new(inner), interceptor)
+        }
+        /// Enable decompressing requests with the given encoding.
+        #[must_use]
+        pub fn accept_compressed(mut self, encoding: CompressionEncoding) -> Self {
+            self.accept_compression_encodings.enable(encoding);
+            self
+        }
+        /// Compress responses with the given encoding, if the client supports it.
+        #[must_use]
+        pub fn send_compressed(mut self, encoding: CompressionEncoding) -> Self {
+            self.send_compression_encodings.enable(encoding);
+            self
+        }
+        /// Limits the maximum size of a decoded message.
+        ///
+        /// Default: `4MB`
+        #[must_use]
+        pub fn max_decoding_message_size(mut self, limit: usize) -> Self {
+            self.max_decoding_message_size = Some(limit);
+            self
+        }
+        /// Limits the maximum size of an encoded message.
+        ///
+        /// Default: `usize::MAX`
+        #[must_use]
+        pub fn max_encoding_message_size(mut self, limit: usize) -> Self {
+            self.max_encoding_message_size = Some(limit);
+            self
         }
     }
     impl<T, B> tonic::codegen::Service<http::Request<B>> for KnitterGrpcServer<T>
@@ -824,7 +862,7 @@ pub mod knitter_grpc_server {
         fn poll_ready(
             &mut self,
             _cx: &mut Context<'_>,
-        ) -> Poll<Result<(), Self::Error>> {
+        ) -> Poll<std::result::Result<(), Self::Error>> {
             Poll::Ready(Ok(()))
         }
         fn call(&mut self, req: http::Request<B>) -> Self::Future {
@@ -849,13 +887,15 @@ pub mod knitter_grpc_server {
                                 ::manage_define::cashmere::GetManagesRequest,
                             >,
                         ) -> Self::Future {
-                            let inner = self.0.clone();
+                            let inner = Arc::clone(&self.0);
                             let fut = async move { (*inner).get_manages(request).await };
                             Box::pin(fut)
                         }
                     }
                     let accept_compression_encodings = self.accept_compression_encodings;
                     let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
                     let inner = self.inner.clone();
                     let fut = async move {
                         let inner = inner.0;
@@ -865,6 +905,10 @@ pub mod knitter_grpc_server {
                             .apply_compression_config(
                                 accept_compression_encodings,
                                 send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
                             );
                         let res = grpc.unary(method, req).await;
                         Ok(res)
@@ -890,7 +934,7 @@ pub mod knitter_grpc_server {
                                 ::manage_define::cashmere::GetManageEntryCountRequest,
                             >,
                         ) -> Self::Future {
-                            let inner = self.0.clone();
+                            let inner = Arc::clone(&self.0);
                             let fut = async move {
                                 (*inner).get_manage_entry_count(request).await
                             };
@@ -899,6 +943,8 @@ pub mod knitter_grpc_server {
                     }
                     let accept_compression_encodings = self.accept_compression_encodings;
                     let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
                     let inner = self.inner.clone();
                     let fut = async move {
                         let inner = inner.0;
@@ -908,6 +954,10 @@ pub mod knitter_grpc_server {
                             .apply_compression_config(
                                 accept_compression_encodings,
                                 send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
                             );
                         let res = grpc.unary(method, req).await;
                         Ok(res)
@@ -933,7 +983,7 @@ pub mod knitter_grpc_server {
                                 ::manage_define::cashmere::GetManageSchemaRequest,
                             >,
                         ) -> Self::Future {
-                            let inner = self.0.clone();
+                            let inner = Arc::clone(&self.0);
                             let fut = async move {
                                 (*inner).get_manage_schema(request).await
                             };
@@ -942,6 +992,8 @@ pub mod knitter_grpc_server {
                     }
                     let accept_compression_encodings = self.accept_compression_encodings;
                     let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
                     let inner = self.inner.clone();
                     let fut = async move {
                         let inner = inner.0;
@@ -951,6 +1003,10 @@ pub mod knitter_grpc_server {
                             .apply_compression_config(
                                 accept_compression_encodings,
                                 send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
                             );
                         let res = grpc.unary(method, req).await;
                         Ok(res)
@@ -976,7 +1032,7 @@ pub mod knitter_grpc_server {
                                 ::manage_define::cashmere::MarkSchemaFieldRemovedRequest,
                             >,
                         ) -> Self::Future {
-                            let inner = self.0.clone();
+                            let inner = Arc::clone(&self.0);
                             let fut = async move {
                                 (*inner).mark_schema_field_removed(request).await
                             };
@@ -985,6 +1041,8 @@ pub mod knitter_grpc_server {
                     }
                     let accept_compression_encodings = self.accept_compression_encodings;
                     let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
                     let inner = self.inner.clone();
                     let fut = async move {
                         let inner = inner.0;
@@ -994,6 +1052,10 @@ pub mod knitter_grpc_server {
                             .apply_compression_config(
                                 accept_compression_encodings,
                                 send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
                             );
                         let res = grpc.unary(method, req).await;
                         Ok(res)
@@ -1019,7 +1081,7 @@ pub mod knitter_grpc_server {
                                 ::manage_define::cashmere::ChangeManageReadRuleRequest,
                             >,
                         ) -> Self::Future {
-                            let inner = self.0.clone();
+                            let inner = Arc::clone(&self.0);
                             let fut = async move {
                                 (*inner).change_manage_read_rule(request).await
                             };
@@ -1028,6 +1090,8 @@ pub mod knitter_grpc_server {
                     }
                     let accept_compression_encodings = self.accept_compression_encodings;
                     let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
                     let inner = self.inner.clone();
                     let fut = async move {
                         let inner = inner.0;
@@ -1037,6 +1101,10 @@ pub mod knitter_grpc_server {
                             .apply_compression_config(
                                 accept_compression_encodings,
                                 send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
                             );
                         let res = grpc.unary(method, req).await;
                         Ok(res)
@@ -1062,7 +1130,7 @@ pub mod knitter_grpc_server {
                                 ::manage_define::cashmere::ChangeManageWriteRuleRequest,
                             >,
                         ) -> Self::Future {
-                            let inner = self.0.clone();
+                            let inner = Arc::clone(&self.0);
                             let fut = async move {
                                 (*inner).change_manage_write_rule(request).await
                             };
@@ -1071,6 +1139,8 @@ pub mod knitter_grpc_server {
                     }
                     let accept_compression_encodings = self.accept_compression_encodings;
                     let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
                     let inner = self.inner.clone();
                     let fut = async move {
                         let inner = inner.0;
@@ -1080,6 +1150,10 @@ pub mod knitter_grpc_server {
                             .apply_compression_config(
                                 accept_compression_encodings,
                                 send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
                             );
                         let res = grpc.unary(method, req).await;
                         Ok(res)
@@ -1105,7 +1179,7 @@ pub mod knitter_grpc_server {
                                 ::manage_define::cashmere::ChangeCollectionReadRuleRequest,
                             >,
                         ) -> Self::Future {
-                            let inner = self.0.clone();
+                            let inner = Arc::clone(&self.0);
                             let fut = async move {
                                 (*inner).change_collection_read_rule(request).await
                             };
@@ -1114,6 +1188,8 @@ pub mod knitter_grpc_server {
                     }
                     let accept_compression_encodings = self.accept_compression_encodings;
                     let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
                     let inner = self.inner.clone();
                     let fut = async move {
                         let inner = inner.0;
@@ -1123,6 +1199,10 @@ pub mod knitter_grpc_server {
                             .apply_compression_config(
                                 accept_compression_encodings,
                                 send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
                             );
                         let res = grpc.unary(method, req).await;
                         Ok(res)
@@ -1148,7 +1228,7 @@ pub mod knitter_grpc_server {
                                 ::manage_define::cashmere::ChangeCollectionWriteRuleRequest,
                             >,
                         ) -> Self::Future {
-                            let inner = self.0.clone();
+                            let inner = Arc::clone(&self.0);
                             let fut = async move {
                                 (*inner).change_collection_write_rule(request).await
                             };
@@ -1157,6 +1237,8 @@ pub mod knitter_grpc_server {
                     }
                     let accept_compression_encodings = self.accept_compression_encodings;
                     let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
                     let inner = self.inner.clone();
                     let fut = async move {
                         let inner = inner.0;
@@ -1166,6 +1248,10 @@ pub mod knitter_grpc_server {
                             .apply_compression_config(
                                 accept_compression_encodings,
                                 send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
                             );
                         let res = grpc.unary(method, req).await;
                         Ok(res)
@@ -1191,7 +1277,7 @@ pub mod knitter_grpc_server {
                                 ::manage_define::cashmere::ChangeFieldReadRuleRequest,
                             >,
                         ) -> Self::Future {
-                            let inner = self.0.clone();
+                            let inner = Arc::clone(&self.0);
                             let fut = async move {
                                 (*inner).change_field_read_rule(request).await
                             };
@@ -1200,6 +1286,8 @@ pub mod knitter_grpc_server {
                     }
                     let accept_compression_encodings = self.accept_compression_encodings;
                     let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
                     let inner = self.inner.clone();
                     let fut = async move {
                         let inner = inner.0;
@@ -1209,6 +1297,10 @@ pub mod knitter_grpc_server {
                             .apply_compression_config(
                                 accept_compression_encodings,
                                 send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
                             );
                         let res = grpc.unary(method, req).await;
                         Ok(res)
@@ -1234,7 +1326,7 @@ pub mod knitter_grpc_server {
                                 ::manage_define::cashmere::ChangeFieldWriteRuleRequest,
                             >,
                         ) -> Self::Future {
-                            let inner = self.0.clone();
+                            let inner = Arc::clone(&self.0);
                             let fut = async move {
                                 (*inner).change_field_write_rule(request).await
                             };
@@ -1243,6 +1335,8 @@ pub mod knitter_grpc_server {
                     }
                     let accept_compression_encodings = self.accept_compression_encodings;
                     let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
                     let inner = self.inner.clone();
                     let fut = async move {
                         let inner = inner.0;
@@ -1252,6 +1346,10 @@ pub mod knitter_grpc_server {
                             .apply_compression_config(
                                 accept_compression_encodings,
                                 send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
                             );
                         let res = grpc.unary(method, req).await;
                         Ok(res)
@@ -1277,13 +1375,15 @@ pub mod knitter_grpc_server {
                                 ::manage_define::cashmere::GetEntityRequest,
                             >,
                         ) -> Self::Future {
-                            let inner = self.0.clone();
+                            let inner = Arc::clone(&self.0);
                             let fut = async move { (*inner).get_entity(request).await };
                             Box::pin(fut)
                         }
                     }
                     let accept_compression_encodings = self.accept_compression_encodings;
                     let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
                     let inner = self.inner.clone();
                     let fut = async move {
                         let inner = inner.0;
@@ -1293,6 +1393,10 @@ pub mod knitter_grpc_server {
                             .apply_compression_config(
                                 accept_compression_encodings,
                                 send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
                             );
                         let res = grpc.unary(method, req).await;
                         Ok(res)
@@ -1318,7 +1422,7 @@ pub mod knitter_grpc_server {
                                 ::manage_define::cashmere::GetEntitiesRequest,
                             >,
                         ) -> Self::Future {
-                            let inner = self.0.clone();
+                            let inner = Arc::clone(&self.0);
                             let fut = async move {
                                 (*inner).get_entities(request).await
                             };
@@ -1327,6 +1431,8 @@ pub mod knitter_grpc_server {
                     }
                     let accept_compression_encodings = self.accept_compression_encodings;
                     let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
                     let inner = self.inner.clone();
                     let fut = async move {
                         let inner = inner.0;
@@ -1336,6 +1442,10 @@ pub mod knitter_grpc_server {
                             .apply_compression_config(
                                 accept_compression_encodings,
                                 send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
                             );
                         let res = grpc.unary(method, req).await;
                         Ok(res)
@@ -1361,7 +1471,7 @@ pub mod knitter_grpc_server {
                                 ::manage_define::cashmere::GetEntitiesPageRequest,
                             >,
                         ) -> Self::Future {
-                            let inner = self.0.clone();
+                            let inner = Arc::clone(&self.0);
                             let fut = async move {
                                 (*inner).get_entities_page(request).await
                             };
@@ -1370,6 +1480,8 @@ pub mod knitter_grpc_server {
                     }
                     let accept_compression_encodings = self.accept_compression_encodings;
                     let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
                     let inner = self.inner.clone();
                     let fut = async move {
                         let inner = inner.0;
@@ -1379,6 +1491,10 @@ pub mod knitter_grpc_server {
                             .apply_compression_config(
                                 accept_compression_encodings,
                                 send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
                             );
                         let res = grpc.unary(method, req).await;
                         Ok(res)
@@ -1404,7 +1520,7 @@ pub mod knitter_grpc_server {
                                 ::manage_define::cashmere::MarkEntityRemovedRequest,
                             >,
                         ) -> Self::Future {
-                            let inner = self.0.clone();
+                            let inner = Arc::clone(&self.0);
                             let fut = async move {
                                 (*inner).mark_entity_removed(request).await
                             };
@@ -1413,6 +1529,8 @@ pub mod knitter_grpc_server {
                     }
                     let accept_compression_encodings = self.accept_compression_encodings;
                     let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
                     let inner = self.inner.clone();
                     let fut = async move {
                         let inner = inner.0;
@@ -1422,6 +1540,10 @@ pub mod knitter_grpc_server {
                             .apply_compression_config(
                                 accept_compression_encodings,
                                 send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
                             );
                         let res = grpc.unary(method, req).await;
                         Ok(res)
@@ -1447,7 +1569,7 @@ pub mod knitter_grpc_server {
                                 ::manage_define::cashmere::RecoverRemovedEntityRequest,
                             >,
                         ) -> Self::Future {
-                            let inner = self.0.clone();
+                            let inner = Arc::clone(&self.0);
                             let fut = async move {
                                 (*inner).recover_removed_entity(request).await
                             };
@@ -1456,6 +1578,8 @@ pub mod knitter_grpc_server {
                     }
                     let accept_compression_encodings = self.accept_compression_encodings;
                     let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
                     let inner = self.inner.clone();
                     let fut = async move {
                         let inner = inner.0;
@@ -1465,6 +1589,10 @@ pub mod knitter_grpc_server {
                             .apply_compression_config(
                                 accept_compression_encodings,
                                 send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
                             );
                         let res = grpc.unary(method, req).await;
                         Ok(res)
@@ -1490,7 +1618,7 @@ pub mod knitter_grpc_server {
                                 ::manage_define::cashmere::GetRemovedEntitiesPageRequest,
                             >,
                         ) -> Self::Future {
-                            let inner = self.0.clone();
+                            let inner = Arc::clone(&self.0);
                             let fut = async move {
                                 (*inner).get_removed_entities_page(request).await
                             };
@@ -1499,6 +1627,8 @@ pub mod knitter_grpc_server {
                     }
                     let accept_compression_encodings = self.accept_compression_encodings;
                     let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
                     let inner = self.inner.clone();
                     let fut = async move {
                         let inner = inner.0;
@@ -1508,6 +1638,10 @@ pub mod knitter_grpc_server {
                             .apply_compression_config(
                                 accept_compression_encodings,
                                 send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
                             );
                         let res = grpc.unary(method, req).await;
                         Ok(res)
@@ -1533,7 +1667,7 @@ pub mod knitter_grpc_server {
                                 ::manage_define::cashmere::EditEntityFieldRequest,
                             >,
                         ) -> Self::Future {
-                            let inner = self.0.clone();
+                            let inner = Arc::clone(&self.0);
                             let fut = async move {
                                 (*inner).edit_entity_field(request).await
                             };
@@ -1542,6 +1676,8 @@ pub mod knitter_grpc_server {
                     }
                     let accept_compression_encodings = self.accept_compression_encodings;
                     let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
                     let inner = self.inner.clone();
                     let fut = async move {
                         let inner = inner.0;
@@ -1551,6 +1687,10 @@ pub mod knitter_grpc_server {
                             .apply_compression_config(
                                 accept_compression_encodings,
                                 send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
                             );
                         let res = grpc.unary(method, req).await;
                         Ok(res)
@@ -1576,7 +1716,7 @@ pub mod knitter_grpc_server {
                                 ::manage_define::cashmere::EditEntityMapFieldRequest,
                             >,
                         ) -> Self::Future {
-                            let inner = self.0.clone();
+                            let inner = Arc::clone(&self.0);
                             let fut = async move {
                                 (*inner).edit_entity_map_field(request).await
                             };
@@ -1585,6 +1725,8 @@ pub mod knitter_grpc_server {
                     }
                     let accept_compression_encodings = self.accept_compression_encodings;
                     let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
                     let inner = self.inner.clone();
                     let fut = async move {
                         let inner = inner.0;
@@ -1594,6 +1736,10 @@ pub mod knitter_grpc_server {
                             .apply_compression_config(
                                 accept_compression_encodings,
                                 send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
                             );
                         let res = grpc.unary(method, req).await;
                         Ok(res)
@@ -1619,7 +1765,7 @@ pub mod knitter_grpc_server {
                                 ::manage_define::cashmere::EditEntityMapFieldRemoveKeyRequest,
                             >,
                         ) -> Self::Future {
-                            let inner = self.0.clone();
+                            let inner = Arc::clone(&self.0);
                             let fut = async move {
                                 (*inner).edit_entity_map_field_remove_key(request).await
                             };
@@ -1628,6 +1774,8 @@ pub mod knitter_grpc_server {
                     }
                     let accept_compression_encodings = self.accept_compression_encodings;
                     let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
                     let inner = self.inner.clone();
                     let fut = async move {
                         let inner = inner.0;
@@ -1637,6 +1785,10 @@ pub mod knitter_grpc_server {
                             .apply_compression_config(
                                 accept_compression_encodings,
                                 send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
                             );
                         let res = grpc.unary(method, req).await;
                         Ok(res)
@@ -1662,7 +1814,7 @@ pub mod knitter_grpc_server {
                                 ::manage_define::cashmere::EditEntityArrayFieldAddItemsRequest,
                             >,
                         ) -> Self::Future {
-                            let inner = self.0.clone();
+                            let inner = Arc::clone(&self.0);
                             let fut = async move {
                                 (*inner).edit_entity_array_field_add_items(request).await
                             };
@@ -1671,6 +1823,8 @@ pub mod knitter_grpc_server {
                     }
                     let accept_compression_encodings = self.accept_compression_encodings;
                     let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
                     let inner = self.inner.clone();
                     let fut = async move {
                         let inner = inner.0;
@@ -1680,6 +1834,10 @@ pub mod knitter_grpc_server {
                             .apply_compression_config(
                                 accept_compression_encodings,
                                 send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
                             );
                         let res = grpc.unary(method, req).await;
                         Ok(res)
@@ -1707,7 +1865,7 @@ pub mod knitter_grpc_server {
                                 ::manage_define::cashmere::EditEntityArrayFieldRemoveItemsRequest,
                             >,
                         ) -> Self::Future {
-                            let inner = self.0.clone();
+                            let inner = Arc::clone(&self.0);
                             let fut = async move {
                                 (*inner).edit_entity_array_field_remove_items(request).await
                             };
@@ -1716,6 +1874,8 @@ pub mod knitter_grpc_server {
                     }
                     let accept_compression_encodings = self.accept_compression_encodings;
                     let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
                     let inner = self.inner.clone();
                     let fut = async move {
                         let inner = inner.0;
@@ -1725,6 +1885,10 @@ pub mod knitter_grpc_server {
                             .apply_compression_config(
                                 accept_compression_encodings,
                                 send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
                             );
                         let res = grpc.unary(method, req).await;
                         Ok(res)
@@ -1750,13 +1914,15 @@ pub mod knitter_grpc_server {
                                 ::manage_define::cashmere::RenameRequest,
                             >,
                         ) -> Self::Future {
-                            let inner = self.0.clone();
+                            let inner = Arc::clone(&self.0);
                             let fut = async move { (*inner).rename(request).await };
                             Box::pin(fut)
                         }
                     }
                     let accept_compression_encodings = self.accept_compression_encodings;
                     let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
                     let inner = self.inner.clone();
                     let fut = async move {
                         let inner = inner.0;
@@ -1766,6 +1932,10 @@ pub mod knitter_grpc_server {
                             .apply_compression_config(
                                 accept_compression_encodings,
                                 send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
                             );
                         let res = grpc.unary(method, req).await;
                         Ok(res)
@@ -1791,7 +1961,7 @@ pub mod knitter_grpc_server {
                                 ::manage_define::cashmere::NewLanguageNameRequest,
                             >,
                         ) -> Self::Future {
-                            let inner = self.0.clone();
+                            let inner = Arc::clone(&self.0);
                             let fut = async move {
                                 (*inner).new_language_name(request).await
                             };
@@ -1800,6 +1970,8 @@ pub mod knitter_grpc_server {
                     }
                     let accept_compression_encodings = self.accept_compression_encodings;
                     let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
                     let inner = self.inner.clone();
                     let fut = async move {
                         let inner = inner.0;
@@ -1809,6 +1981,10 @@ pub mod knitter_grpc_server {
                             .apply_compression_config(
                                 accept_compression_encodings,
                                 send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
                             );
                         let res = grpc.unary(method, req).await;
                         Ok(res)
@@ -1834,13 +2010,15 @@ pub mod knitter_grpc_server {
                                 ::manage_define::cashmere::NewCountryRequest,
                             >,
                         ) -> Self::Future {
-                            let inner = self.0.clone();
+                            let inner = Arc::clone(&self.0);
                             let fut = async move { (*inner).new_country(request).await };
                             Box::pin(fut)
                         }
                     }
                     let accept_compression_encodings = self.accept_compression_encodings;
                     let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
                     let inner = self.inner.clone();
                     let fut = async move {
                         let inner = inner.0;
@@ -1850,6 +2028,10 @@ pub mod knitter_grpc_server {
                             .apply_compression_config(
                                 accept_compression_encodings,
                                 send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
                             );
                         let res = grpc.unary(method, req).await;
                         Ok(res)
@@ -1875,7 +2057,7 @@ pub mod knitter_grpc_server {
                                 ::manage_define::cashmere::NewLanguageCodeRequest,
                             >,
                         ) -> Self::Future {
-                            let inner = self.0.clone();
+                            let inner = Arc::clone(&self.0);
                             let fut = async move {
                                 (*inner).new_language_code(request).await
                             };
@@ -1884,6 +2066,8 @@ pub mod knitter_grpc_server {
                     }
                     let accept_compression_encodings = self.accept_compression_encodings;
                     let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
                     let inner = self.inner.clone();
                     let fut = async move {
                         let inner = inner.0;
@@ -1893,6 +2077,10 @@ pub mod knitter_grpc_server {
                             .apply_compression_config(
                                 accept_compression_encodings,
                                 send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
                             );
                         let res = grpc.unary(method, req).await;
                         Ok(res)
@@ -1918,13 +2106,15 @@ pub mod knitter_grpc_server {
                                 ::manage_define::cashmere::NewGroupRequest,
                             >,
                         ) -> Self::Future {
-                            let inner = self.0.clone();
+                            let inner = Arc::clone(&self.0);
                             let fut = async move { (*inner).new_group(request).await };
                             Box::pin(fut)
                         }
                     }
                     let accept_compression_encodings = self.accept_compression_encodings;
                     let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
                     let inner = self.inner.clone();
                     let fut = async move {
                         let inner = inner.0;
@@ -1934,6 +2124,10 @@ pub mod knitter_grpc_server {
                             .apply_compression_config(
                                 accept_compression_encodings,
                                 send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
                             );
                         let res = grpc.unary(method, req).await;
                         Ok(res)
@@ -1959,7 +2153,7 @@ pub mod knitter_grpc_server {
                                 ::manage_define::cashmere::GetDataServerConfigsRequest,
                             >,
                         ) -> Self::Future {
-                            let inner = self.0.clone();
+                            let inner = Arc::clone(&self.0);
                             let fut = async move {
                                 (*inner).get_data_server_configs(request).await
                             };
@@ -1968,6 +2162,8 @@ pub mod knitter_grpc_server {
                     }
                     let accept_compression_encodings = self.accept_compression_encodings;
                     let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
                     let inner = self.inner.clone();
                     let fut = async move {
                         let inner = inner.0;
@@ -1977,6 +2173,10 @@ pub mod knitter_grpc_server {
                             .apply_compression_config(
                                 accept_compression_encodings,
                                 send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
                             );
                         let res = grpc.unary(method, req).await;
                         Ok(res)
@@ -2002,13 +2202,15 @@ pub mod knitter_grpc_server {
                                 ::manage_define::cashmere::NewDataRequest,
                             >,
                         ) -> Self::Future {
-                            let inner = self.0.clone();
+                            let inner = Arc::clone(&self.0);
                             let fut = async move { (*inner).new_data(request).await };
                             Box::pin(fut)
                         }
                     }
                     let accept_compression_encodings = self.accept_compression_encodings;
                     let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
                     let inner = self.inner.clone();
                     let fut = async move {
                         let inner = inner.0;
@@ -2018,6 +2220,10 @@ pub mod knitter_grpc_server {
                             .apply_compression_config(
                                 accept_compression_encodings,
                                 send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
                             );
                         let res = grpc.unary(method, req).await;
                         Ok(res)
@@ -2043,7 +2249,7 @@ pub mod knitter_grpc_server {
                                 ::manage_define::cashmere::ListEntityDataRequest,
                             >,
                         ) -> Self::Future {
-                            let inner = self.0.clone();
+                            let inner = Arc::clone(&self.0);
                             let fut = async move {
                                 (*inner).list_entity_data(request).await
                             };
@@ -2052,6 +2258,8 @@ pub mod knitter_grpc_server {
                     }
                     let accept_compression_encodings = self.accept_compression_encodings;
                     let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
                     let inner = self.inner.clone();
                     let fut = async move {
                         let inner = inner.0;
@@ -2061,6 +2269,10 @@ pub mod knitter_grpc_server {
                             .apply_compression_config(
                                 accept_compression_encodings,
                                 send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
                             );
                         let res = grpc.unary(method, req).await;
                         Ok(res)
@@ -2086,7 +2298,7 @@ pub mod knitter_grpc_server {
                                 ::manage_define::cashmere::GetDataInfoRequest,
                             >,
                         ) -> Self::Future {
-                            let inner = self.0.clone();
+                            let inner = Arc::clone(&self.0);
                             let fut = async move {
                                 (*inner).get_data_info(request).await
                             };
@@ -2095,6 +2307,8 @@ pub mod knitter_grpc_server {
                     }
                     let accept_compression_encodings = self.accept_compression_encodings;
                     let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
                     let inner = self.inner.clone();
                     let fut = async move {
                         let inner = inner.0;
@@ -2104,6 +2318,10 @@ pub mod knitter_grpc_server {
                             .apply_compression_config(
                                 accept_compression_encodings,
                                 send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
                             );
                         let res = grpc.unary(method, req).await;
                         Ok(res)
@@ -2129,7 +2347,7 @@ pub mod knitter_grpc_server {
                                 ::manage_define::cashmere::MarkDataRemovedRequest,
                             >,
                         ) -> Self::Future {
-                            let inner = self.0.clone();
+                            let inner = Arc::clone(&self.0);
                             let fut = async move {
                                 (*inner).mark_data_removed(request).await
                             };
@@ -2138,6 +2356,8 @@ pub mod knitter_grpc_server {
                     }
                     let accept_compression_encodings = self.accept_compression_encodings;
                     let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
                     let inner = self.inner.clone();
                     let fut = async move {
                         let inner = inner.0;
@@ -2147,6 +2367,10 @@ pub mod knitter_grpc_server {
                             .apply_compression_config(
                                 accept_compression_encodings,
                                 send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
                             );
                         let res = grpc.unary(method, req).await;
                         Ok(res)
@@ -2172,13 +2396,15 @@ pub mod knitter_grpc_server {
                                 ::manage_define::cashmere::NewSpecsRequest,
                             >,
                         ) -> Self::Future {
-                            let inner = self.0.clone();
+                            let inner = Arc::clone(&self.0);
                             let fut = async move { (*inner).new_specs(request).await };
                             Box::pin(fut)
                         }
                     }
                     let accept_compression_encodings = self.accept_compression_encodings;
                     let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
                     let inner = self.inner.clone();
                     let fut = async move {
                         let inner = inner.0;
@@ -2188,6 +2414,10 @@ pub mod knitter_grpc_server {
                             .apply_compression_config(
                                 accept_compression_encodings,
                                 send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
                             );
                         let res = grpc.unary(method, req).await;
                         Ok(res)
@@ -2213,13 +2443,15 @@ pub mod knitter_grpc_server {
                                 ::manage_define::cashmere::ListSpecsRequest,
                             >,
                         ) -> Self::Future {
-                            let inner = self.0.clone();
+                            let inner = Arc::clone(&self.0);
                             let fut = async move { (*inner).list_specs(request).await };
                             Box::pin(fut)
                         }
                     }
                     let accept_compression_encodings = self.accept_compression_encodings;
                     let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
                     let inner = self.inner.clone();
                     let fut = async move {
                         let inner = inner.0;
@@ -2229,6 +2461,10 @@ pub mod knitter_grpc_server {
                             .apply_compression_config(
                                 accept_compression_encodings,
                                 send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
                             );
                         let res = grpc.unary(method, req).await;
                         Ok(res)
@@ -2254,7 +2490,7 @@ pub mod knitter_grpc_server {
                                 ::manage_define::cashmere::ListSpecsPrefabsRequest,
                             >,
                         ) -> Self::Future {
-                            let inner = self.0.clone();
+                            let inner = Arc::clone(&self.0);
                             let fut = async move {
                                 (*inner).list_specs_prefabs(request).await
                             };
@@ -2263,6 +2499,8 @@ pub mod knitter_grpc_server {
                     }
                     let accept_compression_encodings = self.accept_compression_encodings;
                     let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
                     let inner = self.inner.clone();
                     let fut = async move {
                         let inner = inner.0;
@@ -2272,6 +2510,10 @@ pub mod knitter_grpc_server {
                             .apply_compression_config(
                                 accept_compression_encodings,
                                 send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
                             );
                         let res = grpc.unary(method, req).await;
                         Ok(res)
@@ -2297,13 +2539,15 @@ pub mod knitter_grpc_server {
                                 ::manage_define::cashmere::NewStageRequest,
                             >,
                         ) -> Self::Future {
-                            let inner = self.0.clone();
+                            let inner = Arc::clone(&self.0);
                             let fut = async move { (*inner).new_stage(request).await };
                             Box::pin(fut)
                         }
                     }
                     let accept_compression_encodings = self.accept_compression_encodings;
                     let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
                     let inner = self.inner.clone();
                     let fut = async move {
                         let inner = inner.0;
@@ -2313,6 +2557,10 @@ pub mod knitter_grpc_server {
                             .apply_compression_config(
                                 accept_compression_encodings,
                                 send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
                             );
                         let res = grpc.unary(method, req).await;
                         Ok(res)
@@ -2338,13 +2586,15 @@ pub mod knitter_grpc_server {
                                 ::manage_define::cashmere::ListStagesRequest,
                             >,
                         ) -> Self::Future {
-                            let inner = self.0.clone();
+                            let inner = Arc::clone(&self.0);
                             let fut = async move { (*inner).list_stages(request).await };
                             Box::pin(fut)
                         }
                     }
                     let accept_compression_encodings = self.accept_compression_encodings;
                     let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
                     let inner = self.inner.clone();
                     let fut = async move {
                         let inner = inner.0;
@@ -2354,6 +2604,10 @@ pub mod knitter_grpc_server {
                             .apply_compression_config(
                                 accept_compression_encodings,
                                 send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
                             );
                         let res = grpc.unary(method, req).await;
                         Ok(res)
@@ -2379,13 +2633,15 @@ pub mod knitter_grpc_server {
                                 ::manage_define::cashmere::NewPrefabRequest,
                             >,
                         ) -> Self::Future {
-                            let inner = self.0.clone();
+                            let inner = Arc::clone(&self.0);
                             let fut = async move { (*inner).new_prefab(request).await };
                             Box::pin(fut)
                         }
                     }
                     let accept_compression_encodings = self.accept_compression_encodings;
                     let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
                     let inner = self.inner.clone();
                     let fut = async move {
                         let inner = inner.0;
@@ -2395,6 +2651,10 @@ pub mod knitter_grpc_server {
                             .apply_compression_config(
                                 accept_compression_encodings,
                                 send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
                             );
                         let res = grpc.unary(method, req).await;
                         Ok(res)
@@ -2420,7 +2680,7 @@ pub mod knitter_grpc_server {
                                 ::manage_define::cashmere::AddStageVersionRequest,
                             >,
                         ) -> Self::Future {
-                            let inner = self.0.clone();
+                            let inner = Arc::clone(&self.0);
                             let fut = async move {
                                 (*inner).add_stage_version(request).await
                             };
@@ -2429,6 +2689,8 @@ pub mod knitter_grpc_server {
                     }
                     let accept_compression_encodings = self.accept_compression_encodings;
                     let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
                     let inner = self.inner.clone();
                     let fut = async move {
                         let inner = inner.0;
@@ -2438,6 +2700,10 @@ pub mod knitter_grpc_server {
                             .apply_compression_config(
                                 accept_compression_encodings,
                                 send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
                             );
                         let res = grpc.unary(method, req).await;
                         Ok(res)
@@ -2463,7 +2729,7 @@ pub mod knitter_grpc_server {
                                 ::manage_define::cashmere::ListStageVersionsRequest,
                             >,
                         ) -> Self::Future {
-                            let inner = self.0.clone();
+                            let inner = Arc::clone(&self.0);
                             let fut = async move {
                                 (*inner).list_stage_versions(request).await
                             };
@@ -2472,6 +2738,8 @@ pub mod knitter_grpc_server {
                     }
                     let accept_compression_encodings = self.accept_compression_encodings;
                     let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
                     let inner = self.inner.clone();
                     let fut = async move {
                         let inner = inner.0;
@@ -2481,6 +2749,10 @@ pub mod knitter_grpc_server {
                             .apply_compression_config(
                                 accept_compression_encodings,
                                 send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
                             );
                         let res = grpc.unary(method, req).await;
                         Ok(res)
@@ -2506,7 +2778,7 @@ pub mod knitter_grpc_server {
                                 ::manage_define::cashmere::SetStageCurrentVersionRequest,
                             >,
                         ) -> Self::Future {
-                            let inner = self.0.clone();
+                            let inner = Arc::clone(&self.0);
                             let fut = async move {
                                 (*inner).set_stage_current_version(request).await
                             };
@@ -2515,6 +2787,8 @@ pub mod knitter_grpc_server {
                     }
                     let accept_compression_encodings = self.accept_compression_encodings;
                     let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
                     let inner = self.inner.clone();
                     let fut = async move {
                         let inner = inner.0;
@@ -2524,6 +2798,10 @@ pub mod knitter_grpc_server {
                             .apply_compression_config(
                                 accept_compression_encodings,
                                 send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
                             );
                         let res = grpc.unary(method, req).await;
                         Ok(res)
@@ -2549,7 +2827,7 @@ pub mod knitter_grpc_server {
                                 ::manage_define::cashmere::RemoveStageVersionRequest,
                             >,
                         ) -> Self::Future {
-                            let inner = self.0.clone();
+                            let inner = Arc::clone(&self.0);
                             let fut = async move {
                                 (*inner).remove_stage_version(request).await
                             };
@@ -2558,6 +2836,8 @@ pub mod knitter_grpc_server {
                     }
                     let accept_compression_encodings = self.accept_compression_encodings;
                     let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
                     let inner = self.inner.clone();
                     let fut = async move {
                         let inner = inner.0;
@@ -2567,6 +2847,10 @@ pub mod knitter_grpc_server {
                             .apply_compression_config(
                                 accept_compression_encodings,
                                 send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
                             );
                         let res = grpc.unary(method, req).await;
                         Ok(res)
@@ -2592,7 +2876,7 @@ pub mod knitter_grpc_server {
                                 ::manage_define::cashmere::AddFileToVersionRequest,
                             >,
                         ) -> Self::Future {
-                            let inner = self.0.clone();
+                            let inner = Arc::clone(&self.0);
                             let fut = async move {
                                 (*inner).add_file_to_version(request).await
                             };
@@ -2601,6 +2885,8 @@ pub mod knitter_grpc_server {
                     }
                     let accept_compression_encodings = self.accept_compression_encodings;
                     let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
                     let inner = self.inner.clone();
                     let fut = async move {
                         let inner = inner.0;
@@ -2610,6 +2896,10 @@ pub mod knitter_grpc_server {
                             .apply_compression_config(
                                 accept_compression_encodings,
                                 send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
                             );
                         let res = grpc.unary(method, req).await;
                         Ok(res)
@@ -2635,7 +2925,7 @@ pub mod knitter_grpc_server {
                                 ::manage_define::cashmere::AddFileSetToVersionRequest,
                             >,
                         ) -> Self::Future {
-                            let inner = self.0.clone();
+                            let inner = Arc::clone(&self.0);
                             let fut = async move {
                                 (*inner).add_file_set_to_version(request).await
                             };
@@ -2644,6 +2934,8 @@ pub mod knitter_grpc_server {
                     }
                     let accept_compression_encodings = self.accept_compression_encodings;
                     let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
                     let inner = self.inner.clone();
                     let fut = async move {
                         let inner = inner.0;
@@ -2653,6 +2945,10 @@ pub mod knitter_grpc_server {
                             .apply_compression_config(
                                 accept_compression_encodings,
                                 send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
                             );
                         let res = grpc.unary(method, req).await;
                         Ok(res)
@@ -2678,7 +2974,7 @@ pub mod knitter_grpc_server {
                                 ::manage_define::cashmere::AddFileSequenceToVersionRequest,
                             >,
                         ) -> Self::Future {
-                            let inner = self.0.clone();
+                            let inner = Arc::clone(&self.0);
                             let fut = async move {
                                 (*inner).add_file_sequence_to_version(request).await
                             };
@@ -2687,6 +2983,8 @@ pub mod knitter_grpc_server {
                     }
                     let accept_compression_encodings = self.accept_compression_encodings;
                     let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
                     let inner = self.inner.clone();
                     let fut = async move {
                         let inner = inner.0;
@@ -2696,6 +2994,10 @@ pub mod knitter_grpc_server {
                             .apply_compression_config(
                                 accept_compression_encodings,
                                 send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
                             );
                         let res = grpc.unary(method, req).await;
                         Ok(res)
@@ -2721,7 +3023,7 @@ pub mod knitter_grpc_server {
                                 ::manage_define::cashmere::RemoveFilesFromVersionRequest,
                             >,
                         ) -> Self::Future {
-                            let inner = self.0.clone();
+                            let inner = Arc::clone(&self.0);
                             let fut = async move {
                                 (*inner).remove_files_from_version(request).await
                             };
@@ -2730,6 +3032,8 @@ pub mod knitter_grpc_server {
                     }
                     let accept_compression_encodings = self.accept_compression_encodings;
                     let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
                     let inner = self.inner.clone();
                     let fut = async move {
                         let inner = inner.0;
@@ -2739,6 +3043,10 @@ pub mod knitter_grpc_server {
                             .apply_compression_config(
                                 accept_compression_encodings,
                                 send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
                             );
                         let res = grpc.unary(method, req).await;
                         Ok(res)
@@ -2764,7 +3072,7 @@ pub mod knitter_grpc_server {
                                 ::manage_define::cashmere::ListVersionFolderRequest,
                             >,
                         ) -> Self::Future {
-                            let inner = self.0.clone();
+                            let inner = Arc::clone(&self.0);
                             let fut = async move {
                                 (*inner).list_version_folder(request).await
                             };
@@ -2773,6 +3081,8 @@ pub mod knitter_grpc_server {
                     }
                     let accept_compression_encodings = self.accept_compression_encodings;
                     let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
                     let inner = self.inner.clone();
                     let fut = async move {
                         let inner = inner.0;
@@ -2782,6 +3092,10 @@ pub mod knitter_grpc_server {
                             .apply_compression_config(
                                 accept_compression_encodings,
                                 send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
                             );
                         let res = grpc.unary(method, req).await;
                         Ok(res)
@@ -2807,7 +3121,7 @@ pub mod knitter_grpc_server {
                                 ::manage_define::cashmere::DeleteVersionFolderEntriesRequest,
                             >,
                         ) -> Self::Future {
-                            let inner = self.0.clone();
+                            let inner = Arc::clone(&self.0);
                             let fut = async move {
                                 (*inner).delete_version_folder_entries(request).await
                             };
@@ -2816,6 +3130,8 @@ pub mod knitter_grpc_server {
                     }
                     let accept_compression_encodings = self.accept_compression_encodings;
                     let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
                     let inner = self.inner.clone();
                     let fut = async move {
                         let inner = inner.0;
@@ -2825,6 +3141,10 @@ pub mod knitter_grpc_server {
                             .apply_compression_config(
                                 accept_compression_encodings,
                                 send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
                             );
                         let res = grpc.unary(method, req).await;
                         Ok(res)
@@ -2853,13 +3173,15 @@ pub mod knitter_grpc_server {
                                 >,
                             >,
                         ) -> Self::Future {
-                            let inner = self.0.clone();
+                            let inner = Arc::clone(&self.0);
                             let fut = async move { (*inner).upload_file(request).await };
                             Box::pin(fut)
                         }
                     }
                     let accept_compression_encodings = self.accept_compression_encodings;
                     let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
                     let inner = self.inner.clone();
                     let fut = async move {
                         let inner = inner.0;
@@ -2869,6 +3191,10 @@ pub mod knitter_grpc_server {
                             .apply_compression_config(
                                 accept_compression_encodings,
                                 send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
                             );
                         let res = grpc.streaming(method, req).await;
                         Ok(res)
@@ -2897,7 +3223,7 @@ pub mod knitter_grpc_server {
                                 >,
                             >,
                         ) -> Self::Future {
-                            let inner = self.0.clone();
+                            let inner = Arc::clone(&self.0);
                             let fut = async move {
                                 (*inner).download_file(request).await
                             };
@@ -2906,6 +3232,8 @@ pub mod knitter_grpc_server {
                     }
                     let accept_compression_encodings = self.accept_compression_encodings;
                     let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
                     let inner = self.inner.clone();
                     let fut = async move {
                         let inner = inner.0;
@@ -2915,6 +3243,10 @@ pub mod knitter_grpc_server {
                             .apply_compression_config(
                                 accept_compression_encodings,
                                 send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
                             );
                         let res = grpc.streaming(method, req).await;
                         Ok(res)
@@ -2940,7 +3272,7 @@ pub mod knitter_grpc_server {
                                 ::event_module::protocols::RegisterEventTypeRequest,
                             >,
                         ) -> Self::Future {
-                            let inner = self.0.clone();
+                            let inner = Arc::clone(&self.0);
                             let fut = async move {
                                 (*inner).register_event_type(request).await
                             };
@@ -2949,6 +3281,8 @@ pub mod knitter_grpc_server {
                     }
                     let accept_compression_encodings = self.accept_compression_encodings;
                     let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
                     let inner = self.inner.clone();
                     let fut = async move {
                         let inner = inner.0;
@@ -2958,6 +3292,10 @@ pub mod knitter_grpc_server {
                             .apply_compression_config(
                                 accept_compression_encodings,
                                 send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
                             );
                         let res = grpc.unary(method, req).await;
                         Ok(res)
@@ -2983,7 +3321,7 @@ pub mod knitter_grpc_server {
                                 ::event_module::protocols::RegisterEventEmitterRequest,
                             >,
                         ) -> Self::Future {
-                            let inner = self.0.clone();
+                            let inner = Arc::clone(&self.0);
                             let fut = async move {
                                 (*inner).register_event_emitter(request).await
                             };
@@ -2992,6 +3330,8 @@ pub mod knitter_grpc_server {
                     }
                     let accept_compression_encodings = self.accept_compression_encodings;
                     let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
                     let inner = self.inner.clone();
                     let fut = async move {
                         let inner = inner.0;
@@ -3001,6 +3341,10 @@ pub mod knitter_grpc_server {
                             .apply_compression_config(
                                 accept_compression_encodings,
                                 send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
                             );
                         let res = grpc.unary(method, req).await;
                         Ok(res)
@@ -3026,7 +3370,7 @@ pub mod knitter_grpc_server {
                                 ::event_module::protocols::RegisterEventListenerRequest,
                             >,
                         ) -> Self::Future {
-                            let inner = self.0.clone();
+                            let inner = Arc::clone(&self.0);
                             let fut = async move {
                                 (*inner).register_event_listener(request).await
                             };
@@ -3035,6 +3379,8 @@ pub mod knitter_grpc_server {
                     }
                     let accept_compression_encodings = self.accept_compression_encodings;
                     let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
                     let inner = self.inner.clone();
                     let fut = async move {
                         let inner = inner.0;
@@ -3044,6 +3390,10 @@ pub mod knitter_grpc_server {
                             .apply_compression_config(
                                 accept_compression_encodings,
                                 send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
                             );
                         let res = grpc.unary(method, req).await;
                         Ok(res)
@@ -3070,13 +3420,15 @@ pub mod knitter_grpc_server {
                                 ::event_module::protocols::EmitEventRequest,
                             >,
                         ) -> Self::Future {
-                            let inner = self.0.clone();
+                            let inner = Arc::clone(&self.0);
                             let fut = async move { (*inner).emit_event(request).await };
                             Box::pin(fut)
                         }
                     }
                     let accept_compression_encodings = self.accept_compression_encodings;
                     let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
                     let inner = self.inner.clone();
                     let fut = async move {
                         let inner = inner.0;
@@ -3086,6 +3438,10 @@ pub mod knitter_grpc_server {
                             .apply_compression_config(
                                 accept_compression_encodings,
                                 send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
                             );
                         let res = grpc.server_streaming(method, req).await;
                         Ok(res)
@@ -3112,7 +3468,7 @@ pub mod knitter_grpc_server {
                                 ::event_module::protocols::ListenEventTypeRequest,
                             >,
                         ) -> Self::Future {
-                            let inner = self.0.clone();
+                            let inner = Arc::clone(&self.0);
                             let fut = async move {
                                 (*inner).listen_event_type(request).await
                             };
@@ -3121,6 +3477,8 @@ pub mod knitter_grpc_server {
                     }
                     let accept_compression_encodings = self.accept_compression_encodings;
                     let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
                     let inner = self.inner.clone();
                     let fut = async move {
                         let inner = inner.0;
@@ -3130,6 +3488,10 @@ pub mod knitter_grpc_server {
                             .apply_compression_config(
                                 accept_compression_encodings,
                                 send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
                             );
                         let res = grpc.server_streaming(method, req).await;
                         Ok(res)
@@ -3155,13 +3517,15 @@ pub mod knitter_grpc_server {
                                 ::knitter_module::protocols::NewProjectRequest,
                             >,
                         ) -> Self::Future {
-                            let inner = self.0.clone();
+                            let inner = Arc::clone(&self.0);
                             let fut = async move { (*inner).new_project(request).await };
                             Box::pin(fut)
                         }
                     }
                     let accept_compression_encodings = self.accept_compression_encodings;
                     let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
                     let inner = self.inner.clone();
                     let fut = async move {
                         let inner = inner.0;
@@ -3171,6 +3535,10 @@ pub mod knitter_grpc_server {
                             .apply_compression_config(
                                 accept_compression_encodings,
                                 send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
                             );
                         let res = grpc.unary(method, req).await;
                         Ok(res)
@@ -3198,7 +3566,7 @@ pub mod knitter_grpc_server {
                                 ::knitter_module::protocols::AssociateAssetCollectionsToProjectRequest,
                             >,
                         ) -> Self::Future {
-                            let inner = self.0.clone();
+                            let inner = Arc::clone(&self.0);
                             let fut = async move {
                                 (*inner)
                                     .associate_asset_collections_to_project(request)
@@ -3209,6 +3577,8 @@ pub mod knitter_grpc_server {
                     }
                     let accept_compression_encodings = self.accept_compression_encodings;
                     let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
                     let inner = self.inner.clone();
                     let fut = async move {
                         let inner = inner.0;
@@ -3218,6 +3588,10 @@ pub mod knitter_grpc_server {
                             .apply_compression_config(
                                 accept_compression_encodings,
                                 send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
                             );
                         let res = grpc.unary(method, req).await;
                         Ok(res)
@@ -3245,7 +3619,7 @@ pub mod knitter_grpc_server {
                                 ::knitter_module::protocols::DeassociateAssetCollectionsFromProjectRequest,
                             >,
                         ) -> Self::Future {
-                            let inner = self.0.clone();
+                            let inner = Arc::clone(&self.0);
                             let fut = async move {
                                 (*inner)
                                     .deassociate_asset_collections_from_project(request)
@@ -3256,6 +3630,8 @@ pub mod knitter_grpc_server {
                     }
                     let accept_compression_encodings = self.accept_compression_encodings;
                     let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
                     let inner = self.inner.clone();
                     let fut = async move {
                         let inner = inner.0;
@@ -3265,6 +3641,10 @@ pub mod knitter_grpc_server {
                             .apply_compression_config(
                                 accept_compression_encodings,
                                 send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
                             );
                         let res = grpc.unary(method, req).await;
                         Ok(res)
@@ -3292,7 +3672,7 @@ pub mod knitter_grpc_server {
                                 ::knitter_module::protocols::AssociateSetCollectionsToProjectRequest,
                             >,
                         ) -> Self::Future {
-                            let inner = self.0.clone();
+                            let inner = Arc::clone(&self.0);
                             let fut = async move {
                                 (*inner).associate_set_collections_to_project(request).await
                             };
@@ -3301,6 +3681,8 @@ pub mod knitter_grpc_server {
                     }
                     let accept_compression_encodings = self.accept_compression_encodings;
                     let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
                     let inner = self.inner.clone();
                     let fut = async move {
                         let inner = inner.0;
@@ -3310,6 +3692,10 @@ pub mod knitter_grpc_server {
                             .apply_compression_config(
                                 accept_compression_encodings,
                                 send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
                             );
                         let res = grpc.unary(method, req).await;
                         Ok(res)
@@ -3337,7 +3723,7 @@ pub mod knitter_grpc_server {
                                 ::knitter_module::protocols::DeassociateSetCollectionsFromProjectRequest,
                             >,
                         ) -> Self::Future {
-                            let inner = self.0.clone();
+                            let inner = Arc::clone(&self.0);
                             let fut = async move {
                                 (*inner)
                                     .deassociate_set_collections_from_project(request)
@@ -3348,6 +3734,8 @@ pub mod knitter_grpc_server {
                     }
                     let accept_compression_encodings = self.accept_compression_encodings;
                     let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
                     let inner = self.inner.clone();
                     let fut = async move {
                         let inner = inner.0;
@@ -3357,6 +3745,10 @@ pub mod knitter_grpc_server {
                             .apply_compression_config(
                                 accept_compression_encodings,
                                 send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
                             );
                         let res = grpc.unary(method, req).await;
                         Ok(res)
@@ -3384,7 +3776,7 @@ pub mod knitter_grpc_server {
                                 ::knitter_module::protocols::GetProjectAssociatedAssetCollectionsRequest,
                             >,
                         ) -> Self::Future {
-                            let inner = self.0.clone();
+                            let inner = Arc::clone(&self.0);
                             let fut = async move {
                                 (*inner)
                                     .get_project_associated_asset_collections(request)
@@ -3395,6 +3787,8 @@ pub mod knitter_grpc_server {
                     }
                     let accept_compression_encodings = self.accept_compression_encodings;
                     let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
                     let inner = self.inner.clone();
                     let fut = async move {
                         let inner = inner.0;
@@ -3404,6 +3798,10 @@ pub mod knitter_grpc_server {
                             .apply_compression_config(
                                 accept_compression_encodings,
                                 send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
                             );
                         let res = grpc.unary(method, req).await;
                         Ok(res)
@@ -3431,7 +3829,7 @@ pub mod knitter_grpc_server {
                                 ::knitter_module::protocols::GetProjectAssociatedSetCollectionsRequest,
                             >,
                         ) -> Self::Future {
-                            let inner = self.0.clone();
+                            let inner = Arc::clone(&self.0);
                             let fut = async move {
                                 (*inner)
                                     .get_project_associated_set_collections(request)
@@ -3442,6 +3840,8 @@ pub mod knitter_grpc_server {
                     }
                     let accept_compression_encodings = self.accept_compression_encodings;
                     let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
                     let inner = self.inner.clone();
                     let fut = async move {
                         let inner = inner.0;
@@ -3451,6 +3851,10 @@ pub mod knitter_grpc_server {
                             .apply_compression_config(
                                 accept_compression_encodings,
                                 send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
                             );
                         let res = grpc.unary(method, req).await;
                         Ok(res)
@@ -3476,7 +3880,7 @@ pub mod knitter_grpc_server {
                                 ::knitter_module::protocols::ChangeProjectStatusRequest,
                             >,
                         ) -> Self::Future {
-                            let inner = self.0.clone();
+                            let inner = Arc::clone(&self.0);
                             let fut = async move {
                                 (*inner).change_project_status(request).await
                             };
@@ -3485,6 +3889,8 @@ pub mod knitter_grpc_server {
                     }
                     let accept_compression_encodings = self.accept_compression_encodings;
                     let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
                     let inner = self.inner.clone();
                     let fut = async move {
                         let inner = inner.0;
@@ -3494,6 +3900,10 @@ pub mod knitter_grpc_server {
                             .apply_compression_config(
                                 accept_compression_encodings,
                                 send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
                             );
                         let res = grpc.unary(method, req).await;
                         Ok(res)
@@ -3519,7 +3929,7 @@ pub mod knitter_grpc_server {
                                 ::knitter_module::protocols::NewAssetCollectionRequest,
                             >,
                         ) -> Self::Future {
-                            let inner = self.0.clone();
+                            let inner = Arc::clone(&self.0);
                             let fut = async move {
                                 (*inner).new_asset_collection(request).await
                             };
@@ -3528,6 +3938,8 @@ pub mod knitter_grpc_server {
                     }
                     let accept_compression_encodings = self.accept_compression_encodings;
                     let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
                     let inner = self.inner.clone();
                     let fut = async move {
                         let inner = inner.0;
@@ -3537,6 +3949,10 @@ pub mod knitter_grpc_server {
                             .apply_compression_config(
                                 accept_compression_encodings,
                                 send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
                             );
                         let res = grpc.unary(method, req).await;
                         Ok(res)
@@ -3564,7 +3980,7 @@ pub mod knitter_grpc_server {
                                 ::knitter_module::protocols::GetAssetCollectionAssetTotalCountRequest,
                             >,
                         ) -> Self::Future {
-                            let inner = self.0.clone();
+                            let inner = Arc::clone(&self.0);
                             let fut = async move {
                                 (*inner)
                                     .get_asset_collection_asset_total_count(request)
@@ -3575,6 +3991,8 @@ pub mod knitter_grpc_server {
                     }
                     let accept_compression_encodings = self.accept_compression_encodings;
                     let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
                     let inner = self.inner.clone();
                     let fut = async move {
                         let inner = inner.0;
@@ -3584,6 +4002,10 @@ pub mod knitter_grpc_server {
                             .apply_compression_config(
                                 accept_compression_encodings,
                                 send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
                             );
                         let res = grpc.unary(method, req).await;
                         Ok(res)
@@ -3611,7 +4033,7 @@ pub mod knitter_grpc_server {
                                 ::knitter_module::protocols::GetAssetCollectionAssemblyTotalCountRequest,
                             >,
                         ) -> Self::Future {
-                            let inner = self.0.clone();
+                            let inner = Arc::clone(&self.0);
                             let fut = async move {
                                 (*inner)
                                     .get_asset_collection_assembly_total_count(request)
@@ -3622,6 +4044,8 @@ pub mod knitter_grpc_server {
                     }
                     let accept_compression_encodings = self.accept_compression_encodings;
                     let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
                     let inner = self.inner.clone();
                     let fut = async move {
                         let inner = inner.0;
@@ -3631,6 +4055,10 @@ pub mod knitter_grpc_server {
                             .apply_compression_config(
                                 accept_compression_encodings,
                                 send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
                             );
                         let res = grpc.unary(method, req).await;
                         Ok(res)
@@ -3656,7 +4084,7 @@ pub mod knitter_grpc_server {
                                 ::knitter_module::protocols::GetAssetCollectionAssetsPageRequest,
                             >,
                         ) -> Self::Future {
-                            let inner = self.0.clone();
+                            let inner = Arc::clone(&self.0);
                             let fut = async move {
                                 (*inner).get_asset_collection_assets_page(request).await
                             };
@@ -3665,6 +4093,8 @@ pub mod knitter_grpc_server {
                     }
                     let accept_compression_encodings = self.accept_compression_encodings;
                     let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
                     let inner = self.inner.clone();
                     let fut = async move {
                         let inner = inner.0;
@@ -3674,6 +4104,10 @@ pub mod knitter_grpc_server {
                             .apply_compression_config(
                                 accept_compression_encodings,
                                 send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
                             );
                         let res = grpc.unary(method, req).await;
                         Ok(res)
@@ -3701,7 +4135,7 @@ pub mod knitter_grpc_server {
                                 ::knitter_module::protocols::GetAssetCollectionAssembliesPageRequest,
                             >,
                         ) -> Self::Future {
-                            let inner = self.0.clone();
+                            let inner = Arc::clone(&self.0);
                             let fut = async move {
                                 (*inner).get_asset_collection_assemblies_page(request).await
                             };
@@ -3710,6 +4144,8 @@ pub mod knitter_grpc_server {
                     }
                     let accept_compression_encodings = self.accept_compression_encodings;
                     let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
                     let inner = self.inner.clone();
                     let fut = async move {
                         let inner = inner.0;
@@ -3719,6 +4155,10 @@ pub mod knitter_grpc_server {
                             .apply_compression_config(
                                 accept_compression_encodings,
                                 send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
                             );
                         let res = grpc.unary(method, req).await;
                         Ok(res)
@@ -3744,13 +4184,15 @@ pub mod knitter_grpc_server {
                                 ::knitter_module::protocols::NewAssetRequest,
                             >,
                         ) -> Self::Future {
-                            let inner = self.0.clone();
+                            let inner = Arc::clone(&self.0);
                             let fut = async move { (*inner).new_asset(request).await };
                             Box::pin(fut)
                         }
                     }
                     let accept_compression_encodings = self.accept_compression_encodings;
                     let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
                     let inner = self.inner.clone();
                     let fut = async move {
                         let inner = inner.0;
@@ -3760,6 +4202,10 @@ pub mod knitter_grpc_server {
                             .apply_compression_config(
                                 accept_compression_encodings,
                                 send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
                             );
                         let res = grpc.unary(method, req).await;
                         Ok(res)
@@ -3785,7 +4231,7 @@ pub mod knitter_grpc_server {
                                 ::knitter_module::protocols::GetReferencedAssetsRequest,
                             >,
                         ) -> Self::Future {
-                            let inner = self.0.clone();
+                            let inner = Arc::clone(&self.0);
                             let fut = async move {
                                 (*inner).get_referenced_assets(request).await
                             };
@@ -3794,6 +4240,8 @@ pub mod knitter_grpc_server {
                     }
                     let accept_compression_encodings = self.accept_compression_encodings;
                     let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
                     let inner = self.inner.clone();
                     let fut = async move {
                         let inner = inner.0;
@@ -3803,6 +4251,10 @@ pub mod knitter_grpc_server {
                             .apply_compression_config(
                                 accept_compression_encodings,
                                 send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
                             );
                         let res = grpc.unary(method, req).await;
                         Ok(res)
@@ -3828,7 +4280,7 @@ pub mod knitter_grpc_server {
                                 ::knitter_module::protocols::MarkAssetStatusRequest,
                             >,
                         ) -> Self::Future {
-                            let inner = self.0.clone();
+                            let inner = Arc::clone(&self.0);
                             let fut = async move {
                                 (*inner).mark_asset_status(request).await
                             };
@@ -3837,6 +4289,8 @@ pub mod knitter_grpc_server {
                     }
                     let accept_compression_encodings = self.accept_compression_encodings;
                     let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
                     let inner = self.inner.clone();
                     let fut = async move {
                         let inner = inner.0;
@@ -3846,6 +4300,10 @@ pub mod knitter_grpc_server {
                             .apply_compression_config(
                                 accept_compression_encodings,
                                 send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
                             );
                         let res = grpc.unary(method, req).await;
                         Ok(res)
@@ -3871,7 +4329,7 @@ pub mod knitter_grpc_server {
                                 ::knitter_module::protocols::NewAssemblyRequest,
                             >,
                         ) -> Self::Future {
-                            let inner = self.0.clone();
+                            let inner = Arc::clone(&self.0);
                             let fut = async move {
                                 (*inner).new_assembly(request).await
                             };
@@ -3880,6 +4338,8 @@ pub mod knitter_grpc_server {
                     }
                     let accept_compression_encodings = self.accept_compression_encodings;
                     let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
                     let inner = self.inner.clone();
                     let fut = async move {
                         let inner = inner.0;
@@ -3889,6 +4349,10 @@ pub mod knitter_grpc_server {
                             .apply_compression_config(
                                 accept_compression_encodings,
                                 send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
                             );
                         let res = grpc.unary(method, req).await;
                         Ok(res)
@@ -3914,13 +4378,15 @@ pub mod knitter_grpc_server {
                                 ::knitter_module::protocols::NewEpicRequest,
                             >,
                         ) -> Self::Future {
-                            let inner = self.0.clone();
+                            let inner = Arc::clone(&self.0);
                             let fut = async move { (*inner).new_epic(request).await };
                             Box::pin(fut)
                         }
                     }
                     let accept_compression_encodings = self.accept_compression_encodings;
                     let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
                     let inner = self.inner.clone();
                     let fut = async move {
                         let inner = inner.0;
@@ -3930,6 +4396,10 @@ pub mod knitter_grpc_server {
                             .apply_compression_config(
                                 accept_compression_encodings,
                                 send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
                             );
                         let res = grpc.unary(method, req).await;
                         Ok(res)
@@ -3955,7 +4425,7 @@ pub mod knitter_grpc_server {
                                 ::knitter_module::protocols::GetEpicSequencesRequest,
                             >,
                         ) -> Self::Future {
-                            let inner = self.0.clone();
+                            let inner = Arc::clone(&self.0);
                             let fut = async move {
                                 (*inner).get_epic_sequences(request).await
                             };
@@ -3964,6 +4434,8 @@ pub mod knitter_grpc_server {
                     }
                     let accept_compression_encodings = self.accept_compression_encodings;
                     let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
                     let inner = self.inner.clone();
                     let fut = async move {
                         let inner = inner.0;
@@ -3973,6 +4445,10 @@ pub mod knitter_grpc_server {
                             .apply_compression_config(
                                 accept_compression_encodings,
                                 send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
                             );
                         let res = grpc.unary(method, req).await;
                         Ok(res)
@@ -3998,7 +4474,7 @@ pub mod knitter_grpc_server {
                                 ::knitter_module::protocols::NewSequenceRequest,
                             >,
                         ) -> Self::Future {
-                            let inner = self.0.clone();
+                            let inner = Arc::clone(&self.0);
                             let fut = async move {
                                 (*inner).new_sequence(request).await
                             };
@@ -4007,6 +4483,8 @@ pub mod knitter_grpc_server {
                     }
                     let accept_compression_encodings = self.accept_compression_encodings;
                     let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
                     let inner = self.inner.clone();
                     let fut = async move {
                         let inner = inner.0;
@@ -4016,6 +4494,10 @@ pub mod knitter_grpc_server {
                             .apply_compression_config(
                                 accept_compression_encodings,
                                 send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
                             );
                         let res = grpc.unary(method, req).await;
                         Ok(res)
@@ -4041,7 +4523,7 @@ pub mod knitter_grpc_server {
                                 ::knitter_module::protocols::GetSequenceCutsRequest,
                             >,
                         ) -> Self::Future {
-                            let inner = self.0.clone();
+                            let inner = Arc::clone(&self.0);
                             let fut = async move {
                                 (*inner).get_sequence_cuts(request).await
                             };
@@ -4050,6 +4532,8 @@ pub mod knitter_grpc_server {
                     }
                     let accept_compression_encodings = self.accept_compression_encodings;
                     let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
                     let inner = self.inner.clone();
                     let fut = async move {
                         let inner = inner.0;
@@ -4059,6 +4543,10 @@ pub mod knitter_grpc_server {
                             .apply_compression_config(
                                 accept_compression_encodings,
                                 send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
                             );
                         let res = grpc.unary(method, req).await;
                         Ok(res)
@@ -4084,13 +4572,15 @@ pub mod knitter_grpc_server {
                                 ::knitter_module::protocols::NewCutRequest,
                             >,
                         ) -> Self::Future {
-                            let inner = self.0.clone();
+                            let inner = Arc::clone(&self.0);
                             let fut = async move { (*inner).new_cut(request).await };
                             Box::pin(fut)
                         }
                     }
                     let accept_compression_encodings = self.accept_compression_encodings;
                     let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
                     let inner = self.inner.clone();
                     let fut = async move {
                         let inner = inner.0;
@@ -4100,6 +4590,10 @@ pub mod knitter_grpc_server {
                             .apply_compression_config(
                                 accept_compression_encodings,
                                 send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
                             );
                         let res = grpc.unary(method, req).await;
                         Ok(res)
@@ -4125,7 +4619,7 @@ pub mod knitter_grpc_server {
                                 ::knitter_module::protocols::GetCutReferencedAssetsRequest,
                             >,
                         ) -> Self::Future {
-                            let inner = self.0.clone();
+                            let inner = Arc::clone(&self.0);
                             let fut = async move {
                                 (*inner).get_cut_referenced_assets(request).await
                             };
@@ -4134,6 +4628,8 @@ pub mod knitter_grpc_server {
                     }
                     let accept_compression_encodings = self.accept_compression_encodings;
                     let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
                     let inner = self.inner.clone();
                     let fut = async move {
                         let inner = inner.0;
@@ -4143,6 +4639,10 @@ pub mod knitter_grpc_server {
                             .apply_compression_config(
                                 accept_compression_encodings,
                                 send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
                             );
                         let res = grpc.unary(method, req).await;
                         Ok(res)
@@ -4168,7 +4668,7 @@ pub mod knitter_grpc_server {
                                 ::knitter_module::protocols::MarkCutStatusRequest,
                             >,
                         ) -> Self::Future {
-                            let inner = self.0.clone();
+                            let inner = Arc::clone(&self.0);
                             let fut = async move {
                                 (*inner).mark_cut_status(request).await
                             };
@@ -4177,6 +4677,8 @@ pub mod knitter_grpc_server {
                     }
                     let accept_compression_encodings = self.accept_compression_encodings;
                     let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
                     let inner = self.inner.clone();
                     let fut = async move {
                         let inner = inner.0;
@@ -4186,6 +4688,10 @@ pub mod knitter_grpc_server {
                             .apply_compression_config(
                                 accept_compression_encodings,
                                 send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
                             );
                         let res = grpc.unary(method, req).await;
                         Ok(res)
@@ -4211,7 +4717,7 @@ pub mod knitter_grpc_server {
                                 ::knitter_module::protocols::NewSetCollectionRequest,
                             >,
                         ) -> Self::Future {
-                            let inner = self.0.clone();
+                            let inner = Arc::clone(&self.0);
                             let fut = async move {
                                 (*inner).new_set_collection(request).await
                             };
@@ -4220,6 +4726,8 @@ pub mod knitter_grpc_server {
                     }
                     let accept_compression_encodings = self.accept_compression_encodings;
                     let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
                     let inner = self.inner.clone();
                     let fut = async move {
                         let inner = inner.0;
@@ -4229,6 +4737,10 @@ pub mod knitter_grpc_server {
                             .apply_compression_config(
                                 accept_compression_encodings,
                                 send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
                             );
                         let res = grpc.unary(method, req).await;
                         Ok(res)
@@ -4254,7 +4766,7 @@ pub mod knitter_grpc_server {
                                 ::knitter_module::protocols::GetSetCollectionSetsPageRequest,
                             >,
                         ) -> Self::Future {
-                            let inner = self.0.clone();
+                            let inner = Arc::clone(&self.0);
                             let fut = async move {
                                 (*inner).get_set_collection_sets_page(request).await
                             };
@@ -4263,6 +4775,8 @@ pub mod knitter_grpc_server {
                     }
                     let accept_compression_encodings = self.accept_compression_encodings;
                     let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
                     let inner = self.inner.clone();
                     let fut = async move {
                         let inner = inner.0;
@@ -4272,6 +4786,10 @@ pub mod knitter_grpc_server {
                             .apply_compression_config(
                                 accept_compression_encodings,
                                 send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
                             );
                         let res = grpc.unary(method, req).await;
                         Ok(res)
@@ -4297,7 +4815,7 @@ pub mod knitter_grpc_server {
                                 ::knitter_module::protocols::GetSetCollectionSetTotalCountRequest,
                             >,
                         ) -> Self::Future {
-                            let inner = self.0.clone();
+                            let inner = Arc::clone(&self.0);
                             let fut = async move {
                                 (*inner).get_set_collection_set_total_count(request).await
                             };
@@ -4306,6 +4824,8 @@ pub mod knitter_grpc_server {
                     }
                     let accept_compression_encodings = self.accept_compression_encodings;
                     let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
                     let inner = self.inner.clone();
                     let fut = async move {
                         let inner = inner.0;
@@ -4315,6 +4835,10 @@ pub mod knitter_grpc_server {
                             .apply_compression_config(
                                 accept_compression_encodings,
                                 send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
                             );
                         let res = grpc.unary(method, req).await;
                         Ok(res)
@@ -4340,13 +4864,15 @@ pub mod knitter_grpc_server {
                                 ::knitter_module::protocols::NewSetRequest,
                             >,
                         ) -> Self::Future {
-                            let inner = self.0.clone();
+                            let inner = Arc::clone(&self.0);
                             let fut = async move { (*inner).new_set(request).await };
                             Box::pin(fut)
                         }
                     }
                     let accept_compression_encodings = self.accept_compression_encodings;
                     let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
                     let inner = self.inner.clone();
                     let fut = async move {
                         let inner = inner.0;
@@ -4356,6 +4882,10 @@ pub mod knitter_grpc_server {
                             .apply_compression_config(
                                 accept_compression_encodings,
                                 send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
                             );
                         let res = grpc.unary(method, req).await;
                         Ok(res)
@@ -4381,7 +4911,7 @@ pub mod knitter_grpc_server {
                                 ::knitter_module::protocols::MarkSetStatusRequest,
                             >,
                         ) -> Self::Future {
-                            let inner = self.0.clone();
+                            let inner = Arc::clone(&self.0);
                             let fut = async move {
                                 (*inner).mark_set_satus(request).await
                             };
@@ -4390,6 +4920,8 @@ pub mod knitter_grpc_server {
                     }
                     let accept_compression_encodings = self.accept_compression_encodings;
                     let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
                     let inner = self.inner.clone();
                     let fut = async move {
                         let inner = inner.0;
@@ -4399,6 +4931,10 @@ pub mod knitter_grpc_server {
                             .apply_compression_config(
                                 accept_compression_encodings,
                                 send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
                             );
                         let res = grpc.unary(method, req).await;
                         Ok(res)
@@ -4424,7 +4960,7 @@ pub mod knitter_grpc_server {
                                 ::knitter_module::protocols::AddReferencesRequest,
                             >,
                         ) -> Self::Future {
-                            let inner = self.0.clone();
+                            let inner = Arc::clone(&self.0);
                             let fut = async move {
                                 (*inner).add_references(request).await
                             };
@@ -4433,6 +4969,8 @@ pub mod knitter_grpc_server {
                     }
                     let accept_compression_encodings = self.accept_compression_encodings;
                     let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
                     let inner = self.inner.clone();
                     let fut = async move {
                         let inner = inner.0;
@@ -4442,6 +4980,10 @@ pub mod knitter_grpc_server {
                             .apply_compression_config(
                                 accept_compression_encodings,
                                 send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
                             );
                         let res = grpc.unary(method, req).await;
                         Ok(res)
@@ -4467,7 +5009,7 @@ pub mod knitter_grpc_server {
                                 ::knitter_module::protocols::RemoveReferencesRequest,
                             >,
                         ) -> Self::Future {
-                            let inner = self.0.clone();
+                            let inner = Arc::clone(&self.0);
                             let fut = async move {
                                 (*inner).remove_references(request).await
                             };
@@ -4476,6 +5018,8 @@ pub mod knitter_grpc_server {
                     }
                     let accept_compression_encodings = self.accept_compression_encodings;
                     let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
                     let inner = self.inner.clone();
                     let fut = async move {
                         let inner = inner.0;
@@ -4485,6 +5029,10 @@ pub mod knitter_grpc_server {
                             .apply_compression_config(
                                 accept_compression_encodings,
                                 send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
                             );
                         let res = grpc.unary(method, req).await;
                         Ok(res)
@@ -4510,7 +5058,7 @@ pub mod knitter_grpc_server {
                                 ::knitter_module::protocols::ListReferencesRequest,
                             >,
                         ) -> Self::Future {
-                            let inner = self.0.clone();
+                            let inner = Arc::clone(&self.0);
                             let fut = async move {
                                 (*inner).list_references(request).await
                             };
@@ -4519,6 +5067,8 @@ pub mod knitter_grpc_server {
                     }
                     let accept_compression_encodings = self.accept_compression_encodings;
                     let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
                     let inner = self.inner.clone();
                     let fut = async move {
                         let inner = inner.0;
@@ -4528,6 +5078,10 @@ pub mod knitter_grpc_server {
                             .apply_compression_config(
                                 accept_compression_encodings,
                                 send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
                             );
                         let res = grpc.unary(method, req).await;
                         Ok(res)
@@ -4553,7 +5107,7 @@ pub mod knitter_grpc_server {
                                 ::knitter_module::protocols::ChangeReferencePrefabRequest,
                             >,
                         ) -> Self::Future {
-                            let inner = self.0.clone();
+                            let inner = Arc::clone(&self.0);
                             let fut = async move {
                                 (*inner).change_reference(request).await
                             };
@@ -4562,6 +5116,8 @@ pub mod knitter_grpc_server {
                     }
                     let accept_compression_encodings = self.accept_compression_encodings;
                     let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
                     let inner = self.inner.clone();
                     let fut = async move {
                         let inner = inner.0;
@@ -4571,6 +5127,10 @@ pub mod knitter_grpc_server {
                             .apply_compression_config(
                                 accept_compression_encodings,
                                 send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
                             );
                         let res = grpc.unary(method, req).await;
                         Ok(res)
@@ -4599,12 +5159,14 @@ pub mod knitter_grpc_server {
                 inner,
                 accept_compression_encodings: self.accept_compression_encodings,
                 send_compression_encodings: self.send_compression_encodings,
+                max_decoding_message_size: self.max_decoding_message_size,
+                max_encoding_message_size: self.max_encoding_message_size,
             }
         }
     }
     impl<T: KnitterGrpc> Clone for _Inner<T> {
         fn clone(&self) -> Self {
-            Self(self.0.clone())
+            Self(Arc::clone(&self.0))
         }
     }
     impl<T: std::fmt::Debug> std::fmt::Debug for _Inner<T> {
@@ -4612,7 +5174,7 @@ pub mod knitter_grpc_server {
             write!(f, "{:?}", self.0)
         }
     }
-    impl<T: KnitterGrpc> tonic::transport::NamedService for KnitterGrpcServer<T> {
+    impl<T: KnitterGrpc> tonic::server::NamedService for KnitterGrpcServer<T> {
         const NAME: &'static str = "io.knitter.KnitterGrpc";
     }
 }
