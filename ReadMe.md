@@ -49,4 +49,11 @@
   5. 克隆knitter_modules并且和本仓库在同一目录下
   6. 克隆event_modules并且和本仓库在同一目录下
   7. cd knitter && cargo run
-  8.克隆knitter_python_api, 并运行knitter_python_api的测试
+  8. 克隆knitter_python_api, 并运行knitter_python_api的测试
+  
+## 相关仓库地址
+
+  1. https://gitee.com/cashmere/knitter
+  2. https://gitee.com/cashmere/knitter_module
+  4. https://gitee.com/cashmere/event_module
+  5. https://gitee.com/cashmere/knitter_python_api
