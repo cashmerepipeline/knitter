@@ -240,17 +240,13 @@ dependencies = [
 
 [[package]]
 name = "auth"
-version = "0.2.1"
+version = "0.2.2"
 dependencies = [
- "chrono",
  "configs",
  "dependencies_sync",
- "futures",
  "jsonwebtoken",
  "rust-argon2",
  "serde",
- "serde_derive",
- "tokio",
 ]
 
 [[package]]
@@ -749,8 +745,10 @@ dependencies = [
  "linked-hash-map",
  "log",
  "mongodb",
+ "once_cell",
  "parking_lot",
  "prost 0.11.9",
+ "rust-i18n",
  "serde",
  "serde_derive",
  "simplelog",
@@ -1492,15 +1490,14 @@ dependencies = [
 name = "majordomo"
 version = "0.4.0"
 dependencies = [
- "bson",
  "cash_core",
  "cash_result",
  "configs",
+ "dependencies_sync",
  "entity",
- "log",
  "manage_define",
  "managers",
- "parking_lot",
+ "once_cell",
  "property_field",
 ]
 
@@ -2109,9 +2106,9 @@ dependencies = [
 
 [[package]]
 name = "rust-i18n"
-version = "1.0.1"
+version = "1.2.1"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "74fc70cf975ae6f84a016d477f05d475209edef8852ea0595754f7ea1f8019a7"
+checksum = "420d0269a7f9c29b08650b66af2b7503a0df6e64d17f8a0b0279aa9dc8621ebc"
 dependencies = [
  "anyhow",
  "clap 2.34.0",
@@ -2129,9 +2126,9 @@ dependencies = [
 
 [[package]]
 name = "rust-i18n-extract"
-version = "1.0.0"
+version = "1.1.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "38ebea791b21c5bb7b40686ccab333f36b0b29ec29674fec08ea5987c7cfdbbb"
+checksum = "ec44568e2cdf4bfb7a62381bbc6fcdf0a27c60cd503dfa12c59e6c17cf3177fa"
 dependencies = [
  "anyhow",
  "ignore",
@@ -2147,9 +2144,9 @@ dependencies = [
 
 [[package]]
 name = "rust-i18n-macro"
-version = "0.4.0"
+version = "1.2.1"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "eaebf89167a1d6483d77f316c49b21acd7b3e7cc8a9898c3ed7fe68975b7afca"
+checksum = "17107229a36fc4d21a868b4d5dce9f85ea7cffacb5d210a15e57c85ab7935703"
 dependencies = [
  "glob",
  "once_cell",
@@ -2164,9 +2161,9 @@ dependencies = [
 
 [[package]]
 name = "rust-i18n-support"
-version = "1.0.0"
+version = "1.1.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "46bd1367f05cbac4263ae801dbadc842b845456d995501e3d33209aec9e91d19"
+checksum = "9e6bbf2d058c3558bef952564ceb9afcb19631cde22b47dc44f436e62ecfb916"
 dependencies = [
  "glob",
  "once_cell",
@@ -2392,7 +2389,7 @@ version = "0.1.0"
 
 [[package]]
 name = "service_common_handles"
-version = "0.4.1"
+version = "0.4.2"
 dependencies = [
  "auth",
  "cash_core",
