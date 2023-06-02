@@ -51,3 +51,6 @@ dependencies_sync = { path = "../cashmere_core/dependencies_sync", features = [
   "tonic-build",
 ] } 
 manage_define = { path = "../cashmere_core/manage_define" }
+
+[features]
+view_rules_validate = []

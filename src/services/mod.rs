@@ -16,7 +16,7 @@ use service_common_handles::{
     data_service_handles::*,
     entity_service_handles::*,
     group_service_handles::HandleNewGroup,
-    language_code_handles::{HandleEditLanguageCode, HandleNewLanguageCode},
+    language_code_handles::{HandleUpdateLanguageCode, HandleNewLanguageCode},
     manage_service_handle::*,
     name_service_handles::{HandleNewLanguageName, HandleRename},
     prefab_service_handles::*,
@@ -63,7 +63,7 @@ impl HandleEditArea for KnitterServer {}
 // 语言
 impl HandleNewLanguageCode for KnitterServer {}
 
-impl HandleEditLanguageCode for KnitterServer {}
+impl HandleUpdateLanguageCode for KnitterServer {}
 
 // 管理
 impl HandleGetManages for KnitterServer {}
