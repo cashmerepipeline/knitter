@@ -93,43 +93,43 @@ service KnitterGrpc{
   rpc NewGroup (cashmere.NewGroupRequest) returns (cashmere.NewGroupResponse);
 
   // 数据
-  rpc GetDataServerConfigs(cashmere.GetDataServerConfigsRequest) returns (cashmere.GetDataServerConfigsResponse);
-  rpc NewData(cashmere.NewDataRequest) returns (cashmere.NewDataResponse);
-  rpc ListEntityData(cashmere.ListEntityDataRequest) returns (cashmere.ListEntityDataResponse);
-  rpc GetDataInfo(cashmere.GetDataInfoRequest) returns (cashmere.GetDataInfoResponse);
-  rpc MarkDataRemoved(cashmere.MarkDataRemovedRequest) returns (cashmere.MarkDataRemovedResponse);
+  rpc GetDataServerConfigs(.data.cashmere.GetDataServerConfigsRequest) returns (.data.cashmere.GetDataServerConfigsResponse);
+  rpc NewData(.data.cashmere.NewDataRequest) returns (.data.cashmere.NewDataResponse);
+  rpc ListEntityData(.data.cashmere.ListEntityDataRequest) returns (.data.cashmere.ListEntityDataResponse);
+  rpc GetDataInfo(.data.cashmere.GetDataInfoRequest) returns (.data.cashmere.GetDataInfoResponse);
+  rpc MarkDataRemoved(.data.cashmere.MarkDataRemovedRequest) returns (.data.cashmere.MarkDataRemovedResponse);
   
   // 规格
-  rpc NewSpecs(cashmere.NewSpecsRequest) returns (cashmere.NewSpecsResponse);
-  rpc ListSpecs(cashmere.ListSpecsRequest) returns (cashmere.ListSpecsResponse);
-  rpc ListSpecsPrefabs(cashmere.ListSpecsPrefabsRequest) returns (cashmere.ListSpecsPrefabsResponse);
+  rpc NewSpecs(.data.cashmere.NewSpecsRequest) returns (.data.cashmere.NewSpecsResponse);
+  rpc ListSpecs(.data.cashmere.ListSpecsRequest) returns (.data.cashmere.ListSpecsResponse);
+  rpc ListSpecsPrefabs(.data.cashmere.ListSpecsPrefabsRequest) returns (.data.cashmere.ListSpecsPrefabsResponse);
 
   // 数据阶段
-  rpc NewStage(cashmere.NewStageRequest) returns (cashmere.NewStageResponse);
-  rpc ListStages(cashmere.ListStagesRequest) returns (cashmere.ListStagesResponse);
+  rpc NewStage(.data.cashmere.NewStageRequest) returns (.data.cashmere.NewStageResponse);
+  rpc ListStages(.data.cashmere.ListStagesRequest) returns (.data.cashmere.ListStagesResponse);
 
   // 预制件
-  rpc NewPrefab(cashmere.NewPrefabRequest) returns (cashmere.NewPrefabResponse);
+  rpc NewPrefab(.data.cashmere.NewPrefabRequest) returns (.data.cashmere.NewPrefabResponse);
 
   // 阶段版本
-  rpc AddStageVersion(cashmere.AddStageVersionRequest) returns (cashmere.AddStageVersionResponse);
-  rpc ListStageVersions(cashmere.ListStageVersionsRequest) returns (cashmere.ListStageVersionsResponse);
-  rpc SetStageCurrentVersion(cashmere.SetStageCurrentVersionRequest) returns (cashmere.SetStageCurrentVersionResponse);
-  rpc RemoveStageVersion(cashmere.RemoveStageVersionRequest) returns (cashmere.RemoveStageVersionResponse);
+  rpc AddStageVersion(.data.cashmere.AddStageVersionRequest) returns (.data.cashmere.AddStageVersionResponse);
+  rpc ListStageVersions(.data.cashmere.ListStageVersionsRequest) returns (.data.cashmere.ListStageVersionsResponse);
+  rpc SetStageCurrentVersion(.data.cashmere.SetStageCurrentVersionRequest) returns (.data.cashmere.SetStageCurrentVersionResponse);
+  rpc RemoveStageVersion(.data.cashmere.RemoveStageVersionRequest) returns (.data.cashmere.RemoveStageVersionResponse);
 
   // 文件操作
-  rpc AddFileToVersion(cashmere.AddFileToVersionRequest) returns (cashmere.AddFileToVersionResponse);
-  rpc AddFileSetToVersion(cashmere.AddFileSetToVersionRequest) returns (cashmere.AddFileSetToVersionResponse);
-  rpc AddFileSequenceToVersion(cashmere.AddFileSequenceToVersionRequest) returns (cashmere.AddFileSequenceToVersionResponse);
+  rpc AddFileToVersion(.data.cashmere.AddFileToVersionRequest) returns (.data.cashmere.AddFileToVersionResponse);
+  rpc AddFileSetToVersion(.data.cashmere.AddFileSetToVersionRequest) returns (.data.cashmere.AddFileSetToVersionResponse);
+  rpc AddFileSequenceToVersion(.data.cashmere.AddFileSequenceToVersionRequest) returns (.data.cashmere.AddFileSequenceToVersionResponse);
   // 只对文件和文件集有效，文件序列不支持
-  rpc RemoveFilesFromVersion(cashmere.RemoveFilesFromVersionRequest) returns (cashmere.RemoveFilesFromVersionResponse);
+  rpc RemoveFilesFromVersion(.data.cashmere.RemoveFilesFromVersionRequest) returns (.data.cashmere.RemoveFilesFromVersionResponse);
 
-  rpc ListVersionFolder(cashmere.ListVersionFolderRequest) returns (cashmere.ListVersionFolderResponse);
+  rpc ListVersionFolder(.data.cashmere.ListVersionFolderRequest) returns (.data.cashmere.ListVersionFolderResponse);
   // 手动删除版本文件夹下的无关文件或文件夹
-  rpc DeleteVersionFolderEntries(cashmere.DeleteVersionFolderEntriesRequest) returns (cashmere.DeleteVersionFolderEntriesResponse);
+  rpc DeleteVersionFolderEntries(.data.cashmere.DeleteVersionFolderEntriesRequest) returns (.data.cashmere.DeleteVersionFolderEntriesResponse);
   
-  rpc UploadFile(stream cashmere.UploadFileRequest) returns (stream cashmere.UploadFileResponse);
-  rpc DownloadFile(stream cashmere.DownloadFileRequest) returns (stream cashmere.DownloadFileResponse);
+  rpc UploadFile(stream .data.cashmere.UploadFileRequest) returns (stream .data.cashmere.UploadFileResponse);
+  rpc DownloadFile(stream .data.cashmere.DownloadFileRequest) returns (stream .data.cashmere.DownloadFileResponse);
   
   // 事件
   rpc RegisterEventType(.event.cashmere.RegisterEventTypeRequest) returns (.event.cashmere.RegisterEventTypeResponse);

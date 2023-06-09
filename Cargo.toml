@@ -24,6 +24,7 @@ service_utils = { path = "../cashmere_core/service_utils" }
 account_module = { path = "../account_module" }
 knitter_module = { path = "../knitter_module" }
 event_module = { path = "../event_module" }
+data_module = { path = "../data_module" }
 
 dependencies_sync = { path = "../cashmere_core/dependencies_sync", features = [
   "tokio",

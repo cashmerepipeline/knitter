@@ -543,17 +543,28 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "3ee2393c4a91429dffb4bedf19f4d6abf27d8a732c8ce4980305d782e5426d57"
 
 [[package]]
-name = "data_server"
-version = "0.3.0"
+name = "data_module"
+version = "0.2.0"
 dependencies = [
+ "auth",
+ "cash_core",
  "cash_result",
  "configs",
  "dependencies_sync",
+ "entity",
+ "majordomo",
  "manage_define",
+ "managers",
  "once_cell",
+ "property_field",
+ "prost 0.11.9",
+ "request_utils",
  "rust-i18n",
  "serde",
  "serde_derive",
+ "service_utils",
+ "tonic",
+ "view",
 ]
 
 [[package]]
@@ -674,7 +685,6 @@ dependencies = [
  "cash_core",
  "cash_result",
  "configs",
- "data_server",
  "dependencies_sync",
  "entity",
  "majordomo",
@@ -1170,6 +1180,7 @@ dependencies = [
  "cash_result",
  "clap 3.2.23",
  "configs",
+ "data_module",
  "dependencies_sync",
  "entity",
  "event_module",
@@ -2161,7 +2172,6 @@ dependencies = [
  "cash_core",
  "cash_result",
  "configs",
- "data_server",
  "dependencies_sync",
  "entity",
  "majordomo",

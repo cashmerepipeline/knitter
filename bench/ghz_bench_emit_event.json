@@ -1,0 +1,32 @@
+{
+    "proto": "protocols/knitter.proto",
+    "call": "io.knitter.KnitterGrpc/EmitEvent",
+    "total": 3000000,
+    "concurrency": 500,
+    "connections":100,
+    "data": {
+        "event": {
+            "type_id": "1",
+            "emitter_id": "0",
+            "emitter_instance_name": "test_instance_name",
+            "serial_number": 1,
+            "timestamp": 1636553875,
+            "need_echo": true
+        }
+    },
+    "metadata": {
+        "authorization": "bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiIsImtpZCI6Ijg2MTAwMDAwMDAwMDAifQ.eyJhdWQiOiI4NjEwMDAwMDAwMDAwIiwibmFtZSI6IjEwMDAwMDAwMDAwIiwiZXhwIjoxNjg2OTA3ODMzLCJpYXQiOjE2ODYzMDMwMzMsImlzcyI6ImdycGMuY2FzaG1lcmUuc3diIiwic3ViIjoiY2FzaG1lcmUiLCJvcmciOlsiMTAwMDAiXSwiZHB0IjpbIjEwMDAiXSwicm9sZXMiOlsiMTAwMDAiXX0.P16kyQbTgJ1JKXUjDtk5jJXVMO14Pu5tNMeYQZXvz01KlpM-Do4_A7PjGd6VAfS8Mcmg4mIBPyAILxEICWInOg",
+        "role_group": "10000"
+    },
+    "import-paths": [
+        "../cashmere_core/protocols/",
+        "../knitter_module/protocols/",
+        "../event_module/protocols/",
+        "../data_module/protocols/",
+        "../ques_ans_module/protocols/"
+        
+    ],
+    "max-duration": "20s",
+    "host": "127.0.0.1:8800",
+    "insecure": true
+}

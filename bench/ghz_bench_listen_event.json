@@ -1,0 +1,28 @@
+{
+    "proto": "protocols/knitter.proto",
+    "call": "io.knitter.KnitterGrpc/ListenEventType",
+    "total": 10000,
+    "connections": 50,
+    "concurrency-schedule": "step",
+    "concurrency-start": 500,
+    "concurrency-step": 20,
+    "concurrency-end": 1500,
+    "concurrency-step-duration": "1s",
+    "stream-call-count":50,
+    "data": {
+        "listener_id": "0",
+        "type_id": "1"
+    },
+    "metadata": {
+        "authorization": "bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiIsImtpZCI6Ijg2MTAwMDAwMDAwMDAifQ.eyJhdWQiOiI4NjEwMDAwMDAwMDAwIiwibmFtZSI6IjEwMDAwMDAwMDAwIiwiZXhwIjoxNjg0NDgxNjYxLCJpYXQiOjE2ODM4NzY4NjEsImlzcyI6ImdycGMuY2FzaG1lcmUuc3diIiwic3ViIjoiY2FzaG1lcmUiLCJvcmciOlsiMTAwMDAiXSwiZHB0IjpbIjEwMDAiXSwicm9sZXMiOlsiMTAwMDAiXX0.DHZJlyX0NSc0DURWLhqNkaH8sumDIsUpMpxmLGa1QMkHWSrrcjSuMJv2E7xPp9g8EwJ-1GKFadYUm2SfoSQzMA",
+        "role_group": "10000"
+    },
+    "import-paths": [
+        "../cashmere_core/protocols/",
+        "../knitter_module/protocols/",
+        "../event_module/protocols/"
+    ],
+    "max-duration": "120s",
+    "host": "127.0.0.1:8800",
+    "insecure": true
+}

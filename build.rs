@@ -6,6 +6,7 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
         .extern_path(".cashmere", "::manage_define::cashmere")
         .extern_path(".knitter_module", "::knitter_module::protocols")
         .extern_path(".event.cashmere", "::event_module::protocols")
+        .extern_path(".data.cashmere", "::data_module::protocols")
         .build_client(false)
         .build_server(true)
         .compile_well_known_types(true)
@@ -21,6 +22,7 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
                 "../cashmere_core/protocols",
                 "../knitter_module/protocols",
                 "../event_module/protocols",
+                "../data_module/protocols",
             ],
         )?;
 

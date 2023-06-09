@@ -13,15 +13,11 @@ use service_common_handles::{
     area_service_handles::HandleEditArea,
     area_service_handles::HandleNewArea,
     country_service_handles::HandleNewCountry,
-    data_service_handles::*,
     entity_service_handles::*,
     group_service_handles::HandleNewGroup,
     language_code_handles::{HandleUpdateLanguageCode, HandleNewLanguageCode},
     manage_service_handle::*,
     name_service_handles::{HandleNewLanguageName, HandleRename},
-    prefab_service_handles::*,
-    specses_service_handles::*,
-    stage_service_handles::*,
 };
 
 use tonic::{Request, Response, Status, Streaming};
@@ -40,8 +36,10 @@ use knitter_module::service_handles::set_collection_service_handles::*;
 use knitter_module::service_handles::set_service_handles::*;
 use knitter_module::service_handles::sequence_service_handles::*;
 
+use data_module::service_handles::*;
 use event_module::service_handles::*;
 use event_module::protocols::*;
+use data_module::protocols::*;
 
 mod init;
 

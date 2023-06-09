@@ -74,5 +74,6 @@
   2. https://gitee.com/cashmere/knitter
   3. https://gitee.com/cashmere/knitter-module
   4. https://gitee.com/cashmere/event-module
+  4. https://gitee.com/cashmere/data-module
   5. https://gitee.com/cashmere/account-module
   6. https://gitee.com/cashmere/knitter-python-api

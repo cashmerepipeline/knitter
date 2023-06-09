@@ -235,175 +235,173 @@ pub mod knitter_grpc_server {
         async fn get_data_server_configs(
             &self,
             request: tonic::Request<
-                ::manage_define::cashmere::GetDataServerConfigsRequest,
+                ::data_module::protocols::GetDataServerConfigsRequest,
             >,
         ) -> std::result::Result<
-            tonic::Response<::manage_define::cashmere::GetDataServerConfigsResponse>,
+            tonic::Response<::data_module::protocols::GetDataServerConfigsResponse>,
             tonic::Status,
         >;
         async fn new_data(
             &self,
-            request: tonic::Request<::manage_define::cashmere::NewDataRequest>,
+            request: tonic::Request<::data_module::protocols::NewDataRequest>,
         ) -> std::result::Result<
-            tonic::Response<::manage_define::cashmere::NewDataResponse>,
+            tonic::Response<::data_module::protocols::NewDataResponse>,
             tonic::Status,
         >;
         async fn list_entity_data(
             &self,
-            request: tonic::Request<::manage_define::cashmere::ListEntityDataRequest>,
+            request: tonic::Request<::data_module::protocols::ListEntityDataRequest>,
         ) -> std::result::Result<
-            tonic::Response<::manage_define::cashmere::ListEntityDataResponse>,
+            tonic::Response<::data_module::protocols::ListEntityDataResponse>,
             tonic::Status,
         >;
         async fn get_data_info(
             &self,
-            request: tonic::Request<::manage_define::cashmere::GetDataInfoRequest>,
+            request: tonic::Request<::data_module::protocols::GetDataInfoRequest>,
         ) -> std::result::Result<
-            tonic::Response<::manage_define::cashmere::GetDataInfoResponse>,
+            tonic::Response<::data_module::protocols::GetDataInfoResponse>,
             tonic::Status,
         >;
         async fn mark_data_removed(
             &self,
-            request: tonic::Request<::manage_define::cashmere::MarkDataRemovedRequest>,
+            request: tonic::Request<::data_module::protocols::MarkDataRemovedRequest>,
         ) -> std::result::Result<
-            tonic::Response<::manage_define::cashmere::MarkDataRemovedResponse>,
+            tonic::Response<::data_module::protocols::MarkDataRemovedResponse>,
             tonic::Status,
         >;
         /// 规格
         async fn new_specs(
             &self,
-            request: tonic::Request<::manage_define::cashmere::NewSpecsRequest>,
+            request: tonic::Request<::data_module::protocols::NewSpecsRequest>,
         ) -> std::result::Result<
-            tonic::Response<::manage_define::cashmere::NewSpecsResponse>,
+            tonic::Response<::data_module::protocols::NewSpecsResponse>,
             tonic::Status,
         >;
         async fn list_specs(
             &self,
-            request: tonic::Request<::manage_define::cashmere::ListSpecsRequest>,
+            request: tonic::Request<::data_module::protocols::ListSpecsRequest>,
         ) -> std::result::Result<
-            tonic::Response<::manage_define::cashmere::ListSpecsResponse>,
+            tonic::Response<::data_module::protocols::ListSpecsResponse>,
             tonic::Status,
         >;
         async fn list_specs_prefabs(
             &self,
-            request: tonic::Request<::manage_define::cashmere::ListSpecsPrefabsRequest>,
+            request: tonic::Request<::data_module::protocols::ListSpecsPrefabsRequest>,
         ) -> std::result::Result<
-            tonic::Response<::manage_define::cashmere::ListSpecsPrefabsResponse>,
+            tonic::Response<::data_module::protocols::ListSpecsPrefabsResponse>,
             tonic::Status,
         >;
         /// 数据阶段
         async fn new_stage(
             &self,
-            request: tonic::Request<::manage_define::cashmere::NewStageRequest>,
+            request: tonic::Request<::data_module::protocols::NewStageRequest>,
         ) -> std::result::Result<
-            tonic::Response<::manage_define::cashmere::NewStageResponse>,
+            tonic::Response<::data_module::protocols::NewStageResponse>,
             tonic::Status,
         >;
         async fn list_stages(
             &self,
-            request: tonic::Request<::manage_define::cashmere::ListStagesRequest>,
+            request: tonic::Request<::data_module::protocols::ListStagesRequest>,
         ) -> std::result::Result<
-            tonic::Response<::manage_define::cashmere::ListStagesResponse>,
+            tonic::Response<::data_module::protocols::ListStagesResponse>,
             tonic::Status,
         >;
         /// 预制件
         async fn new_prefab(
             &self,
-            request: tonic::Request<::manage_define::cashmere::NewPrefabRequest>,
+            request: tonic::Request<::data_module::protocols::NewPrefabRequest>,
         ) -> std::result::Result<
-            tonic::Response<::manage_define::cashmere::NewPrefabResponse>,
+            tonic::Response<::data_module::protocols::NewPrefabResponse>,
             tonic::Status,
         >;
         /// 阶段版本
         async fn add_stage_version(
             &self,
-            request: tonic::Request<::manage_define::cashmere::AddStageVersionRequest>,
+            request: tonic::Request<::data_module::protocols::AddStageVersionRequest>,
         ) -> std::result::Result<
-            tonic::Response<::manage_define::cashmere::AddStageVersionResponse>,
+            tonic::Response<::data_module::protocols::AddStageVersionResponse>,
             tonic::Status,
         >;
         async fn list_stage_versions(
             &self,
-            request: tonic::Request<::manage_define::cashmere::ListStageVersionsRequest>,
+            request: tonic::Request<::data_module::protocols::ListStageVersionsRequest>,
         ) -> std::result::Result<
-            tonic::Response<::manage_define::cashmere::ListStageVersionsResponse>,
+            tonic::Response<::data_module::protocols::ListStageVersionsResponse>,
             tonic::Status,
         >;
         async fn set_stage_current_version(
             &self,
             request: tonic::Request<
-                ::manage_define::cashmere::SetStageCurrentVersionRequest,
+                ::data_module::protocols::SetStageCurrentVersionRequest,
             >,
         ) -> std::result::Result<
-            tonic::Response<::manage_define::cashmere::SetStageCurrentVersionResponse>,
+            tonic::Response<::data_module::protocols::SetStageCurrentVersionResponse>,
             tonic::Status,
         >;
         async fn remove_stage_version(
             &self,
-            request: tonic::Request<::manage_define::cashmere::RemoveStageVersionRequest>,
+            request: tonic::Request<::data_module::protocols::RemoveStageVersionRequest>,
         ) -> std::result::Result<
-            tonic::Response<::manage_define::cashmere::RemoveStageVersionResponse>,
+            tonic::Response<::data_module::protocols::RemoveStageVersionResponse>,
             tonic::Status,
         >;
         /// 文件操作
         async fn add_file_to_version(
             &self,
-            request: tonic::Request<::manage_define::cashmere::AddFileToVersionRequest>,
+            request: tonic::Request<::data_module::protocols::AddFileToVersionRequest>,
         ) -> std::result::Result<
-            tonic::Response<::manage_define::cashmere::AddFileToVersionResponse>,
+            tonic::Response<::data_module::protocols::AddFileToVersionResponse>,
             tonic::Status,
         >;
         async fn add_file_set_to_version(
             &self,
-            request: tonic::Request<
-                ::manage_define::cashmere::AddFileSetToVersionRequest,
-            >,
+            request: tonic::Request<::data_module::protocols::AddFileSetToVersionRequest>,
         ) -> std::result::Result<
-            tonic::Response<::manage_define::cashmere::AddFileSetToVersionResponse>,
+            tonic::Response<::data_module::protocols::AddFileSetToVersionResponse>,
             tonic::Status,
         >;
         async fn add_file_sequence_to_version(
             &self,
             request: tonic::Request<
-                ::manage_define::cashmere::AddFileSequenceToVersionRequest,
+                ::data_module::protocols::AddFileSequenceToVersionRequest,
             >,
         ) -> std::result::Result<
-            tonic::Response<::manage_define::cashmere::AddFileSequenceToVersionResponse>,
+            tonic::Response<::data_module::protocols::AddFileSequenceToVersionResponse>,
             tonic::Status,
         >;
         /// 只对文件和文件集有效，文件序列不支持
         async fn remove_files_from_version(
             &self,
             request: tonic::Request<
-                ::manage_define::cashmere::RemoveFilesFromVersionRequest,
+                ::data_module::protocols::RemoveFilesFromVersionRequest,
             >,
         ) -> std::result::Result<
-            tonic::Response<::manage_define::cashmere::RemoveFilesFromVersionResponse>,
+            tonic::Response<::data_module::protocols::RemoveFilesFromVersionResponse>,
             tonic::Status,
         >;
         async fn list_version_folder(
             &self,
-            request: tonic::Request<::manage_define::cashmere::ListVersionFolderRequest>,
+            request: tonic::Request<::data_module::protocols::ListVersionFolderRequest>,
         ) -> std::result::Result<
-            tonic::Response<::manage_define::cashmere::ListVersionFolderResponse>,
+            tonic::Response<::data_module::protocols::ListVersionFolderResponse>,
             tonic::Status,
         >;
         /// 手动删除版本文件夹下的无关文件或文件夹
         async fn delete_version_folder_entries(
             &self,
             request: tonic::Request<
-                ::manage_define::cashmere::DeleteVersionFolderEntriesRequest,
+                ::data_module::protocols::DeleteVersionFolderEntriesRequest,
             >,
         ) -> std::result::Result<
             tonic::Response<
-                ::manage_define::cashmere::DeleteVersionFolderEntriesResponse,
+                ::data_module::protocols::DeleteVersionFolderEntriesResponse,
             >,
             tonic::Status,
         >;
         /// Server streaming response type for the UploadFile method.
         type UploadFileStream: futures_core::Stream<
                 Item = std::result::Result<
-                    ::manage_define::cashmere::UploadFileResponse,
+                    ::data_module::protocols::UploadFileResponse,
                     tonic::Status,
                 >,
             >
@@ -412,13 +410,13 @@ pub mod knitter_grpc_server {
         async fn upload_file(
             &self,
             request: tonic::Request<
-                tonic::Streaming<::manage_define::cashmere::UploadFileRequest>,
+                tonic::Streaming<::data_module::protocols::UploadFileRequest>,
             >,
         ) -> std::result::Result<tonic::Response<Self::UploadFileStream>, tonic::Status>;
         /// Server streaming response type for the DownloadFile method.
         type DownloadFileStream: futures_core::Stream<
                 Item = std::result::Result<
-                    ::manage_define::cashmere::DownloadFileResponse,
+                    ::data_module::protocols::DownloadFileResponse,
                     tonic::Status,
                 >,
             >
@@ -427,7 +425,7 @@ pub mod knitter_grpc_server {
         async fn download_file(
             &self,
             request: tonic::Request<
-                tonic::Streaming<::manage_define::cashmere::DownloadFileRequest>,
+                tonic::Streaming<::data_module::protocols::DownloadFileRequest>,
             >,
         ) -> std::result::Result<
             tonic::Response<Self::DownloadFileStream>,
@@ -2140,9 +2138,9 @@ pub mod knitter_grpc_server {
                     impl<
                         T: KnitterGrpc,
                     > tonic::server::UnaryService<
-                        ::manage_define::cashmere::GetDataServerConfigsRequest,
+                        ::data_module::protocols::GetDataServerConfigsRequest,
                     > for GetDataServerConfigsSvc<T> {
-                        type Response = ::manage_define::cashmere::GetDataServerConfigsResponse;
+                        type Response = ::data_module::protocols::GetDataServerConfigsResponse;
                         type Future = BoxFuture<
                             tonic::Response<Self::Response>,
                             tonic::Status,
@@ -2150,7 +2148,7 @@ pub mod knitter_grpc_server {
                         fn call(
                             &mut self,
                             request: tonic::Request<
-                                ::manage_define::cashmere::GetDataServerConfigsRequest,
+                                ::data_module::protocols::GetDataServerConfigsRequest,
                             >,
                         ) -> Self::Future {
                             let inner = Arc::clone(&self.0);
@@ -2189,9 +2187,9 @@ pub mod knitter_grpc_server {
                     impl<
                         T: KnitterGrpc,
                     > tonic::server::UnaryService<
-                        ::manage_define::cashmere::NewDataRequest,
+                        ::data_module::protocols::NewDataRequest,
                     > for NewDataSvc<T> {
-                        type Response = ::manage_define::cashmere::NewDataResponse;
+                        type Response = ::data_module::protocols::NewDataResponse;
                         type Future = BoxFuture<
                             tonic::Response<Self::Response>,
                             tonic::Status,
@@ -2199,7 +2197,7 @@ pub mod knitter_grpc_server {
                         fn call(
                             &mut self,
                             request: tonic::Request<
-                                ::manage_define::cashmere::NewDataRequest,
+                                ::data_module::protocols::NewDataRequest,
                             >,
                         ) -> Self::Future {
                             let inner = Arc::clone(&self.0);
@@ -2236,9 +2234,9 @@ pub mod knitter_grpc_server {
                     impl<
                         T: KnitterGrpc,
                     > tonic::server::UnaryService<
-                        ::manage_define::cashmere::ListEntityDataRequest,
+                        ::data_module::protocols::ListEntityDataRequest,
                     > for ListEntityDataSvc<T> {
-                        type Response = ::manage_define::cashmere::ListEntityDataResponse;
+                        type Response = ::data_module::protocols::ListEntityDataResponse;
                         type Future = BoxFuture<
                             tonic::Response<Self::Response>,
                             tonic::Status,
@@ -2246,7 +2244,7 @@ pub mod knitter_grpc_server {
                         fn call(
                             &mut self,
                             request: tonic::Request<
-                                ::manage_define::cashmere::ListEntityDataRequest,
+                                ::data_module::protocols::ListEntityDataRequest,
                             >,
                         ) -> Self::Future {
                             let inner = Arc::clone(&self.0);
@@ -2285,9 +2283,9 @@ pub mod knitter_grpc_server {
                     impl<
                         T: KnitterGrpc,
                     > tonic::server::UnaryService<
-                        ::manage_define::cashmere::GetDataInfoRequest,
+                        ::data_module::protocols::GetDataInfoRequest,
                     > for GetDataInfoSvc<T> {
-                        type Response = ::manage_define::cashmere::GetDataInfoResponse;
+                        type Response = ::data_module::protocols::GetDataInfoResponse;
                         type Future = BoxFuture<
                             tonic::Response<Self::Response>,
                             tonic::Status,
@@ -2295,7 +2293,7 @@ pub mod knitter_grpc_server {
                         fn call(
                             &mut self,
                             request: tonic::Request<
-                                ::manage_define::cashmere::GetDataInfoRequest,
+                                ::data_module::protocols::GetDataInfoRequest,
                             >,
                         ) -> Self::Future {
                             let inner = Arc::clone(&self.0);
@@ -2334,9 +2332,9 @@ pub mod knitter_grpc_server {
                     impl<
                         T: KnitterGrpc,
                     > tonic::server::UnaryService<
-                        ::manage_define::cashmere::MarkDataRemovedRequest,
+                        ::data_module::protocols::MarkDataRemovedRequest,
                     > for MarkDataRemovedSvc<T> {
-                        type Response = ::manage_define::cashmere::MarkDataRemovedResponse;
+                        type Response = ::data_module::protocols::MarkDataRemovedResponse;
                         type Future = BoxFuture<
                             tonic::Response<Self::Response>,
                             tonic::Status,
@@ -2344,7 +2342,7 @@ pub mod knitter_grpc_server {
                         fn call(
                             &mut self,
                             request: tonic::Request<
-                                ::manage_define::cashmere::MarkDataRemovedRequest,
+                                ::data_module::protocols::MarkDataRemovedRequest,
                             >,
                         ) -> Self::Future {
                             let inner = Arc::clone(&self.0);
@@ -2383,9 +2381,9 @@ pub mod knitter_grpc_server {
                     impl<
                         T: KnitterGrpc,
                     > tonic::server::UnaryService<
-                        ::manage_define::cashmere::NewSpecsRequest,
+                        ::data_module::protocols::NewSpecsRequest,
                     > for NewSpecsSvc<T> {
-                        type Response = ::manage_define::cashmere::NewSpecsResponse;
+                        type Response = ::data_module::protocols::NewSpecsResponse;
                         type Future = BoxFuture<
                             tonic::Response<Self::Response>,
                             tonic::Status,
@@ -2393,7 +2391,7 @@ pub mod knitter_grpc_server {
                         fn call(
                             &mut self,
                             request: tonic::Request<
-                                ::manage_define::cashmere::NewSpecsRequest,
+                                ::data_module::protocols::NewSpecsRequest,
                             >,
                         ) -> Self::Future {
                             let inner = Arc::clone(&self.0);
@@ -2430,9 +2428,9 @@ pub mod knitter_grpc_server {
                     impl<
                         T: KnitterGrpc,
                     > tonic::server::UnaryService<
-                        ::manage_define::cashmere::ListSpecsRequest,
+                        ::data_module::protocols::ListSpecsRequest,
                     > for ListSpecsSvc<T> {
-                        type Response = ::manage_define::cashmere::ListSpecsResponse;
+                        type Response = ::data_module::protocols::ListSpecsResponse;
                         type Future = BoxFuture<
                             tonic::Response<Self::Response>,
                             tonic::Status,
@@ -2440,7 +2438,7 @@ pub mod knitter_grpc_server {
                         fn call(
                             &mut self,
                             request: tonic::Request<
-                                ::manage_define::cashmere::ListSpecsRequest,
+                                ::data_module::protocols::ListSpecsRequest,
                             >,
                         ) -> Self::Future {
                             let inner = Arc::clone(&self.0);
@@ -2477,9 +2475,9 @@ pub mod knitter_grpc_server {
                     impl<
                         T: KnitterGrpc,
                     > tonic::server::UnaryService<
-                        ::manage_define::cashmere::ListSpecsPrefabsRequest,
+                        ::data_module::protocols::ListSpecsPrefabsRequest,
                     > for ListSpecsPrefabsSvc<T> {
-                        type Response = ::manage_define::cashmere::ListSpecsPrefabsResponse;
+                        type Response = ::data_module::protocols::ListSpecsPrefabsResponse;
                         type Future = BoxFuture<
                             tonic::Response<Self::Response>,
                             tonic::Status,
@@ -2487,7 +2485,7 @@ pub mod knitter_grpc_server {
                         fn call(
                             &mut self,
                             request: tonic::Request<
-                                ::manage_define::cashmere::ListSpecsPrefabsRequest,
+                                ::data_module::protocols::ListSpecsPrefabsRequest,
                             >,
                         ) -> Self::Future {
                             let inner = Arc::clone(&self.0);
@@ -2526,9 +2524,9 @@ pub mod knitter_grpc_server {
                     impl<
                         T: KnitterGrpc,
                     > tonic::server::UnaryService<
-                        ::manage_define::cashmere::NewStageRequest,
+                        ::data_module::protocols::NewStageRequest,
                     > for NewStageSvc<T> {
-                        type Response = ::manage_define::cashmere::NewStageResponse;
+                        type Response = ::data_module::protocols::NewStageResponse;
                         type Future = BoxFuture<
                             tonic::Response<Self::Response>,
                             tonic::Status,
@@ -2536,7 +2534,7 @@ pub mod knitter_grpc_server {
                         fn call(
                             &mut self,
                             request: tonic::Request<
-                                ::manage_define::cashmere::NewStageRequest,
+                                ::data_module::protocols::NewStageRequest,
                             >,
                         ) -> Self::Future {
                             let inner = Arc::clone(&self.0);
@@ -2573,9 +2571,9 @@ pub mod knitter_grpc_server {
                     impl<
                         T: KnitterGrpc,
                     > tonic::server::UnaryService<
-                        ::manage_define::cashmere::ListStagesRequest,
+                        ::data_module::protocols::ListStagesRequest,
                     > for ListStagesSvc<T> {
-                        type Response = ::manage_define::cashmere::ListStagesResponse;
+                        type Response = ::data_module::protocols::ListStagesResponse;
                         type Future = BoxFuture<
                             tonic::Response<Self::Response>,
                             tonic::Status,
@@ -2583,7 +2581,7 @@ pub mod knitter_grpc_server {
                         fn call(
                             &mut self,
                             request: tonic::Request<
-                                ::manage_define::cashmere::ListStagesRequest,
+                                ::data_module::protocols::ListStagesRequest,
                             >,
                         ) -> Self::Future {
                             let inner = Arc::clone(&self.0);
@@ -2620,9 +2618,9 @@ pub mod knitter_grpc_server {
                     impl<
                         T: KnitterGrpc,
                     > tonic::server::UnaryService<
-                        ::manage_define::cashmere::NewPrefabRequest,
+                        ::data_module::protocols::NewPrefabRequest,
                     > for NewPrefabSvc<T> {
-                        type Response = ::manage_define::cashmere::NewPrefabResponse;
+                        type Response = ::data_module::protocols::NewPrefabResponse;
                         type Future = BoxFuture<
                             tonic::Response<Self::Response>,
                             tonic::Status,
@@ -2630,7 +2628,7 @@ pub mod knitter_grpc_server {
                         fn call(
                             &mut self,
                             request: tonic::Request<
-                                ::manage_define::cashmere::NewPrefabRequest,
+                                ::data_module::protocols::NewPrefabRequest,
                             >,
                         ) -> Self::Future {
                             let inner = Arc::clone(&self.0);
@@ -2667,9 +2665,9 @@ pub mod knitter_grpc_server {
                     impl<
                         T: KnitterGrpc,
                     > tonic::server::UnaryService<
-                        ::manage_define::cashmere::AddStageVersionRequest,
+                        ::data_module::protocols::AddStageVersionRequest,
                     > for AddStageVersionSvc<T> {
-                        type Response = ::manage_define::cashmere::AddStageVersionResponse;
+                        type Response = ::data_module::protocols::AddStageVersionResponse;
                         type Future = BoxFuture<
                             tonic::Response<Self::Response>,
                             tonic::Status,
@@ -2677,7 +2675,7 @@ pub mod knitter_grpc_server {
                         fn call(
                             &mut self,
                             request: tonic::Request<
-                                ::manage_define::cashmere::AddStageVersionRequest,
+                                ::data_module::protocols::AddStageVersionRequest,
                             >,
                         ) -> Self::Future {
                             let inner = Arc::clone(&self.0);
@@ -2716,9 +2714,9 @@ pub mod knitter_grpc_server {
                     impl<
                         T: KnitterGrpc,
                     > tonic::server::UnaryService<
-                        ::manage_define::cashmere::ListStageVersionsRequest,
+                        ::data_module::protocols::ListStageVersionsRequest,
                     > for ListStageVersionsSvc<T> {
-                        type Response = ::manage_define::cashmere::ListStageVersionsResponse;
+                        type Response = ::data_module::protocols::ListStageVersionsResponse;
                         type Future = BoxFuture<
                             tonic::Response<Self::Response>,
                             tonic::Status,
@@ -2726,7 +2724,7 @@ pub mod knitter_grpc_server {
                         fn call(
                             &mut self,
                             request: tonic::Request<
-                                ::manage_define::cashmere::ListStageVersionsRequest,
+                                ::data_module::protocols::ListStageVersionsRequest,
                             >,
                         ) -> Self::Future {
                             let inner = Arc::clone(&self.0);
@@ -2765,9 +2763,9 @@ pub mod knitter_grpc_server {
                     impl<
                         T: KnitterGrpc,
                     > tonic::server::UnaryService<
-                        ::manage_define::cashmere::SetStageCurrentVersionRequest,
+                        ::data_module::protocols::SetStageCurrentVersionRequest,
                     > for SetStageCurrentVersionSvc<T> {
-                        type Response = ::manage_define::cashmere::SetStageCurrentVersionResponse;
+                        type Response = ::data_module::protocols::SetStageCurrentVersionResponse;
                         type Future = BoxFuture<
                             tonic::Response<Self::Response>,
                             tonic::Status,
@@ -2775,7 +2773,7 @@ pub mod knitter_grpc_server {
                         fn call(
                             &mut self,
                             request: tonic::Request<
-                                ::manage_define::cashmere::SetStageCurrentVersionRequest,
+                                ::data_module::protocols::SetStageCurrentVersionRequest,
                             >,
                         ) -> Self::Future {
                             let inner = Arc::clone(&self.0);
@@ -2814,9 +2812,9 @@ pub mod knitter_grpc_server {
                     impl<
                         T: KnitterGrpc,
                     > tonic::server::UnaryService<
-                        ::manage_define::cashmere::RemoveStageVersionRequest,
+                        ::data_module::protocols::RemoveStageVersionRequest,
                     > for RemoveStageVersionSvc<T> {
-                        type Response = ::manage_define::cashmere::RemoveStageVersionResponse;
+                        type Response = ::data_module::protocols::RemoveStageVersionResponse;
                         type Future = BoxFuture<
                             tonic::Response<Self::Response>,
                             tonic::Status,
@@ -2824,7 +2822,7 @@ pub mod knitter_grpc_server {
                         fn call(
                             &mut self,
                             request: tonic::Request<
-                                ::manage_define::cashmere::RemoveStageVersionRequest,
+                                ::data_module::protocols::RemoveStageVersionRequest,
                             >,
                         ) -> Self::Future {
                             let inner = Arc::clone(&self.0);
@@ -2863,9 +2861,9 @@ pub mod knitter_grpc_server {
                     impl<
                         T: KnitterGrpc,
                     > tonic::server::UnaryService<
-                        ::manage_define::cashmere::AddFileToVersionRequest,
+                        ::data_module::protocols::AddFileToVersionRequest,
                     > for AddFileToVersionSvc<T> {
-                        type Response = ::manage_define::cashmere::AddFileToVersionResponse;
+                        type Response = ::data_module::protocols::AddFileToVersionResponse;
                         type Future = BoxFuture<
                             tonic::Response<Self::Response>,
                             tonic::Status,
@@ -2873,7 +2871,7 @@ pub mod knitter_grpc_server {
                         fn call(
                             &mut self,
                             request: tonic::Request<
-                                ::manage_define::cashmere::AddFileToVersionRequest,
+                                ::data_module::protocols::AddFileToVersionRequest,
                             >,
                         ) -> Self::Future {
                             let inner = Arc::clone(&self.0);
@@ -2912,9 +2910,9 @@ pub mod knitter_grpc_server {
                     impl<
                         T: KnitterGrpc,
                     > tonic::server::UnaryService<
-                        ::manage_define::cashmere::AddFileSetToVersionRequest,
+                        ::data_module::protocols::AddFileSetToVersionRequest,
                     > for AddFileSetToVersionSvc<T> {
-                        type Response = ::manage_define::cashmere::AddFileSetToVersionResponse;
+                        type Response = ::data_module::protocols::AddFileSetToVersionResponse;
                         type Future = BoxFuture<
                             tonic::Response<Self::Response>,
                             tonic::Status,
@@ -2922,7 +2920,7 @@ pub mod knitter_grpc_server {
                         fn call(
                             &mut self,
                             request: tonic::Request<
-                                ::manage_define::cashmere::AddFileSetToVersionRequest,
+                                ::data_module::protocols::AddFileSetToVersionRequest,
                             >,
                         ) -> Self::Future {
                             let inner = Arc::clone(&self.0);
@@ -2961,9 +2959,9 @@ pub mod knitter_grpc_server {
                     impl<
                         T: KnitterGrpc,
                     > tonic::server::UnaryService<
-                        ::manage_define::cashmere::AddFileSequenceToVersionRequest,
+                        ::data_module::protocols::AddFileSequenceToVersionRequest,
                     > for AddFileSequenceToVersionSvc<T> {
-                        type Response = ::manage_define::cashmere::AddFileSequenceToVersionResponse;
+                        type Response = ::data_module::protocols::AddFileSequenceToVersionResponse;
                         type Future = BoxFuture<
                             tonic::Response<Self::Response>,
                             tonic::Status,
@@ -2971,7 +2969,7 @@ pub mod knitter_grpc_server {
                         fn call(
                             &mut self,
                             request: tonic::Request<
-                                ::manage_define::cashmere::AddFileSequenceToVersionRequest,
+                                ::data_module::protocols::AddFileSequenceToVersionRequest,
                             >,
                         ) -> Self::Future {
                             let inner = Arc::clone(&self.0);
@@ -3010,9 +3008,9 @@ pub mod knitter_grpc_server {
                     impl<
                         T: KnitterGrpc,
                     > tonic::server::UnaryService<
-                        ::manage_define::cashmere::RemoveFilesFromVersionRequest,
+                        ::data_module::protocols::RemoveFilesFromVersionRequest,
                     > for RemoveFilesFromVersionSvc<T> {
-                        type Response = ::manage_define::cashmere::RemoveFilesFromVersionResponse;
+                        type Response = ::data_module::protocols::RemoveFilesFromVersionResponse;
                         type Future = BoxFuture<
                             tonic::Response<Self::Response>,
                             tonic::Status,
@@ -3020,7 +3018,7 @@ pub mod knitter_grpc_server {
                         fn call(
                             &mut self,
                             request: tonic::Request<
-                                ::manage_define::cashmere::RemoveFilesFromVersionRequest,
+                                ::data_module::protocols::RemoveFilesFromVersionRequest,
                             >,
                         ) -> Self::Future {
                             let inner = Arc::clone(&self.0);
@@ -3059,9 +3057,9 @@ pub mod knitter_grpc_server {
                     impl<
                         T: KnitterGrpc,
                     > tonic::server::UnaryService<
-                        ::manage_define::cashmere::ListVersionFolderRequest,
+                        ::data_module::protocols::ListVersionFolderRequest,
                     > for ListVersionFolderSvc<T> {
-                        type Response = ::manage_define::cashmere::ListVersionFolderResponse;
+                        type Response = ::data_module::protocols::ListVersionFolderResponse;
                         type Future = BoxFuture<
                             tonic::Response<Self::Response>,
                             tonic::Status,
@@ -3069,7 +3067,7 @@ pub mod knitter_grpc_server {
                         fn call(
                             &mut self,
                             request: tonic::Request<
-                                ::manage_define::cashmere::ListVersionFolderRequest,
+                                ::data_module::protocols::ListVersionFolderRequest,
                             >,
                         ) -> Self::Future {
                             let inner = Arc::clone(&self.0);
@@ -3108,9 +3106,9 @@ pub mod knitter_grpc_server {
                     impl<
                         T: KnitterGrpc,
                     > tonic::server::UnaryService<
-                        ::manage_define::cashmere::DeleteVersionFolderEntriesRequest,
+                        ::data_module::protocols::DeleteVersionFolderEntriesRequest,
                     > for DeleteVersionFolderEntriesSvc<T> {
-                        type Response = ::manage_define::cashmere::DeleteVersionFolderEntriesResponse;
+                        type Response = ::data_module::protocols::DeleteVersionFolderEntriesResponse;
                         type Future = BoxFuture<
                             tonic::Response<Self::Response>,
                             tonic::Status,
@@ -3118,7 +3116,7 @@ pub mod knitter_grpc_server {
                         fn call(
                             &mut self,
                             request: tonic::Request<
-                                ::manage_define::cashmere::DeleteVersionFolderEntriesRequest,
+                                ::data_module::protocols::DeleteVersionFolderEntriesRequest,
                             >,
                         ) -> Self::Future {
                             let inner = Arc::clone(&self.0);
@@ -3157,9 +3155,9 @@ pub mod knitter_grpc_server {
                     impl<
                         T: KnitterGrpc,
                     > tonic::server::StreamingService<
-                        ::manage_define::cashmere::UploadFileRequest,
+                        ::data_module::protocols::UploadFileRequest,
                     > for UploadFileSvc<T> {
-                        type Response = ::manage_define::cashmere::UploadFileResponse;
+                        type Response = ::data_module::protocols::UploadFileResponse;
                         type ResponseStream = T::UploadFileStream;
                         type Future = BoxFuture<
                             tonic::Response<Self::ResponseStream>,
@@ -3169,7 +3167,7 @@ pub mod knitter_grpc_server {
                             &mut self,
                             request: tonic::Request<
                                 tonic::Streaming<
-                                    ::manage_define::cashmere::UploadFileRequest,
+                                    ::data_module::protocols::UploadFileRequest,
                                 >,
                             >,
                         ) -> Self::Future {
@@ -3207,9 +3205,9 @@ pub mod knitter_grpc_server {
                     impl<
                         T: KnitterGrpc,
                     > tonic::server::StreamingService<
-                        ::manage_define::cashmere::DownloadFileRequest,
+                        ::data_module::protocols::DownloadFileRequest,
                     > for DownloadFileSvc<T> {
-                        type Response = ::manage_define::cashmere::DownloadFileResponse;
+                        type Response = ::data_module::protocols::DownloadFileResponse;
                         type ResponseStream = T::DownloadFileStream;
                         type Future = BoxFuture<
                             tonic::Response<Self::ResponseStream>,
@@ -3219,7 +3217,7 @@ pub mod knitter_grpc_server {
                             &mut self,
                             request: tonic::Request<
                                 tonic::Streaming<
-                                    ::manage_define::cashmere::DownloadFileRequest,
+                                    ::data_module::protocols::DownloadFileRequest,
                                 >,
                             >,
                         ) -> Self::Future {
