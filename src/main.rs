@@ -3,7 +3,12 @@
 mod protocol;
 mod services;
 
+use dependencies_sync::once_cell;
+use dependencies_sync::rust_i18n::{self, i18n, t};
+i18n!("locales");
+
 use std::fs::File;
+use std::str::FromStr;
 use std::time::Duration;
 
 use dependencies_sync::tokio;
@@ -15,10 +20,6 @@ use dependencies_sync::log::{error, info};
 use dependencies_sync::simplelog::{
     self, ColorChoice, CombinedLogger, LevelFilter, TermLogger, TerminalMode, WriteLogger,
 };
-
-#[macro_use]
-extern crate rust_i18n;
-i18n!("locales");
 
 use runtime_handle::set_runtime_handle;
 
@@ -39,8 +40,10 @@ use services::KnitterServer;
 
 fn main() -> Result<(), Box<dyn std::error::Error>> {
     // 初始化设置
-    configs::init_configs_path("./configs.toml".to_string())
-        .expect(t!("config.toml文件不存在").as_str());
+    let configs_path = read_configs_file_path();
+    configs::init_configs_path(configs_path)
+        .expect(t!("配置文件不存在").as_str());
+
     let configs = configs::get_configs();
 
     // 语言设置
@@ -48,6 +51,7 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
 
     // 初始化日志
     server_utils::init_log_dir(&configs.server.log_dir).expect(t!("创建日志目录失败").as_str());
+    let log_level = LevelFilter::from_str(configs.server.log_level.as_str()).unwrap();
 
     let log_config = simplelog::ConfigBuilder::new()
         .set_time_format_rfc3339()
@@ -56,7 +60,7 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
         .build();
     CombinedLogger::init(vec![
         TermLogger::new(
-            LevelFilter::Info,
+            log_level,
             log_config.clone(),
             TerminalMode::Mixed,
             ColorChoice::Always,

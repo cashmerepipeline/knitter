@@ -344,33 +344,9 @@ dependencies = [
  "atty",
  "bitflags",
  "strsim 0.8.0",
- "textwrap 0.11.0",
+ "textwrap",
  "unicode-width",
  "vec_map",
-]
-
-[[package]]
-name = "clap"
-version = "3.2.23"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "71655c45cb9845d3270c9d6df84ebe72b4dad3c2ba3f7023ad47c144e4e473a5"
-dependencies = [
- "atty",
- "bitflags",
- "clap_lex",
- "indexmap",
- "strsim 0.10.0",
- "termcolor",
- "textwrap 0.16.0",
-]
-
-[[package]]
-name = "clap_lex"
-version = "0.2.4"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "2850f2f5a82cbf437dd5af4d49848fbdfc27c157c3d010345776f952765261c5"
-dependencies = [
- "os_str_bytes",
 ]
 
 [[package]]
@@ -394,12 +370,11 @@ dependencies = [
 
 [[package]]
 name = "configs"
-version = "0.2.0"
+version = "0.2.1"
 dependencies = [
- "log",
+ "dependencies_sync",
  "serde",
  "serde_derive",
- "toml",
 ]
 
 [[package]]
@@ -1178,7 +1153,6 @@ dependencies = [
  "auth",
  "cash_core",
  "cash_result",
- "clap 3.2.23",
  "configs",
  "data_module",
  "dependencies_sync",
@@ -1188,10 +1162,8 @@ dependencies = [
  "majordomo",
  "manage_define",
  "managers",
- "once_cell",
  "prost 0.11.9",
  "runtime_handle",
- "rust-i18n",
  "serde",
  "serde_derive",
  "server_utils",
@@ -1498,12 +1470,6 @@ name = "once_cell"
 version = "1.16.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "86f0b0d4bf799edbc74508c1e8bf170ff5f41238e5f8225603ca7caaae2b7860"
-
-[[package]]
-name = "os_str_bytes"
-version = "6.4.0"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "7b5bf27447411e9ee3ff51186bf7a08e16c341efdde93f4d823e8844429bed7e"
 
 [[package]]
 name = "parking_lot"
@@ -1888,7 +1854,7 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "420d0269a7f9c29b08650b66af2b7503a0df6e64d17f8a0b0279aa9dc8621ebc"
 dependencies = [
  "anyhow",
- "clap 2.34.0",
+ "clap",
  "glob",
  "itertools",
  "once_cell",
@@ -2378,12 +2344,6 @@ checksum = "d326610f408c7a4eb6f51c37c330e496b08506c9457c9d34287ecc38809fb060"
 dependencies = [
  "unicode-width",
 ]
-
-[[package]]
-name = "textwrap"
-version = "0.16.0"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "222a222a5bfe1bba4a77b45ec488a741b3cb8872e5e499451fd7d0129c9c7c3d"
 
 [[package]]
 name = "thiserror"

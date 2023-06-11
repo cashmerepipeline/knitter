@@ -25,6 +25,8 @@ language_code = "zh"
 
 # 日志
 # log_level = "Info"
+log_level = "debug"
+# log_level = "info"
 log_dir = "log"
 
 [tls]
