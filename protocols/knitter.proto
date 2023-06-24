@@ -25,8 +25,8 @@ import "prefab.proto";
 import "file_transfer.proto";
 
 import "area.proto";
+import "country_code.proto";
 import "language_code.proto";
-import "country.proto";
 import "view.proto";
 
 import "tag_map.proto";
@@ -84,7 +84,7 @@ service KnitterGrpc{
   rpc NewLanguageName(cashmere.NewLanguageNameRequest) returns (cashmere.NewLanguageNameResponse);
 
   // 国家
-  rpc NewCountry(cashmere.NewCountryRequest) returns (cashmere.NewCountryResponse);
+  rpc NewCountryCode(cashmere.NewCountryCodeRequest) returns (cashmere.NewCountryCodeResponse);
 
   // 语言编码
   rpc NewLanguageCode(cashmere.NewLanguageCodeRequest) returns (cashmere.NewLanguageCodeResponse);

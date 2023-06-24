@@ -12,7 +12,7 @@ use service_utils::types::ResponseStream;
 use service_common_handles::{
     area_service_handles::HandleEditArea,
     area_service_handles::HandleNewArea,
-    country_service_handles::HandleNewCountry,
+    country_service_handles::HandleNewCountryCode,
     entity_service_handles::*,
     group_service_handles::HandleNewGroup,
     language_code_handles::{HandleUpdateLanguageCode, HandleNewLanguageCode},
@@ -51,7 +51,7 @@ pub struct KnitterServer;
 impl HandleNewGroup for KnitterServer {}
 
 // 国家
-impl HandleNewCountry for KnitterServer {}
+impl HandleNewCountryCode for KnitterServer {}
 
 // 地区
 impl HandleNewArea for KnitterServer {}
@@ -341,11 +341,11 @@ impl KnitterGrpc for KnitterServer {
         self.handle_new_language_name(request).await
     }
 
-    async fn new_country(
+    async fn new_country_code(
         &self,
-        request: Request<NewCountryRequest>,
-    ) -> Result<Response<NewCountryResponse>, Status> {
-        self.handle_new_country(request).await
+        request: Request<NewCountryCodeRequest>,
+    ) -> Result<Response<NewCountryCodeResponse>, Status> {
+        self.handle_new_country_code(request).await
     }
 
     // 语言编码

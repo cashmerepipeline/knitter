@@ -60,8 +60,8 @@
 
 ## 部署
 
-    如果内部使用，一般使用cargo build --release编译，如果对外发布不想暴露调试信息，可以使用cargo build --release --strip编译
-    默认编译不启用访问授权检查，如果需要启用内置的授权检查，使用cargo build --release --features view_rules_validate 开启授权检查
+    如果内部使用，一般使用cargo build --release编译，如果对外发布不想暴露调试信息，可以在Cargo.toml中设置profile设置，具体参见cargo的profile设置。
+    默认编译不启用访问授权检查，如果需要启用内置的授权检查，使用cargo build --release --features view_rules_validate 开启授权检查(当前正在开发中，未完成)
 
   1. 新建一个目录，将生成的knitter执行文件放到该目录下，将configs.toml放到该目录下
   2. 如果数据库没有初始化，使用init_db.ps1初始化数据库
@@ -71,9 +71,10 @@
 ## 相关仓库地址
 
   1. https://gitee.com/cashmere/cashmere_core
-  2. https://gitee.com/cashmere/knitter
-  3. https://gitee.com/cashmere/knitter-module
-  4. https://gitee.com/cashmere/event-module
-  4. https://gitee.com/cashmere/data-module
-  5. https://gitee.com/cashmere/account-module
-  6. https://gitee.com/cashmere/knitter-python-api
+  2. https://gitee.com/cashmere/minit
+  3. https://gitee.com/cashmere/knitter
+  4. https://gitee.com/cashmere/knitter-module
+  5. https://gitee.com/cashmere/event-module
+  6. https://gitee.com/cashmere/data-module
+  7. https://gitee.com/cashmere/account-module
+  8. https://gitee.com/cashmere/knitter-python-api

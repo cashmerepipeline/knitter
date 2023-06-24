@@ -208,11 +208,11 @@ pub mod knitter_grpc_server {
             tonic::Status,
         >;
         /// 国家
-        async fn new_country(
+        async fn new_country_code(
             &self,
-            request: tonic::Request<::manage_define::cashmere::NewCountryRequest>,
+            request: tonic::Request<::manage_define::cashmere::NewCountryCodeRequest>,
         ) -> std::result::Result<
-            tonic::Response<::manage_define::cashmere::NewCountryResponse>,
+            tonic::Response<::manage_define::cashmere::NewCountryCodeResponse>,
             tonic::Status,
         >;
         /// 语言编码
@@ -1989,15 +1989,15 @@ pub mod knitter_grpc_server {
                     };
                     Box::pin(fut)
                 }
-                "/io.knitter.KnitterGrpc/NewCountry" => {
+                "/io.knitter.KnitterGrpc/NewCountryCode" => {
                     #[allow(non_camel_case_types)]
-                    struct NewCountrySvc<T: KnitterGrpc>(pub Arc<T>);
+                    struct NewCountryCodeSvc<T: KnitterGrpc>(pub Arc<T>);
                     impl<
                         T: KnitterGrpc,
                     > tonic::server::UnaryService<
-                        ::manage_define::cashmere::NewCountryRequest,
-                    > for NewCountrySvc<T> {
-                        type Response = ::manage_define::cashmere::NewCountryResponse;
+                        ::manage_define::cashmere::NewCountryCodeRequest,
+                    > for NewCountryCodeSvc<T> {
+                        type Response = ::manage_define::cashmere::NewCountryCodeResponse;
                         type Future = BoxFuture<
                             tonic::Response<Self::Response>,
                             tonic::Status,
@@ -2005,11 +2005,13 @@ pub mod knitter_grpc_server {
                         fn call(
                             &mut self,
                             request: tonic::Request<
-                                ::manage_define::cashmere::NewCountryRequest,
+                                ::manage_define::cashmere::NewCountryCodeRequest,
                             >,
                         ) -> Self::Future {
                             let inner = Arc::clone(&self.0);
-                            let fut = async move { (*inner).new_country(request).await };
+                            let fut = async move {
+                                (*inner).new_country_code(request).await
+                            };
                             Box::pin(fut)
                         }
                     }
@@ -2020,7 +2022,7 @@ pub mod knitter_grpc_server {
                     let inner = self.inner.clone();
                     let fut = async move {
                         let inner = inner.0;
-                        let method = NewCountrySvc(inner);
+                        let method = NewCountryCodeSvc(inner);
                         let codec = tonic::codec::ProstCodec::default();
                         let mut grpc = tonic::server::Grpc::new(codec)
                             .apply_compression_config(
