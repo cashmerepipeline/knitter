@@ -5,6 +5,7 @@ mod services;
 
 use dependencies_sync::once_cell;
 use dependencies_sync::rust_i18n::{self, i18n, t};
+use server_utils::get_tls_configs;
 i18n!("locales");
 
 use std::fs::File;
@@ -21,7 +22,6 @@ use dependencies_sync::simplelog::{
     self, ColorChoice, CombinedLogger, LevelFilter, TermLogger, TerminalMode, WriteLogger,
 };
 
-
 // 终止相关
 use dependencies_sync::tokio::runtime::{self};
 use dependencies_sync::tokio::signal;
@@ -30,11 +30,11 @@ use dependencies_sync::tokio::sync::oneshot::{self};
 use dependencies_sync::tonic::codec::CompressionEncoding;
 use dependencies_sync::tonic::transport::{Certificate, Identity, Server, ServerTlsConfig};
 
-use configs::read_configs_file_path;
-use runtime_handle::set_runtime_handle;
 use account_module::account_server::AccountServer;
 use account_module::protocols::account_grpc_server::AccountGrpcServer;
 use auth::check::check_auth_token;
+use configs::read_configs_file_path;
+use runtime_handle::set_runtime_handle;
 
 use crate::protocol::knitter_grpc_server::KnitterGrpcServer;
 use services::KnitterServer;
@@ -42,8 +42,7 @@ use services::KnitterServer;
 fn main() -> Result<(), Box<dyn std::error::Error>> {
     // 初始化设置
     let configs_path = read_configs_file_path();
-    configs::init_configs_path(configs_path)
-        .expect(t!("配置文件不存在").as_str());
+    configs::init_configs_path(configs_path).expect(t!("配置文件不存在").as_str());
 
     let configs = configs::get_configs();
 
@@ -84,36 +83,20 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
             let server_address: &String = &configs.server.address;
             let server_port: &String = &configs.server.port;
             let use_tls: &bool = &configs.server.use_tls;
-            let server_key_path: &String = &configs.tls.server_key_path;
-            let server_ca_path: &String = &configs.tls.server_ca_path;
-            let client_ca_path: &String = &configs.tls.client_ca_path;
 
             // Ctrl+c 终止程序
             let (tx, rx) = oneshot::channel();
-            let _sig = tokio::spawn(wait_for_end_signal(tx));
+            let _sig = tokio::spawn(server_utils::wait_for_terminat_signal(tx));
 
             // 服务地址
             let address = format!("{}:{}", server_address, server_port)
                 .parse()
                 .expect(t!("地址或端口解析错误").as_str());
 
-            // tls文件读取
-            let cert = tokio::fs::read(server_ca_path)
-                .await
-                .expect(t!("读取crt文件失败").as_str());
-            let key = tokio::fs::read(server_key_path)
-                .await
-                .expect(t!("读取服务key文件失败").as_str());
-            let server_identity = Identity::from_pem(cert, key);
-
-            let client_ca_cert = tokio::fs::read(client_ca_path)
-                .await
-                .expect("读取客户端crt文件失败");
-            let client_ca_cert = Certificate::from_pem(client_ca_cert);
-
-            let tls = ServerTlsConfig::new()
-                .identity(server_identity)
-                .client_ca_root(client_ca_cert);
+            let mut tls_configs = None;
+            if *use_tls {
+                let _ = tls_configs.insert(get_tls_configs(&configs));
+            }
 
             info!("{}: {}", t!("服务监听地址-端口"), address);
 
@@ -157,7 +140,7 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
             // 部署在ngnix后时，不使用tls， 本地测试时或者单独启动服务时使用tls
             if *use_tls {
                 Server::builder()
-                    .tls_config(tls)?
+                    .tls_config(tls_configs.unwrap())?
                     // .concurrency_limit_per_connection(32)
                     // .initial_connection_window_size(32)
                     .layer(layer)
@@ -184,11 +167,4 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
         .expect(t!("启动服务失败").as_str());
 
     Ok(())
-}
-
-// 退出程序信号
-async fn wait_for_end_signal(tx: oneshot::Sender<()>) {
-    let _ = signal::ctrl_c().await;
-    info!("{}", t!("发出程序中止中断, 开始停止服务"));
-    let _ = tx.send(());
 }

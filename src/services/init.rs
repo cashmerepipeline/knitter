@@ -5,7 +5,7 @@
 
 use managers::{
     groups_manager,
-    areas_manager, comments_manager, countries_manager, 
+    areas_manager, comments_manager, country_codes_manager, 
     language_codes_manager, manages_manager, persons_manager,
     phone_area_codes_manager, view_rules_manager, 
 };
@@ -32,7 +32,7 @@ impl KnitterServer {
         let manager_arcs = vec![
             // cashmere services
             manages_manager::get_manager().await,
-            countries_manager::get_manager().await,
+            country_codes_manager::get_manager().await,
             areas_manager::get_manager().await,
             phone_area_codes_manager::get_manager().await,
             language_codes_manager::get_manager().await,

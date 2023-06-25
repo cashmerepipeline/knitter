@@ -2062,6 +2062,10 @@ dependencies = [
 [[package]]
 name = "server_utils"
 version = "0.1.0"
+dependencies = [
+ "configs",
+ "dependencies_sync",
+]
 
 [[package]]
 name = "service_common_handles"
