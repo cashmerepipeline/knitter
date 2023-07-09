@@ -137,6 +137,7 @@ dependencies = [
  "configs",
  "dependencies_sync",
  "jsonwebtoken",
+ "manage_define",
  "rust-argon2",
  "serde",
 ]
@@ -385,6 +386,27 @@ name = "core-foundation-sys"
 version = "0.8.3"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "5827cebf4670468b8772dd191856768aedcb1b0278a04f989f7766351917b9dc"
+
+[[package]]
+name = "core_service_handles"
+version = "0.5.2"
+dependencies = [
+ "auth",
+ "cash_core",
+ "cash_result",
+ "configs",
+ "dependencies_sync",
+ "entity",
+ "majordomo",
+ "manage_define",
+ "managers",
+ "property_field",
+ "request_utils",
+ "serde",
+ "serde_derive",
+ "service_utils",
+ "view",
+]
 
 [[package]]
 name = "cpufeatures"
@@ -1142,6 +1164,7 @@ dependencies = [
  "cash_core",
  "cash_result",
  "configs",
+ "core_service_handles",
  "data_module",
  "dependencies_sync",
  "entity",
@@ -1155,7 +1178,6 @@ dependencies = [
  "serde",
  "serde_derive",
  "server_utils",
- "service_common_handles",
  "service_utils",
  "tonic",
  "view",
@@ -1732,6 +1754,7 @@ version = "0.1.0"
 dependencies = [
  "auth",
  "dependencies_sync",
+ "manage_define",
 ]
 
 [[package]]
@@ -2065,27 +2088,6 @@ version = "0.1.0"
 dependencies = [
  "configs",
  "dependencies_sync",
-]
-
-[[package]]
-name = "service_common_handles"
-version = "0.5.2"
-dependencies = [
- "auth",
- "cash_core",
- "cash_result",
- "configs",
- "dependencies_sync",
- "entity",
- "majordomo",
- "manage_define",
- "managers",
- "property_field",
- "request_utils",
- "serde",
- "serde_derive",
- "service_utils",
- "view",
 ]
 
 [[package]]

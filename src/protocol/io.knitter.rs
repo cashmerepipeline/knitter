@@ -215,12 +215,41 @@ pub mod knitter_grpc_server {
             tonic::Response<::manage_define::cashmere::NewCountryCodeResponse>,
             tonic::Status,
         >;
+        async fn get_country_codes(
+            &self,
+            request: tonic::Request<::manage_define::cashmere::GetCountryCodesRequest>,
+        ) -> std::result::Result<
+            tonic::Response<::manage_define::cashmere::GetCountryCodesResponse>,
+            tonic::Status,
+        >;
         /// 语言编码
         async fn new_language_code(
             &self,
             request: tonic::Request<::manage_define::cashmere::NewLanguageCodeRequest>,
         ) -> std::result::Result<
             tonic::Response<::manage_define::cashmere::NewLanguageCodeResponse>,
+            tonic::Status,
+        >;
+        async fn get_language_codes(
+            &self,
+            request: tonic::Request<::manage_define::cashmere::GetLanguageCodesRequest>,
+        ) -> std::result::Result<
+            tonic::Response<::manage_define::cashmere::GetLanguageCodesResponse>,
+            tonic::Status,
+        >;
+        /// 手机区号
+        async fn new_phone_area_code(
+            &self,
+            request: tonic::Request<::manage_define::cashmere::NewPhoneAreaCodeRequest>,
+        ) -> std::result::Result<
+            tonic::Response<::manage_define::cashmere::NewPhoneAreaCodeResponse>,
+            tonic::Status,
+        >;
+        async fn get_phone_area_codes(
+            &self,
+            request: tonic::Request<::manage_define::cashmere::GetPhoneAreaCodesRequest>,
+        ) -> std::result::Result<
+            tonic::Response<::manage_define::cashmere::GetPhoneAreaCodesResponse>,
             tonic::Status,
         >;
         /// 组
@@ -2038,6 +2067,55 @@ pub mod knitter_grpc_server {
                     };
                     Box::pin(fut)
                 }
+                "/io.knitter.KnitterGrpc/GetCountryCodes" => {
+                    #[allow(non_camel_case_types)]
+                    struct GetCountryCodesSvc<T: KnitterGrpc>(pub Arc<T>);
+                    impl<
+                        T: KnitterGrpc,
+                    > tonic::server::UnaryService<
+                        ::manage_define::cashmere::GetCountryCodesRequest,
+                    > for GetCountryCodesSvc<T> {
+                        type Response = ::manage_define::cashmere::GetCountryCodesResponse;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<
+                                ::manage_define::cashmere::GetCountryCodesRequest,
+                            >,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                (*inner).get_country_codes(request).await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let inner = inner.0;
+                        let method = GetCountryCodesSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
                 "/io.knitter.KnitterGrpc/NewLanguageCode" => {
                     #[allow(non_camel_case_types)]
                     struct NewLanguageCodeSvc<T: KnitterGrpc>(pub Arc<T>);
@@ -2072,6 +2150,153 @@ pub mod knitter_grpc_server {
                     let fut = async move {
                         let inner = inner.0;
                         let method = NewLanguageCodeSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/io.knitter.KnitterGrpc/GetLanguageCodes" => {
+                    #[allow(non_camel_case_types)]
+                    struct GetLanguageCodesSvc<T: KnitterGrpc>(pub Arc<T>);
+                    impl<
+                        T: KnitterGrpc,
+                    > tonic::server::UnaryService<
+                        ::manage_define::cashmere::GetLanguageCodesRequest,
+                    > for GetLanguageCodesSvc<T> {
+                        type Response = ::manage_define::cashmere::GetLanguageCodesResponse;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<
+                                ::manage_define::cashmere::GetLanguageCodesRequest,
+                            >,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                (*inner).get_language_codes(request).await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let inner = inner.0;
+                        let method = GetLanguageCodesSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/io.knitter.KnitterGrpc/NewPhoneAreaCode" => {
+                    #[allow(non_camel_case_types)]
+                    struct NewPhoneAreaCodeSvc<T: KnitterGrpc>(pub Arc<T>);
+                    impl<
+                        T: KnitterGrpc,
+                    > tonic::server::UnaryService<
+                        ::manage_define::cashmere::NewPhoneAreaCodeRequest,
+                    > for NewPhoneAreaCodeSvc<T> {
+                        type Response = ::manage_define::cashmere::NewPhoneAreaCodeResponse;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<
+                                ::manage_define::cashmere::NewPhoneAreaCodeRequest,
+                            >,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                (*inner).new_phone_area_code(request).await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let inner = inner.0;
+                        let method = NewPhoneAreaCodeSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/io.knitter.KnitterGrpc/GetPhoneAreaCodes" => {
+                    #[allow(non_camel_case_types)]
+                    struct GetPhoneAreaCodesSvc<T: KnitterGrpc>(pub Arc<T>);
+                    impl<
+                        T: KnitterGrpc,
+                    > tonic::server::UnaryService<
+                        ::manage_define::cashmere::GetPhoneAreaCodesRequest,
+                    > for GetPhoneAreaCodesSvc<T> {
+                        type Response = ::manage_define::cashmere::GetPhoneAreaCodesResponse;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<
+                                ::manage_define::cashmere::GetPhoneAreaCodesRequest,
+                            >,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                (*inner).get_phone_area_codes(request).await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let inner = inner.0;
+                        let method = GetPhoneAreaCodesSvc(inner);
                         let codec = tonic::codec::ProstCodec::default();
                         let mut grpc = tonic::server::Grpc::new(codec)
                             .apply_compression_config(

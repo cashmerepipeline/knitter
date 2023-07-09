@@ -32,7 +32,6 @@ use dependencies_sync::tonic::transport::{Certificate, Identity, Server, ServerT
 
 use account_module::account_server::AccountServer;
 use account_module::protocols::account_grpc_server::AccountGrpcServer;
-use auth::check::check_auth_token;
 use configs::read_configs_file_path;
 use runtime_handle::set_runtime_handle;
 
@@ -124,11 +123,6 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
                 }
             };
 
-            let layer = tower::ServiceBuilder::new()
-                .timeout(Duration::from_secs(30))
-                .layer(tonic::service::interceptor(check_auth_token))
-                .into_inner();
-
             let knitter_service = KnitterGrpcServer::new(knitter_server)
                 .send_compressed(CompressionEncoding::Gzip)
                 .accept_compressed(CompressionEncoding::Gzip);
@@ -141,9 +135,6 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
             if *use_tls {
                 Server::builder()
                     .tls_config(tls_configs.unwrap())?
-                    // .concurrency_limit_per_connection(32)
-                    // .initial_connection_window_size(32)
-                    .layer(layer)
                     .add_service(knitter_service)
                     .add_optional_service(Some(account_service))
                     .serve_with_shutdown(address, async {

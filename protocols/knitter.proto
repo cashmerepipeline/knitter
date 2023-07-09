@@ -27,6 +27,7 @@ import "file_transfer.proto";
 import "area.proto";
 import "country_code.proto";
 import "language_code.proto";
+import "phone_area_code.proto";
 import "view.proto";
 
 import "tag_map.proto";
@@ -85,9 +86,15 @@ service KnitterGrpc{
 
   // 国家
   rpc NewCountryCode(cashmere.NewCountryCodeRequest) returns (cashmere.NewCountryCodeResponse);
+  rpc GetCountryCodes(cashmere.GetCountryCodesRequest) returns (cashmere.GetCountryCodesResponse);
 
   // 语言编码
   rpc NewLanguageCode(cashmere.NewLanguageCodeRequest) returns (cashmere.NewLanguageCodeResponse);
+  rpc GetLanguageCodes(cashmere.GetLanguageCodesRequest) returns (cashmere.GetLanguageCodesResponse);
+
+  // 手机区号
+  rpc NewPhoneAreaCode(.cashmere.NewPhoneAreaCodeRequest) returns (.cashmere.NewPhoneAreaCodeResponse);
+  rpc GetPhoneAreaCodes(.cashmere.GetPhoneAreaCodesRequest) returns (.cashmere.GetPhoneAreaCodesResponse);
 
   // 组
   rpc NewGroup (cashmere.NewGroupRequest) returns (cashmere.NewGroupResponse);

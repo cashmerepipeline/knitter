@@ -15,7 +15,7 @@ majordomo = { path = "../cashmere_core/majordomo" }
 managers = { path = "../cashmere_core/managers" }
 entity = { path = "../cashmere_core/entity" }
 runtime_handle = { path = "../cashmere_core/runtime_handle" }
-service_common_handles = { path = "../cashmere_core/service_common_handles" }
+core_service_handles = { path = "../cashmere_core/core_service_handles" }
 view = { path = "../cashmere_core/view" }
 manage_define = { path = "../cashmere_core/manage_define" }
 server_utils = { path = "../cashmere_core/server_utils" }

@@ -7,15 +7,16 @@ Modified: !date!
 */
 
 use manage_define::cashmere::*;
-use service_common_handles::view_rules_service_handles::*;
+use core_service_handles::{view_rules_service_handles::*, language_code_handles::HandleGetLanguageCodes};
 use service_utils::types::ResponseStream;
-use service_common_handles::{
+use core_service_handles::{
     area_service_handles::HandleEditArea,
     area_service_handles::HandleNewArea,
-    country_service_handles::HandleNewCountryCode,
+    country_code_service_handles::*,
+    language_code_handles::{HandleUpdateLanguageCode, HandleNewLanguageCode},
+    phone_area_code_handles::*,
     entity_service_handles::*,
     group_service_handles::HandleNewGroup,
-    language_code_handles::{HandleUpdateLanguageCode, HandleNewLanguageCode},
     manage_service_handle::*,
     name_service_handles::{HandleNewLanguageName, HandleRename},
 };
@@ -52,16 +53,20 @@ impl HandleNewGroup for KnitterServer {}
 
 // 国家
 impl HandleNewCountryCode for KnitterServer {}
+impl HandleGetCountryCodes for KnitterServer {}
 
 // 地区
 impl HandleNewArea for KnitterServer {}
-
 impl HandleEditArea for KnitterServer {}
 
 // 语言
 impl HandleNewLanguageCode for KnitterServer {}
-
+impl HandleGetLanguageCodes for KnitterServer {}
 impl HandleUpdateLanguageCode for KnitterServer {}
+
+// 手机区号
+impl HandleNewPhoneAreaCode for KnitterServer {}
+impl HandleGetPhoneAreaCodes for KnitterServer {}
 
 // 管理
 impl HandleGetManages for KnitterServer {}
@@ -347,6 +352,13 @@ impl KnitterGrpc for KnitterServer {
     ) -> Result<Response<NewCountryCodeResponse>, Status> {
         self.handle_new_country_code(request).await
     }
+    
+    async fn get_country_codes(
+        &self,
+        request: Request<GetCountryCodesRequest>,
+    ) -> Result<Response<GetCountryCodesResponse>, Status> {
+        self.handle_get_country_codes(request).await
+    }
 
     // 语言编码
     async fn new_language_code(
@@ -354,6 +366,28 @@ impl KnitterGrpc for KnitterServer {
         request: Request<NewLanguageCodeRequest>,
     ) -> Result<Response<NewLanguageCodeResponse>, Status> {
         self.handle_new_language_code(request).await
+    }
+    
+    async fn get_language_codes(
+        &self,
+        request: Request<GetLanguageCodesRequest>,
+    ) -> Result<Response<GetLanguageCodesResponse>, Status> {
+        self.handle_get_language_codes(request).await
+    }
+
+    // 手机区号
+    async fn new_phone_area_code(
+        &self,
+        request: Request<NewPhoneAreaCodeRequest>,
+    ) -> Result<Response<NewPhoneAreaCodeResponse>, Status> {
+        self.handle_new_phone_area_code(request).await
+    }
+
+    async fn get_phone_area_codes(
+        &self,
+        request: Request<GetPhoneAreaCodesRequest>,
+    ) -> Result<Response<GetPhoneAreaCodesResponse>, Status> {
+        self.handle_get_phone_area_codes(request).await
     }
 
     async fn new_group(
