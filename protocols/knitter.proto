@@ -30,7 +30,6 @@ import "language_code.proto";
 import "phone_area_code.proto";
 import "view.proto";
 
-import "tag_map.proto";
 import "tag.proto";
 import "comment.proto";
 
@@ -50,9 +49,13 @@ import "reference.proto";
 
 service KnitterGrpc{
   // 管理
+  // 获取管理
   rpc GetManages(cashmere.GetManagesRequest) returns (cashmere.GetManagesResponse);
+  // 获取管理记录数量
   rpc GetManageEntryCount(cashmere.GetManageEntryCountRequest) returns (cashmere.GetManageEntryCountResponse);
+  // 获取管理描写
   rpc GetManageSchema(cashmere.GetManageSchemaRequest) returns (cashmere.GetManageSchemaResponse);
+  // 标记管理为移除
   rpc MarkSchemaFieldRemoved(cashmere.MarkSchemaFieldRemovedRequest) returns (cashmere.MarkSchemaFieldRemovedResponse);
 
   // 可见性权限
@@ -86,6 +89,7 @@ service KnitterGrpc{
 
   // 国家
   rpc NewCountryCode(cashmere.NewCountryCodeRequest) returns (cashmere.NewCountryCodeResponse);
+  // 取得国家编码表，不需要权限验证
   rpc GetCountryCodes(cashmere.GetCountryCodesRequest) returns (cashmere.GetCountryCodesResponse);
 
   // 语言编码
@@ -101,23 +105,18 @@ service KnitterGrpc{
 
   // 数据
   rpc GetDataServerConfigs(.data.cashmere.GetDataServerConfigsRequest) returns (.data.cashmere.GetDataServerConfigsResponse);
-  rpc NewData(.data.cashmere.NewDataRequest) returns (.data.cashmere.NewDataResponse);
-  rpc ListEntityData(.data.cashmere.ListEntityDataRequest) returns (.data.cashmere.ListEntityDataResponse);
-  rpc GetDataInfo(.data.cashmere.GetDataInfoRequest) returns (.data.cashmere.GetDataInfoResponse);
-  rpc MarkDataRemoved(.data.cashmere.MarkDataRemovedRequest) returns (.data.cashmere.MarkDataRemovedResponse);
-  
-  // 规格
   rpc NewSpecs(.data.cashmere.NewSpecsRequest) returns (.data.cashmere.NewSpecsResponse);
   rpc ListSpecs(.data.cashmere.ListSpecsRequest) returns (.data.cashmere.ListSpecsResponse);
+  rpc ListSpecsData(.data.cashmere.ListSpecsDataRequest) returns (.data.cashmere.ListSpecsDataResponse);
   rpc ListSpecsPrefabs(.data.cashmere.ListSpecsPrefabsRequest) returns (.data.cashmere.ListSpecsPrefabsResponse);
-
+  rpc NewData(.data.cashmere.NewDataRequest) returns (.data.cashmere.NewDataResponse);
+  rpc GetDataInfo(.data.cashmere.GetDataInfoRequest) returns (.data.cashmere.GetDataInfoResponse);
+  rpc MarkDataRemoved(.data.cashmere.MarkDataRemovedRequest) returns (.data.cashmere.MarkDataRemovedResponse);
+  // 预制件
+  rpc NewPrefab(.data.cashmere.NewPrefabRequest) returns (.data.cashmere.NewPrefabResponse);
   // 数据阶段
   rpc NewStage(.data.cashmere.NewStageRequest) returns (.data.cashmere.NewStageResponse);
   rpc ListStages(.data.cashmere.ListStagesRequest) returns (.data.cashmere.ListStagesResponse);
-
-  // 预制件
-  rpc NewPrefab(.data.cashmere.NewPrefabRequest) returns (.data.cashmere.NewPrefabResponse);
-
   // 阶段版本
   rpc AddStageVersion(.data.cashmere.AddStageVersionRequest) returns (.data.cashmere.AddStageVersionResponse);
   rpc ListStageVersions(.data.cashmere.ListStageVersionsRequest) returns (.data.cashmere.ListStageVersionsResponse);
@@ -130,7 +129,6 @@ service KnitterGrpc{
   rpc AddFileSequenceToVersion(.data.cashmere.AddFileSequenceToVersionRequest) returns (.data.cashmere.AddFileSequenceToVersionResponse);
   // 只对文件和文件集有效，文件序列不支持
   rpc RemoveFilesFromVersion(.data.cashmere.RemoveFilesFromVersionRequest) returns (.data.cashmere.RemoveFilesFromVersionResponse);
-
   rpc ListVersionFolder(.data.cashmere.ListVersionFolderRequest) returns (.data.cashmere.ListVersionFolderResponse);
   // 手动删除版本文件夹下的无关文件或文件夹
   rpc DeleteVersionFolderEntries(.data.cashmere.DeleteVersionFolderEntriesRequest) returns (.data.cashmere.DeleteVersionFolderEntriesResponse);

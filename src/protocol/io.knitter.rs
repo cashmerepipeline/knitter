@@ -6,6 +6,7 @@ pub mod knitter_grpc_server {
     #[async_trait]
     pub trait KnitterGrpc: Send + Sync + 'static {
         /// 管理
+        /// 获取管理
         async fn get_manages(
             &self,
             request: tonic::Request<::manage_define::cashmere::GetManagesRequest>,
@@ -13,6 +14,7 @@ pub mod knitter_grpc_server {
             tonic::Response<::manage_define::cashmere::GetManagesResponse>,
             tonic::Status,
         >;
+        /// 获取管理记录数量
         async fn get_manage_entry_count(
             &self,
             request: tonic::Request<
@@ -22,6 +24,7 @@ pub mod knitter_grpc_server {
             tonic::Response<::manage_define::cashmere::GetManageEntryCountResponse>,
             tonic::Status,
         >;
+        /// 获取管理描写
         async fn get_manage_schema(
             &self,
             request: tonic::Request<::manage_define::cashmere::GetManageSchemaRequest>,
@@ -29,6 +32,7 @@ pub mod knitter_grpc_server {
             tonic::Response<::manage_define::cashmere::GetManageSchemaResponse>,
             tonic::Status,
         >;
+        /// 标记管理为移除
         async fn mark_schema_field_removed(
             &self,
             request: tonic::Request<
@@ -215,6 +219,7 @@ pub mod knitter_grpc_server {
             tonic::Response<::manage_define::cashmere::NewCountryCodeResponse>,
             tonic::Status,
         >;
+        /// 取得国家编码表，不需要权限验证
         async fn get_country_codes(
             &self,
             request: tonic::Request<::manage_define::cashmere::GetCountryCodesRequest>,
@@ -270,18 +275,39 @@ pub mod knitter_grpc_server {
             tonic::Response<::data_module::protocols::GetDataServerConfigsResponse>,
             tonic::Status,
         >;
+        async fn new_specs(
+            &self,
+            request: tonic::Request<::data_module::protocols::NewSpecsRequest>,
+        ) -> std::result::Result<
+            tonic::Response<::data_module::protocols::NewSpecsResponse>,
+            tonic::Status,
+        >;
+        async fn list_specs(
+            &self,
+            request: tonic::Request<::data_module::protocols::ListSpecsRequest>,
+        ) -> std::result::Result<
+            tonic::Response<::data_module::protocols::ListSpecsResponse>,
+            tonic::Status,
+        >;
+        async fn list_specs_data(
+            &self,
+            request: tonic::Request<::data_module::protocols::ListSpecsDataRequest>,
+        ) -> std::result::Result<
+            tonic::Response<::data_module::protocols::ListSpecsDataResponse>,
+            tonic::Status,
+        >;
+        async fn list_specs_prefabs(
+            &self,
+            request: tonic::Request<::data_module::protocols::ListSpecsPrefabsRequest>,
+        ) -> std::result::Result<
+            tonic::Response<::data_module::protocols::ListSpecsPrefabsResponse>,
+            tonic::Status,
+        >;
         async fn new_data(
             &self,
             request: tonic::Request<::data_module::protocols::NewDataRequest>,
         ) -> std::result::Result<
             tonic::Response<::data_module::protocols::NewDataResponse>,
-            tonic::Status,
-        >;
-        async fn list_entity_data(
-            &self,
-            request: tonic::Request<::data_module::protocols::ListEntityDataRequest>,
-        ) -> std::result::Result<
-            tonic::Response<::data_module::protocols::ListEntityDataResponse>,
             tonic::Status,
         >;
         async fn get_data_info(
@@ -298,26 +324,12 @@ pub mod knitter_grpc_server {
             tonic::Response<::data_module::protocols::MarkDataRemovedResponse>,
             tonic::Status,
         >;
-        /// 规格
-        async fn new_specs(
+        /// 预制件
+        async fn new_prefab(
             &self,
-            request: tonic::Request<::data_module::protocols::NewSpecsRequest>,
+            request: tonic::Request<::data_module::protocols::NewPrefabRequest>,
         ) -> std::result::Result<
-            tonic::Response<::data_module::protocols::NewSpecsResponse>,
-            tonic::Status,
-        >;
-        async fn list_specs(
-            &self,
-            request: tonic::Request<::data_module::protocols::ListSpecsRequest>,
-        ) -> std::result::Result<
-            tonic::Response<::data_module::protocols::ListSpecsResponse>,
-            tonic::Status,
-        >;
-        async fn list_specs_prefabs(
-            &self,
-            request: tonic::Request<::data_module::protocols::ListSpecsPrefabsRequest>,
-        ) -> std::result::Result<
-            tonic::Response<::data_module::protocols::ListSpecsPrefabsResponse>,
+            tonic::Response<::data_module::protocols::NewPrefabResponse>,
             tonic::Status,
         >;
         /// 数据阶段
@@ -333,14 +345,6 @@ pub mod knitter_grpc_server {
             request: tonic::Request<::data_module::protocols::ListStagesRequest>,
         ) -> std::result::Result<
             tonic::Response<::data_module::protocols::ListStagesResponse>,
-            tonic::Status,
-        >;
-        /// 预制件
-        async fn new_prefab(
-            &self,
-            request: tonic::Request<::data_module::protocols::NewPrefabRequest>,
-        ) -> std::result::Result<
-            tonic::Response<::data_module::protocols::NewPrefabResponse>,
             tonic::Status,
         >;
         /// 阶段版本
@@ -2408,6 +2412,198 @@ pub mod knitter_grpc_server {
                     };
                     Box::pin(fut)
                 }
+                "/io.knitter.KnitterGrpc/NewSpecs" => {
+                    #[allow(non_camel_case_types)]
+                    struct NewSpecsSvc<T: KnitterGrpc>(pub Arc<T>);
+                    impl<
+                        T: KnitterGrpc,
+                    > tonic::server::UnaryService<
+                        ::data_module::protocols::NewSpecsRequest,
+                    > for NewSpecsSvc<T> {
+                        type Response = ::data_module::protocols::NewSpecsResponse;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<
+                                ::data_module::protocols::NewSpecsRequest,
+                            >,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move { (*inner).new_specs(request).await };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let inner = inner.0;
+                        let method = NewSpecsSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/io.knitter.KnitterGrpc/ListSpecs" => {
+                    #[allow(non_camel_case_types)]
+                    struct ListSpecsSvc<T: KnitterGrpc>(pub Arc<T>);
+                    impl<
+                        T: KnitterGrpc,
+                    > tonic::server::UnaryService<
+                        ::data_module::protocols::ListSpecsRequest,
+                    > for ListSpecsSvc<T> {
+                        type Response = ::data_module::protocols::ListSpecsResponse;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<
+                                ::data_module::protocols::ListSpecsRequest,
+                            >,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move { (*inner).list_specs(request).await };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let inner = inner.0;
+                        let method = ListSpecsSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/io.knitter.KnitterGrpc/ListSpecsData" => {
+                    #[allow(non_camel_case_types)]
+                    struct ListSpecsDataSvc<T: KnitterGrpc>(pub Arc<T>);
+                    impl<
+                        T: KnitterGrpc,
+                    > tonic::server::UnaryService<
+                        ::data_module::protocols::ListSpecsDataRequest,
+                    > for ListSpecsDataSvc<T> {
+                        type Response = ::data_module::protocols::ListSpecsDataResponse;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<
+                                ::data_module::protocols::ListSpecsDataRequest,
+                            >,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                (*inner).list_specs_data(request).await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let inner = inner.0;
+                        let method = ListSpecsDataSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/io.knitter.KnitterGrpc/ListSpecsPrefabs" => {
+                    #[allow(non_camel_case_types)]
+                    struct ListSpecsPrefabsSvc<T: KnitterGrpc>(pub Arc<T>);
+                    impl<
+                        T: KnitterGrpc,
+                    > tonic::server::UnaryService<
+                        ::data_module::protocols::ListSpecsPrefabsRequest,
+                    > for ListSpecsPrefabsSvc<T> {
+                        type Response = ::data_module::protocols::ListSpecsPrefabsResponse;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<
+                                ::data_module::protocols::ListSpecsPrefabsRequest,
+                            >,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                (*inner).list_specs_prefabs(request).await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let inner = inner.0;
+                        let method = ListSpecsPrefabsSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
                 "/io.knitter.KnitterGrpc/NewData" => {
                     #[allow(non_camel_case_types)]
                     struct NewDataSvc<T: KnitterGrpc>(pub Arc<T>);
@@ -2440,55 +2636,6 @@ pub mod knitter_grpc_server {
                     let fut = async move {
                         let inner = inner.0;
                         let method = NewDataSvc(inner);
-                        let codec = tonic::codec::ProstCodec::default();
-                        let mut grpc = tonic::server::Grpc::new(codec)
-                            .apply_compression_config(
-                                accept_compression_encodings,
-                                send_compression_encodings,
-                            )
-                            .apply_max_message_size_config(
-                                max_decoding_message_size,
-                                max_encoding_message_size,
-                            );
-                        let res = grpc.unary(method, req).await;
-                        Ok(res)
-                    };
-                    Box::pin(fut)
-                }
-                "/io.knitter.KnitterGrpc/ListEntityData" => {
-                    #[allow(non_camel_case_types)]
-                    struct ListEntityDataSvc<T: KnitterGrpc>(pub Arc<T>);
-                    impl<
-                        T: KnitterGrpc,
-                    > tonic::server::UnaryService<
-                        ::data_module::protocols::ListEntityDataRequest,
-                    > for ListEntityDataSvc<T> {
-                        type Response = ::data_module::protocols::ListEntityDataResponse;
-                        type Future = BoxFuture<
-                            tonic::Response<Self::Response>,
-                            tonic::Status,
-                        >;
-                        fn call(
-                            &mut self,
-                            request: tonic::Request<
-                                ::data_module::protocols::ListEntityDataRequest,
-                            >,
-                        ) -> Self::Future {
-                            let inner = Arc::clone(&self.0);
-                            let fut = async move {
-                                (*inner).list_entity_data(request).await
-                            };
-                            Box::pin(fut)
-                        }
-                    }
-                    let accept_compression_encodings = self.accept_compression_encodings;
-                    let send_compression_encodings = self.send_compression_encodings;
-                    let max_decoding_message_size = self.max_decoding_message_size;
-                    let max_encoding_message_size = self.max_encoding_message_size;
-                    let inner = self.inner.clone();
-                    let fut = async move {
-                        let inner = inner.0;
-                        let method = ListEntityDataSvc(inner);
                         let codec = tonic::codec::ProstCodec::default();
                         let mut grpc = tonic::server::Grpc::new(codec)
                             .apply_compression_config(
@@ -2602,15 +2749,15 @@ pub mod knitter_grpc_server {
                     };
                     Box::pin(fut)
                 }
-                "/io.knitter.KnitterGrpc/NewSpecs" => {
+                "/io.knitter.KnitterGrpc/NewPrefab" => {
                     #[allow(non_camel_case_types)]
-                    struct NewSpecsSvc<T: KnitterGrpc>(pub Arc<T>);
+                    struct NewPrefabSvc<T: KnitterGrpc>(pub Arc<T>);
                     impl<
                         T: KnitterGrpc,
                     > tonic::server::UnaryService<
-                        ::data_module::protocols::NewSpecsRequest,
-                    > for NewSpecsSvc<T> {
-                        type Response = ::data_module::protocols::NewSpecsResponse;
+                        ::data_module::protocols::NewPrefabRequest,
+                    > for NewPrefabSvc<T> {
+                        type Response = ::data_module::protocols::NewPrefabResponse;
                         type Future = BoxFuture<
                             tonic::Response<Self::Response>,
                             tonic::Status,
@@ -2618,11 +2765,11 @@ pub mod knitter_grpc_server {
                         fn call(
                             &mut self,
                             request: tonic::Request<
-                                ::data_module::protocols::NewSpecsRequest,
+                                ::data_module::protocols::NewPrefabRequest,
                             >,
                         ) -> Self::Future {
                             let inner = Arc::clone(&self.0);
-                            let fut = async move { (*inner).new_specs(request).await };
+                            let fut = async move { (*inner).new_prefab(request).await };
                             Box::pin(fut)
                         }
                     }
@@ -2633,103 +2780,7 @@ pub mod knitter_grpc_server {
                     let inner = self.inner.clone();
                     let fut = async move {
                         let inner = inner.0;
-                        let method = NewSpecsSvc(inner);
-                        let codec = tonic::codec::ProstCodec::default();
-                        let mut grpc = tonic::server::Grpc::new(codec)
-                            .apply_compression_config(
-                                accept_compression_encodings,
-                                send_compression_encodings,
-                            )
-                            .apply_max_message_size_config(
-                                max_decoding_message_size,
-                                max_encoding_message_size,
-                            );
-                        let res = grpc.unary(method, req).await;
-                        Ok(res)
-                    };
-                    Box::pin(fut)
-                }
-                "/io.knitter.KnitterGrpc/ListSpecs" => {
-                    #[allow(non_camel_case_types)]
-                    struct ListSpecsSvc<T: KnitterGrpc>(pub Arc<T>);
-                    impl<
-                        T: KnitterGrpc,
-                    > tonic::server::UnaryService<
-                        ::data_module::protocols::ListSpecsRequest,
-                    > for ListSpecsSvc<T> {
-                        type Response = ::data_module::protocols::ListSpecsResponse;
-                        type Future = BoxFuture<
-                            tonic::Response<Self::Response>,
-                            tonic::Status,
-                        >;
-                        fn call(
-                            &mut self,
-                            request: tonic::Request<
-                                ::data_module::protocols::ListSpecsRequest,
-                            >,
-                        ) -> Self::Future {
-                            let inner = Arc::clone(&self.0);
-                            let fut = async move { (*inner).list_specs(request).await };
-                            Box::pin(fut)
-                        }
-                    }
-                    let accept_compression_encodings = self.accept_compression_encodings;
-                    let send_compression_encodings = self.send_compression_encodings;
-                    let max_decoding_message_size = self.max_decoding_message_size;
-                    let max_encoding_message_size = self.max_encoding_message_size;
-                    let inner = self.inner.clone();
-                    let fut = async move {
-                        let inner = inner.0;
-                        let method = ListSpecsSvc(inner);
-                        let codec = tonic::codec::ProstCodec::default();
-                        let mut grpc = tonic::server::Grpc::new(codec)
-                            .apply_compression_config(
-                                accept_compression_encodings,
-                                send_compression_encodings,
-                            )
-                            .apply_max_message_size_config(
-                                max_decoding_message_size,
-                                max_encoding_message_size,
-                            );
-                        let res = grpc.unary(method, req).await;
-                        Ok(res)
-                    };
-                    Box::pin(fut)
-                }
-                "/io.knitter.KnitterGrpc/ListSpecsPrefabs" => {
-                    #[allow(non_camel_case_types)]
-                    struct ListSpecsPrefabsSvc<T: KnitterGrpc>(pub Arc<T>);
-                    impl<
-                        T: KnitterGrpc,
-                    > tonic::server::UnaryService<
-                        ::data_module::protocols::ListSpecsPrefabsRequest,
-                    > for ListSpecsPrefabsSvc<T> {
-                        type Response = ::data_module::protocols::ListSpecsPrefabsResponse;
-                        type Future = BoxFuture<
-                            tonic::Response<Self::Response>,
-                            tonic::Status,
-                        >;
-                        fn call(
-                            &mut self,
-                            request: tonic::Request<
-                                ::data_module::protocols::ListSpecsPrefabsRequest,
-                            >,
-                        ) -> Self::Future {
-                            let inner = Arc::clone(&self.0);
-                            let fut = async move {
-                                (*inner).list_specs_prefabs(request).await
-                            };
-                            Box::pin(fut)
-                        }
-                    }
-                    let accept_compression_encodings = self.accept_compression_encodings;
-                    let send_compression_encodings = self.send_compression_encodings;
-                    let max_decoding_message_size = self.max_decoding_message_size;
-                    let max_encoding_message_size = self.max_encoding_message_size;
-                    let inner = self.inner.clone();
-                    let fut = async move {
-                        let inner = inner.0;
-                        let method = ListSpecsPrefabsSvc(inner);
+                        let method = NewPrefabSvc(inner);
                         let codec = tonic::codec::ProstCodec::default();
                         let mut grpc = tonic::server::Grpc::new(codec)
                             .apply_compression_config(
@@ -2824,53 +2875,6 @@ pub mod knitter_grpc_server {
                     let fut = async move {
                         let inner = inner.0;
                         let method = ListStagesSvc(inner);
-                        let codec = tonic::codec::ProstCodec::default();
-                        let mut grpc = tonic::server::Grpc::new(codec)
-                            .apply_compression_config(
-                                accept_compression_encodings,
-                                send_compression_encodings,
-                            )
-                            .apply_max_message_size_config(
-                                max_decoding_message_size,
-                                max_encoding_message_size,
-                            );
-                        let res = grpc.unary(method, req).await;
-                        Ok(res)
-                    };
-                    Box::pin(fut)
-                }
-                "/io.knitter.KnitterGrpc/NewPrefab" => {
-                    #[allow(non_camel_case_types)]
-                    struct NewPrefabSvc<T: KnitterGrpc>(pub Arc<T>);
-                    impl<
-                        T: KnitterGrpc,
-                    > tonic::server::UnaryService<
-                        ::data_module::protocols::NewPrefabRequest,
-                    > for NewPrefabSvc<T> {
-                        type Response = ::data_module::protocols::NewPrefabResponse;
-                        type Future = BoxFuture<
-                            tonic::Response<Self::Response>,
-                            tonic::Status,
-                        >;
-                        fn call(
-                            &mut self,
-                            request: tonic::Request<
-                                ::data_module::protocols::NewPrefabRequest,
-                            >,
-                        ) -> Self::Future {
-                            let inner = Arc::clone(&self.0);
-                            let fut = async move { (*inner).new_prefab(request).await };
-                            Box::pin(fut)
-                        }
-                    }
-                    let accept_compression_encodings = self.accept_compression_encodings;
-                    let send_compression_encodings = self.send_compression_encodings;
-                    let max_decoding_message_size = self.max_decoding_message_size;
-                    let max_encoding_message_size = self.max_encoding_message_size;
-                    let inner = self.inner.clone();
-                    let fut = async move {
-                        let inner = inner.0;
-                        let method = NewPrefabSvc(inner);
                         let codec = tonic::codec::ProstCodec::default();
                         let mut grpc = tonic::server::Grpc::new(codec)
                             .apply_compression_config(

@@ -1,11 +1,3 @@
-/*
-Author: 闫刚 (yes7rose@sina.com)
-mod.rs (c) 2021
-Desc: 服务模块
-Created:  2021-01-17T04:31:08.729Z
-Modified: !date!
-*/
-
 use manage_define::cashmere::*;
 use core_service_handles::{view_rules_service_handles::*, language_code_handles::HandleGetLanguageCodes};
 use service_utils::types::ResponseStream;
@@ -110,14 +102,13 @@ impl HandleNewLanguageName for KnitterServer {}
 
 // 数据
 impl HandleGetDataServerConfigs for KnitterServer {}
-impl HandleNewData for KnitterServer {}
-impl HandleListEntityData for KnitterServer {}
-impl HandleUploadFile for KnitterServer {}
-impl HandleDownloadFile for KnitterServer {}
-
 impl HandleNewSpecs for KnitterServer {}
 impl HandleListSpecs for KnitterServer {}
+impl HandleListSpecsData for KnitterServer {}
 impl HandleListSpecsPrefabs for KnitterServer {}
+impl HandleNewData for KnitterServer {}
+impl HandleUploadFile for KnitterServer {}
+impl HandleDownloadFile for KnitterServer {}
 
 impl HandleNewStage for KnitterServer {}
 impl HandleListStages for KnitterServer {}
@@ -410,12 +401,6 @@ impl KnitterGrpc for KnitterServer {
     ) -> Result<Response<NewDataResponse>, Status> {
         self.handle_new_data(request).await
     }
-    async fn list_entity_data(
-        &self,
-        request: Request<ListEntityDataRequest>,
-    ) -> Result<Response<ListEntityDataResponse>, Status> {
-        self.handle_list_entity_data(request).await
-    }
 
     async fn get_data_info(
         &self,
@@ -443,6 +428,13 @@ impl KnitterGrpc for KnitterServer {
         request: Request<ListSpecsRequest>,
     ) -> Result<Response<ListSpecsResponse>, Status> {
         self.handle_list_specs(request).await
+    }
+    
+    async fn list_specs_data(
+        &self,
+        request: Request<ListSpecsDataRequest>,
+    ) -> Result<Response<ListSpecsDataResponse>, Status> {
+        self.handle_list_specs_data(request).await
     }
 
     async fn list_specs_prefabs(

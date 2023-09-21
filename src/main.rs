@@ -109,8 +109,8 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
             // 事件系统
             let event_service_configs = event_module::EventServiceConfigs {
                 max_concurrent_queue: 4,
-                max_event_type_queue_size: 1024,
-                max_listener_instance_size: 1024,
+                max_event_type_count: 1024,
+                max_listener_instance_count: 1024,
             };
 
             match event_module::initialize_event_service(event_service_configs).await {
