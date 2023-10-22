@@ -61,7 +61,7 @@ impl KnitterServer {
             prefabs_manager::get_manager().await,
         ];
         
-        majordomo::init_managers(manager_arcs);
+        majordomo::init_managers(manager_arcs).await;
 
     }
 

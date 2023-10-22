@@ -387,7 +387,7 @@ checksum = "5827cebf4670468b8772dd191856768aedcb1b0278a04f989f7766351917b9dc"
 
 [[package]]
 name = "core_service_handles"
-version = "0.5.2"
+version = "0.6.1"
 dependencies = [
  "auth",
  "cash_core",
@@ -645,8 +645,6 @@ dependencies = [
  "database",
  "dependencies_sync",
  "manage_define",
- "once_cell",
- "rust-i18n",
  "serde",
  "serde_derive",
 ]
