@@ -30,6 +30,9 @@ import "language_code.proto";
 import "phone_area_code.proto";
 import "view.proto";
 
+import "ping.proto";
+import "search.proto";
+
 import "tag.proto";
 import "comment.proto";
 
@@ -48,6 +51,9 @@ import "set.proto";
 import "reference.proto";
 
 service KnitterGrpc{
+  // 心跳
+  rpc Ping(stream .cashmere.PingRequest) returns (stream .cashmere.PingResponse);
+
   // 管理
   // 获取管理
   rpc GetManages(cashmere.GetManagesRequest) returns (cashmere.GetManagesResponse);
@@ -82,6 +88,9 @@ service KnitterGrpc{
   // 通用编辑实体属性，List数据结构
   rpc EditEntityArrayFieldAddItems(cashmere.EditEntityArrayFieldAddItemsRequest) returns (cashmere.EditEntityArrayFieldAddItemsResponse);
   rpc EditEntityArrayFieldRemoveItems(cashmere.EditEntityArrayFieldRemoveItemsRequest) returns (cashmere.EditEntityArrayFieldRemoveItemsResponse);
+
+  // 搜索
+  rpc Search(.cashmere.SearchRequest) returns (.cashmere.SearchResponse);
 
   // 名字
   rpc Rename(cashmere.RenameRequest) returns (cashmere.RenameResponse);

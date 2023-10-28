@@ -1,6 +1,6 @@
 use manage_define::cashmere::*;
-use core_service_handles::{view_rules_service_handles::*, language_code_handles::HandleGetLanguageCodes};
-use service_utils::types::ResponseStream;
+use core_service_handles::{view_rules_service_handles::*, language_code_handles::HandleGetLanguageCodes, server_status_handles::HandlePing};
+use service_utils::types::{ResponseStream, RequestStream};
 use core_service_handles::{
     area_service_handles::HandleEditArea,
     area_service_handles::HandleNewArea,
@@ -39,6 +39,9 @@ mod init;
 /// 管理服务
 #[derive(Default)]
 pub struct KnitterServer;
+
+// 心跳
+impl HandlePing for KnitterServer {}
 
 // 组
 impl HandleNewGroup for KnitterServer {}
@@ -95,6 +98,9 @@ impl HandleEditEntityMapFieldRemoveKey for KnitterServer {}
 impl HandleMarkEntityRemoved for KnitterServer {}
 impl HandleRecoverRemovedEntity for KnitterServer {}
 impl HandleGetRemovedEntitiesPage for KnitterServer {}
+
+// 搜索
+impl HandleSearch for KnitterServer {}
 
 // 名字
 impl HandleRename for KnitterServer {}
@@ -175,6 +181,21 @@ impl HandleNewSequence for KnitterServer {}
 
 #[tonic::async_trait]
 impl KnitterGrpc for KnitterServer {
+    type PingStream = ResponseStream<PingResponse>;
+    async fn ping(
+        &self,
+        request: RequestStream<PingRequest>,
+    ) -> Result<Response<Self::PingStream>, Status> {
+        self.handle_ping(request).await
+    }
+
+    async fn search(
+        &self,
+        request: Request<SearchRequest>,
+    ) -> Result<Response<SearchResponse>, Status> {
+        self.handle_search(request).await
+    }
+
     async fn get_manages(
         &self,
         request: Request<GetManagesRequest>,

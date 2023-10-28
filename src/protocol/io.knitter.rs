@@ -5,6 +5,22 @@ pub mod knitter_grpc_server {
     /// Generated trait containing gRPC methods that should be implemented for use with KnitterGrpcServer.
     #[async_trait]
     pub trait KnitterGrpc: Send + Sync + 'static {
+        /// Server streaming response type for the Ping method.
+        type PingStream: tonic::codegen::tokio_stream::Stream<
+                Item = std::result::Result<
+                    ::manage_define::cashmere::PingResponse,
+                    tonic::Status,
+                >,
+            >
+            + Send
+            + 'static;
+        /// 心跳
+        async fn ping(
+            &self,
+            request: tonic::Request<
+                tonic::Streaming<::manage_define::cashmere::PingRequest>,
+            >,
+        ) -> std::result::Result<tonic::Response<Self::PingStream>, tonic::Status>;
         /// 管理
         /// 获取管理
         async fn get_manages(
@@ -194,6 +210,14 @@ pub mod knitter_grpc_server {
             tonic::Response<
                 ::manage_define::cashmere::EditEntityArrayFieldRemoveItemsResponse,
             >,
+            tonic::Status,
+        >;
+        /// 搜索
+        async fn search(
+            &self,
+            request: tonic::Request<::manage_define::cashmere::SearchRequest>,
+        ) -> std::result::Result<
+            tonic::Response<::manage_define::cashmere::SearchResponse>,
             tonic::Status,
         >;
         /// 名字
@@ -432,7 +456,7 @@ pub mod knitter_grpc_server {
             tonic::Status,
         >;
         /// Server streaming response type for the UploadFile method.
-        type UploadFileStream: futures_core::Stream<
+        type UploadFileStream: tonic::codegen::tokio_stream::Stream<
                 Item = std::result::Result<
                     ::data_module::protocols::UploadFileResponse,
                     tonic::Status,
@@ -447,7 +471,7 @@ pub mod knitter_grpc_server {
             >,
         ) -> std::result::Result<tonic::Response<Self::UploadFileStream>, tonic::Status>;
         /// Server streaming response type for the DownloadFile method.
-        type DownloadFileStream: futures_core::Stream<
+        type DownloadFileStream: tonic::codegen::tokio_stream::Stream<
                 Item = std::result::Result<
                     ::data_module::protocols::DownloadFileResponse,
                     tonic::Status,
@@ -492,7 +516,7 @@ pub mod knitter_grpc_server {
             tonic::Status,
         >;
         /// Server streaming response type for the EmitEvent method.
-        type EmitEventStream: futures_core::Stream<
+        type EmitEventStream: tonic::codegen::tokio_stream::Stream<
                 Item = std::result::Result<
                     ::event_module::protocols::EmitEventResponse,
                     tonic::Status,
@@ -505,7 +529,7 @@ pub mod knitter_grpc_server {
             request: tonic::Request<::event_module::protocols::EmitEventRequest>,
         ) -> std::result::Result<tonic::Response<Self::EmitEventStream>, tonic::Status>;
         /// Server streaming response type for the ListenEventType method.
-        type ListenEventTypeStream: futures_core::Stream<
+        type ListenEventTypeStream: tonic::codegen::tokio_stream::Stream<
                 Item = std::result::Result<
                     ::event_module::protocols::ListenEventTypeResponse,
                     tonic::Status,
@@ -899,6 +923,56 @@ pub mod knitter_grpc_server {
         fn call(&mut self, req: http::Request<B>) -> Self::Future {
             let inner = self.inner.clone();
             match req.uri().path() {
+                "/io.knitter.KnitterGrpc/Ping" => {
+                    #[allow(non_camel_case_types)]
+                    struct PingSvc<T: KnitterGrpc>(pub Arc<T>);
+                    impl<
+                        T: KnitterGrpc,
+                    > tonic::server::StreamingService<
+                        ::manage_define::cashmere::PingRequest,
+                    > for PingSvc<T> {
+                        type Response = ::manage_define::cashmere::PingResponse;
+                        type ResponseStream = T::PingStream;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::ResponseStream>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<
+                                tonic::Streaming<::manage_define::cashmere::PingRequest>,
+                            >,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as KnitterGrpc>::ping(&inner, request).await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let inner = inner.0;
+                        let method = PingSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.streaming(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
                 "/io.knitter.KnitterGrpc/GetManages" => {
                     #[allow(non_camel_case_types)]
                     struct GetManagesSvc<T: KnitterGrpc>(pub Arc<T>);
@@ -919,7 +993,9 @@ pub mod knitter_grpc_server {
                             >,
                         ) -> Self::Future {
                             let inner = Arc::clone(&self.0);
-                            let fut = async move { (*inner).get_manages(request).await };
+                            let fut = async move {
+                                <T as KnitterGrpc>::get_manages(&inner, request).await
+                            };
                             Box::pin(fut)
                         }
                     }
@@ -967,7 +1043,8 @@ pub mod knitter_grpc_server {
                         ) -> Self::Future {
                             let inner = Arc::clone(&self.0);
                             let fut = async move {
-                                (*inner).get_manage_entry_count(request).await
+                                <T as KnitterGrpc>::get_manage_entry_count(&inner, request)
+                                    .await
                             };
                             Box::pin(fut)
                         }
@@ -1016,7 +1093,7 @@ pub mod knitter_grpc_server {
                         ) -> Self::Future {
                             let inner = Arc::clone(&self.0);
                             let fut = async move {
-                                (*inner).get_manage_schema(request).await
+                                <T as KnitterGrpc>::get_manage_schema(&inner, request).await
                             };
                             Box::pin(fut)
                         }
@@ -1065,7 +1142,11 @@ pub mod knitter_grpc_server {
                         ) -> Self::Future {
                             let inner = Arc::clone(&self.0);
                             let fut = async move {
-                                (*inner).mark_schema_field_removed(request).await
+                                <T as KnitterGrpc>::mark_schema_field_removed(
+                                        &inner,
+                                        request,
+                                    )
+                                    .await
                             };
                             Box::pin(fut)
                         }
@@ -1114,7 +1195,8 @@ pub mod knitter_grpc_server {
                         ) -> Self::Future {
                             let inner = Arc::clone(&self.0);
                             let fut = async move {
-                                (*inner).change_manage_read_rule(request).await
+                                <T as KnitterGrpc>::change_manage_read_rule(&inner, request)
+                                    .await
                             };
                             Box::pin(fut)
                         }
@@ -1163,7 +1245,11 @@ pub mod knitter_grpc_server {
                         ) -> Self::Future {
                             let inner = Arc::clone(&self.0);
                             let fut = async move {
-                                (*inner).change_manage_write_rule(request).await
+                                <T as KnitterGrpc>::change_manage_write_rule(
+                                        &inner,
+                                        request,
+                                    )
+                                    .await
                             };
                             Box::pin(fut)
                         }
@@ -1212,7 +1298,11 @@ pub mod knitter_grpc_server {
                         ) -> Self::Future {
                             let inner = Arc::clone(&self.0);
                             let fut = async move {
-                                (*inner).change_collection_read_rule(request).await
+                                <T as KnitterGrpc>::change_collection_read_rule(
+                                        &inner,
+                                        request,
+                                    )
+                                    .await
                             };
                             Box::pin(fut)
                         }
@@ -1261,7 +1351,11 @@ pub mod knitter_grpc_server {
                         ) -> Self::Future {
                             let inner = Arc::clone(&self.0);
                             let fut = async move {
-                                (*inner).change_collection_write_rule(request).await
+                                <T as KnitterGrpc>::change_collection_write_rule(
+                                        &inner,
+                                        request,
+                                    )
+                                    .await
                             };
                             Box::pin(fut)
                         }
@@ -1310,7 +1404,8 @@ pub mod knitter_grpc_server {
                         ) -> Self::Future {
                             let inner = Arc::clone(&self.0);
                             let fut = async move {
-                                (*inner).change_field_read_rule(request).await
+                                <T as KnitterGrpc>::change_field_read_rule(&inner, request)
+                                    .await
                             };
                             Box::pin(fut)
                         }
@@ -1359,7 +1454,8 @@ pub mod knitter_grpc_server {
                         ) -> Self::Future {
                             let inner = Arc::clone(&self.0);
                             let fut = async move {
-                                (*inner).change_field_write_rule(request).await
+                                <T as KnitterGrpc>::change_field_write_rule(&inner, request)
+                                    .await
                             };
                             Box::pin(fut)
                         }
@@ -1407,7 +1503,9 @@ pub mod knitter_grpc_server {
                             >,
                         ) -> Self::Future {
                             let inner = Arc::clone(&self.0);
-                            let fut = async move { (*inner).get_entity(request).await };
+                            let fut = async move {
+                                <T as KnitterGrpc>::get_entity(&inner, request).await
+                            };
                             Box::pin(fut)
                         }
                     }
@@ -1455,7 +1553,7 @@ pub mod knitter_grpc_server {
                         ) -> Self::Future {
                             let inner = Arc::clone(&self.0);
                             let fut = async move {
-                                (*inner).get_entities(request).await
+                                <T as KnitterGrpc>::get_entities(&inner, request).await
                             };
                             Box::pin(fut)
                         }
@@ -1504,7 +1602,7 @@ pub mod knitter_grpc_server {
                         ) -> Self::Future {
                             let inner = Arc::clone(&self.0);
                             let fut = async move {
-                                (*inner).get_entities_page(request).await
+                                <T as KnitterGrpc>::get_entities_page(&inner, request).await
                             };
                             Box::pin(fut)
                         }
@@ -1553,7 +1651,8 @@ pub mod knitter_grpc_server {
                         ) -> Self::Future {
                             let inner = Arc::clone(&self.0);
                             let fut = async move {
-                                (*inner).mark_entity_removed(request).await
+                                <T as KnitterGrpc>::mark_entity_removed(&inner, request)
+                                    .await
                             };
                             Box::pin(fut)
                         }
@@ -1602,7 +1701,8 @@ pub mod knitter_grpc_server {
                         ) -> Self::Future {
                             let inner = Arc::clone(&self.0);
                             let fut = async move {
-                                (*inner).recover_removed_entity(request).await
+                                <T as KnitterGrpc>::recover_removed_entity(&inner, request)
+                                    .await
                             };
                             Box::pin(fut)
                         }
@@ -1651,7 +1751,11 @@ pub mod knitter_grpc_server {
                         ) -> Self::Future {
                             let inner = Arc::clone(&self.0);
                             let fut = async move {
-                                (*inner).get_removed_entities_page(request).await
+                                <T as KnitterGrpc>::get_removed_entities_page(
+                                        &inner,
+                                        request,
+                                    )
+                                    .await
                             };
                             Box::pin(fut)
                         }
@@ -1700,7 +1804,7 @@ pub mod knitter_grpc_server {
                         ) -> Self::Future {
                             let inner = Arc::clone(&self.0);
                             let fut = async move {
-                                (*inner).edit_entity_field(request).await
+                                <T as KnitterGrpc>::edit_entity_field(&inner, request).await
                             };
                             Box::pin(fut)
                         }
@@ -1749,7 +1853,8 @@ pub mod knitter_grpc_server {
                         ) -> Self::Future {
                             let inner = Arc::clone(&self.0);
                             let fut = async move {
-                                (*inner).edit_entity_map_field(request).await
+                                <T as KnitterGrpc>::edit_entity_map_field(&inner, request)
+                                    .await
                             };
                             Box::pin(fut)
                         }
@@ -1798,7 +1903,11 @@ pub mod knitter_grpc_server {
                         ) -> Self::Future {
                             let inner = Arc::clone(&self.0);
                             let fut = async move {
-                                (*inner).edit_entity_map_field_remove_key(request).await
+                                <T as KnitterGrpc>::edit_entity_map_field_remove_key(
+                                        &inner,
+                                        request,
+                                    )
+                                    .await
                             };
                             Box::pin(fut)
                         }
@@ -1847,7 +1956,11 @@ pub mod knitter_grpc_server {
                         ) -> Self::Future {
                             let inner = Arc::clone(&self.0);
                             let fut = async move {
-                                (*inner).edit_entity_array_field_add_items(request).await
+                                <T as KnitterGrpc>::edit_entity_array_field_add_items(
+                                        &inner,
+                                        request,
+                                    )
+                                    .await
                             };
                             Box::pin(fut)
                         }
@@ -1898,7 +2011,11 @@ pub mod knitter_grpc_server {
                         ) -> Self::Future {
                             let inner = Arc::clone(&self.0);
                             let fut = async move {
-                                (*inner).edit_entity_array_field_remove_items(request).await
+                                <T as KnitterGrpc>::edit_entity_array_field_remove_items(
+                                        &inner,
+                                        request,
+                                    )
+                                    .await
                             };
                             Box::pin(fut)
                         }
@@ -1911,6 +2028,55 @@ pub mod knitter_grpc_server {
                     let fut = async move {
                         let inner = inner.0;
                         let method = EditEntityArrayFieldRemoveItemsSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/io.knitter.KnitterGrpc/Search" => {
+                    #[allow(non_camel_case_types)]
+                    struct SearchSvc<T: KnitterGrpc>(pub Arc<T>);
+                    impl<
+                        T: KnitterGrpc,
+                    > tonic::server::UnaryService<
+                        ::manage_define::cashmere::SearchRequest,
+                    > for SearchSvc<T> {
+                        type Response = ::manage_define::cashmere::SearchResponse;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<
+                                ::manage_define::cashmere::SearchRequest,
+                            >,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as KnitterGrpc>::search(&inner, request).await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let inner = inner.0;
+                        let method = SearchSvc(inner);
                         let codec = tonic::codec::ProstCodec::default();
                         let mut grpc = tonic::server::Grpc::new(codec)
                             .apply_compression_config(
@@ -1946,7 +2112,9 @@ pub mod knitter_grpc_server {
                             >,
                         ) -> Self::Future {
                             let inner = Arc::clone(&self.0);
-                            let fut = async move { (*inner).rename(request).await };
+                            let fut = async move {
+                                <T as KnitterGrpc>::rename(&inner, request).await
+                            };
                             Box::pin(fut)
                         }
                     }
@@ -1994,7 +2162,7 @@ pub mod knitter_grpc_server {
                         ) -> Self::Future {
                             let inner = Arc::clone(&self.0);
                             let fut = async move {
-                                (*inner).new_language_name(request).await
+                                <T as KnitterGrpc>::new_language_name(&inner, request).await
                             };
                             Box::pin(fut)
                         }
@@ -2043,7 +2211,7 @@ pub mod knitter_grpc_server {
                         ) -> Self::Future {
                             let inner = Arc::clone(&self.0);
                             let fut = async move {
-                                (*inner).new_country_code(request).await
+                                <T as KnitterGrpc>::new_country_code(&inner, request).await
                             };
                             Box::pin(fut)
                         }
@@ -2092,7 +2260,7 @@ pub mod knitter_grpc_server {
                         ) -> Self::Future {
                             let inner = Arc::clone(&self.0);
                             let fut = async move {
-                                (*inner).get_country_codes(request).await
+                                <T as KnitterGrpc>::get_country_codes(&inner, request).await
                             };
                             Box::pin(fut)
                         }
@@ -2141,7 +2309,7 @@ pub mod knitter_grpc_server {
                         ) -> Self::Future {
                             let inner = Arc::clone(&self.0);
                             let fut = async move {
-                                (*inner).new_language_code(request).await
+                                <T as KnitterGrpc>::new_language_code(&inner, request).await
                             };
                             Box::pin(fut)
                         }
@@ -2190,7 +2358,8 @@ pub mod knitter_grpc_server {
                         ) -> Self::Future {
                             let inner = Arc::clone(&self.0);
                             let fut = async move {
-                                (*inner).get_language_codes(request).await
+                                <T as KnitterGrpc>::get_language_codes(&inner, request)
+                                    .await
                             };
                             Box::pin(fut)
                         }
@@ -2239,7 +2408,8 @@ pub mod knitter_grpc_server {
                         ) -> Self::Future {
                             let inner = Arc::clone(&self.0);
                             let fut = async move {
-                                (*inner).new_phone_area_code(request).await
+                                <T as KnitterGrpc>::new_phone_area_code(&inner, request)
+                                    .await
                             };
                             Box::pin(fut)
                         }
@@ -2288,7 +2458,8 @@ pub mod knitter_grpc_server {
                         ) -> Self::Future {
                             let inner = Arc::clone(&self.0);
                             let fut = async move {
-                                (*inner).get_phone_area_codes(request).await
+                                <T as KnitterGrpc>::get_phone_area_codes(&inner, request)
+                                    .await
                             };
                             Box::pin(fut)
                         }
@@ -2336,7 +2507,9 @@ pub mod knitter_grpc_server {
                             >,
                         ) -> Self::Future {
                             let inner = Arc::clone(&self.0);
-                            let fut = async move { (*inner).new_group(request).await };
+                            let fut = async move {
+                                <T as KnitterGrpc>::new_group(&inner, request).await
+                            };
                             Box::pin(fut)
                         }
                     }
@@ -2384,7 +2557,8 @@ pub mod knitter_grpc_server {
                         ) -> Self::Future {
                             let inner = Arc::clone(&self.0);
                             let fut = async move {
-                                (*inner).get_data_server_configs(request).await
+                                <T as KnitterGrpc>::get_data_server_configs(&inner, request)
+                                    .await
                             };
                             Box::pin(fut)
                         }
@@ -2432,7 +2606,9 @@ pub mod knitter_grpc_server {
                             >,
                         ) -> Self::Future {
                             let inner = Arc::clone(&self.0);
-                            let fut = async move { (*inner).new_specs(request).await };
+                            let fut = async move {
+                                <T as KnitterGrpc>::new_specs(&inner, request).await
+                            };
                             Box::pin(fut)
                         }
                     }
@@ -2479,7 +2655,9 @@ pub mod knitter_grpc_server {
                             >,
                         ) -> Self::Future {
                             let inner = Arc::clone(&self.0);
-                            let fut = async move { (*inner).list_specs(request).await };
+                            let fut = async move {
+                                <T as KnitterGrpc>::list_specs(&inner, request).await
+                            };
                             Box::pin(fut)
                         }
                     }
@@ -2527,7 +2705,7 @@ pub mod knitter_grpc_server {
                         ) -> Self::Future {
                             let inner = Arc::clone(&self.0);
                             let fut = async move {
-                                (*inner).list_specs_data(request).await
+                                <T as KnitterGrpc>::list_specs_data(&inner, request).await
                             };
                             Box::pin(fut)
                         }
@@ -2576,7 +2754,8 @@ pub mod knitter_grpc_server {
                         ) -> Self::Future {
                             let inner = Arc::clone(&self.0);
                             let fut = async move {
-                                (*inner).list_specs_prefabs(request).await
+                                <T as KnitterGrpc>::list_specs_prefabs(&inner, request)
+                                    .await
                             };
                             Box::pin(fut)
                         }
@@ -2624,7 +2803,9 @@ pub mod knitter_grpc_server {
                             >,
                         ) -> Self::Future {
                             let inner = Arc::clone(&self.0);
-                            let fut = async move { (*inner).new_data(request).await };
+                            let fut = async move {
+                                <T as KnitterGrpc>::new_data(&inner, request).await
+                            };
                             Box::pin(fut)
                         }
                     }
@@ -2672,7 +2853,7 @@ pub mod knitter_grpc_server {
                         ) -> Self::Future {
                             let inner = Arc::clone(&self.0);
                             let fut = async move {
-                                (*inner).get_data_info(request).await
+                                <T as KnitterGrpc>::get_data_info(&inner, request).await
                             };
                             Box::pin(fut)
                         }
@@ -2721,7 +2902,7 @@ pub mod knitter_grpc_server {
                         ) -> Self::Future {
                             let inner = Arc::clone(&self.0);
                             let fut = async move {
-                                (*inner).mark_data_removed(request).await
+                                <T as KnitterGrpc>::mark_data_removed(&inner, request).await
                             };
                             Box::pin(fut)
                         }
@@ -2769,7 +2950,9 @@ pub mod knitter_grpc_server {
                             >,
                         ) -> Self::Future {
                             let inner = Arc::clone(&self.0);
-                            let fut = async move { (*inner).new_prefab(request).await };
+                            let fut = async move {
+                                <T as KnitterGrpc>::new_prefab(&inner, request).await
+                            };
                             Box::pin(fut)
                         }
                     }
@@ -2816,7 +2999,9 @@ pub mod knitter_grpc_server {
                             >,
                         ) -> Self::Future {
                             let inner = Arc::clone(&self.0);
-                            let fut = async move { (*inner).new_stage(request).await };
+                            let fut = async move {
+                                <T as KnitterGrpc>::new_stage(&inner, request).await
+                            };
                             Box::pin(fut)
                         }
                     }
@@ -2863,7 +3048,9 @@ pub mod knitter_grpc_server {
                             >,
                         ) -> Self::Future {
                             let inner = Arc::clone(&self.0);
-                            let fut = async move { (*inner).list_stages(request).await };
+                            let fut = async move {
+                                <T as KnitterGrpc>::list_stages(&inner, request).await
+                            };
                             Box::pin(fut)
                         }
                     }
@@ -2911,7 +3098,7 @@ pub mod knitter_grpc_server {
                         ) -> Self::Future {
                             let inner = Arc::clone(&self.0);
                             let fut = async move {
-                                (*inner).add_stage_version(request).await
+                                <T as KnitterGrpc>::add_stage_version(&inner, request).await
                             };
                             Box::pin(fut)
                         }
@@ -2960,7 +3147,8 @@ pub mod knitter_grpc_server {
                         ) -> Self::Future {
                             let inner = Arc::clone(&self.0);
                             let fut = async move {
-                                (*inner).list_stage_versions(request).await
+                                <T as KnitterGrpc>::list_stage_versions(&inner, request)
+                                    .await
                             };
                             Box::pin(fut)
                         }
@@ -3009,7 +3197,11 @@ pub mod knitter_grpc_server {
                         ) -> Self::Future {
                             let inner = Arc::clone(&self.0);
                             let fut = async move {
-                                (*inner).set_stage_current_version(request).await
+                                <T as KnitterGrpc>::set_stage_current_version(
+                                        &inner,
+                                        request,
+                                    )
+                                    .await
                             };
                             Box::pin(fut)
                         }
@@ -3058,7 +3250,8 @@ pub mod knitter_grpc_server {
                         ) -> Self::Future {
                             let inner = Arc::clone(&self.0);
                             let fut = async move {
-                                (*inner).remove_stage_version(request).await
+                                <T as KnitterGrpc>::remove_stage_version(&inner, request)
+                                    .await
                             };
                             Box::pin(fut)
                         }
@@ -3107,7 +3300,8 @@ pub mod knitter_grpc_server {
                         ) -> Self::Future {
                             let inner = Arc::clone(&self.0);
                             let fut = async move {
-                                (*inner).add_file_to_version(request).await
+                                <T as KnitterGrpc>::add_file_to_version(&inner, request)
+                                    .await
                             };
                             Box::pin(fut)
                         }
@@ -3156,7 +3350,8 @@ pub mod knitter_grpc_server {
                         ) -> Self::Future {
                             let inner = Arc::clone(&self.0);
                             let fut = async move {
-                                (*inner).add_file_set_to_version(request).await
+                                <T as KnitterGrpc>::add_file_set_to_version(&inner, request)
+                                    .await
                             };
                             Box::pin(fut)
                         }
@@ -3205,7 +3400,11 @@ pub mod knitter_grpc_server {
                         ) -> Self::Future {
                             let inner = Arc::clone(&self.0);
                             let fut = async move {
-                                (*inner).add_file_sequence_to_version(request).await
+                                <T as KnitterGrpc>::add_file_sequence_to_version(
+                                        &inner,
+                                        request,
+                                    )
+                                    .await
                             };
                             Box::pin(fut)
                         }
@@ -3254,7 +3453,11 @@ pub mod knitter_grpc_server {
                         ) -> Self::Future {
                             let inner = Arc::clone(&self.0);
                             let fut = async move {
-                                (*inner).remove_files_from_version(request).await
+                                <T as KnitterGrpc>::remove_files_from_version(
+                                        &inner,
+                                        request,
+                                    )
+                                    .await
                             };
                             Box::pin(fut)
                         }
@@ -3303,7 +3506,8 @@ pub mod knitter_grpc_server {
                         ) -> Self::Future {
                             let inner = Arc::clone(&self.0);
                             let fut = async move {
-                                (*inner).list_version_folder(request).await
+                                <T as KnitterGrpc>::list_version_folder(&inner, request)
+                                    .await
                             };
                             Box::pin(fut)
                         }
@@ -3352,7 +3556,11 @@ pub mod knitter_grpc_server {
                         ) -> Self::Future {
                             let inner = Arc::clone(&self.0);
                             let fut = async move {
-                                (*inner).delete_version_folder_entries(request).await
+                                <T as KnitterGrpc>::delete_version_folder_entries(
+                                        &inner,
+                                        request,
+                                    )
+                                    .await
                             };
                             Box::pin(fut)
                         }
@@ -3403,7 +3611,9 @@ pub mod knitter_grpc_server {
                             >,
                         ) -> Self::Future {
                             let inner = Arc::clone(&self.0);
-                            let fut = async move { (*inner).upload_file(request).await };
+                            let fut = async move {
+                                <T as KnitterGrpc>::upload_file(&inner, request).await
+                            };
                             Box::pin(fut)
                         }
                     }
@@ -3454,7 +3664,7 @@ pub mod knitter_grpc_server {
                         ) -> Self::Future {
                             let inner = Arc::clone(&self.0);
                             let fut = async move {
-                                (*inner).download_file(request).await
+                                <T as KnitterGrpc>::download_file(&inner, request).await
                             };
                             Box::pin(fut)
                         }
@@ -3503,7 +3713,8 @@ pub mod knitter_grpc_server {
                         ) -> Self::Future {
                             let inner = Arc::clone(&self.0);
                             let fut = async move {
-                                (*inner).register_event_type(request).await
+                                <T as KnitterGrpc>::register_event_type(&inner, request)
+                                    .await
                             };
                             Box::pin(fut)
                         }
@@ -3552,7 +3763,8 @@ pub mod knitter_grpc_server {
                         ) -> Self::Future {
                             let inner = Arc::clone(&self.0);
                             let fut = async move {
-                                (*inner).register_event_emitter(request).await
+                                <T as KnitterGrpc>::register_event_emitter(&inner, request)
+                                    .await
                             };
                             Box::pin(fut)
                         }
@@ -3601,7 +3813,8 @@ pub mod knitter_grpc_server {
                         ) -> Self::Future {
                             let inner = Arc::clone(&self.0);
                             let fut = async move {
-                                (*inner).register_event_listener(request).await
+                                <T as KnitterGrpc>::register_event_listener(&inner, request)
+                                    .await
                             };
                             Box::pin(fut)
                         }
@@ -3650,7 +3863,9 @@ pub mod knitter_grpc_server {
                             >,
                         ) -> Self::Future {
                             let inner = Arc::clone(&self.0);
-                            let fut = async move { (*inner).emit_event(request).await };
+                            let fut = async move {
+                                <T as KnitterGrpc>::emit_event(&inner, request).await
+                            };
                             Box::pin(fut)
                         }
                     }
@@ -3699,7 +3914,7 @@ pub mod knitter_grpc_server {
                         ) -> Self::Future {
                             let inner = Arc::clone(&self.0);
                             let fut = async move {
-                                (*inner).listen_event_type(request).await
+                                <T as KnitterGrpc>::listen_event_type(&inner, request).await
                             };
                             Box::pin(fut)
                         }
@@ -3747,7 +3962,9 @@ pub mod knitter_grpc_server {
                             >,
                         ) -> Self::Future {
                             let inner = Arc::clone(&self.0);
-                            let fut = async move { (*inner).new_project(request).await };
+                            let fut = async move {
+                                <T as KnitterGrpc>::new_project(&inner, request).await
+                            };
                             Box::pin(fut)
                         }
                     }
@@ -3797,8 +4014,10 @@ pub mod knitter_grpc_server {
                         ) -> Self::Future {
                             let inner = Arc::clone(&self.0);
                             let fut = async move {
-                                (*inner)
-                                    .associate_asset_collections_to_project(request)
+                                <T as KnitterGrpc>::associate_asset_collections_to_project(
+                                        &inner,
+                                        request,
+                                    )
                                     .await
                             };
                             Box::pin(fut)
@@ -3850,8 +4069,10 @@ pub mod knitter_grpc_server {
                         ) -> Self::Future {
                             let inner = Arc::clone(&self.0);
                             let fut = async move {
-                                (*inner)
-                                    .deassociate_asset_collections_from_project(request)
+                                <T as KnitterGrpc>::deassociate_asset_collections_from_project(
+                                        &inner,
+                                        request,
+                                    )
                                     .await
                             };
                             Box::pin(fut)
@@ -3903,7 +4124,11 @@ pub mod knitter_grpc_server {
                         ) -> Self::Future {
                             let inner = Arc::clone(&self.0);
                             let fut = async move {
-                                (*inner).associate_set_collections_to_project(request).await
+                                <T as KnitterGrpc>::associate_set_collections_to_project(
+                                        &inner,
+                                        request,
+                                    )
+                                    .await
                             };
                             Box::pin(fut)
                         }
@@ -3954,8 +4179,10 @@ pub mod knitter_grpc_server {
                         ) -> Self::Future {
                             let inner = Arc::clone(&self.0);
                             let fut = async move {
-                                (*inner)
-                                    .deassociate_set_collections_from_project(request)
+                                <T as KnitterGrpc>::deassociate_set_collections_from_project(
+                                        &inner,
+                                        request,
+                                    )
                                     .await
                             };
                             Box::pin(fut)
@@ -4007,8 +4234,10 @@ pub mod knitter_grpc_server {
                         ) -> Self::Future {
                             let inner = Arc::clone(&self.0);
                             let fut = async move {
-                                (*inner)
-                                    .get_project_associated_asset_collections(request)
+                                <T as KnitterGrpc>::get_project_associated_asset_collections(
+                                        &inner,
+                                        request,
+                                    )
                                     .await
                             };
                             Box::pin(fut)
@@ -4060,8 +4289,10 @@ pub mod knitter_grpc_server {
                         ) -> Self::Future {
                             let inner = Arc::clone(&self.0);
                             let fut = async move {
-                                (*inner)
-                                    .get_project_associated_set_collections(request)
+                                <T as KnitterGrpc>::get_project_associated_set_collections(
+                                        &inner,
+                                        request,
+                                    )
                                     .await
                             };
                             Box::pin(fut)
@@ -4111,7 +4342,8 @@ pub mod knitter_grpc_server {
                         ) -> Self::Future {
                             let inner = Arc::clone(&self.0);
                             let fut = async move {
-                                (*inner).change_project_status(request).await
+                                <T as KnitterGrpc>::change_project_status(&inner, request)
+                                    .await
                             };
                             Box::pin(fut)
                         }
@@ -4160,7 +4392,8 @@ pub mod knitter_grpc_server {
                         ) -> Self::Future {
                             let inner = Arc::clone(&self.0);
                             let fut = async move {
-                                (*inner).new_asset_collection(request).await
+                                <T as KnitterGrpc>::new_asset_collection(&inner, request)
+                                    .await
                             };
                             Box::pin(fut)
                         }
@@ -4211,8 +4444,10 @@ pub mod knitter_grpc_server {
                         ) -> Self::Future {
                             let inner = Arc::clone(&self.0);
                             let fut = async move {
-                                (*inner)
-                                    .get_asset_collection_asset_total_count(request)
+                                <T as KnitterGrpc>::get_asset_collection_asset_total_count(
+                                        &inner,
+                                        request,
+                                    )
                                     .await
                             };
                             Box::pin(fut)
@@ -4264,8 +4499,10 @@ pub mod knitter_grpc_server {
                         ) -> Self::Future {
                             let inner = Arc::clone(&self.0);
                             let fut = async move {
-                                (*inner)
-                                    .get_asset_collection_assembly_total_count(request)
+                                <T as KnitterGrpc>::get_asset_collection_assembly_total_count(
+                                        &inner,
+                                        request,
+                                    )
                                     .await
                             };
                             Box::pin(fut)
@@ -4315,7 +4552,11 @@ pub mod knitter_grpc_server {
                         ) -> Self::Future {
                             let inner = Arc::clone(&self.0);
                             let fut = async move {
-                                (*inner).get_asset_collection_assets_page(request).await
+                                <T as KnitterGrpc>::get_asset_collection_assets_page(
+                                        &inner,
+                                        request,
+                                    )
+                                    .await
                             };
                             Box::pin(fut)
                         }
@@ -4366,7 +4607,11 @@ pub mod knitter_grpc_server {
                         ) -> Self::Future {
                             let inner = Arc::clone(&self.0);
                             let fut = async move {
-                                (*inner).get_asset_collection_assemblies_page(request).await
+                                <T as KnitterGrpc>::get_asset_collection_assemblies_page(
+                                        &inner,
+                                        request,
+                                    )
+                                    .await
                             };
                             Box::pin(fut)
                         }
@@ -4414,7 +4659,9 @@ pub mod knitter_grpc_server {
                             >,
                         ) -> Self::Future {
                             let inner = Arc::clone(&self.0);
-                            let fut = async move { (*inner).new_asset(request).await };
+                            let fut = async move {
+                                <T as KnitterGrpc>::new_asset(&inner, request).await
+                            };
                             Box::pin(fut)
                         }
                     }
@@ -4462,7 +4709,8 @@ pub mod knitter_grpc_server {
                         ) -> Self::Future {
                             let inner = Arc::clone(&self.0);
                             let fut = async move {
-                                (*inner).get_referenced_assets(request).await
+                                <T as KnitterGrpc>::get_referenced_assets(&inner, request)
+                                    .await
                             };
                             Box::pin(fut)
                         }
@@ -4511,7 +4759,7 @@ pub mod knitter_grpc_server {
                         ) -> Self::Future {
                             let inner = Arc::clone(&self.0);
                             let fut = async move {
-                                (*inner).mark_asset_status(request).await
+                                <T as KnitterGrpc>::mark_asset_status(&inner, request).await
                             };
                             Box::pin(fut)
                         }
@@ -4560,7 +4808,7 @@ pub mod knitter_grpc_server {
                         ) -> Self::Future {
                             let inner = Arc::clone(&self.0);
                             let fut = async move {
-                                (*inner).new_assembly(request).await
+                                <T as KnitterGrpc>::new_assembly(&inner, request).await
                             };
                             Box::pin(fut)
                         }
@@ -4608,7 +4856,9 @@ pub mod knitter_grpc_server {
                             >,
                         ) -> Self::Future {
                             let inner = Arc::clone(&self.0);
-                            let fut = async move { (*inner).new_epic(request).await };
+                            let fut = async move {
+                                <T as KnitterGrpc>::new_epic(&inner, request).await
+                            };
                             Box::pin(fut)
                         }
                     }
@@ -4656,7 +4906,8 @@ pub mod knitter_grpc_server {
                         ) -> Self::Future {
                             let inner = Arc::clone(&self.0);
                             let fut = async move {
-                                (*inner).get_epic_sequences(request).await
+                                <T as KnitterGrpc>::get_epic_sequences(&inner, request)
+                                    .await
                             };
                             Box::pin(fut)
                         }
@@ -4705,7 +4956,7 @@ pub mod knitter_grpc_server {
                         ) -> Self::Future {
                             let inner = Arc::clone(&self.0);
                             let fut = async move {
-                                (*inner).new_sequence(request).await
+                                <T as KnitterGrpc>::new_sequence(&inner, request).await
                             };
                             Box::pin(fut)
                         }
@@ -4754,7 +5005,7 @@ pub mod knitter_grpc_server {
                         ) -> Self::Future {
                             let inner = Arc::clone(&self.0);
                             let fut = async move {
-                                (*inner).get_sequence_cuts(request).await
+                                <T as KnitterGrpc>::get_sequence_cuts(&inner, request).await
                             };
                             Box::pin(fut)
                         }
@@ -4802,7 +5053,9 @@ pub mod knitter_grpc_server {
                             >,
                         ) -> Self::Future {
                             let inner = Arc::clone(&self.0);
-                            let fut = async move { (*inner).new_cut(request).await };
+                            let fut = async move {
+                                <T as KnitterGrpc>::new_cut(&inner, request).await
+                            };
                             Box::pin(fut)
                         }
                     }
@@ -4850,7 +5103,11 @@ pub mod knitter_grpc_server {
                         ) -> Self::Future {
                             let inner = Arc::clone(&self.0);
                             let fut = async move {
-                                (*inner).get_cut_referenced_assets(request).await
+                                <T as KnitterGrpc>::get_cut_referenced_assets(
+                                        &inner,
+                                        request,
+                                    )
+                                    .await
                             };
                             Box::pin(fut)
                         }
@@ -4899,7 +5156,7 @@ pub mod knitter_grpc_server {
                         ) -> Self::Future {
                             let inner = Arc::clone(&self.0);
                             let fut = async move {
-                                (*inner).mark_cut_status(request).await
+                                <T as KnitterGrpc>::mark_cut_status(&inner, request).await
                             };
                             Box::pin(fut)
                         }
@@ -4948,7 +5205,8 @@ pub mod knitter_grpc_server {
                         ) -> Self::Future {
                             let inner = Arc::clone(&self.0);
                             let fut = async move {
-                                (*inner).new_set_collection(request).await
+                                <T as KnitterGrpc>::new_set_collection(&inner, request)
+                                    .await
                             };
                             Box::pin(fut)
                         }
@@ -4997,7 +5255,11 @@ pub mod knitter_grpc_server {
                         ) -> Self::Future {
                             let inner = Arc::clone(&self.0);
                             let fut = async move {
-                                (*inner).get_set_collection_sets_page(request).await
+                                <T as KnitterGrpc>::get_set_collection_sets_page(
+                                        &inner,
+                                        request,
+                                    )
+                                    .await
                             };
                             Box::pin(fut)
                         }
@@ -5046,7 +5308,11 @@ pub mod knitter_grpc_server {
                         ) -> Self::Future {
                             let inner = Arc::clone(&self.0);
                             let fut = async move {
-                                (*inner).get_set_collection_set_total_count(request).await
+                                <T as KnitterGrpc>::get_set_collection_set_total_count(
+                                        &inner,
+                                        request,
+                                    )
+                                    .await
                             };
                             Box::pin(fut)
                         }
@@ -5094,7 +5360,9 @@ pub mod knitter_grpc_server {
                             >,
                         ) -> Self::Future {
                             let inner = Arc::clone(&self.0);
-                            let fut = async move { (*inner).new_set(request).await };
+                            let fut = async move {
+                                <T as KnitterGrpc>::new_set(&inner, request).await
+                            };
                             Box::pin(fut)
                         }
                     }
@@ -5142,7 +5410,7 @@ pub mod knitter_grpc_server {
                         ) -> Self::Future {
                             let inner = Arc::clone(&self.0);
                             let fut = async move {
-                                (*inner).mark_set_satus(request).await
+                                <T as KnitterGrpc>::mark_set_satus(&inner, request).await
                             };
                             Box::pin(fut)
                         }
@@ -5191,7 +5459,7 @@ pub mod knitter_grpc_server {
                         ) -> Self::Future {
                             let inner = Arc::clone(&self.0);
                             let fut = async move {
-                                (*inner).add_references(request).await
+                                <T as KnitterGrpc>::add_references(&inner, request).await
                             };
                             Box::pin(fut)
                         }
@@ -5240,7 +5508,7 @@ pub mod knitter_grpc_server {
                         ) -> Self::Future {
                             let inner = Arc::clone(&self.0);
                             let fut = async move {
-                                (*inner).remove_references(request).await
+                                <T as KnitterGrpc>::remove_references(&inner, request).await
                             };
                             Box::pin(fut)
                         }
@@ -5289,7 +5557,7 @@ pub mod knitter_grpc_server {
                         ) -> Self::Future {
                             let inner = Arc::clone(&self.0);
                             let fut = async move {
-                                (*inner).list_references(request).await
+                                <T as KnitterGrpc>::list_references(&inner, request).await
                             };
                             Box::pin(fut)
                         }
@@ -5338,7 +5606,7 @@ pub mod knitter_grpc_server {
                         ) -> Self::Future {
                             let inner = Arc::clone(&self.0);
                             let fut = async move {
-                                (*inner).change_reference(request).await
+                                <T as KnitterGrpc>::change_reference(&inner, request).await
                             };
                             Box::pin(fut)
                         }

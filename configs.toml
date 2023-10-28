@@ -3,6 +3,7 @@
 address = "192.168.3.33"
 port = 27017
 name = "knitter"
+search_engine_index_root = "tantivy"
 
 [server]
 root_dir = "."
