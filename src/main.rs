@@ -5,7 +5,7 @@ mod services;
 
 use dependencies_sync::once_cell;
 use dependencies_sync::rust_i18n::{self, i18n, t};
-use server_utils::get_tls_configs;
+use server_utils::set_tls_configs;
 i18n!("locales");
 
 use std::fs::File;
@@ -32,7 +32,7 @@ use dependencies_sync::tonic::transport::{Certificate, Identity, Server, ServerT
 
 use account_module::account_server::AccountServer;
 use account_module::protocols::account_grpc_server::AccountGrpcServer;
-use configs::read_configs_file_path;
+use configs::{get_config, read_configs_file_path, ServerConfigs, TlsConfigs};
 use runtime_handle::set_runtime_handle;
 
 use crate::protocol::knitter_grpc_server::KnitterGrpcServer;
@@ -41,16 +41,18 @@ use services::KnitterServer;
 fn main() -> Result<(), Box<dyn std::error::Error>> {
     // 初始化设置
     let configs_path = read_configs_file_path();
-    configs::init_configs_path(configs_path).expect(t!("配置文件不存在").as_str());
+    configs::init_configs_file_path(configs_path).expect(t!("配置文件不存在").as_str());
+    configs::init_configs_map().expect(t!("配置文件读取失败").as_str());
 
-    let configs = configs::get_configs();
+    let server_configs =
+        configs::get_config::<ServerConfigs>().expect(t!("取得服务器设置失败").as_str());
 
     // 语言设置
-    rust_i18n::set_locale(configs.server.language_code.as_str());
+    rust_i18n::set_locale(server_configs.language_code.as_str());
 
     // 初始化日志
-    server_utils::init_log_dir(&configs.server.log_dir).expect(t!("创建日志目录失败").as_str());
-    let log_level = LevelFilter::from_str(configs.server.log_level.as_str()).unwrap();
+    server_utils::init_log_dir(&server_configs.log_dir).expect(t!("创建日志目录失败").as_str());
+    let log_level = LevelFilter::from_str(server_configs.log_level.as_str()).unwrap();
 
     let log_config = simplelog::ConfigBuilder::new()
         .set_time_format_rfc3339()
@@ -79,9 +81,9 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
     handle
         .block_on(async {
             // 读取配置
-            let server_address: &String = &configs.server.address;
-            let server_port: &String = &configs.server.port;
-            let use_tls: &bool = &configs.server.use_tls;
+            let server_address: &String = &server_configs.address;
+            let server_port: &String = &server_configs.port;
+            let use_tls: &bool = &server_configs.use_tls;
 
             // Ctrl+c 终止程序
             let (tx, rx) = oneshot::channel();
@@ -94,7 +96,8 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
 
             let mut tls_configs = None;
             if *use_tls {
-                let _ = tls_configs.insert(get_tls_configs(&configs));
+                let configs = &get_config::<TlsConfigs>().expect(t!("取得tls设置失败").as_str());
+                let _ = tls_configs.insert(set_tls_configs(configs));
             }
 
             info!("{}: {}", t!("服务监听地址-端口"), address);
