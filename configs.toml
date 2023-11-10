@@ -1,6 +1,6 @@
 [database]
-# address = "127.0.0.1"
-address = "192.168.3.33"
+address = "127.0.0.1"
+# address = "192.168.3.33"
 port = 27017
 name = "knitter"
 search_engine_index_root = "tantivy"
@@ -51,3 +51,8 @@ max_file_download_number = 256
 transfer_chunk_size = 16384
 # 内部文件路径，不需要通过服务器上传文件, 可将文件直接存储到目标位置
 internal_root_dir_map = {"windows"="X:/data_root/dir", "linux"="/mnt/data_root/dir", "macos" = "/mnt/data_root/dir"}
+
+[event_service]
+max_concurrent_queue = 100
+max_event_type_count = 100
+max_listener_instance_count = 100

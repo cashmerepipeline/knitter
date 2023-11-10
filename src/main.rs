@@ -3,8 +3,11 @@
 mod protocol;
 mod services;
 
-use dependencies_sync::once_cell;
-use dependencies_sync::rust_i18n::{self, i18n, t};
+use dependencies_sync::{
+    once_cell,
+    rust_i18n::{self, i18n, t},
+};
+use event_module::EventServiceConfigs;
 use server_utils::set_tls_configs;
 i18n!("locales");
 
@@ -28,11 +31,11 @@ use dependencies_sync::tokio::signal;
 use dependencies_sync::tokio::sync::oneshot::{self};
 
 use dependencies_sync::tonic::codec::CompressionEncoding;
-use dependencies_sync::tonic::transport::{Certificate, Identity, Server, ServerTlsConfig};
+use dependencies_sync::tonic::transport::Server;
 
 use account_module::account_server::AccountServer;
 use account_module::protocols::account_grpc_server::AccountGrpcServer;
-use configs::{get_config, read_configs_file_path, ServerConfigs, TlsConfigs};
+use configs::{get_config, read_configs_file_path, ConfigTrait, ServerConfigs, TlsConfigs};
 use runtime_handle::set_runtime_handle;
 
 use crate::protocol::knitter_grpc_server::KnitterGrpcServer;
@@ -69,7 +72,7 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
         WriteLogger::new(
             LevelFilter::Info,
             log_config,
-            File::create("log/grpc_server.log").expect("打开日志文件失败"),
+            File::create("log/knitter_server.log").expect("打开日志文件失败"),
         ),
     ])
     .unwrap();
@@ -108,14 +111,10 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
             // 初始化服务
             knitter_server.init_managers().await;
             knitter_server.init_view_rules().await;
+            knitter_server.init_search_engine().await;
 
             // 事件系统
-            let event_service_configs = event_module::EventServiceConfigs {
-                max_concurrent_queue: 4,
-                max_event_type_count: 1024,
-                max_listener_instance_count: 1024,
-            };
-
+            let event_service_configs = EventServiceConfigs::get();
             match event_module::initialize_event_service(event_service_configs).await {
                 Ok(_) => {
                     info!("{}", t!("事件系统初始化成功"));

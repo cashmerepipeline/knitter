@@ -18,6 +18,7 @@ runtime_handle = { path = "../cashmere_core/runtime_handle" }
 core_service_handles = { path = "../cashmere_core/core_service_handles" }
 view = { path = "../cashmere_core/view" }
 manage_define = { path = "../cashmere_core/manage_define" }
+search_engine = { path = "../cashmere_core/search_engine" }
 server_utils = { path = "../cashmere_core/server_utils" }
 service_utils = { path = "../cashmere_core/service_utils" }
 
@@ -41,7 +42,7 @@ dependencies_sync = { path = "../cashmere_core/dependencies_sync", features = [
 ] }
 
 tonic = { version = "0.10.2", features = ["tls", "gzip"] }
-prost = "0.11"
+prost = "0.12.1"
 serde = "1.0.131"
 serde_derive = "1.0.131"
 

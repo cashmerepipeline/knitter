@@ -15,7 +15,7 @@ dependencies = [
  "majordomo",
  "manage_define",
  "managers",
- "prost 0.12.1",
+ "prost",
  "serde",
  "serde_derive",
  "service_utils",
@@ -450,7 +450,7 @@ dependencies = [
 
 [[package]]
 name = "configs"
-version = "0.4.1"
+version = "0.4.2"
 dependencies = [
  "dependencies_sync",
  "serde",
@@ -675,7 +675,7 @@ dependencies = [
  "manage_define",
  "managers",
  "property_field",
- "prost 0.12.1",
+ "prost",
  "request_utils",
  "serde",
  "serde_derive",
@@ -714,7 +714,7 @@ dependencies = [
  "mongodb",
  "once_cell",
  "parking_lot",
- "prost 0.12.1",
+ "prost",
  "rust-i18n",
  "serde",
  "serde_derive",
@@ -778,7 +778,7 @@ checksum = "90e5c1c8368803113bf0c9584fc495a58b86dc8a29edbf8fe877d21d9507e797"
 
 [[package]]
 name = "entity"
-version = "0.5.2"
+version = "0.5.3"
 dependencies = [
  "cash_core",
  "cash_result",
@@ -832,7 +832,7 @@ dependencies = [
  "manage_define",
  "managers",
  "property_field",
- "prost 0.12.1",
+ "prost",
  "request_utils",
  "serde",
  "serde_derive",
@@ -1436,8 +1436,9 @@ dependencies = [
  "majordomo",
  "manage_define",
  "managers",
- "prost 0.11.9",
+ "prost",
  "runtime_handle",
+ "search_engine",
  "serde",
  "serde_derive",
  "server_utils",
@@ -1459,7 +1460,7 @@ dependencies = [
  "majordomo",
  "manage_define",
  "managers",
- "prost 0.12.1",
+ "prost",
  "request_utils",
  "runtime_handle",
  "serde",
@@ -1587,12 +1588,12 @@ dependencies = [
 
 [[package]]
 name = "manage_define"
-version = "0.5.0"
+version = "0.6.0"
 dependencies = [
  "dependencies_sync",
  "glob",
  "property_field",
- "prost 0.12.1",
+ "prost",
  "serde",
  "serde_derive",
  "tonic",
@@ -1600,7 +1601,7 @@ dependencies = [
 
 [[package]]
 name = "managers"
-version = "0.5.1"
+version = "0.5.2"
 dependencies = [
  "cash_core",
  "cash_result",
@@ -2056,22 +2057,12 @@ dependencies = [
 
 [[package]]
 name = "prost"
-version = "0.11.9"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "0b82eaa1d779e9a4bc1c3217db8ffbeabaae1dca241bf70183242128d48681cd"
-dependencies = [
- "bytes",
- "prost-derive 0.11.9",
-]
-
-[[package]]
-name = "prost"
 version = "0.12.1"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "f4fdd22f3b9c31b53c060df4a0613a1c7f062d4115a2b984dd15b1858f7e340d"
 dependencies = [
  "bytes",
- "prost-derive 0.12.1",
+ "prost-derive",
 ]
 
 [[package]]
@@ -2088,25 +2079,12 @@ dependencies = [
  "once_cell",
  "petgraph",
  "prettyplease",
- "prost 0.12.1",
+ "prost",
  "prost-types",
  "regex",
  "syn 2.0.38",
  "tempfile",
  "which",
-]
-
-[[package]]
-name = "prost-derive"
-version = "0.11.9"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "e5d2d8d10f3c6ded6da8b05b5fb3b8a5082514344d56c9f871412d29b4e075b4"
-dependencies = [
- "anyhow",
- "itertools 0.10.5",
- "proc-macro2",
- "quote",
- "syn 1.0.103",
 ]
 
 [[package]]
@@ -2128,7 +2106,7 @@ version = "0.12.1"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "e081b29f63d83a4bc75cfc9f3fe424f9156cf92d8a4f0c9407cce9a1b67327cf"
 dependencies = [
- "prost 0.12.1",
+ "prost",
 ]
 
 [[package]]
@@ -2681,7 +2659,9 @@ name = "service_utils"
 version = "0.1.0"
 dependencies = [
  "dependencies_sync",
+ "majordomo",
  "manage_define",
+ "managers",
 ]
 
 [[package]]
@@ -3291,7 +3271,7 @@ dependencies = [
  "hyper-timeout",
  "percent-encoding",
  "pin-project",
- "prost 0.12.1",
+ "prost",
  "rustls 0.21.7",
  "rustls-pemfile",
  "tokio",

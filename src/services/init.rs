@@ -21,6 +21,7 @@ use knitter_module::managers::{
 
 use data_module::managers::*;
 use event_module::managers::*;
+use search_engine::init_search_engine;
 
 use super::KnitterServer;
 
@@ -68,5 +69,9 @@ impl KnitterServer {
     /// 初始化可见规则
     pub async fn init_view_rules(&self) {
         init_view_rules().await;
+    }
+
+    pub async fn init_search_engine(&self) {
+        init_search_engine().await;
     }
 }
